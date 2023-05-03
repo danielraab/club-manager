@@ -15,16 +15,18 @@
             composer install --ignore-platform-reqs
         ```
 
-    - node
-        ```
-        ./vendor/bin/sail npm install
-        ```
+* copy `.env.example` to `.env`
 
-*   copy `.env.example` to `.env`
+* start docker stack: `./vendor/bin/sail up`
 
 *   execute `./vendor/bin/sail artisan key:generate` or via button on the first error page
+    - node: `./vendor/bin/sail npm install`
 
--   start docker stack: `./vendor/bin/sail up` and `./vendor/bin/sail npm run dev`
+-   install dependencies:
+
+    - node/npm: `./vendor/bin/sail npm install`
+
+-   start node server for assets:  `./vendor/bin/sail npm run dev`
 
 ## sail commands
 
