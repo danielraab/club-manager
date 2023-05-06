@@ -28,6 +28,8 @@
 
 -   start node server for assets:  `./vendor/bin/sail npm run dev`
 
+- create database: `./vendor/bin/sail artisan migrate:fresh`
+
 ## sail commands
 
 -   use `./vendor/bin/sail` to list all commands
