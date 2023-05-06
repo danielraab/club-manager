@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,8 +35,8 @@ class RegisterAdminUser extends Command
             "name" => $name,
             "email" => $email
         ], [
-            "name" => "required|min:5",
-            "email" => "required|email|unique:users"
+            'name' => ['required', 'string', 'min:5', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class]
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->getMessages() as $error) {
@@ -48,6 +49,8 @@ class RegisterAdminUser extends Command
             'name' => $name,
             'email' => $email,
         ]);
+
+        event(new Registered($user));
 
         $this->info("User $email was created successfully. Require a password via the password forgot page.");
     }
