@@ -35,7 +35,7 @@ class RegisterAdminUser extends Command
             "email" => $email
         ], [
             "name" => "required|min:5",
-            "email" => "required|email"
+            "email" => "required|email|unique:users"
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->getMessages() as $error) {
@@ -49,6 +49,6 @@ class RegisterAdminUser extends Command
             'email' => $email,
         ]);
 
-        $this->info("User $email was created successfully.");
+        $this->info("User $email was created successfully. Require a password via the password forgot page.");
     }
 }
