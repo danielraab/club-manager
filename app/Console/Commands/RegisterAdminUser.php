@@ -2,12 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Auth\PasswordBroker;
 use App\Models\User;
-use App\Notifications\SetPassword;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class RegisterAdminUser extends Command
@@ -55,13 +53,9 @@ class RegisterAdminUser extends Command
 
         event(new Registered($user));
 
-        $status = Password::sendSetLink(
-            ["email" => $email]
-        );
-        if($status !== Password::RESET_LINK_SENT) {
-            $this->error("Error while sending the mail: $status");
-        }
+        $expiresAt = now()->addWeek();
+        $user->sendWelcomeNotification($expiresAt);
 
-        $this->info("User $email was created successfully. Require a password via the password forgot page.");
+        $this->info("User $email was created successfully. A welcome message with a set password link has been sent.");
     }
 }

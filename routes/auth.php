@@ -11,6 +11,11 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+Route::group(['middleware' => ['web', \Spatie\WelcomeNotification\WelcomesNewUsers::class,]], function () {
+    Route::get('welcome/{user}', [\App\Http\Controllers\Auth\WelcomeController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('welcome/{user}', [\App\Http\Controllers\Auth\WelcomeController::class, 'savePassword']);
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

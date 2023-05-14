@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use App\Notifications\SetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, ReceivesWelcomeNotification;
 
     /**
      * The attributes that are mass assignable.
@@ -43,9 +42,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function sendPasswordSetNotification($token)
-    {
-        $this->notify(new SetPassword($token));
-    }
 }
