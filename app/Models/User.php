@@ -10,7 +10,10 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, ReceivesWelcomeNotification;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use ReceivesWelcomeNotification;
 
     /**
      * The attributes that are mass assignable.
@@ -41,5 +44,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
 }

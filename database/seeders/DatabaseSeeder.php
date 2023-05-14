@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
 
     private function singleAdminUser(): void
     {
-         \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'tester@draab.at',
-         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'tester@draab.at',
+        ]);
     }
 }

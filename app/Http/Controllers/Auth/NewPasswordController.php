@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
@@ -56,17 +55,17 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        if($status == Password::PASSWORD_RESET) {
-            $user = User::where("email",$request->string("email"))->first();
-            if (!$user->hasVerifiedEmail() &&
+        if ($status == Password::PASSWORD_RESET) {
+            $user = User::where('email', $request->string('email'))->first();
+            if (! $user->hasVerifiedEmail() &&
                 $user->markEmailAsVerified()) {
                 event(new Verified($request->user()));
             }
+
             return redirect()->route('login')->with('status', __($status));
         }
 
-
         return back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ->withErrors(['email' => __($status)]);
     }
 }

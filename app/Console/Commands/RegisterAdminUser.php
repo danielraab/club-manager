@@ -31,16 +31,19 @@ class RegisterAdminUser extends Command
         $email = $this->ask('Email address of the new user?');
 
         $validator = validator([
-            "name" => $name,
-            "email" => $email
+            'name' => $name,
+            'email' => $email,
         ], [
             'name' => ['required', 'string', 'min:5', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class]
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->getMessages() as $error) {
-                if (count($error) > 0) $this->error($error[0]);
+                if (count($error) > 0) {
+                    $this->error($error[0]);
+                }
             }
+
             return;
         }
 
