@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Models\UserPermission;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
 
@@ -47,10 +48,13 @@ class RegisterAdminUser extends Command
             return;
         }
 
+        /** @var User $user */
         $user = User::create([
             'name' => $name,
             'email' => $email,
         ]);
+
+        $user->userPermissions()->attach(UserPermission::USER_MANAGEMENT);
 
         event(new Registered($user));
 
