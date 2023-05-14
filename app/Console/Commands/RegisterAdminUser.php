@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Auth\PasswordBroker;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Password;
 
 class RegisterAdminUser extends Command
 {
