@@ -15,7 +15,7 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>
 
-        <div>
+        <div class="mt-4">
             <x-input-label for="password-confirm">{{ __('Confirm Password') }}</x-input-label>
 
             <x-text-input id="password-confirm" type="password" name="password_confirmation" required
