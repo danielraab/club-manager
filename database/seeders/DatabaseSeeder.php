@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserPermission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,7 +21,14 @@ class DatabaseSeeder extends Seeder
 
     private function singleAdminUser(): void
     {
-        \App\Models\User::factory()->create([
+        $admin = \App\Models\User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@draab.at',
+            'password' => Hash::make("admin")
+        ]);
+        $admin->userPermissions()->attach(UserPermission::ADMIN_USER);
+
+        $user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'tester@draab.at',
             'password' => Hash::make("test")
