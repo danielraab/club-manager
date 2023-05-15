@@ -54,7 +54,7 @@ class RegisterAdminUser extends Command
             'email' => $email,
         ]);
 
-        $user->userPermissions()->attach(UserPermission::USER_MANAGEMENT);
+        $user->userPermissions()->attach(UserPermission::ADMIN_USER);
 
         event(new Registered($user));
 

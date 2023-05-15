@@ -10,6 +10,7 @@ class UserPermission extends Model
 {
     use HasFactory;
 
+    public const ADMIN_USER = "adminUser";
     public const USER_MANAGEMENT = "userManagement";
 
     protected $fillable = [
