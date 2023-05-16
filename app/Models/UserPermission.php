@@ -13,6 +13,8 @@ class UserPermission extends Model
     public const ADMIN_USER = "adminUser";
     public const USER_MANAGEMENT = "userManagement";
 
+    public $incrementing = false;
+
     protected $fillable = [
         "id",
         "label",
