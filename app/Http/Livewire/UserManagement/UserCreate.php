@@ -14,7 +14,7 @@ class UserCreate extends Component
     {
         return [
             'user.name' => ['required', 'string', 'min:5'],
-            'user.email' => ['required', 'string', 'email', 'unique:users,email']
+            'user.email' => ['required', 'string', 'email', 'unique:users,email'],
         ];
     }
 
@@ -31,9 +31,8 @@ class UserCreate extends Component
 
         session()->put('message', __("User '".$this->user->name."' created successfully."));
         Log::channel('userManagement')->info("User '".$this->user->getNameWithMail().">' has been created by '".auth()->user()->getNameWithMail()."'");
-        $this->redirect(route("userManagement.index"));
+        $this->redirect(route('userManagement.index'));
     }
-
 
     public function render()
     {

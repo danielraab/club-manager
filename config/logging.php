@@ -69,7 +69,7 @@ return [
             'driver' => 'single',
             'path' => storage_path('logs/userManagement.log'),
             'level' => 'debug',
-            'replace_placeholders' => true
+            'replace_placeholders' => true,
         ],
 
         'daily' => [

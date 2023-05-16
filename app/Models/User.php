@@ -69,6 +69,6 @@ class User extends Authenticatable
 
     public function getNameWithMail()
     {
-        return $this->name . " <".$this->email.">";
+        return $this->name.' <'.$this->email.'>';
     }
 }

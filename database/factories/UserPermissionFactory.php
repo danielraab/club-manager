@@ -19,7 +19,7 @@ class UserPermissionFactory extends Factory
         return [
             'id' => fake()->randomKey(),
             'label' => fake()->words(3),
-            'is_default' => false
+            'is_default' => false,
         ];
     }
 }

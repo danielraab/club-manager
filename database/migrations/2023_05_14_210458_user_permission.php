@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -19,15 +20,15 @@ return new class () extends Migration {
         });
 
         UserPermission::create([
-            "id"=> UserPermission::ADMIN_USER,
-            "label" => "Admin User.",
-            "is_default" => false
+            'id' => UserPermission::ADMIN_USER,
+            'label' => 'Admin User.',
+            'is_default' => false,
         ]);
 
         UserPermission::create([
-            "id"=> UserPermission::USER_MANAGEMENT,
-            "label" => "Create users and update their permissions.",
-            "is_default" => false
+            'id' => UserPermission::USER_MANAGEMENT,
+            'label' => 'Create users and update their permissions.',
+            'is_default' => false,
         ]);
 
         Schema::create('user_user_permission', function (Blueprint $table) {
