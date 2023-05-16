@@ -20,8 +20,9 @@ class Permission
      */
     public function handle(Request $request, Closure $next, string $permission): Response
     {
-        if($request->user()?->hasPermission($permission))
+        if($request->user()?->hasPermission($permission)) {
             return $next($request);
+        }
         throw new AuthorizationException();
     }
 }
