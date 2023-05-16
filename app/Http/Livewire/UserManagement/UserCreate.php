@@ -30,7 +30,7 @@ class UserCreate extends Component
         $this->user->register();
 
         session()->put('message', __("User '".$this->user->name."' created successfully."));
-        Log::info("User '".$this->user->getNameWithMail().">' has been created by '".auth()->user()->getNameWithMail()."'");
+        Log::channel('userManagement')->info("User '".$this->user->getNameWithMail().">' has been created by '".auth()->user()->getNameWithMail()."'");
         $this->redirect(route("userManagement.index"));
     }
 

@@ -30,7 +30,8 @@ class UserEdit extends Component
         $this->user->save();
 
         session()->put('message', __("User '".$this->user->name."' saved successfully."));
-        Log::info("User '".$this->user->getNameWithMail().">' has been edited by '".auth()->user()->getNameWithMail()."'");
+        Log::channel('userManagement')
+            ->info("User '".$this->user->getNameWithMail().">' has been edited by '".auth()->user()->getNameWithMail()."'");
         $this->redirect(route("userManagement.index"));
     }
 
@@ -38,7 +39,8 @@ class UserEdit extends Component
     {
         $this->user->delete();
         session()->put("message", __("The user '".$this->user->getNameWithMail().">' has been deleted."));
-        Log::info("User '".$this->user->getNameWithMail().">' has been deleted by '".auth()->user()->getNameWithMail()."'");
+        Log::channel('userManagement')
+            ->info("User '".$this->user->getNameWithMail().">' has been DELETED by '".auth()->user()->getNameWithMail()."'");
         $this->redirect(route("userManagement.index"));
     }
 
