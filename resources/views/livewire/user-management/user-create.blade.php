@@ -1,10 +1,9 @@
 
 <x-slot name="headline">
-    {{ __('Edit user') }}
+    {{ __('Create user') }}
 </x-slot>
 
 
 <div>
-    <p>User: {{$user->name}}</p>
-    <p>Mail: {{$user->email}}</p>
+    todo
 </div>

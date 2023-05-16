@@ -5,17 +5,11 @@ namespace App\Http\Livewire\UserManagement;
 use App\Models\User;
 use Livewire\Component;
 
-class UserEdit extends Component
+class UserCreate extends Component
 {
-    public User $user;
-
-    public function mount(User $user)
-    {
-        $this->user = $user;
-    }
 
     public function render()
     {
-        return view('livewire.user-management.user-edit')->layout('layouts.backend');
+        return view('livewire.user-management.user-create')->layout('layouts.backend');
     }
 }
