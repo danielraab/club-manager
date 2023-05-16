@@ -3,13 +3,15 @@
         {{ __('Dashboard') }}
     </x-slot>
 
-    <div class="p-6 text-gray-900">
-        @auth
-            {{ __("You're logged in!") }}
-        @endauth
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900">
+            @auth
+                {{ __("You're logged in!") }}
+            @endauth
 
-        @guest
-            {{ __("You are a guest !!!") }}
-        @endguest
+            @guest
+                {{ __("You are a guest !!!") }}
+            @endguest
+        </div>
     </div>
 </x-backend-layout>

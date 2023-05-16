@@ -2,13 +2,13 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('User Overview') }}</span>
-            <x-button-link href="{{route('userManagement.create')}}" class="bg-green-800 text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <x-button-link href="{{route('userManagement.create')}}" class="btn-success">
                 Add new user
             </x-button-link>
         </div>
     </x-slot>
-    <div class="p-6 text-gray-900">
 
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
             <tr>

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserPermission;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class RegisterAdminUser extends Command
 {
@@ -48,18 +49,14 @@ class RegisterAdminUser extends Command
             return;
         }
 
-        /** @var User $user */
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-        ]);
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
 
+        $user->register();
         $user->userPermissions()->attach(UserPermission::ADMIN_USER);
 
-        event(new Registered($user));
-
-        $expiresAt = now()->addWeek();
-        $user->sendWelcomeNotification($expiresAt);
+        Log::info("User '".$user->getNameWithMail().">' has been created via CLI'");
 
         $this->info("User $email was created successfully. A welcome message with a set password link has been sent.");
     }

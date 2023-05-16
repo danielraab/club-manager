@@ -5,3 +5,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .bg-info {
+        @apply bg-blue-500 text-white;
+    }
+
+    .btn-primary {
+        @apply bg-gray-800 text-white uppercase hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500;
+    }
+
+    .btn-secondary {
+        @apply bg-white border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-indigo-500;
+    }
+
+    .btn-danger {
+        @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 focus:ring-red-500 uppercase;
+    }
+
+    .btn-success {
+        @apply bg-green-800 text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:ring-indigo-500;
+    }
+}

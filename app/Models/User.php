@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,13 +47,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function register()
+    {
+        $this->save();
+
+        event(new Registered($this));
+
+        $expiresAt = now()->addWeek();
+        $this->sendWelcomeNotification($expiresAt);
+    }
+
     public function userPermissions(): BelongsToMany
     {
         return $this->belongsToMany(UserPermission::class);
     }
 
-    public function hasPermission(string $permission):bool
+    public function hasPermission(string $permission): bool
     {
         return $this->userPermissions()->whereIn('id', [$permission, UserPermission::ADMIN_USER])->exists();
+    }
+
+    public function getNameWithMail()
+    {
+        return $this->name . " <".$this->email.">";
     }
 }
