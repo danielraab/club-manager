@@ -1,7 +1,7 @@
-<div class="flex flex-col overflow-x-auto">
-        <div class="inline-block min-w-full">
-            <div class="overflow-x-auto">
-                <table {{ $attributes->merge([ 'class' => "min-w-full text-left text-sm font-light"]) }}>
+<div class="overflow-x-auto">
+        <div class="min-w-full">
+            <div class="overflow-x-auto p-1">
+                <table {{ $attributes->merge([ 'class' => "min-w-full"]) }}>
                     {{ $slot }}
                 </table>
             </div>
