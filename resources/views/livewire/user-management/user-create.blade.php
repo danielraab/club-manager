@@ -14,7 +14,7 @@
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-4 sm:p-8 max-w-xl">
-            <x-user-form/>
+            <x-livewire.user-management.user-form/>
         </div>
     </div>
 </div>
