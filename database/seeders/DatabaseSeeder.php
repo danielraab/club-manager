@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use App\Models\UserPermission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,21 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
         ]);
         $admin->userPermissions()->attach(UserPermission::ADMIN_USER);
+
+        /** @var User $userShow */
+        $userShow = \App\Models\User::factory()->create([
+            'name' => 'User Show User',
+            'email' => 'editShow@draab.at',
+            'password' => Hash::make('editShow'),
+        ]);
+        $userShow->userPermissions()->attach(UserPermission::USER_MANAGEMENT_SHOW);
+
+        $userEdit = \App\Models\User::factory()->create([
+            'name' => 'User Edit User',
+            'email' => 'editUser@draab.at',
+            'password' => Hash::make('editUser'),
+        ]);
+        $userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Test User',

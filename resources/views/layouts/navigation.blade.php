@@ -18,7 +18,7 @@
 
                     @auth
                         <!-- User Management -->
-                        @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT))
+                        @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW, \App\Models\UserPermission::USER_MANAGEMENT_EDIT))
                             <x-nav-link :href="route('userManagement.index')"
                                         :active="request()->routeIs('userManagement.index')">
                                 {{ __('User Management') }}
@@ -56,7 +56,7 @@
 
             @auth
                 <!-- User Management -->
-                @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT))
+                @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW, \App\Models\UserPermission::USER_MANAGEMENT_EDIT))
                     <x-responsive-nav-link :href="route('userManagement.index')"
                                            :active="request()->routeIs('userManagement.index')">
                         {{ __('User Management') }}

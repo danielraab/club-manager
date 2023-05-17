@@ -12,7 +12,9 @@ class UserPermission extends Model
 
     public const ADMIN_USER = 'adminUser';
 
-    public const USER_MANAGEMENT = 'userManagement';
+    public const USER_MANAGEMENT_SHOW = 'userManagementShow';
+
+    public const USER_MANAGEMENT_EDIT = 'userManagementEdit';
 
     public $incrementing = false;
 
