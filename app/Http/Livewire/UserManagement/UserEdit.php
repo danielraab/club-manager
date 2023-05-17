@@ -45,7 +45,7 @@ class UserEdit extends Component
     public function deleteUser()
     {
         $this->user->delete();
-        session()->put('message', __("The user '" . $this->user->getNameWithMail() . ">' has been deleted."));
+        session()->put('message', __("The user '" . $this->user->getNameWithMail() . "' has been deleted."));
         Log::channel('userManagement')
             ->info("User '" . $this->user->getNameWithMail() . "' has been DELETED by '" . auth()->user()->getNameWithMail() . "'");
         $this->redirect(route('userManagement.index'));
