@@ -14,7 +14,7 @@ class InfoMessage extends Model
 
     protected $fillable = [
         'title',
-        'message',
+        'content',
     ];
 
     public function creator():BelongsTo {
