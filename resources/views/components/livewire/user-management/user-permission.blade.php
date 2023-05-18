@@ -10,6 +10,8 @@
     </header>
 
     <div class="mt-6">
+        @error('permissionArr') <x-input-error class="mt-2" :messages="$message"/>@enderror
+
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
                 <tr>
