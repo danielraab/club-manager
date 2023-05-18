@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class InfoMessage extends Model
+{
+    use HasFactory;
+
+
+    protected $fillable = [
+        'title',
+        'message',
+    ];
+
+    public function creator():BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function lastUpdater():BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+}
