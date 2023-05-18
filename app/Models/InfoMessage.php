@@ -18,6 +18,10 @@ class InfoMessage extends Model
         'content',
     ];
 
+    protected $casts = [
+        'onDashboardUntil' => 'datetime',
+    ];
+
     public function creator():BelongsTo {
         return $this->belongsTo(User::class);
     }

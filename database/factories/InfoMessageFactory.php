@@ -17,7 +17,7 @@ class InfoMessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->text(50),
+            'title' => fake()->text(100),
             'content' => fake()->text(250),
         ];
     }
