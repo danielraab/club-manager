@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('content')->nullable();
             $table->boolean('onlyInternal')->default(false);
-            $table->dateTime('onDashboardUntil')->nullable();
+            $table->dateTime('onDashboardUntil');
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('last_updater_id')->nullable();

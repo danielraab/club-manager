@@ -82,19 +82,20 @@ class DatabaseSeeder extends Seeder
     }
 
     private function addMessages(): void {
-        InfoMessage::factory(5)->create([
+        InfoMessage::factory(7)->create([
             'onlyInternal' => true,
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
-        ]);
-        InfoMessage::factory(5)->create([
             'onDashboardUntil' => now()->subWeek(),
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
-        InfoMessage::factory(5)->create([
+        InfoMessage::factory(3)->create([
+            'onDashboardUntil' => now()->subDays(3),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
+        InfoMessage::factory(2)->create([
             'onlyInternal' => true,
-            'onDashboardUntil' => now()->addWeek(),
+            'onDashboardUntil' => now()->addDays(3),
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
@@ -104,14 +105,14 @@ class DatabaseSeeder extends Seeder
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
-        InfoMessage::factory(5)->create([
+        InfoMessage::factory(4)->create([
             'onlyInternal' => false,
-            'onDashboardUntil' => now()->addWeek(),
+            'onDashboardUntil' => now()->addDays(10),
             'creator_id' => $this->messageEdit->id
         ]);
-        InfoMessage::factory(5)->create([
+        InfoMessage::factory(1)->create([
             'onlyInternal' => false,
-            'onDashboardUntil' => now()->addWeek()
+            'onDashboardUntil' => now()->addWeeks(2)
         ]);
     }
 }

@@ -9,6 +9,6 @@ class InfoMessageOverview extends Controller
 {
     public function index()
     {
-        return view('infoMessage.messageOverview', ['messages' => InfoMessage::paginate(10)]);
+        return view('infoMessage.messageOverview', ['messages' => InfoMessage::orderBy('onDashboardUntil', 'desc')->paginate(10)]);
     }
 }
