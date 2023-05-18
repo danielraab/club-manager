@@ -16,15 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @auth
-                        <!-- User Management -->
-                        @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW_PERMISSION, \App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION))
-                            <x-nav-link :href="route('userManagement.index')"
-                                        :active="request()->routeIs('userManagement.index')">
-                                {{ __('User Management') }}
-                            </x-nav-link>
-                        @endif
-                    @endauth
+                    @include("layouts.navigation.main-desktop")
                 </div>
 
             </div>
@@ -54,17 +46,8 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            @auth
-                <!-- User Management -->
-                @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW_PERMISSION, \App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION))
-                    <x-responsive-nav-link :href="route('userManagement.index')"
-                                           :active="request()->routeIs('userManagement.index')">
-                        {{ __('User Management') }}
-                    </x-responsive-nav-link>
-                @endif
-            @endauth
+            @include("layouts.navigation.main-mobile")
         </div>
-
 
         @include("layouts.navigation.user-mobile")
     </div>

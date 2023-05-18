@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\InfoMessage;
 use App\Models\User;
 use App\Models\UserPermission;
 use Illuminate\Database\Seeder;
@@ -11,43 +12,89 @@ use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $admin;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $userShow;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $userEdit;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $messageEdit;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $user;
+
+    /**
      * Seed the application's database.
      */
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->singleAdminUser();
+        $this->addUsers();
+        $this->addMessages();
     }
 
-    private function singleAdminUser(): void
+    private function addUsers(): void
     {
-        $admin = \App\Models\User::factory()->create([
+        $this->admin = \App\Models\User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@draab.at',
             'password' => Hash::make('admin'),
         ]);
-        $admin->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
+        $this->admin->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
 
         /** @var User $userShow */
-        $userShow = \App\Models\User::factory()->create([
+        $this->userShow = \App\Models\User::factory()->create([
             'name' => 'User Show User',
             'email' => 'editShow@draab.at',
             'password' => Hash::make('editShow'),
         ]);
-        $userShow->userPermissions()->attach(UserPermission::USER_MANAGEMENT_SHOW_PERMISSION);
+        $this->userShow->userPermissions()->attach(UserPermission::USER_MANAGEMENT_SHOW_PERMISSION);
 
-        $userEdit = \App\Models\User::factory()->create([
+        $this->userEdit = \App\Models\User::factory()->create([
             'name' => 'User Edit User',
             'email' => 'editUser@draab.at',
             'password' => Hash::make('editUser'),
         ]);
-        $userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
+        $this->userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
 
-        $user = \App\Models\User::factory()->create([
+        $this->messageEdit = \App\Models\User::factory()->create([
+            'name' => 'Message Edit User',
+            'email' => 'editMessage@draab.at',
+            'password' => Hash::make('editMessage'),
+        ]);
+        $this->messageEdit->userPermissions()->attach(InfoMessage::INFO_MESSAGE_EDIT_PERMISSION);
+
+        $this->user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'tester@draab.at',
-            'password' => Hash::make('test'),
+            'password' => Hash::make('tester'),
+        ]);
+    }
+
+    private function addMessages(): void {
+        InfoMessage::factory()->create([
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
+        InfoMessage::factory()->create([
+            'onDashboardUntil' => now()->subWeek(),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
+        InfoMessage::factory()->create([
+            'onDashboardUntil' => now()->addWeek(),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
         ]);
     }
 }
