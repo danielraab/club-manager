@@ -21,7 +21,8 @@
 
         @foreach($messages as $message)
             <div
-                class="max-w-full m-1 border border-gray-400 bg-white rounded p-4 flex flex-col justify-between leading-normal">
+                class="max-w-full mb-3 border border-gray-400 rounded p-4 flex flex-col justify-between leading-normal
+                @if($message->onDashboardUntil < now()) bg-gray-400 @else bg-indigo-200 @endif">
                 <div class="mb-5">
                     <div class="text-gray-900 font-bold text-xl mb-2 flex items-top justify-between">
                         <span>{{ $message->title }}</span>

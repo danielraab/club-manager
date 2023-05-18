@@ -25,7 +25,7 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <tr class="[&:nth-child(2)]:bg-neutral-100">
+                <tr class="[&:nth-child(2n)]:bg-indigo-200">
                     <td class="border px-4 py-2">{{$user->id}}</td>
                     <td class="border px-4 py-2">{{ $user->name }}</td>
                     <td class="border px-4 py-2">{{ $user->email }}</td>
