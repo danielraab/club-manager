@@ -11,6 +11,7 @@ class InfoMessage extends Model
 {
     use HasFactory;
 
+    public const INFO_MESSAGE_EDIT_PERMISSION = 'infoMessageEdit';
 
     protected $fillable = [
         'title',
