@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@draab.at',
             'password' => Hash::make('admin'),
         ]);
-        $admin->userPermissions()->attach(UserPermission::ADMIN_USER);
+        $admin->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
 
         /** @var User $userShow */
         $userShow = \App\Models\User::factory()->create([
@@ -35,14 +35,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'editShow@draab.at',
             'password' => Hash::make('editShow'),
         ]);
-        $userShow->userPermissions()->attach(UserPermission::USER_MANAGEMENT_SHOW);
+        $userShow->userPermissions()->attach(UserPermission::USER_MANAGEMENT_SHOW_PERMISSION);
 
         $userEdit = \App\Models\User::factory()->create([
             'name' => 'User Edit User',
             'email' => 'editUser@draab.at',
             'password' => Hash::make('editUser'),
         ]);
-        $userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT);
+        $userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Test User',

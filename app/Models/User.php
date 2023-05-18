@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function hasPermission(string ...$permission): bool
     {
-        return $this->userPermissions()->whereIn('id', [...$permission, UserPermission::ADMIN_USER])->exists();
+        return $this->userPermissions()->whereIn('id', [...$permission, UserPermission::ADMIN_USER_PERMISSION])->exists();
     }
 
     public function getNameWithMail()

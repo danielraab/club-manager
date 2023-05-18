@@ -10,11 +10,11 @@ class UserPermission extends Model
 {
     use HasFactory;
 
-    public const ADMIN_USER = 'adminUser';
+    public const ADMIN_USER_PERMISSION = 'adminUser';
 
-    public const USER_MANAGEMENT_SHOW = 'userManagementShow';
+    public const USER_MANAGEMENT_SHOW_PERMISSION = 'userManagementShow';
 
-    public const USER_MANAGEMENT_EDIT = 'userManagementEdit';
+    public const USER_MANAGEMENT_EDIT_PERMISSION = 'userManagementEdit';
 
     public $incrementing = false;
 

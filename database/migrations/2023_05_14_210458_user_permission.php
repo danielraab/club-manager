@@ -20,19 +20,19 @@ return new class() extends Migration
         });
 
         UserPermission::create([
-            'id' => UserPermission::ADMIN_USER,
+            'id' => UserPermission::ADMIN_USER_PERMISSION,
             'label' => 'Admin User. It as all available permissions',
             'is_default' => false,
         ]);
 
         UserPermission::create([
-            'id' => UserPermission::USER_MANAGEMENT_SHOW,
+            'id' => UserPermission::USER_MANAGEMENT_SHOW_PERMISSION,
             'label' => 'Show users and their permissions',
             'is_default' => false,
         ]);
 
         UserPermission::create([
-            'id' => UserPermission::USER_MANAGEMENT_EDIT,
+            'id' => UserPermission::USER_MANAGEMENT_EDIT_PERMISSION,
             'label' => 'Create users and update their permissions',
             'is_default' => false,
         ]);

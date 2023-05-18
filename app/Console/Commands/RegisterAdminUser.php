@@ -53,7 +53,7 @@ class RegisterAdminUser extends Command
         $user->email = $email;
 
         $user->register();
-        $user->userPermissions()->attach(UserPermission::ADMIN_USER);
+        $user->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
 
         Log::channel('userManagement')->info("User '".$user->getNameWithMail().">' has been created via CLI'");
 
