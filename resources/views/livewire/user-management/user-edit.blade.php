@@ -7,9 +7,6 @@
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center justify-between">
-            <div class="flex">
-                <x-default-button class="btn-primary" wire:click="saveUser">{{ __('Save') }}</x-default-button>
-            </div>
             <x-default-button
                 x-data="{ clickCnt: 0, onClick() {
                 if(this.clickCnt > 0) {
@@ -21,6 +18,7 @@
             }}"
                 x-on:click="onClick()"
                 class="btn-danger">{{ __('Delete user') }}</x-default-button>
+            <x-default-button class="btn-primary" wire:click="saveUser">{{ __('Save') }}</x-default-button>
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">
