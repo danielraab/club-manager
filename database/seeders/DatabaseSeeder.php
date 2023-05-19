@@ -82,37 +82,39 @@ class DatabaseSeeder extends Seeder
     }
 
     private function addMessages(): void {
-        InfoMessage::factory(7)->create([
+        InfoMessage::factory(1)->create([
             'onlyInternal' => true,
-            'onDashboardUntil' => now()->subWeek(),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
-        ]);
-        InfoMessage::factory(3)->create([
-            'onDashboardUntil' => now()->subDays(3),
+            'onDashboardUntil' => now()->addWeek(),
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
         InfoMessage::factory(2)->create([
-            'onlyInternal' => true,
             'onDashboardUntil' => now()->addDays(3),
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
-        InfoMessage::factory(5)->create([
+        InfoMessage::factory(2)->create([
+            'title' => "enabled false, onlyInternal, now",
+            'enabled' => false,
             'onlyInternal' => false,
-            'onDashboardUntil' => now()->addWeek(),
+            'onDashboardUntil' => now(),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
+        InfoMessage::factory(5)->create([
+            'onlyInternal' => true,
+            'onDashboardUntil' => now()->subDays(3),
             'creator_id' => $this->messageEdit->id,
             'last_updater_id' => $this->messageEdit->id
         ]);
         InfoMessage::factory(4)->create([
             'onlyInternal' => false,
-            'onDashboardUntil' => now()->addDays(10),
+            'onDashboardUntil' => now()->subWeek(),
             'creator_id' => $this->messageEdit->id
         ]);
         InfoMessage::factory(1)->create([
             'onlyInternal' => false,
-            'onDashboardUntil' => now()->addWeeks(2)
+            'onDashboardUntil' => now()->subWeek(2)
         ]);
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('info_messages', function (Blueprint $table) {
             $table->id();
+            $table->boolean('enabled')->default(true);
             $table->string('title')->nullable();
             $table->string('content')->nullable();
             $table->boolean('onlyInternal')->default(false);

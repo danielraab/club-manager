@@ -21,14 +21,22 @@
 
         @foreach($messages as $message)
             <div
-                class="max-w-full mb-3 border border-gray-400 rounded p-4 flex flex-col justify-between leading-normal
-                @if($message->onDashboardUntil < now()) bg-gray-400 @else bg-indigo-200 @endif">
+                class="max-w-full mb-3 border border-gray-400 rounded p-4 flex flex-col justify-between leading-normal bg-sky-100">
                 <div class="mb-5">
                     <div class="text-gray-900 font-bold text-xl mb-2 flex items-top justify-between">
                         <span>{{ $message->title }}</span>
-                        @if($message->onlyInternal)
-                            <i class="fa-solid fa-lock text-sm text-gray-600 ml-3"></i>
-                        @endif
+                        <div class="flex items-center ml-3">
+                            @if($message->onlyInternal)
+                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"></i>
+                            @endif
+                            @if(!$message->enabled)
+                                <x-dot class=" bg-rose-400"/>
+                            @elseif($message->onDashboardUntil < now())
+                                <x-dot class=" bg-gray-400"/>
+                            @else
+                                <x-dot class="bg-green-500"/>
+                            @endif
+                        </div>
                     </div>
                     <p class="text-gray-700 text-base">
                         {{ strlen($message->content) > 200 ? substr($message->content, 0,150) . " ..." : $message->content }}
