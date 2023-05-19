@@ -1,4 +1,15 @@
 {
+    "Info Messages": "Informationen",
+    "Infos": "Infos",
+    "Info Message Overview": "Informationsübersicht",
     "Add new message": "Neue Nachricht",
-    "Create new info message": "Erstellen Sie eine neue Info-Nachricht"
+    "Create new info message": "Erstellen Sie eine neue Info-Nachricht",
+    "Edit this message": "Diese Nachricht bearbeiten.",
+    "Visible only for logged in users": "Nur für eingelogged Benutzer sichtbar",
+    "Message disabled": "Nachricht nicht aktiv",
+    "Message retired": "Nachricht abgelaufen",
+    "Message active": "Nachricht aktiv",
+    "Last updater": "Zuletzt aktualisiert von",
+    "Last updated": "Zuletzt aktualisiert am",
+    "Displayed on dashboard until": "Am Dashboard bis"
 }

@@ -26,7 +26,7 @@
                         <span>{{ $message->title }}</span>
                         <div class="flex items-center ml-3">
                             @if($message->onlyInternal)
-                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="{{__("Visible only for logged in users.")}}"></i>
+                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="{{__("Visible only for logged in users")}}"></i>
                             @endif
                             @if(!$message->enabled)
                                 <x-dot class=" bg-rose-400" title="{{__("Message disabled")}}"/>
@@ -51,12 +51,12 @@
                         <p class="text-gray-600">
                             <span title="{{__("Last updated")}}"><i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
                             @if($message->onDashboardUntil)
-                                <span title="{{__("Displayed on dashboard until.")}}"><i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}</span>
+                                <span title="{{__("Displayed on dashboard until")}}"><i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}</span>
                             @endif
                         </p>
                     </div>
                     @if($hasEditPermission)
-                        <x-button-link href="{{route('infoMessage.edit', $message->id)}}" title="Edit this message."
+                        <x-button-link href="{{route('infoMessage.edit', $message->id)}}" title="Edit this message"
                                        class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </x-button-link>
