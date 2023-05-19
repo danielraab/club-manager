@@ -3,15 +3,21 @@
         {{ __('Dashboard') }}
     </x-slot>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900">
-            @auth
-                {{ __("You're logged in!") }}
-            @endauth
 
-            @guest
-                {{ __("You are a guest !!!") }}
-            @endguest
+    <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">
+        <div class="bg-white shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900">
+                @auth
+                    {{ __("You're logged in!") }}
+                @endauth
+
+                @guest
+                    {{ __("You are a guest !!!") }}
+                @endguest
+            </div>
+        </div>
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+            <x-dashboard.messages :messages="$messages"/>
         </div>
     </div>
 </x-backend-layout>

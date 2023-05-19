@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Info Message Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success">
+                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success" title="Create new info message.">
                     Add new message
                 </x-button-link>
             @endif
@@ -17,24 +17,23 @@
         {!! $messages->links('components.paginator') !!}
     </div>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-
+    <div class="flex flex-col gap-3 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
         @foreach($messages as $message)
             <div
-                class="max-w-full mb-3 border border-gray-400 rounded p-4 flex flex-col justify-between leading-normal bg-sky-100">
+                class="max-w-full border border-gray-400 rounded p-4 flex flex-col justify-between leading-normal bg-sky-100">
                 <div class="mb-5">
                     <div class="text-gray-900 font-bold text-xl mb-2 flex items-top justify-between">
                         <span>{{ $message->title }}</span>
                         <div class="flex items-center ml-3">
                             @if($message->onlyInternal)
-                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"></i>
+                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="Visible only for logged in users."></i>
                             @endif
                             @if(!$message->enabled)
-                                <x-dot class=" bg-rose-400"/>
+                                <x-dot class=" bg-rose-400" title="Message disabled"/>
                             @elseif($message->onDashboardUntil < now())
-                                <x-dot class=" bg-gray-400"/>
+                                <x-dot class=" bg-gray-400" title="Message retired"/>
                             @else
-                                <x-dot class="bg-green-500"/>
+                                <x-dot class="bg-green-500" title="Message active"/>
                             @endif
                         </div>
                     </div>
@@ -46,18 +45,18 @@
                     <div class="text-sm">
                         @if($message->lastUpdater)
                             <p class="text-gray-900 leading-none">
-                                <i class="fa-solid fa-pencil"></i> {{ $message->lastUpdater->name }}
+                                <span title="Last updater"><i class="fa-solid fa-pencil"></i> {{ $message->lastUpdater->name }}</span>
                             </p>
                         @endif
                         <p class="text-gray-600">
-                            <i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}
+                            <span title="Last updated"><i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
                             @if($message->onDashboardUntil)
-                                <i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}
+                                <span title="Displayed on dashboard until."><i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}</span>
                             @endif
                         </p>
                     </div>
                     @if($hasEditPermission)
-                        <x-button-link href="{{route('infoMessage.edit', $message->id)}}"
+                        <x-button-link href="{{route('infoMessage.edit', $message->id)}}" title="Edit this message."
                                        class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </x-button-link>

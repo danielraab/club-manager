@@ -19,7 +19,8 @@ class InfoMessage extends Model
 
     protected $casts = [
         'onDashboardUntil' => 'datetime',
-        'enabled' => 'boolean'
+        'enabled' => 'boolean',
+        'onlyInternal' => 'boolean'
     ];
 
     public function creator():BelongsTo {
