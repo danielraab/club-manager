@@ -6,8 +6,8 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Info Message Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success" title="Create new info message.">
-                    Add new message
+                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success" title="Create new info message">
+                    {{__("Add new message")}}
                 </x-button-link>
             @endif
         </div>
