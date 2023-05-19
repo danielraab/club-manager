@@ -21,7 +21,7 @@ return new class() extends Migration
 
         UserPermission::create([
             'id' => UserPermission::ADMIN_USER_PERMISSION,
-            'label' => 'Admin User. It as all available permissions',
+            'label' => 'Admin User. Has all available permissions',
             'is_default' => false,
         ]);
 

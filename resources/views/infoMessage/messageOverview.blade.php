@@ -26,14 +26,14 @@
                         <span>{{ $message->title }}</span>
                         <div class="flex items-center ml-3">
                             @if($message->onlyInternal)
-                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="Visible only for logged in users."></i>
+                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="{{__("Visible only for logged in users.")}}"></i>
                             @endif
                             @if(!$message->enabled)
-                                <x-dot class=" bg-rose-400" title="Message disabled"/>
+                                <x-dot class=" bg-rose-400" title="{{__("Message disabled")}}"/>
                             @elseif($message->onDashboardUntil < now())
-                                <x-dot class=" bg-gray-400" title="Message retired"/>
+                                <x-dot class=" bg-gray-400" title="{{__("Message retired")}}"/>
                             @else
-                                <x-dot class="bg-green-500" title="Message active"/>
+                                <x-dot class="bg-green-500" title="{{__("Message active")}}"/>
                             @endif
                         </div>
                     </div>
@@ -45,13 +45,13 @@
                     <div class="text-sm">
                         @if($message->lastUpdater)
                             <p class="text-gray-900 leading-none">
-                                <span title="Last updater"><i class="fa-solid fa-pencil"></i> {{ $message->lastUpdater->name }}</span>
+                                <span title="{{__("Last updater")}}"><i class="fa-solid fa-pencil"></i> {{ $message->lastUpdater->name }}</span>
                             </p>
                         @endif
                         <p class="text-gray-600">
-                            <span title="Last updated"><i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
+                            <span title="{{__("Last updated")}}"><i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
                             @if($message->onDashboardUntil)
-                                <span title="Displayed on dashboard until."><i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}</span>
+                                <span title="{{__("Displayed on dashboard until.")}}"><i class="fa-regular fa-clock ml-3"></i> {{$message->onDashboardUntil?->isoFormat('D. MMM YYYY')}}</span>
                             @endif
                         </p>
                     </div>

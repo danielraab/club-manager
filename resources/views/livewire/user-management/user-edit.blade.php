@@ -16,9 +16,9 @@
                     $el.innerHTML = 'Are you sure?';
                 }
             }}"
-                x-on:click="onClick()"
+                x-on:click="onClick()" title="Delete this user"
                 class="btn-danger">{{ __('Delete user') }}</x-default-button>
-            <x-default-button class="btn-primary" wire:click="saveUser">{{ __('Save') }}</x-default-button>
+            <x-default-button class="btn-primary" wire:click="saveUser" title="Save the current changes">{{ __('Save') }}</x-default-button>
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">

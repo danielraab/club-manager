@@ -6,7 +6,7 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
-        <x-default-button class="btn-primary" wire:click="saveUser">{{ __('Save') }}</x-default-button>
+        <x-default-button class="btn-primary" wire:click="saveUser" title="Create new user">{{ __('Save') }}</x-default-button>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">
         <div class="p-4 sm:p-8 max-w-xl">
