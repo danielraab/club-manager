@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('User Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('userManagement.create')}}" class="btn-success" title="{{__("Create new user")}}">
+                <x-button-link href="{{route('userManagement.create')}}" class="btn-success" title="Create new user">
                     Add new user
                 </x-button-link>
             @endif
@@ -38,7 +38,7 @@
                     </td>
                     @if($hasEditPermission)
                         <td class="border">
-                            <x-button-link href="{{route('userManagement.edit', $user->id)}}" title="{{__("Edit user")}}"
+                            <x-button-link href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
                                            class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </x-button-link>
