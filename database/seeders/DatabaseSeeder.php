@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\InfoMessage;
 use App\Models\User;
 use App\Models\UserPermission;
@@ -79,9 +78,25 @@ class DatabaseSeeder extends Seeder
             'email' => 'tester@draab.at',
             'password' => Hash::make('tester'),
         ]);
+
+        $this->command->info("Fake users added.");
     }
 
     private function addMessages(): void {
+        InfoMessage::factory(1)->create([
+            'title' => null,
+            'logged_in_only' => true,
+            'display_until' => now()->addDays(6),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
+        InfoMessage::factory(1)->create([
+            'content' => null,
+            'logged_in_only' => true,
+            'display_until' => now()->addDays(5),
+            'creator_id' => $this->messageEdit->id,
+            'last_updater_id' => $this->messageEdit->id
+        ]);
         InfoMessage::factory(1)->create([
             'logged_in_only' => true,
             'display_until' => now()->addWeek(),
@@ -116,5 +131,7 @@ class DatabaseSeeder extends Seeder
             'logged_in_only' => false,
             'display_until' => now()->subWeek(2)
         ]);
+
+        $this->command->info("Fake messages added.");
     }
 }
