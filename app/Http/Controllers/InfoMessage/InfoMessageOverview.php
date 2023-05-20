@@ -10,7 +10,7 @@ class InfoMessageOverview extends Controller
 {
     public function index()
     {
-        $messages = InfoMessage::orderBy('on_dashboard_until', 'desc');
+        $messages = InfoMessage::orderBy('display_until', 'desc');
         if(!Auth::user()->hasPermission(InfoMessage::INFO_MESSAGE_EDIT_PERMISSION)) {
             $messages = $messages->where("enabled", true);
         }

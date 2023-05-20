@@ -3,6 +3,11 @@
     "to": "bis",
     "of": "von",
     "results": "Ergebnissen angezeigt",
+    "title": "Titel",
+    "Title": "Titel",
+    "Content": "Inhalt",
+    "Enabled": "Aktiviert",
+    "short description": "Kurzbeschreibung",
 
     "Save": "Speichern",
     "Log Out": "Abmelden",
@@ -42,7 +47,6 @@
     "User Permission": "Benutzer Berechtigungen",
     "Select the granted permissions for this user.": "Wählen Sie die gewährten Berechtigungen für den Benutzer aus.",
     "permission": "Berechtigung",
-    "short description": "Kurzbeschreibung",
 
 
     "Info Messages": "Informationen",
@@ -57,5 +61,11 @@
     "Message active": "Nachricht aktiv",
     "Last updater": "Zuletzt aktualisiert von",
     "Last updated": "Zuletzt aktualisiert am",
-    "Displayed on dashboard until": "Am Dashboard bis"
+    "Displayed on dashboard until": "Am Dashboard bis",
+    "Info Message": "Info Nachricht",
+    "Enter message title and content.": "Geben Sie bitte den Inhalt ihrer Information ein.",
+    "Info Settings": "Info Einstellungen",
+    "Enter settings for info message.": "Treffen Sie die Einstellungen für die Info",
+    "Only for logged in user": "Nur für angemeldete Benutzer",
+    "Display until": "Anzeigen bis"
 }
