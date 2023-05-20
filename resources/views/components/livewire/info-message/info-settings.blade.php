@@ -30,9 +30,9 @@
 
         <div class="mt-4">
             <x-input-label for="display_until" :value="__('Display until')"/>
-            <x-input-datetime id="display_until" name="display_until" type="text" class="mt-1 block w-full" wire:model.defer="info.display_until"
+            <x-input-datetime id="display_until" name="display_until" type="text" class="mt-1 block w-full" wire:model.defer="display_until"
                           required autofocus autocomplete="display_until"/>
-            @error('info.display_until')
+            @error('display_until')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
