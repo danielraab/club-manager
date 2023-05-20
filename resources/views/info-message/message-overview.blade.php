@@ -6,7 +6,8 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Info Message Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success" title="Create new info message">
+                <x-button-link href="{{route('infoMessage.create')}}" class="btn-success"
+                               title="Create new info message">
                     {{__("Add new message")}}
                 </x-button-link>
             @endif
@@ -26,7 +27,8 @@
                         <span>{{ $message->title }}</span>
                         <div class="flex items-center ml-3">
                             @if($message->logged_in_only)
-                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2" title="{{__("Visible only for logged in users")}}"></i>
+                                <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"
+                                   title="{{__("Visible only for logged in users")}}"></i>
                             @endif
                             @if(!$message->enabled)
                                 <x-dot class=" bg-rose-400" title="Message disabled"/>
@@ -44,15 +46,18 @@
                 <div class="flex items-center justify-between">
                     <div class="text-sm">
                         <p class="text-gray-900 leading-none">
-                            <span title="{{__("Creator")}}"><i class="fa-regular fa-square-plus"></i> {{$message->creator->name}}</span>
-                        @if($message->lastUpdater)
+                            @if($message->creator)
+                                <span title="{{__("Creator")}}"><i class="fa-regular fa-square-plus"></i> {{$message->creator->name}}</span>
+                            @endif
+                            @if($message->lastUpdater)
                                 <span title="{{__("Last updater")}}"><i class="fa-solid fa-pencil ml-2"></i> {{ $message->lastUpdater->name }}</span>
-                        @endif
+                            @endif
                         </p>
                         <p class="text-gray-600">
                             <span title="{{__("Last updated")}}"><i class="fa-regular fa-pen-to-square"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
                             @if($message->display_until)
-                                <span title="{{__("Displayed on dashboard until")}}"><i class="fa-regular fa-clock ml-2"></i> {{$message->display_until?->isoFormat('D. MMM YYYY')}}</span>
+                                <span title="{{__("Displayed on dashboard until")}}"><i
+                                        class="fa-regular fa-clock ml-2"></i> {{$message->display_until?->isoFormat('D. MMM YYYY')}}</span>
                             @endif
                         </p>
                     </div>
