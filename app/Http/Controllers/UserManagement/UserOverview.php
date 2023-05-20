@@ -9,6 +9,6 @@ class UserOverview extends Controller
 {
     public function index()
     {
-        return view('userManagement.userOverview', ['users' => User::all()]);
+        return view('user-management.user-overview', ['users' => User::all()]);
     }
 }

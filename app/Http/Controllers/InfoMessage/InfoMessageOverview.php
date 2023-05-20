@@ -16,7 +16,7 @@ class InfoMessageOverview extends Controller
         }
         $messages = $messages->paginate(10);
 
-        return view('infoMessage.messageOverview', [
+        return view('info-message.message-overview', [
             'messages' => $messages
         ]);
     }
