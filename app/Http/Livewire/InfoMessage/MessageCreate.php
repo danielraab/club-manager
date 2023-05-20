@@ -9,7 +9,6 @@ class MessageCreate extends Component
 
     public function render()
     {
-        return null;
-//        return view('livewire.user-management.user-create')->layout('layouts.backend');
+        return view('livewire.info-message.info-create')->layout('layouts.backend');
     }
 }
