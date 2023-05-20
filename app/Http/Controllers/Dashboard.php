@@ -9,11 +9,11 @@ class Dashboard extends Controller
 {
     public function index()
     {
-        $messages = InfoMessage::orderBy('onDashboardUntil', 'desc');
-        $messages = $messages->where("onDashboardUntil", '>', now());
+        $messages = InfoMessage::orderBy('on_dashboard_until', 'desc');
+        $messages = $messages->where("on_dashboard_until", '>', now());
         $messages = $messages->where("enabled", true);
         if(!Auth::user()) {
-            $messages = $messages->where("onlyInternal", false);
+            $messages = $messages->where("only_internal", false);
         }
         $messages = $messages->get();
 
