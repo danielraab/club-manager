@@ -10,7 +10,7 @@
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5">
         <div class="p-4 sm:p-8 max-w-xl">
-            <x-livewire.info-message.info-form/>
+            <x-livewire.info-message.info-content/>
         </div>
     </div>
 </div>

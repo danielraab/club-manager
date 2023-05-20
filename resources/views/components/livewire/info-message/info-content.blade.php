@@ -39,12 +39,21 @@
         </div>
 
 
-        <!-- onyl internal -->
+        <!-- only internal -->
         <div class="mt-4">
             <x-input-checkbox id="only_internal" name="only_internal" wire:model.defer="info.only_internal"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Only internal') }}
             </x-input-checkbox>
         </div>
+
+        <div>
+            <x-input-label for="on_dasboard_unitl" :value="__('On dashboard unitl')"/>
+            <x-input-datetime id="on_dasboard_unitl" name="on_dasboard_unitl" type="text" class="mt-1 block w-full" wire:model.defer="info.on_dasboard_unitl"
+                          required autofocus autocomplete="on_dasboard_unitl"/>
+            @error('info.on_dasboard_unitl')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
     </div>
 </section>
