@@ -27,10 +27,10 @@
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
 
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.info-message.info-content/>
+            <x-livewire.info-message.info-content />
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.info-message.info-settings/>
+            <x-livewire.info-message.info-settings :info="$info"/>
         </div>
     </div>
 

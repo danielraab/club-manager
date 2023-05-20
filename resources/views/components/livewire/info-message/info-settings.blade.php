@@ -1,3 +1,4 @@
+@props(["info" => null])
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -30,11 +31,28 @@
 
         <div class="mt-4">
             <x-input-label for="display_until" :value="__('Display until')"/>
-            <x-input-datetime id="display_until" name="display_until" type="text" class="mt-1 block w-full" wire:model.defer="display_until"
-                          required autofocus autocomplete="display_until"/>
+            <x-input-datetime id="display_until" name="display_until" type="text" class="mt-1 block w-full"
+                              wire:model.defer="display_until"
+                              required autofocus autocomplete="display_until"/>
             @error('display_until')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
+
+        @if($info && $info->creator)
+            <div  class="text-gray-500 mt-20 ml-3">
+                <i class="fa-regular fa-square-plus"></i>
+                <span title="{{__("Creator")}}">{{$info->creator->name}}</span> -
+                <span title="{{__("Created at")}}">{{$info->created_at?->isoFormat('D. MMM YYYY')}}</span>
+            </div>
+        @endif
+
+        @if($info && $info->lastUpdater)
+            <div  class="text-gray-500 mt-1 ml-3">
+                <i class="fa-solid fa-pencil"></i>
+                <span title="{{__("Last updater")}}">{{ $info->lastUpdater->name }}</span> -
+                <span title="{{__("Updated at")}}">{{$info->updated_at?->isoFormat('D. MMM YYYY')}}</span>
+            </div>
+        @endif
 
     </div>
 </section>
