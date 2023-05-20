@@ -16,7 +16,7 @@ class MessageCreate extends Component
         $this->info = new InfoMessage();
         $this->info->enabled = true;
         $this->info->logged_in_only = false;
-        $this->display_until = now()->addWeek();
+        $this->display_until = now()->addWeek()->format("Y-m-d\TH:00");
     }
 
 
