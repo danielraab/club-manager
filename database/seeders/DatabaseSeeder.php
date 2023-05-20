@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\InfoMessage;
+use App\Models\News;
 use App\Models\User;
 use App\Models\UserPermission;
 use Illuminate\Database\Seeder;
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    private mixed $messageEdit;
+    private mixed $newsEdit;
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->addUsers();
-        $this->addMessages();
+        $this->addNews();
     }
 
     private function addUsers(): void
@@ -66,12 +66,12 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
 
-        $this->messageEdit = \App\Models\User::factory()->create([
-            'name' => 'Message Edit User',
-            'email' => 'editMessage@draab.at',
-            'password' => Hash::make('editMessage'),
+        $this->newsEdit = \App\Models\User::factory()->create([
+            'name' => 'News Edit User',
+            'email' => 'editNews@draab.at',
+            'password' => Hash::make('editNews'),
         ]);
-        $this->messageEdit->userPermissions()->attach(InfoMessage::INFO_MESSAGE_EDIT_PERMISSION);
+        $this->newsEdit->userPermissions()->attach(News::NEWS_EDIT_PERMISSION);
 
         $this->user = \App\Models\User::factory()->create([
             'name' => 'Test User',
@@ -82,56 +82,56 @@ class DatabaseSeeder extends Seeder
         $this->command->info("Fake users added.");
     }
 
-    private function addMessages(): void {
-        InfoMessage::factory(1)->create([
+    private function addNews(): void {
+        News::factory(1)->create([
             'title' => null,
             'logged_in_only' => true,
             'display_until' => now()->addDays(6),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(1)->create([
+        News::factory(1)->create([
             'content' => null,
             'logged_in_only' => true,
             'display_until' => now()->addDays(5),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(1)->create([
+        News::factory(1)->create([
             'logged_in_only' => true,
             'display_until' => now()->addWeek(),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(2)->create([
+        News::factory(2)->create([
             'display_until' => now()->addDays(3),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(2)->create([
+        News::factory(2)->create([
             'title' => "enabled false, logged_in_only, now",
             'enabled' => false,
             'logged_in_only' => false,
             'display_until' => now(),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(5)->create([
+        News::factory(5)->create([
             'logged_in_only' => true,
             'display_until' => now()->subDays(3),
-            'creator_id' => $this->messageEdit->id,
-            'last_updater_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id,
+            'last_updater_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(4)->create([
+        News::factory(4)->create([
             'logged_in_only' => false,
             'display_until' => now()->subWeek(),
-            'creator_id' => $this->messageEdit->id
+            'creator_id' => $this->newsEdit->id
         ]);
-        InfoMessage::factory(1)->create([
+        News::factory(1)->create([
             'logged_in_only' => false,
             'display_until' => now()->subWeek(2)
         ]);
 
-        $this->command->info("Fake messages added.");
+        $this->command->info("Fake news added.");
     }
 }

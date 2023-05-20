@@ -1,8 +1,8 @@
 @auth
-    <!-- Info Message -->
-    <x-nav-link :href="route('infoMessage.index')"
-                :active="request()->routeIs('infoMessage.index')">
-        {{ __('Infos') }}
+    <!-- news -->
+    <x-nav-link :href="route('news.index')"
+                :active="request()->routeIs('news.index')">
+        {{ __('News') }}
     </x-nav-link>
 
     <!-- User Management -->

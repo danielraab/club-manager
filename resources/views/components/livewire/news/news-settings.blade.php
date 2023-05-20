@@ -1,12 +1,12 @@
-@props(["info" => null])
+@props(["news" => null])
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Info Settings') }}
+            {{ __('News Settings') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Enter settings for info message.") }}
+            {{ __("Enter settings for news.") }}
         </p>
     </header>
 
@@ -14,7 +14,7 @@
 
         <!-- Enabled -->
         <div class="mt-4 ml-3">
-            <x-input-checkbox id="enabled" name="enabled" wire:model.defer="info.enabled"
+            <x-input-checkbox id="enabled" name="enabled" wire:model.defer="news.enabled"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Enabled') }}
             </x-input-checkbox>
@@ -23,7 +23,7 @@
 
         <!-- only internal -->
         <div class="mt-4 ml-3">
-            <x-input-checkbox id="logged_in_only" name="logged_in_only" wire:model.defer="info.logged_in_only"
+            <x-input-checkbox id="logged_in_only" name="logged_in_only" wire:model.defer="news.logged_in_only"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Only for logged in user') }}
             </x-input-checkbox>
@@ -38,19 +38,19 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        @if($info && $info->creator)
+        @if($news && $news->creator)
             <div  class="text-gray-500 mt-20 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
-                <span title="{{__("Creator")}}">{{$info->creator->name}}</span> -
-                <span title="{{__("Created at")}}">{{$info->created_at?->isoFormat('D. MMM YYYY')}}</span>
+                <span title="{{__("Creator")}}">{{$news->creator->name}}</span> -
+                <span title="{{__("Created at")}}">{{$news->created_at?->isoFormat('D. MMM YYYY')}}</span>
             </div>
         @endif
 
-        @if($info && $info->lastUpdater)
+        @if($news && $news->lastUpdater)
             <div  class="text-gray-500 mt-1 ml-3">
                 <i class="fa-solid fa-pencil"></i>
-                <span title="{{__("Last updater")}}">{{ $info->lastUpdater->name }}</span> -
-                <span title="{{__("Updated at")}}">{{$info->updated_at?->isoFormat('D. MMM YYYY')}}</span>
+                <span title="{{__("Last updater")}}">{{ $news->lastUpdater->name }}</span> -
+                <span title="{{__("Updated at")}}">{{$news->updated_at?->isoFormat('D. MMM YYYY')}}</span>
             </div>
         @endif
 

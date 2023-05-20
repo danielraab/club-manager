@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\InfoMessage\InfoMessageOverview;
-use App\Http\Livewire\InfoMessage\MessageCreate;
-use App\Http\Livewire\InfoMessage\MessageEdit;
-use App\Models\InfoMessage;
+use App\Http\Controllers\News\NewsOverview;
+use App\Http\Livewire\News\NewsCreate;
+use App\Http\Livewire\News\NewsEdit;
+use App\Models\News;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/infoMessage', [InfoMessageOverview::class, 'index'])
-        ->name('infoMessage.index');
+    Route::get('/news', [NewsOverview::class, 'index'])
+        ->name('news.index');
 });
-Route::middleware(['auth', 'permission:' . InfoMessage::INFO_MESSAGE_EDIT_PERMISSION])->group(function () {
-    Route::get('/infoMessage/message/create', MessageCreate::class )
-        ->name('infoMessage.create');
-    Route::get('/infoMessage/message/{message}', MessageEdit::class)
-        ->name('infoMessage.edit');
+Route::middleware(['auth', 'permission:' . News::NEWS_EDIT_PERMISSION])->group(function () {
+    Route::get('/news/news/create', NewsCreate::class )
+        ->name('news.create');
+    Route::get('/news/news/{news}', NewsEdit::class)
+        ->name('news.edit');
 });

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('info_messages', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->boolean('enabled')->default(true);
             $table->string('title')->nullable();
@@ -26,8 +26,8 @@ return new class extends Migration
         });
 
         \App\Models\UserPermission::create([
-            'id' => \App\Models\InfoMessage::INFO_MESSAGE_EDIT_PERMISSION,
-            'label' => 'Create, edit and delete info messages',
+            'id' => \App\Models\News::NEWS_EDIT_PERMISSION,
+            'label' => 'Create, edit and delete news',
             'is_default' => false,
         ]);
     }
@@ -37,7 +37,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('info_message');
-        \App\Models\UserPermission::find(\App\Models\InfoMessage::INFO_MESSAGE_EDIT_PERMISSION)?->delete();
+        Schema::dropIfExists('news');
+        \App\Models\UserPermission::find(\App\Models\News::NEWS_EDIT_PERMISSION)?->delete();
     }
 };

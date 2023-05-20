@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class InfoMessage extends Model
+class News extends Model
 {
     use HasFactory;
 
-    public const INFO_MESSAGE_EDIT_PERMISSION = 'infoMessageEdit';
+    public const NEWS_EDIT_PERMISSION = 'newsEdit';
 
     protected $fillable = [
         'title',

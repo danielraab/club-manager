@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-dashboard.messages :messages="$messages"/>
+            <x-dashboard.newsList :newsList="$newsList"/>
         </div>
     </div>
 </x-backend-layout>
