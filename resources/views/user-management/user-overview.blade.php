@@ -7,7 +7,7 @@
             <span>{{ __('User Overview') }}</span>
             @if($hasEditPermission)
                 <x-button-link href="{{route('userManagement.create')}}" class="btn-success" title="Create new user">
-                    Add new user
+                    {{__("Add new user")}}
                 </x-button-link>
             @endif
         </div>
@@ -20,7 +20,7 @@
                 <td class="px-4 py-2">Id</td>
                 <td class="px-4 py-2">Name</td>
                 <td class="px-4 py-2">eMail</td>
-                <td class="px-4 py-2">Permissions</td>
+                <td class="px-4 py-2">{{__("Permissions")}}</td>
             </tr>
             </thead>
             <tbody>

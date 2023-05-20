@@ -29,6 +29,21 @@
 
 
 
+    "Users": "Benutzer",
+    "User Management": "Benutzermanagement",
+    "User Overview": "Benutzerübersicht",
+    "Permissions": "Berechtigungen",
+    "Edit user": "Benutzer bearbeiten",
+    "Add new user": "Neuer Benutzer",
+    "Delete user": "Benutzer löschen",
+    "Create new user": "Neuen Benutzer erstellen",
+    "User Information": "Benutzer Information",
+    "Enter account profile information and email address.": "Geben Sie die Profilinformationen und die E-Mail-Adresse an.",
+    "User Permission": "Benutzer Berechtigungen",
+    "Select the granted permissions for this user.": "Wählen Sie die gewährten Berechtigungen für den Benutzer aus.",
+    "permission": "Berechtigung",
+    "short description": "Kurzbeschreibung",
+
 
     "Info Messages": "Informationen",
     "Infos": "Infos",
