@@ -43,15 +43,16 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="text-sm">
+                        <p class="text-gray-900 leading-none">
+                            <span title="{{__("Creator")}}"><i class="fa-regular fa-square-plus"></i> {{$message->creator->name}}</span>
                         @if($message->lastUpdater)
-                            <p class="text-gray-900 leading-none">
-                                <span title="{{__("Last updater")}}"><i class="fa-solid fa-pencil"></i> {{ $message->lastUpdater->name }}</span>
-                            </p>
+                                <span title="{{__("Last updater")}}"><i class="fa-solid fa-pencil ml-2"></i> {{ $message->lastUpdater->name }}</span>
                         @endif
+                        </p>
                         <p class="text-gray-600">
-                            <span title="{{__("Last updated")}}"><i class="fa-regular fa-calendar-plus"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
+                            <span title="{{__("Last updated")}}"><i class="fa-regular fa-pen-to-square"></i> {{$message->updated_at->isoFormat('D. MMM YYYY')}}</span>
                             @if($message->display_until)
-                                <span title="{{__("Displayed on dashboard until")}}"><i class="fa-regular fa-clock ml-3"></i> {{$message->display_until?->isoFormat('D. MMM YYYY')}}</span>
+                                <span title="{{__("Displayed on dashboard until")}}"><i class="fa-regular fa-clock ml-2"></i> {{$message->display_until?->isoFormat('D. MMM YYYY')}}</span>
                             @endif
                         </p>
                     </div>
