@@ -15,7 +15,7 @@
     </x-slot>
 
     <div class="flex justify-center mb-3">
-        {!! $messages->links('components.paginator') !!}
+        {!! $messages->links('vendor.pagination.paginator') !!}
     </div>
 
     <div class="flex flex-col gap-3 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
@@ -72,6 +72,6 @@
         @endforeach
     </div>
     <div class="flex justify-center mt-3">
-        {!! $messages->links('components.paginator') !!}
+        {!! $messages->links('vendor.pagination.paginator') !!}
     </div>
 </x-backend-layout>
