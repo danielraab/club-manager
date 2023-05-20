@@ -38,8 +38,8 @@ return new class() extends Migration
         ]);
 
         Schema::create('user_user_permission', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->string('user_permission_id');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->foreignIdFor(\App\Models\UserPermission::class, 'user_permission_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('user_permission_id')->references('id')
                 ->on('user_permissions')->onDelete('cascade');
