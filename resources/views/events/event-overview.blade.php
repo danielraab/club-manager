@@ -1,5 +1,5 @@
 @php
-    $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION);
+    $hasEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
 @endphp
 
 <div>
@@ -17,7 +17,7 @@
 
 
     <div class="flex">
-        <x-input-search wire:model.lazy="search" wire:click="$refresh" />
+        <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
     </div>
 
     <div class="flex justify-center my-3">
@@ -31,23 +31,43 @@
                 <td>start</td>
                 <td class="min-w-[150px]">title</td>
                 <td class="min-w-[150px]">type</td>
-                <td>action</td>
+                @if($hasEditPermission)
+                    <td>action</td>
+                @endif
             </tr>
             </thead>
             <tbody>
             @foreach($eventList as $event)
-                <tr class="[&:nth-child(2n)]:bg-indigo-200">
+                @php
+                    $rowBg = "bg-sky-200";
+                    if(!$event->enabled) $rowBg = "bg-red-200";
+                    elseif($event->end < now()) $rowBg = "bg-gray-300";
+                @endphp
+                <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
                     <td class="border px-1 min-w-[150px]">{{$event->start->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                     <td class="border px-2">{{$event->title}}</td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
-                    <td class="border px-2">
-                        @if($hasEditPermission)
-                            <x-button-link href="{{route('event.edit', $event->id)}}" title="Edit this event"
-                                           class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </x-button-link>
-                        @endif
-                    </td>
+                    @if($hasEditPermission)
+                        <td class="border px-2">
+                            <div class="flex gap-2">
+                                @if($event->enabled)
+                                    <button type="button" title="Disable this event" class="text-green-600"
+                                            wire:click="toggleEnabledState({{$event->id}})">
+                                        <i class="fa-solid fa-toggle-on text-base"></i>
+                                    </button>
+                                @else
+                                    <button type="button" title="Disable this event" class="text-red-500"
+                                            wire:click="toggleEnabledState({{$event->id}})">
+                                        <i class="fa-solid fa-toggle-off text-base"></i>
+                                    </button>
+                                @endif
+                                <x-button-link href="{{route('event.edit', $event->id)}}" title="Edit this event"
+                                               class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </x-button-link>
+                            </div>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
