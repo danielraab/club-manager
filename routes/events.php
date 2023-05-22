@@ -8,8 +8,8 @@ Route::get('/events', [EventOverview::class, 'index'])
     ->name('events.index');
 
 Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
-//    Route::get('/events/event/create', EventCreate::class)
-//        ->name('event.create');
-//    Route::get('/events/event/{event}', EventEdit::class)
-//        ->name('event.edit');
+    Route::get('/events/event/create', null)
+        ->name('event.create');
+    Route::get('/events/event/{event}', null)
+        ->name('event.edit');
 });

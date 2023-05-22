@@ -16,9 +16,9 @@ class EventOverview extends Controller
         } elseif(!Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
             $eventList = $eventList->where("enabled", true);
         }
-        $eventList = $eventList->paginate(25);
+        $eventList = $eventList->paginate(10);
 
-        return view('event.event-overview', [
+        return view('events.event-overview', [
             'eventList' => $eventList
         ]);
     }
