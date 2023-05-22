@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Event\EventOverview;
+use App\Http\Livewire\Events\EventOverview;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/events', [EventOverview::class, 'index'])
+Route::get('/events', EventOverview::class)
     ->name('events.index');
 
 Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
