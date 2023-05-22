@@ -48,6 +48,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'last_updater_id')->nullable();
             $table->foreign('last_updater_id')->references('id')->on('users')->onDelete('set null');
 
+            $table->softDeletes();
+
             $table->timestamps();
 
 

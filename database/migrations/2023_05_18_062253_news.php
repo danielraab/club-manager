@@ -18,10 +18,15 @@ return new class extends Migration
             $table->string('content')->nullable();
             $table->boolean('logged_in_only')->default(false);
             $table->dateTime('display_until');
+
             $table->foreignIdFor(\App\Models\User::class, 'creator_id')->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
+
             $table->foreignIdFor(\App\Models\User::class, 'last_updater_id')->nullable();
             $table->foreign('last_updater_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->softDeletes();
+
             $table->timestamps();
         });
 
