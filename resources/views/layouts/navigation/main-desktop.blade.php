@@ -1,3 +1,9 @@
+<!-- events -->
+<x-nav-link :href="route('events.index')"
+            :active="request()->routeIs('events.index')">
+    {{ __('Events') }}
+</x-nav-link>
+
 @auth
     <!-- news -->
     <x-nav-link :href="route('news.index')"

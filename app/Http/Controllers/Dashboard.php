@@ -23,7 +23,7 @@ class Dashboard extends Controller
         $newsList = News::orderBy('display_until', 'desc');
         $newsList = $newsList->where("display_until", '>', now());
         $newsList = $newsList->where("enabled", true);
-        if (!Auth::user()) {
+        if (Auth::guest()) {
             $newsList = $newsList->where("logged_in_only", false);
         }
         return $newsList->get();
@@ -34,7 +34,7 @@ class Dashboard extends Controller
         $eventList = Event::orderBy("start", "desc");
         $eventList = $eventList->where("start", '>', now());
         $eventList = $eventList->where("enabled", true);
-        if (!Auth::user()) {
+        if (Auth::guest()) {
             $eventList = $eventList->where("logged_in_only", false);
         }
         return $eventList->get();

@@ -1,3 +1,10 @@
+
+<!--  events -->
+<x-responsive-nav-link :href="route('events.index')"
+                       :active="request()->routeIs('events.index')">
+    {{ __('Event Management') }}
+</x-responsive-nav-link>
+
 @auth
     <!--  news -->
     <x-responsive-nav-link :href="route('news.index')"
