@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Events;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 use Livewire\Component;
 use Livewire\WithPagination;
 use function Symfony\Component\Translation\t;
@@ -22,8 +23,13 @@ class EventOverview extends Component
 
     public function toggleEnabledState(Event $event)
     {
-        $event->enabled = !$event->enabled;
-        $event->save();
+        if(Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
+            $event->enabled = !$event->enabled;
+            $event->lastUpdater()->associate(Auth::user());
+            $event->save();
+        } else {
+            abort(403);
+        }
     }
 
     public function render()
