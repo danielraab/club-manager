@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("description")->nullable();
             $table->string("location");
+            $table->string("dress_code");
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('whole_day')->default(false);

@@ -21,6 +21,7 @@ class EventFactory extends Factory
             'title' => fake()->text(50),
             'description' => fake()->text(100),
             'location' => fake()->text(20),
+            'dress_code' => fake()->text(20),
             'start' => $start,
             'end' => fake()->dateTimeBetween($start),
         ];
