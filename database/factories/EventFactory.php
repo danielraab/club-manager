@@ -20,10 +20,11 @@ class EventFactory extends Factory
         return [
             'title' => fake()->text(50),
             'description' => fake()->text(100),
-            'location' => fake()->text(20),
-            'dress_code' => fake()->text(20),
+            'location' => fake()->text(50),
+            'dress_code' => fake()->text(50),
             'start' => $start,
             'end' => fake()->dateTimeBetween($start),
+            'link' => fake()->url()
         ];
     }
 }
