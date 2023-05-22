@@ -45,7 +45,13 @@
                 @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
                     <td class="border px-1 min-w-[150px]">{{$event->start->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
-                    <td class="border px-2">{{$event->title}}</td>
+                    <td class="border px-2">
+                        @if($hasEditPermission && $event->logged_in_only)
+                            <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"
+                               title="{{__("Visible only for logged in users")}}"></i>
+                        @endif
+                        {{$event->title}}
+                    </td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
                     @if($hasEditPermission)
                         <td class="border px-2">

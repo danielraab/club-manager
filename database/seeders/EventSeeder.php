@@ -58,7 +58,14 @@ class EventSeeder extends Seeder
 
     private function addEvents()
     {
-        Event::factory(20)->create([
+        Event::factory(10)->create([
+            "enabled" => false,
+            "event_type_id" => $this->firstEventType->id,
+            "creator_id" => $this->eventEdit->id,
+            "last_updater_id" => $this->eventEdit->id
+        ]);
+        Event::factory(10)->create([
+            'logged_in_only' => true,
             "event_type_id" => $this->firstEventType->id,
             "creator_id" => $this->eventEdit->id,
             "last_updater_id" => $this->eventEdit->id
