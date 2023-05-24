@@ -12,6 +12,15 @@
 
     <div class="mt-6">
 
+        <div>
+            <x-input-label for="type" :value="__('Type')"/>
+            todo
+{{--            <x-input-dropdown id="type" name="type" type="text" class="mt-1 block w-full" wire:model.defer="event.type"--}}
+{{--                          required autofocus autocomplete="type"/>--}}
+            @error('event.type')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
         <!-- Enabled -->
         <div class="mt-4 ml-3">
             <x-input-checkbox id="enabled" name="enabled" wire:model.defer="event.enabled"
@@ -29,21 +38,21 @@
             </x-input-checkbox>
         </div>
 
-
+{{--        start--}}
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
             <x-input-datetime id="start" name="start" type="text" class="mt-1 block w-full"
-                              wire:model.defer="start"
+                              wire:model.lazy="start"
                               required autofocus autocomplete="start"/>
             @error('start')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-
+{{--        end--}}
         <div class="mt-4">
             <x-input-label for="end" :value="__('End')"/>
             <x-input-datetime id="end" name="end" type="text" class="mt-1 block w-full"
-                              wire:model.defer="end"
+                              wire:model.lazy="end"
                               required autofocus autocomplete="end"/>
             @error('end')
             <x-input-error class="mt-2" :messages="$message"/>@enderror

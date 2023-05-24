@@ -3,9 +3,12 @@
 namespace App\Http\Livewire\Events;
 
 use App\Models\Event;
+use Illuminate\Support\Facades\Date;
 
 trait EventTrait
 {
+
+    protected string $datetimeLocalFormat = "Y-m-d\TH:i";
 
     public Event $event;
     public string $start;
@@ -23,6 +26,18 @@ trait EventTrait
         "start" => ["required", "date"],
         "end" => ["required", "date", "after:start"]
     ];
+
+
+    public function updatingStart($updatedValue): void
+    {
+        if ($updatedValue > $this->end) {
+            $oldStart = Date::createFromFormat($this->datetimeLocalFormat, $this->start);
+            $oldEnd = Date::createFromFormat($this->datetimeLocalFormat, $this->end);
+            $diff = $oldStart->diff($oldEnd);
+            $newStart = Date::createFromFormat($this->datetimeLocalFormat, $updatedValue);
+            $this->end = $newStart->add($diff)->format($this->datetimeLocalFormat);
+        }
+    }
 
     public function propToModel() {
         $this->event->start = $this->start;

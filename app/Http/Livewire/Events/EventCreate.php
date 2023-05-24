@@ -2,15 +2,13 @@
 
 namespace App\Http\Livewire\Events;
 
-use App\Http\Livewire\News\NewsTrait;
 use App\Models\Event;
-use App\Models\News;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class EventCreate extends Component
 {
+
     use EventTrait;
 
     public function mount()
@@ -19,9 +17,11 @@ class EventCreate extends Component
         $this->event->enabled = true;
         $this->event->logged_in_only = false;
         $this->event->whole_day = false;
-        $this->start = now()->addWeek()->format("Y-m-d\TH:00");
-        $this->end = now()->addWeek()->addHours(2)->format("Y-m-d\TH:00");
+        $initial = now()->addWeek()->setMinute(0)->setSecond(0);
+        $this->start = $initial->format($this->datetimeLocalFormat);
+        $this->end = $initial->clone()->addHours(2)->format($this->datetimeLocalFormat);
     }
+
 
     public function saveEvent() {
         $this->validate();
