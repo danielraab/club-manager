@@ -1,9 +1,13 @@
 @import "nunito.css";
 @import "@fortawesome/fontawesome-free/css/all.css";
 
+/* alpine */
+[x-cloak] { display: none !important; }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer components {
     .bg-info {

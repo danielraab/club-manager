@@ -14,9 +14,14 @@
 
         <div>
             <x-input-label for="type" :value="__('Type')"/>
-            todo
-{{--            <x-input-dropdown id="type" name="type" type="text" class="mt-1 block w-full" wire:model.defer="event.type"--}}
-{{--                          required autofocus autocomplete="type"/>--}}
+            <x-tree-select />
+{{--            <select id="type" name="type"--}}
+{{--                    wire:model.defer="event.type"--}}
+{{--                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">--}}
+{{--                @foreach ($collectionCollection as $collection)--}}
+{{--                    <option value="{{ $collection->id }}">{{ $collection->name }}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
             @error('event.type')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
