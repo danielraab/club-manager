@@ -24,18 +24,21 @@ trait EventTrait
         "event.whole_day" => ["nullable", "boolean"],
         "event.logged_in_only" => ["nullable", "boolean"],
         "start" => ["required", "date"],
-        "end" => ["required", "date", "after:start"]
+        "end" => ["required", "date", "after_or_equal:start"]
     ];
 
 
     public function updatingStart($updatedValue): void
     {
         if ($updatedValue > $this->end) {
-            $oldStart = Date::createFromFormat($this->datetimeLocalFormat, $this->start);
-            $oldEnd = Date::createFromFormat($this->datetimeLocalFormat, $this->end);
-            $diff = $oldStart->diff($oldEnd);
-            $newStart = Date::createFromFormat($this->datetimeLocalFormat, $updatedValue);
-            $this->end = $newStart->add($diff)->format($this->datetimeLocalFormat);
+            $this->end = $updatedValue;
+        }
+    }
+
+    public function updatingEnd($updatedValue): void
+    {
+        if ($updatedValue < $this->start) {
+            $this->start = $updatedValue;
         }
     }
 
