@@ -51,6 +51,8 @@ trait EventTrait
         $eventTypeId = intval($this->type);
         if($eventTypeId > 0) {
             $this->event->event_type_id = $eventTypeId;
+        } else {
+            $this->event->event_type_id = null;
         }
     }
 }

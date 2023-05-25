@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Events\EventCreate;
+use App\Http\Livewire\Events\EventEdit;
 use App\Http\Livewire\Events\EventOverview;
 use App\Http\Livewire\Events\EventTypeCreate;
 use App\Http\Livewire\Events\EventTypeEdit;
@@ -13,7 +14,7 @@ Route::get('/events', EventOverview::class)
 Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)
         ->name('event.create');
-    Route::get('/events/event/{event}', fn() => "TODO")
+    Route::get('/events/event/{event}', EventEdit::class)
         ->name('event.edit');
 
     Route::get("/events/types", fn() => view("events.event-type-overview"))
