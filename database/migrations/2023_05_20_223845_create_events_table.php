@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('event_types', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("description");
+            $table->string("description")->nullable();
 
             $table->foreignId("parent_id")->nullable();
             $table->foreign('parent_id')->references('id')->on('event_types')->onDelete('set null');
