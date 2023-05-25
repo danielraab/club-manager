@@ -12,20 +12,6 @@
 
     <div class="mt-6">
 
-        <div>
-            <x-input-label for="type" :value="__('Type')"/>
-            <x-tree-select />
-{{--            <select id="type" name="type"--}}
-{{--                    wire:model.defer="event.type"--}}
-{{--                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">--}}
-{{--                @foreach ($collectionCollection as $collection)--}}
-{{--                    <option value="{{ $collection->id }}">{{ $collection->name }}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-            @error('event.type')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
-        </div>
-
         <!-- Enabled -->
         <div class="mt-4 ml-3">
             <x-input-checkbox id="enabled" name="enabled" wire:model.defer="event.enabled"
@@ -72,8 +58,24 @@
             </x-input-checkbox>
         </div>
 
+{{--        event type--}}
+        <div>
+            <x-input-label for="type" :value="__('Type')"/>
+            <select id="type" name="type"
+                    wire:model.defer="type"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                <option value="-1"></option>
+                @foreach (\App\Models\EventType::getLeveledList() as $eventType)
+                    <option value="{{ $eventType['id'] }}">{{str_repeat("|---- ", $eventType['level'])}}{{ $eventType['label'] }}</option>
+                @endforeach
+            </select>
+            @error('type')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
 
-        @if($event && $event->creator)
+
+
+    @if($event && $event->creator)
             <div  class="text-gray-500 mt-20 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
                 <span title="{{__("Creator")}}">{{$event->creator->name}}</span> -

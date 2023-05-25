@@ -13,6 +13,7 @@ trait EventTrait
     public Event $event;
     public string $start;
     public string $end;
+    public ?string $type = null;
 
     protected array $rules = [
         "event.title" => ["required", "string", "max:255"],
@@ -24,7 +25,8 @@ trait EventTrait
         "event.whole_day" => ["nullable", "boolean"],
         "event.logged_in_only" => ["nullable", "boolean"],
         "start" => ["required", "date"],
-        "end" => ["required", "date", "after_or_equal:start"]
+        "end" => ["required", "date", "after_or_equal:start"],
+        "type" => ["nullable", "int", "exists:event_types,id"]
     ];
 
 
@@ -45,5 +47,10 @@ trait EventTrait
     public function propToModel() {
         $this->event->start = $this->start;
         $this->event->end = $this->end;
+
+        $eventTypeId = intval($this->type);
+        if($eventTypeId > 0) {
+            $this->event->event_type_id = $eventTypeId;
+        }
     }
 }

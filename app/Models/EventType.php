@@ -20,20 +20,26 @@ class EventType extends Model
         return $this->hasMany(EventType::class, "parent_id");
     }
 
-    public static function getOrderedAndPrefixedList() {
+    public static function getLeveledList(): array {
         $orderedArr = [];
         foreach(EventType::query()->whereNull("parent_id")->get() as $eventType) {
-            $orderedArr[$eventType->id]["title"] = $eventType->title;
 
-            foreach($eventType->children()->get() as $firstSub)
-            {
-                $orderedArr[$eventType->id]["children"][$firstSub->id]["title"] = $firstSub->title;
-                foreach($firstSub->children()->get() as $secondSub)
-                {
-                    $orderedArr[$eventType->id]["children"][$firstSub->id]["children"][$secondSub->id]["title"] = $secondSub->title;
-                }
-            }
+            self::addEventTypeToArray($eventType, $orderedArr);
         }
         return $orderedArr;
+    }
+
+
+    private static function addEventTypeToArray(EventType $eventType, array &$eventTypeArr, int $level = 0): void
+    {
+        $eventTypeArr[] = [
+            "id" => $eventType->id,
+            "label" => $eventType->title,
+            "level" => $level
+        ];
+
+        foreach($eventType->children()->get() as $child) {
+            self::addEventTypeToArray($child, $eventTypeArr, $level+1);
+        }
     }
 }
