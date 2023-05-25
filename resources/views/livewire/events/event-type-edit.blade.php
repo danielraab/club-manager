@@ -5,15 +5,28 @@
 </x-slot>
 
 <div>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
-        <x-default-button class="btn-primary" wire:click="saveEventType"
-                          title="Create new event type">{{ __('Save') }}</x-default-button>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
+        <div class="flex items-center justify-between">
+            <x-default-button
+                x-data="{ clickCnt: 0, onClick() {
+                if(this.clickCnt > 0) {
+                    $wire.deleteEventType();
+                } else {
+                    this.clickCnt++;
+                    $el.innerHTML = 'Are you sure?';
+                }
+            }}"
+                x-on:click="onClick()" title="Delete this event type"
+                class="btn-danger">{{ __('Delete event type') }}</x-default-button>
+            <x-default-button class="btn-primary" wire:click="saveEventType"
+                              title="Create new event type">{{ __('Save') }}</x-default-button>
+        </div>
     </div>
 
 
     <div class="flex justify-center">
 
-        <div class="bg-white shadow-sm sm:rounded-lg p-4 w-1/2">
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <section>
                 <header>
                     <h2 class="text-lg font-medium text-gray-900">
@@ -52,7 +65,8 @@
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                         <option value=""></option>
                         @foreach(\App\Models\EventType::query()->whereNull("parent_id")->get() as $eventTypeTreeElem)
-                            <x-events.event-type-select-option :eventType="$eventTypeTreeElem" :currentEditingEventType="$eventType" />
+                            <x-events.event-type-select-option :eventType="$eventTypeTreeElem"
+                                                               :currentEditingEventType="$eventType"/>
                         @endforeach
                     </select>
                     @error('parent')
