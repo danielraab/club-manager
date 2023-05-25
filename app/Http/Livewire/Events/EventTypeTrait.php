@@ -21,6 +21,8 @@ trait EventTypeTrait
         $parentId = intval($this->parent);
         if($parentId > 0 && $parentId !== $this->eventType->id) {
             $this->eventType->parent_id = $parentId;
+        } else {
+            $this->eventType->parent_id = null;
         }
     }
 

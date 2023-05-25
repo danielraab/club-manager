@@ -50,12 +50,9 @@
                     <select id="parent" name="parent"
                             wire:model.defer="parent"
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
-                        <option value="-1"></option>
-                        @foreach (\App\Models\EventType::getLeveledList() as $eventTypeIter)
-                            @if($eventTypeIter['id'] !== $eventType->id)
-                                <option
-                                    value="{{ $eventTypeIter['id'] }}">{{str_repeat("|---- ", $eventTypeIter['level'])}}{{ $eventTypeIter['label'] }}</option>
-                            @endif
+                        <option value=""></option>
+                        @foreach(\App\Models\EventType::query()->whereNull("parent_id")->get() as $eventTypeTreeElem)
+                            <x-events.event-type-select-option :eventType="$eventTypeTreeElem" :currentEditingEventType="$eventType" />
                         @endforeach
                     </select>
                     @error('parent')

@@ -64,9 +64,9 @@
             <select id="type" name="type"
                     wire:model.defer="type"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
-                <option value="-1"></option>
-                @foreach (\App\Models\EventType::getLeveledList() as $eventType)
-                    <option value="{{ $eventType['id'] }}">{{str_repeat("|---- ", $eventType['level'])}}{{ $eventType['label'] }}</option>
+                <option value=""></option>
+                @foreach(\App\Models\EventType::query()->whereNull("parent_id")->get() as $eventType)
+                    <x-events.event-type-select-option :eventType="$eventType"  />
                 @endforeach
             </select>
             @error('type')
