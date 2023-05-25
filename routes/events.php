@@ -3,6 +3,7 @@
 use App\Http\Livewire\Events\EventCreate;
 use App\Http\Livewire\Events\EventOverview;
 use App\Http\Livewire\Events\EventTypeCreate;
+use App\Http\Livewire\Events\EventTypeEdit;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,6 @@ Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group
         ->name("event.type.index");
     Route::get("/events/types/create", EventTypeCreate::class)
         ->name("event.type.create");
-    Route::get("/events/types/{type}", fn() => "TODO")
+    Route::get("/events/types/{eventType}", EventTypeEdit::class)
         ->name("event.type.edit");
 });

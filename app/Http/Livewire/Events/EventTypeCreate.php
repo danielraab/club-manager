@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Events;
 
 use App\Models\EventType;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class EventTypeCreate extends Component
@@ -17,12 +16,8 @@ class EventTypeCreate extends Component
 
 
     public function saveEventType() {
-        $this->validate();
-        $this->propToModel();
-        $this->eventType->save();
 
-        session()->put("message", __("The event type has been successfully created."));
-        $this->redirect(route("event.type.index"));
+        $this->saveEventTypeWithMessage(__("The event type has been successfully created."));
     }
 
     public function render()

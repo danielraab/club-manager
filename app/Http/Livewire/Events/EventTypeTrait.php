@@ -16,26 +16,21 @@ trait EventTypeTrait
         "parent" => ["nullable", "int", "exists:event_types,id"]
     ];
 
-
-    public function updatingStart($updatedValue): void
-    {
-        if ($updatedValue > $this->end) {
-            $this->end = $updatedValue;
-        }
-    }
-
-    public function updatingEnd($updatedValue): void
-    {
-        if ($updatedValue < $this->start) {
-            $this->start = $updatedValue;
-        }
-    }
-
     public function propToModel() {
 
         $parentId = intval($this->parent);
         if($parentId > 0 && $parentId !== $this->eventType->id) {
             $this->eventType->parent_id = $parentId;
         }
+    }
+
+
+    protected function saveEventTypeWithMessage(string $message): void {
+        $this->validate();
+        $this->propToModel();
+        $this->eventType->save();
+
+        session()->put("message", $message);
+        $this->redirect(route("event.type.index"));
     }
 }
