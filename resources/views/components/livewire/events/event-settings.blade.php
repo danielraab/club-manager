@@ -76,7 +76,7 @@
 
 
     @if($event && $event->creator)
-            <div  class="text-gray-500 mt-20 ml-3">
+            <div  class="text-gray-500 mt-10 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
                 <span title="{{__("Creator")}}">{{$event->creator->name}}</span> -
                 <span title="{{__("Created at")}}">{{$event->created_at?->isoFormat('D. MMM YYYY')}}</span>
