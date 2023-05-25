@@ -1,6 +1,6 @@
 <!-- events -->
-<x-nav-link :href="route('events.index')"
-            :active="request()->routeIs('events.index')">
+<x-nav-link :href="route('event.index')"
+            :active="request()->routeIs('event.index')">
     {{ __('Events') }}
 </x-nav-link>
 

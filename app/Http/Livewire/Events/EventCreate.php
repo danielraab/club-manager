@@ -31,7 +31,7 @@ class EventCreate extends Component
         $this->event->save();
 
         session()->put("message", __("The event has been successfully created."));
-        $this->redirect(route("events.index"));
+        $this->redirect(route("event.index"));
     }
 
     public function render()

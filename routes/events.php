@@ -9,7 +9,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/events', EventOverview::class)
-    ->name('events.index');
+    ->name('event.index');
 
 Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)

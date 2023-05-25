@@ -1,7 +1,7 @@
 
 <!--  events -->
-<x-responsive-nav-link :href="route('events.index')"
-                       :active="request()->routeIs('events.index')">
+<x-responsive-nav-link :href="route('event.index')"
+                       :active="request()->routeIs('event.index')">
     {{ __('Event Management') }}
 </x-responsive-nav-link>
 

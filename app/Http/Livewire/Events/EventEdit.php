@@ -18,6 +18,13 @@ class EventEdit extends Component
         $this->type = $this->event->eventType?->id;
     }
 
+    public function deleteEvent()
+    {
+        $this->event->delete();
+        session()->put("message", __("The event has been successfully deleted."));
+        $this->redirect(route("event.index"));
+    }
+
 
     public function saveEvent() {
         $this->validate();
@@ -26,7 +33,7 @@ class EventEdit extends Component
         $this->event->save();
 
         session()->put("message", __("The event has been successfully updated."));
-        $this->redirect(route("events.index"));
+        $this->redirect(route("event.index"));
     }
 
     public function render()
