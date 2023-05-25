@@ -34,7 +34,7 @@ class EventOverview extends Component
 
     public function render()
     {
-        return view('events.event-overview', [
+        return view('livewire.events.event-overview', [
             'eventList' => $this->getEventList()
         ])->layout("layouts.backend");
     }
