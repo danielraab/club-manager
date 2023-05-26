@@ -10,14 +10,14 @@
             }
             $end = null;
             if(!$event->end->isSameDay($event->start)) {
-                $end = $event->end->isoFormat($startFormat);
+                $end = $event->end->setTimezone(config("app.displayed_timezone"))->isoFormat($startFormat);
             }
         @endphp
 
         <div class="bg-green-100 text-green-700 px-4 py-3">
             <div class="flex justify-between">
                 <p class="text-green-500">
-                    <i class="fa-regular fa-calendar"></i> {{$event->start->isoFormat($startFormat)}}
+                    <i class="fa-regular fa-calendar"></i> {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat($startFormat)}}
                     @if($end) --- {{$end}} @endif
                 </p>
                 @if($event->link)

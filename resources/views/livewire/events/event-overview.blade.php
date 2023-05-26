@@ -50,7 +50,7 @@
                     elseif($event->end < now()) $rowBg = "bg-gray-300";
                 @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
-                    <td class="border px-1 min-w-[150px]">{{$event->start->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
+                    <td class="border px-1 min-w-[150px]">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                     <td class="border px-2">
                         @if($hasEditPermission && $event->logged_in_only)
                             <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"

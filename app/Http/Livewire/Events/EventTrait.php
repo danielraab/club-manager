@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Events;
 
 use App\Models\Event;
-use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 trait EventTrait
 {
@@ -45,8 +45,8 @@ trait EventTrait
     }
 
     public function propToModel() {
-        $this->event->start = $this->start;
-        $this->event->end = $this->end;
+        $this->event->start = Carbon::parse($this->start)->shiftTimezone(config("app.displayed_timezone"))->setTimezone("UTC");
+        $this->event->end = Carbon::parse($this->end)->shiftTimezone(config("app.displayed_timezone"))->setTimezone("UTC");
 
         $eventTypeId = intval($this->type);
         if($eventTypeId > 0) {

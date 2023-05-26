@@ -13,8 +13,8 @@ class EventEdit extends Component
     public function mount($event)
     {
         $this->event = $event;
-        $this->start = $this->event->start->format($this->datetimeLocalFormat);
-        $this->end = $this->event->end->format($this->datetimeLocalFormat);
+        $this->start = $this->event->start->setTimezone(config("app.displayed_timezone"))->format($this->datetimeLocalFormat);
+        $this->end = $this->event->end->setTimezone(config("app.displayed_timezone"))->format($this->datetimeLocalFormat);
         $this->type = $this->event->eventType?->id;
     }
 
