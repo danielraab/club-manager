@@ -1,4 +1,4 @@
-# Mvk Intern
+# club scheduler
 
 ## install repo
 
