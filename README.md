@@ -69,4 +69,4 @@ Steps to deploy:
     * `git add ./public/build`
     * `git commit -m "add assests"`
     * `git push`
-* deploy `./vendor/bin/dep deploy`
+* deploy `./vendor/bin/dep deploy` or `./vendor/bin/sail bin dep deploy`
