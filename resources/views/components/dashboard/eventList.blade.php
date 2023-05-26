@@ -27,9 +27,11 @@
             <p class="font-bold">{{$event->title}}</p>
             <p class="text-sm">{{$event->description}}</p>
             <div class="text-sm text-green-500 mt-2">
+                @if ($event->location)
                 <p class="inline-block">
                     <i class="fa-solid fa-location-dot"></i> {{$event->location}}
                 </p>
+                @endif
                 @if($event->dress_code)
                     <p class="inline-block ml-2">
                         <i class="fa-solid fa-shirt"></i> {{$event->dress_code}}
