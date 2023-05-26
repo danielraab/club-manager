@@ -5,7 +5,7 @@ require 'recipe/laravel.php';
 
 // Config
 
-set('repository', 'git@gitlab.com:draab_/mvkematen/club-scheduler.git');
+set('repository', 'git@gitlab.com:mvkematen/club-scheduler.git');
 
 add('shared_files', []);
 add('shared_dirs', []);
