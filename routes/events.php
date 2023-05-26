@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Events\EventCalendar;
 use App\Http\Livewire\Events\EventCreate;
 use App\Http\Livewire\Events\EventEdit;
 use App\Http\Livewire\Events\EventOverview;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/events', EventOverview::class)
     ->name('event.index');
+
+Route::get('/events/ics', [EventCalendar::class, "iCalendar"])
+    ->name('event.iCalendar');
 
 Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)
