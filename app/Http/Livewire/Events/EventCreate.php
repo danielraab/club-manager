@@ -18,8 +18,8 @@ class EventCreate extends Component
         $this->event->logged_in_only = false;
         $this->event->whole_day = false;
         $initial = now()->addWeek()->setMinute(0)->setSecond(0);
-        $this->start = $initial->format($this->datetimeLocalFormat);
-        $this->end = $initial->clone()->addHours(2)->format($this->datetimeLocalFormat);
+        $this->start = $initial->formatDatetimeLocalInput();
+        $this->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
     }
 
 

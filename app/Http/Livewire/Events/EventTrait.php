@@ -8,8 +8,6 @@ use Carbon\Carbon;
 trait EventTrait
 {
 
-    protected string $datetimeLocalFormat = "Y-m-d\TH:i";
-
     public Event $event;
     public string $start;
     public string $end;
@@ -45,8 +43,8 @@ trait EventTrait
     }
 
     public function propToModel() {
-        $this->event->start = Carbon::parse($this->start)->shiftTimezone(config("app.displayed_timezone"))->setTimezone("UTC");
-        $this->event->end = Carbon::parse($this->end)->shiftTimezone(config("app.displayed_timezone"))->setTimezone("UTC");
+        $this->event->start = Carbon::parseFromDatetimeLocalInput($this->start);
+        $this->event->end = Carbon::parseFromDatetimeLocalInput($this->end);
 
         $eventTypeId = intval($this->type);
         if($eventTypeId > 0) {

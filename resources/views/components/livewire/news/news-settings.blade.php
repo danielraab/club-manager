@@ -42,7 +42,7 @@
             <div  class="text-gray-500 mt-20 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
                 <span title="{{__("Creator")}}">{{$news->creator->name}}</span> -
-                <span title="{{__("Created at")}}">{{$news->created_at?->isoFormat('D. MMM YYYY')}}</span>
+                <span title="{{__("Created at")}}">{{$news->created_at?->formatDateOnly()}}</span>
             </div>
         @endif
 
@@ -50,7 +50,7 @@
             <div  class="text-gray-500 mt-1 ml-3">
                 <i class="fa-solid fa-pencil"></i>
                 <span title="{{__("Last updater")}}">{{ $news->lastUpdater->name }}</span> -
-                <span title="{{__("Updated at")}}">{{$news->updated_at?->isoFormat('D. MMM YYYY')}}</span>
+                <span title="{{__("Updated at")}}">{{$news->updated_at?->formatDateOnly()}}</span>
             </div>
         @endif
 

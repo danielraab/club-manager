@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\News;
 
 use App\Models\News;
+use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
 trait NewsTrait
@@ -34,5 +35,10 @@ trait NewsTrait
                 "news.content" => $titleContentEmpty
             ]);
         }
+    }
+
+
+    public function propToModel() {
+        $this->news->display_until = Carbon::parseFromDatetimeLocalInput($this->display_until);
     }
 }

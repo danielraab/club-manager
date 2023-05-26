@@ -54,10 +54,10 @@
                             @endif
                         </p>
                         <p class="text-gray-600">
-                            <span title="{{__("Last updated")}}"><i class="fa-regular fa-pen-to-square"></i> {{$news->updated_at->isoFormat('D. MMM YYYY')}}</span>
+                            <span title="{{__("Last updated")}}"><i class="fa-regular fa-pen-to-square"></i> {{$news->updated_at?->formatDateOnly()}}</span>
                             @if($news->display_until)
                                 <span title="{{__("Displayed on dashboard until")}}"><i
-                                        class="fa-regular fa-clock ml-2"></i> {{$news->display_until?->isoFormat('D. MMM YYYY')}}</span>
+                                        class="fa-regular fa-clock ml-2"></i> {{$news->display_until?->formatDateOnly()}}</span>
                             @endif
                         </p>
                     </div>

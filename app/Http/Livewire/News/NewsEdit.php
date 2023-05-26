@@ -13,7 +13,7 @@ class NewsEdit extends Component
     public function mount(News $news)
     {
         $this->news = $news;
-        $this->display_until = $news->display_until;
+        $this->display_until = $news->display_until->formatDatetimeLocalInput();
     }
 
     public function deleteNews()
@@ -26,7 +26,7 @@ class NewsEdit extends Component
     public function saveNews() {
         $this->validate();
         $this->additionalContentValidation();
-        $this->news->display_until = $this->display_until;
+        $this->propToModel();
 
         $this->news->lastUpdater()->associate(Auth::user());
 

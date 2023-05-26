@@ -16,7 +16,7 @@ class NewsCreate extends Component
         $this->news = new News();
         $this->news->enabled = true;
         $this->news->logged_in_only = false;
-        $this->display_until = now()->addWeek()->format("Y-m-d\TH:00");
+        $this->display_until = now()->addWeek()->setMinute(0)->formatDatetimeLocalInput();
     }
 
 
@@ -27,7 +27,7 @@ class NewsCreate extends Component
     {
         $this->validate();
         $this->additionalContentValidation();
-        $this->news->display_until = $this->display_until;
+        $this->propToModel();
 
         $this->news->creator()->associate(Auth::user());
         $this->news->lastUpdater()->associate(Auth::user());
