@@ -33,7 +33,7 @@
                 </p>
                 @endif
                 @if($event->dress_code)
-                    <p class="inline-block ml-2">
+                    <p class="inline-block">
                         <i class="fa-solid fa-shirt"></i> {{$event->dress_code}}
                     </p>
                 @endif
