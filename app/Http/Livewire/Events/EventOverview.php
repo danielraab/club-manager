@@ -53,6 +53,6 @@ class EventOverview extends Component
             $eventList = $eventList->where("title", "like", "%$this->search%");
         }
 
-        return $eventList->paginate(10);
+        return $eventList->paginate(20)->onEachSide(1);
     }
 }

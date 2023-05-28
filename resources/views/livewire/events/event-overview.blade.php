@@ -60,7 +60,7 @@
                     </td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
                     @if($hasEditPermission)
-                        <td class="border px-2">
+                        <td class="border px-2 min-w-[70px]">
                             <div
                             >
                                 @if($event->enabled)
