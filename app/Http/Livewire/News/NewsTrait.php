@@ -8,18 +8,17 @@ use Illuminate\Validation\ValidationException;
 
 trait NewsTrait
 {
-
     public News $news;
+
     public string $display_until;
 
     protected array $rules = [
-        "news.title" => ["nullable", "string", "max:255"],
-        "news.content" => ["nullable", "string"],
-        "news.enabled" => ["nullable", "boolean"],
-        "news.logged_in_only" => ["nullable", "boolean"],
-        "display_until" => ["required", "date"]
+        'news.title' => ['nullable', 'string', 'max:255'],
+        'news.content' => ['nullable', 'string'],
+        'news.enabled' => ['nullable', 'boolean'],
+        'news.logged_in_only' => ['nullable', 'boolean'],
+        'display_until' => ['required', 'date'],
     ];
-
 
     /**
      * @throws ValidationException
@@ -29,16 +28,16 @@ trait NewsTrait
         if (($this->news->title === null || strlen(trim($this->news->title)) === 0) &&
             ($this->news->content === null || strlen(trim($this->news->content)) === 0)
         ) {
-            $titleContentEmpty = __("One of the fields (:fields) must have content.", ["fields" => __("title") . ", " . __("content")]);
+            $titleContentEmpty = __('One of the fields (:fields) must have content.', ['fields' => __('title').', '.__('content')]);
             throw ValidationException::withMessages([
-                "news.title" => $titleContentEmpty,
-                "news.content" => $titleContentEmpty
+                'news.title' => $titleContentEmpty,
+                'news.content' => $titleContentEmpty,
             ]);
         }
     }
 
-
-    public function propToModel() {
+    public function propToModel()
+    {
         $this->news->display_until = Carbon::parseFromDatetimeLocalInput($this->display_until);
     }
 }

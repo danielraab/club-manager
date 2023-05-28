@@ -17,10 +17,10 @@ return new class extends Migration
     {
         Schema::create('event_types', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("description")->nullable();
+            $table->string('title');
+            $table->string('description')->nullable();
 
-            $table->foreignId("parent_id")->nullable();
+            $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('event_types')->onDelete('set null');
 
             $table->timestamps();
@@ -28,16 +28,16 @@ return new class extends Migration
 
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("description")->nullable();
-            $table->string("location")->nullable();
-            $table->string("dress_code")->nullable();
+            $table->string('title');
+            $table->string('description')->nullable();
+            $table->string('location')->nullable();
+            $table->string('dress_code')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('whole_day')->default(false);
             $table->boolean('enabled')->default(true);
             $table->boolean('logged_in_only')->default(false);
-            $table->string("link")->nullable();
+            $table->string('link')->nullable();
 
             $table->foreignIdFor(EventType::class)->nullable();
             $table->foreign('event_type_id')->references('id')->on('event_types')->onDelete('set null');
@@ -51,7 +51,6 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->timestamps();
-
 
             UserPermission::create([
                 'id' => Event::EVENT_EDIT_PERMISSION,

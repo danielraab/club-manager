@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class EventCreate extends Component
 {
-
     use EventTrait;
 
     public function mount()
@@ -22,16 +21,16 @@ class EventCreate extends Component
         $this->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
     }
 
-
-    public function saveEvent() {
+    public function saveEvent()
+    {
         $this->validate();
         $this->propToModel();
         $this->event->creator()->associate(Auth::user());
         $this->event->lastUpdater()->associate(Auth::user());
         $this->event->save();
 
-        session()->put("message", __("The event has been successfully created."));
-        $this->redirect(route("event.index"));
+        session()->put('message', __('The event has been successfully created.'));
+        $this->redirect(route('event.index'));
     }
 
     public function render()

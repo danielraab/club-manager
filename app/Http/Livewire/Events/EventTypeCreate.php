@@ -14,10 +14,10 @@ class EventTypeCreate extends Component
         $this->eventType = new EventType();
     }
 
+    public function saveEventType()
+    {
 
-    public function saveEventType() {
-
-        $this->saveEventTypeWithMessage(__("The event type has been successfully created."));
+        $this->saveEventTypeWithMessage(__('The event type has been successfully created.'));
     }
 
     public function render()

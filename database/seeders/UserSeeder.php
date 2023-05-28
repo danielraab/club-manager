@@ -12,6 +12,7 @@ class UserSeeder extends Seeder
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
     public mixed $admin;
+
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
@@ -35,5 +36,4 @@ class UserSeeder extends Seeder
             'password' => Hash::make('tester'),
         ]);
     }
-
 }

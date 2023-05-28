@@ -22,14 +22,16 @@ class News extends Model
     protected $casts = [
         'display_until' => 'datetime',
         'enabled' => 'boolean',
-        'logged_in_only' => 'boolean'
+        'logged_in_only' => 'boolean',
     ];
 
-    public function creator():BelongsTo {
+    public function creator(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function lastUpdater():BelongsTo {
+    public function lastUpdater(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 }

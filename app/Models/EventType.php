@@ -11,35 +11,37 @@ class EventType extends Model
 {
     use HasFactory;
 
-
-    public function parent():BelongsTo {
+    public function parent(): BelongsTo
+    {
         return $this->belongsTo(EventType::class);
     }
 
-    public function children():HasMany {
-        return $this->hasMany(EventType::class, "parent_id");
+    public function children(): HasMany
+    {
+        return $this->hasMany(EventType::class, 'parent_id');
     }
 
-    public static function getLeveledList(): array {
+    public static function getLeveledList(): array
+    {
         $orderedArr = [];
-        foreach(EventType::query()->whereNull("parent_id")->get() as $eventType) {
+        foreach (EventType::query()->whereNull('parent_id')->get() as $eventType) {
 
             self::addEventTypeToArray($eventType, $orderedArr);
         }
+
         return $orderedArr;
     }
-
 
     private static function addEventTypeToArray(EventType $eventType, array &$eventTypeArr, int $level = 0): void
     {
         $eventTypeArr[] = [
-            "id" => $eventType->id,
-            "label" => $eventType->title,
-            "level" => $level
+            'id' => $eventType->id,
+            'label' => $eventType->title,
+            'level' => $level,
         ];
 
-        foreach($eventType->children()->get() as $child) {
-            self::addEventTypeToArray($child, $eventTypeArr, $level+1);
+        foreach ($eventType->children()->get() as $child) {
+            self::addEventTypeToArray($child, $eventTypeArr, $level + 1);
         }
     }
 }

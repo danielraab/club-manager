@@ -19,11 +19,12 @@ class NewsEdit extends Component
     public function deleteNews()
     {
         $this->news->delete();
-        session()->put("message", __("The news has been successfully deleted."));
-        $this->redirect(route("news.index"));
+        session()->put('message', __('The news has been successfully deleted.'));
+        $this->redirect(route('news.index'));
     }
 
-    public function saveNews() {
+    public function saveNews()
+    {
         $this->validate();
         $this->additionalContentValidation();
         $this->propToModel();
@@ -31,9 +32,9 @@ class NewsEdit extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        session()->put("message", __("News successfully updated."));
+        session()->put('message', __('News successfully updated.'));
 
-        $this->redirect(route("news.index"));
+        $this->redirect(route('news.index'));
     }
 
     public function render()

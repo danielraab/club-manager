@@ -13,10 +13,19 @@ class EventSeeder extends Seeder
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
     public mixed $eventEdit;
+
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    private mixed $firstEventType,$secondEventType,$secondSecondEventType,$thirdEventType,$thirdThirdEventType;
+    private mixed $firstEventType;
+
+    private mixed $secondEventType;
+
+    private mixed $secondSecondEventType;
+
+    private mixed $thirdEventType;
+
+    private mixed $thirdThirdEventType;
 
     /**
      * Seed the application's database.
@@ -29,7 +38,8 @@ class EventSeeder extends Seeder
         $this->addEvents();
     }
 
-    private function addUsers() {
+    private function addUsers()
+    {
 
         $this->eventEdit = \App\Models\User::factory()->create([
             'name' => 'Event Edit User',
@@ -59,35 +69,35 @@ class EventSeeder extends Seeder
     private function addEvents()
     {
         Event::factory(10)->create([
-            "enabled" => false,
-            "event_type_id" => $this->firstEventType->id,
-            "creator_id" => $this->eventEdit->id,
-            "last_updater_id" => $this->eventEdit->id
+            'enabled' => false,
+            'event_type_id' => $this->firstEventType->id,
+            'creator_id' => $this->eventEdit->id,
+            'last_updater_id' => $this->eventEdit->id,
         ]);
         Event::factory(10)->create([
             'logged_in_only' => true,
-            "event_type_id" => $this->firstEventType->id,
-            "creator_id" => $this->eventEdit->id,
-            "last_updater_id" => $this->eventEdit->id
+            'event_type_id' => $this->firstEventType->id,
+            'creator_id' => $this->eventEdit->id,
+            'last_updater_id' => $this->eventEdit->id,
         ]);
 
         $startFirst = now()->addWeek();
         Event::factory()->create([
-            "start" => $startFirst,
-            "end" => $startFirst->clone()->addHours(2),
-            "event_type_id" => $this->firstEventType->id,
-            "creator_id" => $this->eventEdit->id,
-            "last_updater_id" => $this->eventEdit->id
+            'start' => $startFirst,
+            'end' => $startFirst->clone()->addHours(2),
+            'event_type_id' => $this->firstEventType->id,
+            'creator_id' => $this->eventEdit->id,
+            'last_updater_id' => $this->eventEdit->id,
         ]);
 
         $startSecond = now()->addDays(3);
         Event::factory()->create([
-            "start" => $startSecond,
-            "end" => $startSecond->clone()->addDays(2),
-            "whole_day" => true,
-            "event_type_id" => $this->firstEventType->id,
-            "creator_id" => $this->eventEdit->id,
-            "last_updater_id" => $this->eventEdit->id
+            'start' => $startSecond,
+            'end' => $startSecond->clone()->addDays(2),
+            'whole_day' => true,
+            'event_type_id' => $this->firstEventType->id,
+            'creator_id' => $this->eventEdit->id,
+            'last_updater_id' => $this->eventEdit->id,
         ]);
     }
 }

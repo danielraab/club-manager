@@ -71,7 +71,7 @@ return [
     */
 
     'timezone' => 'UTC',
-    'displayed_timezone' => env("APP_DISPLAYED_TIMEZONE", "UTC"),
+    'displayed_timezone' => env('APP_DISPLAYED_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +169,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\CarbonProvider::class
+        App\Providers\CarbonProvider::class,
     ])->toArray(),
 
     /*

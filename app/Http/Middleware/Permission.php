@@ -18,7 +18,7 @@ class Permission
      */
     public function handle(Request $request, Closure $next, string $permission): Response
     {
-        if ($request->user()?->hasPermission(...explode("|", $permission))) {
+        if ($request->user()?->hasPermission(...explode('|', $permission))) {
             return $next($request);
         }
         throw new AuthorizationException();

@@ -10,8 +10,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/news', [NewsOverview::class, 'index'])
         ->name('news.index');
 });
-Route::middleware(['auth', 'permission:' . News::NEWS_EDIT_PERMISSION])->group(function () {
-    Route::get('/news/news/create', NewsCreate::class )
+Route::middleware(['auth', 'permission:'.News::NEWS_EDIT_PERMISSION])->group(function () {
+    Route::get('/news/news/create', NewsCreate::class)
         ->name('news.create');
     Route::get('/news/news/{news}', NewsEdit::class)
         ->name('news.edit');

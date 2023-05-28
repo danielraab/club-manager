@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',          [\App\Http\Controllers\Dashboard::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\Dashboard::class, 'index'])->name('home');
 Route::get('/dashboard', [\App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {

@@ -19,7 +19,6 @@ class NewsCreate extends Component
         $this->display_until = now()->addWeek()->setMinute(0)->formatDatetimeLocalInput();
     }
 
-
     /**
      * @throws ValidationException
      */
@@ -33,9 +32,9 @@ class NewsCreate extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        session()->put("message", __("News successfully added."));
+        session()->put('message', __('News successfully added.'));
 
-        $this->redirect(route("news.index"));
+        $this->redirect(route('news.index'));
     }
 
     public function render()

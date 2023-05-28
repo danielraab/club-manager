@@ -23,25 +23,28 @@ class Event extends Model
         'start',
         'end',
         'whole_day',
-        'link'
+        'link',
     ];
 
     protected $casts = [
         'start' => 'datetime',
         'end' => 'datetime',
         'enabled' => 'boolean',
-        'whole_day' => 'boolean'
+        'whole_day' => 'boolean',
     ];
 
-    public function eventType():BelongsTo {
+    public function eventType(): BelongsTo
+    {
         return $this->belongsTo(EventType::class);
     }
 
-    public function creator():BelongsTo {
+    public function creator(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function lastUpdater():BelongsTo {
+    public function lastUpdater(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 }

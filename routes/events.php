@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/events', EventOverview::class)
     ->name('event.index');
 
-Route::get('/events/ics', [EventCalendar::class, "iCalendar"])
+Route::get('/events/ics', [EventCalendar::class, 'iCalendar'])
     ->name('event.iCalendar');
-Route::get('/events/json', [EventCalendar::class, "toJson"])
+Route::get('/events/json', [EventCalendar::class, 'toJson'])
     ->name('event.json');
 
-Route::middleware(['auth', 'permission:' . Event::EVENT_EDIT_PERMISSION])->group(function () {
+Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)
         ->name('event.create');
     Route::get('/events/event/{event}', EventEdit::class)
         ->name('event.edit');
 
-    Route::get("/events/types", fn() => view("events.event-type-overview"))
-        ->name("event.type.index");
-    Route::get("/events/types/create", EventTypeCreate::class)
-        ->name("event.type.create");
-    Route::get("/events/types/{eventType}", EventTypeEdit::class)
-        ->name("event.type.edit");
+    Route::get('/events/types', fn () => view('events.event-type-overview'))
+        ->name('event.type.index');
+    Route::get('/events/types/create', EventTypeCreate::class)
+        ->name('event.type.create');
+    Route::get('/events/types/{eventType}', EventTypeEdit::class)
+        ->name('event.type.edit');
 });

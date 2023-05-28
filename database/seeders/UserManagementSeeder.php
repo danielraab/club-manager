@@ -13,6 +13,7 @@ class UserManagementSeeder extends Seeder
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
     public mixed $userShow;
+
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
@@ -27,7 +28,8 @@ class UserManagementSeeder extends Seeder
 
     }
 
-    private function addUsers() {
+    private function addUsers()
+    {
 
         /** @var User $userShow */
         $this->userShow = \App\Models\User::factory()->create([
@@ -44,5 +46,4 @@ class UserManagementSeeder extends Seeder
         ]);
         $this->userEdit->userPermissions()->attach(UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
     }
-
 }

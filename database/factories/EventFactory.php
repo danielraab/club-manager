@@ -17,6 +17,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         $start = fake()->dateTimeThisYear();
+
         return [
             'title' => fake()->text(50),
             'description' => fake()->text(100),
@@ -24,7 +25,7 @@ class EventFactory extends Factory
             'dress_code' => fake()->text(50),
             'start' => $start,
             'end' => fake()->dateTimeBetween($start),
-            'link' => fake()->url()
+            'link' => fake()->url(),
         ];
     }
 }

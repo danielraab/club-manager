@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -20,13 +21,11 @@ host('intern.mv-kematen.at')
     ->set('writable_mode', 'chmod')
     ->set('deploy_path', '~/intern.mv-kematen.at/httpdocs');
 
-
 // tasks
 task('config:cache:fix', function () {
     cd('{{release_or_current_path}}');
     run("sed -i -- 's/\/intern.mv-kematen.at\/httpdocs\//\/var\/www\/vhosts\/hosting187061.a2ea9.netcup.net\/intern.mv-kematen.at\/httpdocs\//g' ./bootstrap/cache/*");
 });
-
 
 /**
  * Main deploy task.
