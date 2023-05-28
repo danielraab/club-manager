@@ -31,12 +31,13 @@ class Dashboard extends Controller
 
     private function loadEventList()
     {
-        $eventList = Event::orderBy("start", "desc");
+        $eventList = Event::orderBy("start", "asc");
         $eventList = $eventList->where("start", '>', now());
         $eventList = $eventList->where("enabled", true);
         if (Auth::guest()) {
             $eventList = $eventList->where("logged_in_only", false);
         }
+        $eventList->limit(5);
         return $eventList->get();
     }
 }
