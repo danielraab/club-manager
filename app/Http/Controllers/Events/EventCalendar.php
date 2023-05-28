@@ -13,10 +13,14 @@ use Spatie\IcalendarGenerator\Components\Event;
 class EventCalendar extends Controller
 {
 
+    public function toJson() {
+        return $this->getEventList();
+    }
+
 
     public function iCalendar()
     {
-        return Response::make($this->getCsvString(), '200', array(
+        return Response::make($this->getCsvString(), 200, array(
             'Content-Type' => 'text/cvs',
             'Content-Disposition' => 'attachment; filename="calendar.csv"'
         ));
