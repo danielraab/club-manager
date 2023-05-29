@@ -3,7 +3,7 @@
     /** @var \App\Models\EventType $eventType */
 @endphp
 <div>
-    <div class="border border-sky-500 p-2 my-2 flex justify-between items-center">
+    <div class="border border-sky-500 px-2 py-1 my-2 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-caret-right mx-2"></i>
             <div>
