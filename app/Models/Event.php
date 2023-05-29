@@ -14,18 +14,6 @@ class Event extends Model
 
     public const EVENT_EDIT_PERMISSION = 'eventEdit';
 
-    protected $visible = [
-        'id',
-        'title',
-        'description',
-        'location',
-        'location',
-        'start',
-        'end',
-        'whole_day',
-        'link',
-    ];
-
     protected $casts = [
         'start' => 'datetime',
         'end' => 'datetime',
