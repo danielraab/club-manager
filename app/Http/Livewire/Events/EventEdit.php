@@ -24,6 +24,20 @@ class EventEdit extends Component
         $this->redirect(route('event.index'));
     }
 
+    public function saveEventCopy()
+    {
+        $this->validate();
+        $this->propToModel();
+        $this->event->creator()->associate(Auth::user());
+        $this->event->lastUpdater()->associate(Auth::user());
+
+        $this->event = $this->event->replicate();
+        $this->event->save();
+
+        session()->put('message', __('The event has been successfully created.'));
+        $this->redirect(route('event.index'));
+    }
+
     public function saveEvent()
     {
         $this->validate();

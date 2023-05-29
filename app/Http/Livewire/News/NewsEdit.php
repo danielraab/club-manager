@@ -23,6 +23,22 @@ class NewsEdit extends Component
         $this->redirect(route('news.index'));
     }
 
+    public function saveNewsCopy() {
+
+        $this->validate();
+        $this->additionalContentValidation();
+        $this->propToModel();
+
+        $this->news->creator()->associate(Auth::user());
+        $this->news->lastUpdater()->associate(Auth::user());
+
+        $this->news = $this->news->replicate();
+        $this->news->save();
+
+        session()->put('message', __('News successfully created.'));
+        $this->redirect(route('news.index'));
+    }
+
     public function saveNews()
     {
         $this->validate();
