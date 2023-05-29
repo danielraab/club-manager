@@ -19,7 +19,7 @@
     </div>
 
     <div class="flex flex-col gap-3 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-        @foreach($newsList as $news)
+        @forelse($newsList as $news)
             <div
                 class="max-w-full border border-gray-400 rounded-xl p-4 flex flex-col justify-between leading-normal">
                 <div class="mb-5">
@@ -69,7 +69,9 @@
                     @endif
                 </div>
             </div>
-        @endforeach
+        @empty
+            <span>No news to show.</span>
+        @endforelse
     </div>
     <div class="flex justify-center mt-3">
         {!! $newsList->links('vendor.pagination.paginator') !!}
