@@ -36,7 +36,7 @@ class NewsEdit extends Component
         $this->news->save();
 
         session()->put('message', __('News successfully created.'));
-        $this->redirect(route('news.index'));
+        $this->redirect(route('news.edit', ["news" => $this->news->id]));
     }
 
     public function saveNews()

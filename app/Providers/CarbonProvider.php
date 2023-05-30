@@ -31,5 +31,8 @@ class CarbonProvider extends ServiceProvider
         Carbon::macro('formatDateOnly', function () {
             return Carbon::this()->setTimezone(config('app.displayed_timezone'))->isoFormat('D. MMM YYYY');
         });
+        Carbon::macro('formatDateTimeWithSec', function () {
+            return Carbon::this()->setTimezone(config('app.displayed_timezone'))->isoFormat('D. MMM YYYY - HH:mm:ss');
+        });
     }
 }

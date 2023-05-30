@@ -35,7 +35,7 @@ class EventEdit extends Component
         $this->event->save();
 
         session()->put('message', __('The event has been successfully created.'));
-        $this->redirect(route('event.index'));
+        $this->redirect(route('event.edit', ["event" => $this->event->id]));
     }
 
     public function saveEvent()
