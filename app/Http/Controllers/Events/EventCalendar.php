@@ -54,6 +54,6 @@ class EventCalendar extends Controller
         }
         $eventList = $eventList->where('enabled', true);
 
-        return $eventList->get();
+        return $eventList->get(["id", "title", "description", "whole_day", "start", "end", "link", "location", "dress_code"]);
     }
 }
