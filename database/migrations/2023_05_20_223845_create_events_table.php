@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('event_types')->onDelete('set null');
 
+            $table->smallInteger("sort_order")->default(0);
             $table->timestamps();
         });
 
