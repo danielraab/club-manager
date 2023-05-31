@@ -16,7 +16,8 @@
         <div class="mt-4 ml-3">
             <x-input-checkbox id="enabled" name="enabled" wire:model.defer="event.enabled"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Enabled') }}
+                {{ __('Enabled') }}<i class="fa-solid fa-circle-info text-gray-500 ml-2"
+                                      title="{{__("Disabled events are not shown on the calendar export neither the json export.")}}"></i>
             </x-input-checkbox>
         </div>
 
@@ -54,7 +55,8 @@
         <div class="mt-4 ml-3">
             <x-input-checkbox id="whole_day" name="whole_day" wire:model.defer="event.whole_day"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Whole day') }}
+                {{ __('Whole day') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
+                                        title="{{__("The time will not be shown.")}}"></i>
             </x-input-checkbox>
         </div>
 
