@@ -21,6 +21,7 @@
         </div>
     </x-slot>
 
+    <x-message />
 
     <div class="flex">
         <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
@@ -69,7 +70,7 @@
                                         <i class="fa-solid fa-toggle-on text-base"></i>
                                     </button>
                                 @else
-                                    <button type="button" title="Disable this event" class="text-red-500"
+                                    <button type="button" title="Enable this event" class="text-red-500"
                                             wire:click="toggleEnabledState({{$event->id}})">
                                         <i class="fa-solid fa-toggle-off text-base"></i>
                                     </button>
@@ -90,5 +91,25 @@
         {!! $eventList->links('vendor.livewire.paginator') !!}
     </div>
 
+    @if($hasEditPermission)
+
+        <div x-data="{clickCnt: 0, onClick(btn) {
+                if(this.clickCnt > 0) {
+                    btn.disabled = true;
+                    $wire.disableLastYearEvents();
+                } else {
+                    this.clickCnt++;
+                    btn.innerHTML = 'Are you sure?';
+                }
+            }}"
+             class="flex flex-col sm:flex-row gap-3 my-3 bg-white overflow-hidden items-center shadow-sm sm:rounded-lg p-6">
+            <x-default-button
+                x-on:click="onClick($el)" title="Disable all events older than this year."
+                class="btn-danger">{{ __('Disable last years events') }}</x-default-button>
+            @if(session()->has("eventDisableMessage"))
+                <span class="text-gray-700">{{session()->pull("eventDisableMessage")}}</span>
+            @endif
+        </div>
+    @endif
 
 </div>

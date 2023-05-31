@@ -29,6 +29,13 @@ class EventOverview extends Component
         }
     }
 
+    public function disableLastYearEvents()
+    {
+        $cnt = Event::where("end", "<", now()->setMonth(0)->setDay(0)->setTime(0,0,0))
+            ->update(["enabled"=> false]);
+        session()->flash("eventDisableMessage", __("Done. :cnt Event(s) affected.",["cnt"=>$cnt]));
+    }
+
     public function render()
     {
         return view('livewire.events.event-overview', [
