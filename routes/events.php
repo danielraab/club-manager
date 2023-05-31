@@ -16,6 +16,8 @@ Route::get('/events/ics', [EventCalendar::class, 'iCalendar'])
     ->name('event.iCalendar');
 Route::get('/events/json', [EventCalendar::class, 'toJson'])
     ->name('event.json');
+Route::get('/events/next', [EventCalendar::class, 'next'])
+    ->name('event.next');
 
 Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)

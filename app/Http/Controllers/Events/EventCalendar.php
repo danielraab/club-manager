@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Spatie\IcalendarGenerator\Components\Calendar;
@@ -53,6 +54,23 @@ class EventCalendar extends Controller
             $eventList = $eventList->where('logged_in_only', false);
         }
         $eventList = $eventList->where('enabled', true);
+
+        return $eventList->get(["id", "title", "description", "whole_day", "start", "end", "link", "location", "dress_code"]);
+    }
+
+    public function next(Request $request) {
+        if(validator($request->query(), ["limit" => ["nullable", "int"]])->fails()) {
+            abort(400);
+        }
+
+        $eventList = \App\Models\Event::orderBy('start', 'asc');
+        if (Auth::guest()) {
+            $eventList = $eventList->where('logged_in_only', false);
+        }
+        $eventList = $eventList->where('enabled', true)->where("end", ">", now());
+        if($limit = $request->query("limit")) {
+            $eventList = $eventList->limit($limit);
+        }
 
         return $eventList->get(["id", "title", "description", "whole_day", "start", "end", "link", "location", "dress_code"]);
     }
