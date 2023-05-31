@@ -53,10 +53,15 @@
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
                     <td class="border px-1 min-w-[150px]">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                     <td class="border px-2">
+                        <span class="text-sm text-gray-600 mr-1">
+                        @if($event->link)
+                            <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                        @endif
                         @if($hasEditPermission && $event->logged_in_only)
-                            <i class="fa-solid fa-arrow-right-to-bracket text-sm text-gray-600 mr-2"
+                            <i class="fa-solid fa-arrow-right-to-bracket"
                                title="{{__("Visible only for logged in users")}}"></i>
                         @endif
+                        </span>
                         {{$event->title}}
                     </td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
