@@ -33,7 +33,6 @@ trait EventTypeTrait
         $this->propToModel();
         $this->eventType->save();
 
-        session()->put('message', $message);
-        $this->redirect(route('event.type.index'));
+        back()->with('message', $message);
     }
 }

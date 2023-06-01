@@ -45,8 +45,7 @@ class EventEdit extends Component
         $this->event->lastUpdater()->associate(Auth::user());
         $this->event->save();
 
-        session()->put('message', __('The event has been successfully updated.'));
-        $this->redirect(route('event.index'));
+        return back()->with('message', __('The event has been successfully updated.'));
     }
 
     public function render()

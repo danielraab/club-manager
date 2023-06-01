@@ -34,9 +34,8 @@ class UserCreate extends Component
             $this->getSelectedPermissionKeys()
         );
 
-        session()->put('message', __("User '".$this->user->name."' created successfully."));
         Log::channel('userManagement')->info("User '".$this->user->getNameWithMail()."' has been created by '".auth()->user()->getNameWithMail()."'");
-        $this->redirect(route('userManagement.index'));
+        return back()->with('message', __("User '".$this->user->name."' created successfully."));
     }
 
     public function render()

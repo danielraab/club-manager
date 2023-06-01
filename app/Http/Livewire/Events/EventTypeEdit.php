@@ -23,8 +23,7 @@ class EventTypeEdit extends Component
     public function deleteEventType()
     {
         $this->eventType->delete();
-        session()->put('message', __('The event type has been successfully deleted.'));
-        $this->redirect(route('event.type.index'));
+        return back()->with('message', __('The event type has been successfully deleted.'));
     }
 
     public function render()

@@ -32,9 +32,7 @@ class NewsCreate extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        session()->put('message', __('News successfully added.'));
-
-        $this->redirect(route('news.index'));
+        return back()->with('message', __('News successfully added.'));
     }
 
     public function render()

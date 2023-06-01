@@ -48,9 +48,7 @@ class NewsEdit extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        session()->put('message', __('News successfully updated.'));
-
-        $this->redirect(route('news.index'));
+        return back()->with('message', __('News successfully updated.'));
     }
 
     public function render()
