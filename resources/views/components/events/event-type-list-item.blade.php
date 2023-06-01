@@ -2,8 +2,8 @@
 @php
     /** @var \App\Models\EventType $eventType */
 @endphp
-<div>
-    <div class="border border-sky-500 px-2 py-1 my-2 flex justify-between items-center">
+<div {{$attributes}}>
+    <div class="border border-sky-500 px-2 py-1 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-caret-right mx-2"></i>
             <div>
@@ -20,7 +20,8 @@
         </x-button-link>
     </div>
     @php($children = $eventType->children()->get())
-    @if($children)
+
+    @if($children->isNotEmpty())
         <div class="ml-10">
             @foreach($children as $child)
                 <x-events.event-type-list-item :eventType="$child"/>

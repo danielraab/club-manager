@@ -24,7 +24,7 @@ class EventType extends Model
     public static function getLeveledList(): array
     {
         $orderedArr = [];
-        foreach (EventType::query()->whereNull('parent_id')->get() as $eventType) {
+        foreach (EventType::getTopLevelQuery()->get() as $eventType) {
 
             self::addEventTypeToArray($eventType, $orderedArr);
         }
@@ -43,5 +43,10 @@ class EventType extends Model
         foreach ($eventType->children()->get() as $child) {
             self::addEventTypeToArray($child, $eventTypeArr, $level + 1);
         }
+    }
+
+    public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()->whereNull("parent_id")->orderBy("sort_order")->orderBy("title");
     }
 }

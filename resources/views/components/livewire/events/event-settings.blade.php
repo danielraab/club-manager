@@ -67,7 +67,7 @@
                     wire:model.defer="type"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
-                @foreach(\App\Models\EventType::query()->whereNull("parent_id")->get() as $eventType)
+                @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
                     <x-events.event-type-select-option :eventType="$eventType"  />
                 @endforeach
             </select>
