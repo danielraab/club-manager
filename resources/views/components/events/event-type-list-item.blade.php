@@ -14,10 +14,13 @@
             </div>
         </div>
 
-        <x-button-link href="{{route('event.type.edit', $eventType->id)}}" title="Edit this event type"
-                       class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-        </x-button-link>
+        <div class="mx-2 flex gap-2 items-center">
+            <span class="text-gray-500" title="{{__("enabled events")}}">{{$eventType->events()->where("enabled", true)->count()}}</span>
+            <x-button-link href="{{route('event.type.edit', $eventType->id)}}" title="Edit this event type"
+                           class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </x-button-link>
+        </div>
     </div>
     @php($children = $eventType->children()->get())
 

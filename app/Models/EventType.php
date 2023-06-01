@@ -49,4 +49,8 @@ class EventType extends Model
     {
         return self::query()->whereNull("parent_id")->orderBy("sort_order")->orderBy("title");
     }
+
+    public function events(): HasMany {
+        return $this->hasMany(Event::class);
+    }
 }

@@ -24,10 +24,42 @@
     </div>
 
 
-    <div class="flex justify-center">
+    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
 
         <x-livewire.events.event-type-content :eventType="$eventType"/>
 
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+            <section>
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{ __('Statistic') }}
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __("Some event statistics.") }}
+                    </p>
+                </header>
+                <div class="my-3">
+                    <ul class="list-disc ml-4">
+                        <li>
+                            <span class="font-bold">{{__("over all")}}:</span>
+                            <span>{{$eventType->events()->count()}}</span>
+                        </li>
+                        <li>
+                            <span class="font-bold">{{__("only internal")}}:</span>
+                            <span>{{$eventType->events()->where("logged_in_only", true)->count()}}</span>
+                        </li>
+                        <li>
+                            <span class="font-bold">{{__("enabled")}}:</span>
+                            <span>{{$eventType->events()->where("enabled", true)->count()}}</span>
+                        </li>
+                        <li class="ml-4">
+                            <span class="font-bold">{{__("future enabled")}}:</span>
+                            <span>{{$eventType->events()->where("enabled", true)->where("end", ">", now())->count()}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </div>
 
 </div>

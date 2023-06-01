@@ -1,5 +1,5 @@
 
-<div class="bg-white shadow-sm sm:rounded-lg p-4 w-1/2">
+<div class="bg-white shadow-sm sm:rounded-lg p-4">
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900">
