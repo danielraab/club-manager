@@ -16,7 +16,7 @@ class NewsCreate extends Component
         $this->news = new News();
         $this->news->enabled = true;
         $this->news->logged_in_only = false;
-        $this->display_until = now()->addWeek()->setMinute(0)->formatDatetimeLocalInput();
+        $this->display_until = now()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
     }
 
