@@ -61,7 +61,7 @@
         </div>
 
 {{--        event type--}}
-        <div>
+        <div class="mb-5">
             <x-input-label for="type" :value="__('Type')"/>
             <select id="type" name="type"
                     wire:model.defer="type"
@@ -78,7 +78,7 @@
 
 
     @if($event && $event->creator)
-            <div  class="text-gray-500 mt-10 ml-3">
+            <div  class="text-gray-500 mt-3 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
                 <span title="{{__("Creator")}}">{{$event->creator->name}}</span> -
                 <span title="{{__("Created at")}}">{{$event->created_at?->formatDateTimeWithSec()}}</span>
@@ -86,7 +86,7 @@
         @endif
 
         @if($event && $event->lastUpdater)
-            <div  class="text-gray-500 mt-1 ml-3">
+            <div  class="text-gray-500 mt-3 ml-3">
                 <i class="fa-solid fa-pencil"></i>
                 <span title="{{__("Last updater")}}">{{ $event->lastUpdater->name }}</span> -
                 <span title="{{__("Updated at")}}">{{$event->updated_at?->formatDateTimeWithSec()}}</span>
