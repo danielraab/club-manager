@@ -14,7 +14,7 @@
 
         <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
             <p class="font-bold">{{$news->title}}</p>
-            <p class="text-sm">{{$news->content}}</p>
+            <p class="text-sm">{!! $news->content !!}</p>
         </div>
 
     @empty
