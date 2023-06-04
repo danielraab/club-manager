@@ -11,6 +11,7 @@ trait NewsTrait
     public News $news;
 
     public string $display_until;
+    public string $previousUrl;
 
     protected array $rules = [
         'news.title' => ['nullable', 'string', 'max:255'],

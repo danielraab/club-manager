@@ -8,6 +8,7 @@ use Carbon\Carbon;
 trait EventTrait
 {
     public Event $event;
+    public string $previousUrl;
 
     public string $start;
 
@@ -31,9 +32,11 @@ trait EventTrait
 
     public function updatingStart($updatedValue): void
     {
-        if ($updatedValue > $this->end) {
-            $this->end = $updatedValue;
-        }
+        /** @var Carbon $oldStart */
+        $oldStart = Carbon::parseFromDatetimeLocalInput($this->start);
+        $oldEnd = Carbon::parseFromDatetimeLocalInput($this->end);
+        $diff = $oldStart->diff($oldEnd);
+        $this->end = Carbon::parseFromDatetimeLocalInput($updatedValue)->add($diff)->formatDatetimeLocalInput();
     }
 
     public function updatingEnd($updatedValue): void

@@ -17,6 +17,7 @@ class NewsCreate extends Component
         $this->news->enabled = true;
         $this->news->logged_in_only = false;
         $this->display_until = now()->addWeek()->setMinute(0)->formatDatetimeLocalInput();
+        $this->previousUrl = url()->previous();
     }
 
     /**
@@ -32,7 +33,8 @@ class NewsCreate extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        return back()->with('message', __('News successfully added.'));
+        session()->push('message', __('News successfully added.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

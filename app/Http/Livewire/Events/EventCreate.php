@@ -16,9 +16,10 @@ class EventCreate extends Component
         $this->event->enabled = true;
         $this->event->logged_in_only = false;
         $this->event->whole_day = false;
-        $initial = now()->addWeek()->setMinute(0)->setSecond(0);
+        $initial = now()->setMinute(0)->setSecond(0);
         $this->start = $initial->formatDatetimeLocalInput();
         $this->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
+        $this->previousUrl = url()->previous();
     }
 
     public function saveEvent()
@@ -29,7 +30,8 @@ class EventCreate extends Component
         $this->event->lastUpdater()->associate(Auth::user());
         $this->event->save();
 
-        return back()->with('message', __('The event has been successfully created.'));
+        session()->put('message', __('The event has been successfully created.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

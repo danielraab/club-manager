@@ -14,13 +14,14 @@ class NewsEdit extends Component
     {
         $this->news = $news;
         $this->display_until = $news->display_until->formatDatetimeLocalInput();
+        $this->previousUrl = url()->previous();
     }
 
     public function deleteNews()
     {
         $this->news->delete();
         session()->put('message', __('The news has been successfully deleted.'));
-        $this->redirect(route('news.index'));
+        return redirect($this->previousUrl);
     }
 
     public function saveNewsCopy() {
@@ -48,7 +49,8 @@ class NewsEdit extends Component
         $this->news->lastUpdater()->associate(Auth::user());
 
         $this->news->save();
-        return back()->with('message', __('News successfully updated.'));
+        session()->put('message', __('News successfully updated.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

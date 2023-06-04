@@ -12,11 +12,11 @@ class EventTypeCreate extends Component
     public function mount()
     {
         $this->eventType = new EventType();
+        $this->previousUrl = url()->previous();
     }
 
     public function saveEventType()
     {
-
         $this->saveEventTypeWithMessage(__('The event type has been successfully created.'));
     }
 

@@ -12,18 +12,19 @@ class EventTypeEdit extends Component
     {
         $this->eventType = $eventType;
         $this->parent = $this->eventType->parent()->first()?->id;
+        $this->previousUrl = url()->previous();
     }
 
     public function saveEventType()
     {
-
         $this->saveEventTypeWithMessage(__('The event type has been successfully updated.'));
     }
 
     public function deleteEventType()
     {
         $this->eventType->delete();
-        return back()->with('message', __('The event type has been successfully deleted.'));
+        session()->put('message', __('The event type has been successfully deleted.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

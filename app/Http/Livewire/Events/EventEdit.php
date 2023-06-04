@@ -15,13 +15,14 @@ class EventEdit extends Component
         $this->start = $this->event->start->formatDatetimeLocalInput();
         $this->end = $this->event->end->formatDatetimeLocalInput();
         $this->type = $this->event->eventType?->id;
+        $this->previousUrl = url()->previous();
     }
 
     public function deleteEvent()
     {
         $this->event->delete();
         session()->put('message', __('The event has been successfully deleted.'));
-        $this->redirect(route('event.index'));
+        return redirect($this->previousUrl);
     }
 
     public function saveEventCopy()
@@ -45,7 +46,8 @@ class EventEdit extends Component
         $this->event->lastUpdater()->associate(Auth::user());
         $this->event->save();
 
-        return back()->with('message', __('The event has been successfully updated.'));
+        session()->put('message', __('The event has been successfully updated.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

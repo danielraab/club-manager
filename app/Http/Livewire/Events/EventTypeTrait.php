@@ -7,6 +7,7 @@ use App\Models\EventType;
 trait EventTypeTrait
 {
     public EventType $eventType;
+    public string $previousUrl;
 
     public ?string $parent = null;
 
@@ -27,12 +28,13 @@ trait EventTypeTrait
         }
     }
 
-    protected function saveEventTypeWithMessage(string $message): void
+    protected function saveEventTypeWithMessage(string $message): \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Foundation\Application
     {
         $this->validate();
         $this->propToModel();
         $this->eventType->save();
 
-        back()->with('message', $message);
+        session()->put('message', $message);
+        return redirect($this->previousUrl);
     }
 }
