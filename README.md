@@ -1,4 +1,4 @@
-# club scheduler
+# club manager
 
 ## install repo
 
