@@ -4,10 +4,10 @@
 
 <div>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-wrap gap-3 justify-between items-center">
             <span>{{ __('Event Overview') }}</span>
             @if($hasEditPermission)
-                <div class="flex flex-wrap justify-center gap-2">
+                <div class="flex flex-wrap justify-end gap-2 w-full sm:w-auto">
                     <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
                                    title="Show event type list">
                         {{__("Event Type List")}}
@@ -65,8 +65,7 @@
                     <td class="border px-2">{{$event->eventType?->title}}</td>
                     @if($hasEditPermission)
                         <td class="border px-2 min-w-[70px]">
-                            <div
-                            >
+                            <div class="flex gap-2">
                                 @if($event->enabled)
                                     <button type="button" title="{{__("Disable this event")}}" class="text-green-600"
                                             wire:click="toggleEnabledState({{$event->id}})">

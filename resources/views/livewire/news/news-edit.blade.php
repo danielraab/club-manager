@@ -6,7 +6,7 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-2 items-center justify-between">
             <x-default-button
                 x-data="{ clickCnt: 0, onClick() {
                 if(this.clickCnt > 0) {
@@ -18,7 +18,7 @@
             }}"
                 x-on:click="onClick()" title="Delete this news"
                 class="btn-danger">{{ __('Delete news') }}</x-default-button>
-            <div class="flex flex-wrap gap-2 justify-center">
+            <div class="flex flex-wrap gap-2 justify-end w-full sm:w-auto">
                 <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white" wire:click="saveNewsCopy"
                                   title="Save copy of the news">{{ __('Save copy') }}</x-default-button>
                 <x-default-button class="btn-primary" wire:click="saveNews"
