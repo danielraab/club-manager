@@ -28,10 +28,20 @@ class EventCreate extends Component
         $this->propToModel();
         $this->event->creator()->associate(Auth::user());
         $this->event->lastUpdater()->associate(Auth::user());
-        $this->event->save();
+        $this->event->replicate()->save();
 
         session()->put('message', __('The event has been successfully created.'));
         return redirect($this->previousUrl);
+    }
+
+    public function saveEventAndStay() {
+        $this->validate();
+        $this->propToModel();
+        $this->event->creator()->associate(Auth::user());
+        $this->event->lastUpdater()->associate(Auth::user());
+        $this->event->replicate()->save();
+
+        session()->flash("savedAndStayMessage", __("New event created."));
     }
 
     public function render()
