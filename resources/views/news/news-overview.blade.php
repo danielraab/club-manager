@@ -8,7 +8,7 @@
             @if($hasEditPermission)
                 <x-button-link href="{{route('news.create')}}" class="btn-success"
                                title="Create new news">
-                    {{__("Add new news")}}
+                    {{__("Create new news")}}
                 </x-button-link>
             @endif
         </div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <p class="text-gray-700 text-base">
-                        {!! strlen($news->content) > 200 ? substr($news->content, 0,150) . " ..." : $news->content !!}
+                        {{ strlen($news->content) > 200 ? substr($news->content, 0,150) . " ..." : $news->content }}
                     </p>
                 </div>
                 <div class="flex items-center justify-between">
