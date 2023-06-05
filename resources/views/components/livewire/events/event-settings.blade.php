@@ -12,8 +12,24 @@
 
     <div class="mt-6">
 
+
+        {{--        event type--}}
+        <div class="my-4">
+            <x-input-label for="type" :value="__('Type')"/>
+            <select id="type" name="type"
+                    wire:model.defer="type"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                <option value=""></option>
+                @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
+                    <x-events.event-type-select-option :eventType="$eventType"  />
+                @endforeach
+            </select>
+            @error('type')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
         <!-- Enabled -->
-        <div class="mt-4 ml-3">
+        <div class="ml-3">
             <x-input-checkbox id="enabled" name="enabled" wire:model.defer="event.enabled"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Enabled') }}<i class="fa-solid fa-circle-info text-gray-500 ml-2"
@@ -52,27 +68,12 @@
 
 
         <!-- whole day -->
-        <div class="mt-4 ml-3">
+        <div class="mt-4 mb-4 ml-3">
             <x-input-checkbox id="whole_day" name="whole_day" wire:model.defer="event.whole_day"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Whole day') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                         title="{{__("The time will not be shown.")}}"></i>
             </x-input-checkbox>
-        </div>
-
-{{--        event type--}}
-        <div class="mb-5">
-            <x-input-label for="type" :value="__('Type')"/>
-            <select id="type" name="type"
-                    wire:model.defer="type"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
-                <option value=""></option>
-                @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
-                    <x-events.event-type-select-option :eventType="$eventType"  />
-                @endforeach
-            </select>
-            @error('type')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
 
@@ -86,7 +87,7 @@
         @endif
 
         @if($event && $event->lastUpdater)
-            <div  class="text-gray-500 mt-3 ml-3">
+            <div  class="text-gray-500 mt-2 ml-3">
                 <i class="fa-solid fa-pencil"></i>
                 <span title="{{__("Last updater")}}">{{ $event->lastUpdater->name }}</span> -
                 <span title="{{__("Updated at")}}">{{$event->updated_at?->formatDateTimeWithSec()}}</span>
