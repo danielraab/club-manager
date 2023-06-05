@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Event Overview') }}</span>
             @if($hasEditPermission)
-                <div class="flex flex-wrap justify-center">
+                <div class="flex flex-wrap justify-center gap-2">
                     <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
                                    title="Show event type list">
                         {{__("Event Type List")}}

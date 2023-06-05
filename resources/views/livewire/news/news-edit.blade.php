@@ -18,7 +18,7 @@
             }}"
                 x-on:click="onClick()" title="Delete this news"
                 class="btn-danger">{{ __('Delete news') }}</x-default-button>
-            <div>
+            <div class="flex flex-wrap gap-2 justify-center">
                 <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white" wire:click="saveNewsCopy"
                                   title="Save copy of the news">{{ __('Save copy') }}</x-default-button>
                 <x-default-button class="btn-primary" wire:click="saveNews"
