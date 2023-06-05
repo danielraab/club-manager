@@ -7,14 +7,14 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Event Overview') }}</span>
             @if($hasEditPermission)
-                <div>
+                <div class="flex flex-wrap justify-center">
                     <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
                                    title="Show event type list">
                         {{__("Event Type List")}}
                     </x-button-link>
                     <x-button-link href="{{route('event.create')}}" class="btn-success"
                                    title="Create new event">
-                        {{__("Add new event")}}
+                        {{__("Create new event")}}
                     </x-button-link>
                 </div>
             @endif
@@ -33,11 +33,11 @@
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
             <tr>
-                <td>start</td>
-                <td class="min-w-[150px]">title</td>
-                <td class="min-w-[150px]">type</td>
+                <td>{{__("Start")}}</td>
+                <td class="min-w-[150px]">{{__("Title")}}</td>
+                <td class="min-w-[150px]">{{__("Type")}}</td>
                 @if($hasEditPermission)
-                    <td>action</td>
+                    <td>{{__("Action")}}</td>
                 @endif
             </tr>
             </thead>
@@ -68,12 +68,12 @@
                             <div
                             >
                                 @if($event->enabled)
-                                    <button type="button" title="Disable this event" class="text-green-600"
+                                    <button type="button" title="{{__("Disable this event")}}" class="text-green-600"
                                             wire:click="toggleEnabledState({{$event->id}})">
                                         <i class="fa-solid fa-toggle-on text-base"></i>
                                     </button>
                                 @else
-                                    <button type="button" title="Enable this event" class="text-red-500"
+                                    <button type="button" title="{{__("Enable this event")}}" class="text-red-500"
                                             wire:click="toggleEnabledState({{$event->id}})">
                                         <i class="fa-solid fa-toggle-off text-base"></i>
                                     </button>

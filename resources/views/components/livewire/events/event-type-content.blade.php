@@ -32,7 +32,7 @@
 
         {{--        event type--}}
         <div>
-            <x-input-label for="eventType" :value="__('Parent Event Type')"/>
+            <x-input-label for="eventType" :value="__('Parent event type')"/>
             <select id="parent" name="parent"
                     wire:model.defer="parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
