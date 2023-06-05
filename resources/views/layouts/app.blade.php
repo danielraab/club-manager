@@ -29,7 +29,7 @@
             <main>
                 {{ $slot }}
             </main>
-            <footer class="text-center text-gray-500">
+            <footer class="text-center text-gray-500 pb-3">
                 <i class="fa-regular fa-copyright"></i>
                 <span>draab.at - {{config("app.version")}}</span>
             </footer>
