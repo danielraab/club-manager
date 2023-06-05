@@ -26,6 +26,9 @@
     "short description": "Kurzbeschreibung",
     "Save current changes": "Aktuelle Änderungen speichern",
     "Save the current changes": "Aktuelle Änderungen speichern",
+    "Save and stay": "Speichern und bleiben",
+
+
 
     "Save": "Speichern",
     "Save copy": "Kopie Speichern",
@@ -92,7 +95,7 @@
     "Events": "Veranstaltungen",
     "Delete event": "Veranstaltung löschen",
     "Event Overview": "Veranstaltungsübersicht",
-    "Enter basic information for the event.": "Veranstaltungsinformationen bearbeiten.",
+    "Enter basic information for the event.": "Veranstaltungsinformationen eingeben.",
     "Disable this event": "Diese Veranstaltung deaktivieren",
     "Enable this event": "Diese Veranstaltung aktivieren",
     "Edit this event": "Diese Veranstaltung bearbeiten",
@@ -117,5 +120,7 @@
     "Delete event type": "Veranstaltungsart löschen",
     "Delete this event type": "Diese Veranstaltungsart löschen",
     "Disable all events older than this year.": "Alle Veranstaltungen älter als dieses Jahr deaktivieren.",
-    "Some event statistics.": "Veranstaltungsstatistik"
+    "Some event statistics.": "Veranstaltungsstatistik",
+    "New event created.": "Neue Veranstaltung wurde erstellt.",
+    "Create new event and stay on this site": "Neue Veranstaltung erstellen und auf dieser Seite bleiben."
 }

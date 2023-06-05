@@ -12,7 +12,7 @@
         @endif
         <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                           wire:click="saveEventAndStay"
-                          title="Save event and stay on this site">{{ __('Save and stay') }}</x-default-button>
+                          title="Create new event and stay on this site">{{ __('Save and stay') }}</x-default-button>
         <x-default-button class="btn-primary" wire:click="saveEvent"
                           title="Create new event">{{ __('Save') }}</x-default-button>
     </div>
