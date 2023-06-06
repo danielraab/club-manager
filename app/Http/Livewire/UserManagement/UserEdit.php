@@ -11,6 +11,7 @@ class UserEdit extends Component
     use UserPermissionComponentTrait;
 
     public User $user;
+    public string $previousUrl;
 
     protected function rules()
     {
@@ -25,6 +26,7 @@ class UserEdit extends Component
     {
         $this->user = $user;
         $this->fillPermissionArr($user);
+        $this->previousUrl = url()->previous();
     }
 
     public function saveUser()
@@ -38,7 +40,8 @@ class UserEdit extends Component
 
         Log::channel('userManagement')
             ->info("User '".$this->user->getNameWithMail()."' has been edited by '".auth()->user()->getNameWithMail()."'");
-        return back()->with('message', __("User '".$this->user->name."' saved successfully."));
+        session()->put('message', __("User '".$this->user->name."' saved successfully."));
+        return redirect($this->previousUrl);
     }
 
     public function deleteUser()
