@@ -21,6 +21,7 @@
                 <td class="px-4 py-2">Name</td>
                 <td class="px-4 py-2">eMail</td>
                 <td class="px-4 py-2">{{__("Permissions")}}</td>
+                <td class="px-4 py-2">{{__("Last login")}}</td>
             </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                             @endforeach
                         </ul>
                     </td>
+                    <td class="border px-4 py-2">{{$user->last_login_at?->formatDateTimeWithSec()}}</td>
                     @if($hasEditPermission)
                         <td class="border">
                             <x-button-link href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
