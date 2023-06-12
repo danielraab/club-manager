@@ -52,13 +52,13 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->timestamps();
-
-            UserPermission::create([
-                'id' => Event::EVENT_EDIT_PERMISSION,
-                'label' => 'Create, edit and delete events and event types',
-                'is_default' => false,
-            ]);
         });
+
+        UserPermission::create([
+            'id' => Event::EVENT_EDIT_PERMISSION,
+            'label' => 'Create, edit and delete events and event types',
+            'is_default' => false,
+        ]);
     }
 
     /**
