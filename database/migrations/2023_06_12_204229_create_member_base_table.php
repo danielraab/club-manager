@@ -54,7 +54,8 @@ return new class extends Migration
         Schema::create('member_member_group', function (Blueprint $table) {
             $table->foreignIdFor(Member::class, 'member_id');
             $table->foreignIdFor(MemberGroup::class, 'member_group_id');
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')
+                ->on('members')->onDelete('cascade');
             $table->foreign('member_group_id')->references('id')
                 ->on('member_groups')->onDelete('cascade');
         });

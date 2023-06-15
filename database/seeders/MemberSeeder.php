@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Event;
 use App\Models\Member;
 use App\Models\MemberGroup;
 use App\Models\User;
-use Database\Factories\MemberGroupFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;

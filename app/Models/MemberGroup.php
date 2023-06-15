@@ -20,6 +20,17 @@ class MemberGroup extends Model
         'sort_order',
     ];
 
+
+    public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()->whereNull("parent_id")->orderBy("sort_order")->orderBy("title");
+    }
+
+    public static function getLeafQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()->whereNotNull("parent_id")->orderBy("sort_order")->orderBy("title");
+    }
+
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(Member::class);
