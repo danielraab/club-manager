@@ -54,7 +54,12 @@ class MemberSeeder extends Seeder
 
     private function addMemberGroups(): void
     {
+        MemberGroup::factory(2)->create();
         $this->memberGroupCollection = MemberGroup::factory(self::MEMBER_GROUP_CNT)->create();
+
+        $this->memberGroupCollection->each(function(MemberGroup $memberGroup) {
+            $memberGroup->parent()->associate(fake()->numberBetween(1,2))->save();
+        });
     }
 
     private function addMembers(): void
@@ -65,7 +70,7 @@ class MemberSeeder extends Seeder
         ]);
         $coll->each(function(Member $member) {
             $member->memberGroups()->attach(
-                fake()->numberBetween(2, self::MEMBER_GROUP_CNT));
+                fake()->numberBetween(3, self::MEMBER_GROUP_CNT+2));
         });
 
         $coll = Member::factory(10)->create([
@@ -73,9 +78,9 @@ class MemberSeeder extends Seeder
             "last_updater_id" => $this->memberEdit->id
         ]);
         $coll->each(function(Member $member) {
-            $member->memberGroups()->attach(1);
+            $member->memberGroups()->attach(3);
             $member->memberGroups()->attach(
-                fake()->numberBetween(2, self::MEMBER_GROUP_CNT));
+                fake()->numberBetween(4, self::MEMBER_GROUP_CNT+2));
         });
     }
 }
