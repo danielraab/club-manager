@@ -11,6 +11,14 @@
         {{ __('News') }}
     </x-nav-link>
 
+    <!-- Member -->
+    @if(Auth::user()->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION, \App\Models\Member::MEMBER_EDIT_PERMISSION))
+        <x-nav-link :href="route('member.index')"
+                    :active="request()->routeIs('member.index')">
+            {{ __('Members') }}
+        </x-nav-link>
+    @endif
+
     <!-- User Management -->
     @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW_PERMISSION, \App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION))
         <x-nav-link :href="route('userManagement.index')"
