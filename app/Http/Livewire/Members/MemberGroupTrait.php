@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Members;
 
+use App\Models\Member;
 use App\Models\MemberGroup;
+use App\Models\UserPermission;
 
 trait MemberGroupTrait
 {
@@ -10,12 +12,29 @@ trait MemberGroupTrait
     public string $previousUrl;
 
     public ?string $parent = null;
+    public array $memberSelection = [];
+    protected function rules()
+    {
+        return[
+            'memberGroup.title' => ['required', 'string', 'max:255'],
+            'memberGroup.description' => ['nullable', 'string'],
+            'parent' => ['nullable', 'int', 'exists:member_groups,id'],
+            'memberSelection' => ['array', 'nullable',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    self::memberSelectionCheck($attribute, $value, $fail);
+                }]
+        ];
+    }
 
-    protected array $rules = [
-        'memberGroup.title' => ['required', 'string', 'max:255'],
-        'memberGroup.description' => ['nullable', 'string'],
-        'parent' => ['nullable', 'int', 'exists:member_groups,id'],
-    ];
+    private static function memberSelectionCheck(string $attribute, mixed $value, \Closure $fail): void
+    {
+        if (is_array($value)) {
+            $possibleMembers = Member::all('id')->pluck('id')->toArray();
+            if (count(array_diff($value, $possibleMembers)) > 0) {
+                $fail('Some selected members are not valid. Please refresh the page and try again.');
+            }
+        }
+    }
 
     public function propToModel()
     {
@@ -32,6 +51,8 @@ trait MemberGroupTrait
         $this->validate();
         $this->propToModel();
         $this->memberGroup->save();
+
+        $this->memberGroup->members()->sync(array_unique($this->memberSelection));
 
         session()->put('message', $message);
         return redirect($this->previousUrl);

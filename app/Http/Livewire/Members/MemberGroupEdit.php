@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Members;
 
+use Illuminate\Support\Arr;
 use Livewire\Component;
 
 class MemberGroupEdit extends Component
@@ -12,6 +13,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroup = $memberGroup;
         $this->parent = $this->memberGroup->parent()->first()?->id;
+        $this->memberSelection = Arr::pluck($this->memberGroup->members()->getResults(), "id");
         $this->previousUrl = url()->previous();
     }
 
