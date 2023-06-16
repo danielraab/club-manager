@@ -37,8 +37,8 @@
                     wire:model.defer="parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
-                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                    <x-members.member-group-select-option :memberGroup="$memberGroup" :currentEditingMemberGroup="$memberGroup" />
+                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
+                    <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" :currentEditingMemberGroup="$memberGroup" />
                 @endforeach
             </select>
             @error('parent')
