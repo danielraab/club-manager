@@ -32,7 +32,16 @@
             </thead>
             <tbody>
             @foreach($members as $member)
-                <tr class="[&:nth-child(2n)]:bg-indigo-200">
+                @php
+                    $rowBg = "bg-sky-200";
+                    if($member->entrance_date === null) {
+                        $rowBg = "bg-red-200";
+                    } elseif($member->entrance_date > now() ||
+                     ($member->leaving_date && $member->leaving_date < now())) {
+                        $rowBg = "bg-gray-300";
+                    }
+                @endphp
+                <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
                     <td class="border px-4 py-2">{{ $member->lastname }} {{ $member->firstname }}</td>
                     <td class="border px-4 py-2">{{ $member->birthday }}</td>
                     <td class="border px-4 py-2">{{ $member->email }}</td>

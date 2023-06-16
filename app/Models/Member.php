@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,6 +29,21 @@ class Member extends Model
         'entrance_date',
         'leaving_date',
     ];
+
+    protected $casts = [
+        'entrance_date' => 'datetime',
+        'leaving_date' => 'datetime',
+    ];
+
+
+    public static function allActive()
+    {
+        return self::query()->where("entrance_date", "<", now())
+            ->where(function (Builder $query) {
+                $query->whereNull("leaving_date")
+                    ->orWhere("leaving_date", ">", now());
+            })->orderBy("lastname")->orderBy("firstname");
+    }
 
     public function creator(): BelongsTo
     {
