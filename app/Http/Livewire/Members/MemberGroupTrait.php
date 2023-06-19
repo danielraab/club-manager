@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Members;
 
 use App\Models\Member;
 use App\Models\MemberGroup;
-use App\Models\UserPermission;
 
 trait MemberGroupTrait
 {
@@ -13,6 +12,7 @@ trait MemberGroupTrait
 
     public ?string $parent = null;
     public array $memberSelection = [];
+
     protected function rules()
     {
         return[

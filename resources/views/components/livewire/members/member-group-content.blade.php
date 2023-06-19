@@ -34,7 +34,7 @@
         <div>
             <x-input-label for="memberGroup" :value="__('Parent member group')"/>
             <select id="parent" name="parent"
-                    wire:model.defer="parent"
+                    wire:model.lazy="parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
