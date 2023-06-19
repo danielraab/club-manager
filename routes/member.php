@@ -9,17 +9,17 @@ use App\Http\Livewire\UserManagement\UserEdit;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'permission:'. Member::MEMBER_SHOW_PERMISSION.'|'.Member::MEMBER_EDIT_PERMISSION])->group(function () {
+Route::middleware(['auth', 'permission:' . Member::MEMBER_SHOW_PERMISSION . '|' . Member::MEMBER_EDIT_PERMISSION])->group(function () {
     Route::get('/members', [MemberOverview::class, 'index'])
         ->name('member.index');
-    Route::get('/members/birthdayList/csv',[MemberOverview::class, 'index'])
+    Route::get('/members/birthdayList/csv', [MemberBirthdayList::class, 'csv'])
         ->name('member.birthdayList.csv');
-    Route::get('/members/birthdayList',[MemberBirthdayList::class, 'index'])
+    Route::get('/members/birthdayList', [MemberBirthdayList::class, 'index'])
         ->name('member.birthdayList');
 });
 
-Route::middleware(['auth', 'permission:'.Member::MEMBER_EDIT_PERMISSION])->group(function () {
-    Route::get('/members/groups', fn () => view('members.member-group-overview'))
+Route::middleware(['auth', 'permission:' . Member::MEMBER_EDIT_PERMISSION])->group(function () {
+    Route::get('/members/groups', fn() => view('members.member-group-overview'))
         ->name('member.group.index');
     Route::get('/members/groups/create', MemberGroupCreate::class)
         ->name('member.group.create');
