@@ -61,7 +61,23 @@ class MemberSeeder extends Seeder
 
     private function addMembers(): void
     {
-        $coll = Member::factory(40)->create([
+        $coll = Member::factory(30)->create([
+            "leaving_date" => null,
+            "creator_id" => $this->memberEdit->id,
+            "last_updater_id" => $this->memberEdit->id
+        ]);
+        $coll->each(function(Member $member) {
+            $member->memberGroups()->attach(
+                fake()->numberBetween(3, self::MEMBER_GROUP_CNT+2));
+        });
+
+        $coll = Member::factory(10)->create([
+            "birthday" => null,
+            "phone" => null,
+            "email" => null,
+            "street" => null,
+            "zip" => null,
+            "city" => null,
             "leaving_date" => null,
             "creator_id" => $this->memberEdit->id,
             "last_updater_id" => $this->memberEdit->id

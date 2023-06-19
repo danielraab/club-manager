@@ -31,6 +31,7 @@ class Member extends Model
     ];
 
     protected $casts = [
+        'birthday' => 'date',
         'entrance_date' => 'datetime',
         'leaving_date' => 'datetime',
     ];
