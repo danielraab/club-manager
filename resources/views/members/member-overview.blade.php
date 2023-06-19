@@ -66,4 +66,14 @@
             </tbody>
         </x-always-responsive-table>
     </div>
+
+
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 p-5">
+        <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
+            <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white" href="{{route('member.birthdayList')}}"
+                              title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
+            <x-button-link class="btn-primary normal-case" href="{{route('member.birthdayList.csv')}}"
+                              title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
+        </div>
+    </div>
 </x-backend-layout>
