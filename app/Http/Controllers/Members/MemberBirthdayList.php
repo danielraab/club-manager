@@ -29,7 +29,7 @@ class MemberBirthdayList extends Controller
     {
         return Response::stream([$this, "streamCSV"], 200, [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="calendar.csv"',
+            'Content-Disposition' => 'attachment; filename="birthdayList.csv"',
         ]);
     }
 
