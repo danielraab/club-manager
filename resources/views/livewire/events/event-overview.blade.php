@@ -65,7 +65,7 @@
                     <td class="border px-2">{{$event->eventType?->title}}</td>
                     @if($hasEditPermission)
                         <td class="border px-2 min-w-[70px]">
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 justify-center">
                                 @if($event->enabled)
                                     <button type="button" title="{{__("Disable this event")}}" class="text-green-600"
                                             wire:click="toggleEnabledState({{$event->id}})">
