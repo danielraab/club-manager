@@ -34,7 +34,7 @@
 
         <div class="mt-5">
             <x-input-label for="memberGroupList" :value="__('Member groups')"/>
-            <select name="memberGroupList" id="memberGroupList" size="10" multiple
+            <select name="memberGroupList" id="memberGroupList" size="5" multiple
                     wire:model.defer="memberGroupList"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
             >
@@ -45,5 +45,22 @@
             @error('memberGroupList')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
+
+
+        @if($member && $member->created_at)
+            <div class="text-gray-500 mt-3 ml-3">
+                <i class="fa-regular fa-square-plus"></i>
+                <span title="{{__("Creator")}}">{{$member->creator?->name}}</span> -
+                <span title="{{__("Created at")}}">{{$member->created_at->formatDateTimeWithSec()}}</span>
+            </div>
+        @endif
+
+        @if($member && $member->updated_at)
+            <div class="text-gray-500 mt-2 ml-3">
+                <i class="fa-solid fa-pencil"></i>
+                <span title="{{__("Last updater")}}">{{ $member->lastUpdater?->name }}</span> -
+                <span title="{{__("Updated at")}}">{{$member->updated_at->formatDateTimeWithSec()}}</span>
+            </div>
+        @endif
     </div>
 </section>

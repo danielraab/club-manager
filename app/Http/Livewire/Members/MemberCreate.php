@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Livewire\UserManagement;
+namespace App\Http\Livewire\Members;
 
-use App\Http\Livewire\Members\MemberTrait;
 use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -15,7 +14,6 @@ class MemberCreate extends Component
     {
         $this->member = new Member();
         $this->entrance_date = now()->format("Y-m-d");
-        $this->member->creator()->associate(Auth::user());
         $this->previousUrl = url()->previous();
     }
 
@@ -27,6 +25,8 @@ class MemberCreate extends Component
         $this->member->lastUpdater()->associate(Auth::user());
         $this->member->save();
 
+        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
+
         session()->put('message', __('The member has been successfully created.'));
         return redirect($this->previousUrl);
     }
@@ -37,6 +37,8 @@ class MemberCreate extends Component
         $this->member->creator()->associate(Auth::user());
         $this->member->lastUpdater()->associate(Auth::user());
         $this->member->replicate()->save();
+
+        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
 
         session()->flash("savedAndStayMessage", __("New member successfully created. You can create the next one now."));
     }

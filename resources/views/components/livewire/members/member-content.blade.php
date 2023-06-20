@@ -64,7 +64,7 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
         <div class="flex gap-2">
-            <div class="flex-1">
+            <div class="basis-1/3">
                 <x-input-label for="zip" :value="__('Zip')"/>
                 <x-text-input id="zip" name="zip" type="number" class="mt-1 block w-full"
                               wire:model.lazy="member.zip"
@@ -72,7 +72,7 @@
                 @error('member.zip')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
-            <div>
+            <div class="basis-2/3">
                 <x-input-label for="city" :value="__('City')"/>
                 <x-text-input id="city" name="city" type="text" class="mt-1 block w-full"
                               wire:model.lazy="member.city"
