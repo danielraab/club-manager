@@ -15,7 +15,7 @@
             <x-text-input id="firstname" name="firstname" type="text" class="mt-1 block w-full"
                           wire:model.lazy="member.firstname"
                           required autofocus autocomplete="firstname"/>
-            @error('member.title')
+            @error('member.firstname')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
         <div class="mt-3">
@@ -23,12 +23,11 @@
             <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full"
                           wire:model.lazy="member.lastname"
                           required autofocus autocomplete="lastname"/>
-            @error('member.title')
+            @error('member.lastname')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        {{-- birthday --}}
-        <div class="mt-4">
+        <div class="mt-3">
             <x-input-label for="birthday" :value="__('Birthday')"/>
             <x-input-date id="birthday" name="birthday" type="text" class="mt-1 block w-full"
                               wire:model.lazy="birthday"
@@ -37,7 +36,7 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        <div>
+        <div class="mt-3">
             <x-input-label for="phone" :value="__('Phone')"/>
             <x-text-input id="phone" name="phone" type="tel" class="mt-1 block w-full"
                           wire:model.lazy="member.phone"
@@ -46,7 +45,7 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        <div>
+        <div class="mt-3">
             <x-input-label for="email" :value="__('Email')"/>
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
                           wire:model.lazy="member.email"
@@ -55,7 +54,7 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        <div>
+        <div class="mt-3">
             <x-input-label for="street" :value="__('Street')"/>
             <x-text-input id="street" name="street" type="text" class="mt-1 block w-full"
                           wire:model.lazy="member.street"
@@ -63,7 +62,7 @@
             @error('member.street')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
-        <div class="flex gap-2">
+        <div class="flex gap-2 mt-3">
             <div class="basis-1/3">
                 <x-input-label for="zip" :value="__('Zip')"/>
                 <x-text-input id="zip" name="zip" type="number" class="mt-1 block w-full"

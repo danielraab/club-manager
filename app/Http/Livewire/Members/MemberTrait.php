@@ -10,9 +10,9 @@ trait MemberTrait
 {
     public Member $member;
     public array $memberGroupList;
-    public string $birthday;
+    public ?string $birthday;
     public string $entrance_date;
-    public string $leaving_date;
+    public ?string $leaving_date;
     public string $previousUrl;
 
     protected function rules()

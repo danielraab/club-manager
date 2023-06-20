@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Members;
 
+use App\Models\MemberGroup;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 
@@ -9,7 +10,7 @@ class MemberGroupEdit extends Component
 {
     use MemberGroupTrait;
 
-    public function mount($memberGroup)
+    public function mount(MemberGroup $memberGroup)
     {
         $this->memberGroup = $memberGroup;
         $this->parent = $this->memberGroup->parent()->first()?->id;
