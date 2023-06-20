@@ -3,21 +3,25 @@
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
+        <div class="flex items-center">
             <span>{{ __('Member Overview') }}</span>
-            @if($hasEditPermission)
-                <div class="flex flex-wrap justify-end gap-2 w-full sm:w-auto">
-                    <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
-                                   title="Show member group list">
-                        {{__("Member Group List")}}
-                    </x-button-link>
-                    <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
-                        {{__("Add new member")}}
-                    </x-button-link>
-                </div>
-            @endif
         </div>
     </x-slot>
+
+    @if($hasEditPermission)
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
+            <div class="flex flex-wrap justify-end gap-2 w-full sm:w-auto">
+                <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
+                               title="Show member group list">
+                    {{__("Member Group List")}}
+                </x-button-link>
+                <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
+                    {{__("Add new member")}}
+                </x-button-link>
+            </div>
+        </div>
+    @endif
+
 
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
         <x-always-responsive-table class="table-auto mx-auto text-center">
@@ -70,10 +74,11 @@
 
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 p-5">
         <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
-            <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white" href="{{route('member.birthdayList')}}"
-                              title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
+            <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+                           href="{{route('member.birthdayList')}}"
+                           title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
             <x-button-link class="btn-primary normal-case" href="{{route('member.birthdayList.csv')}}"
-                              title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
+                           title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
         </div>
     </div>
 </x-backend-layout>
