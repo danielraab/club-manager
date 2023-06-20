@@ -4,22 +4,23 @@
 
 <div>
     <x-slot name="headline">
-        <div class="flex flex-wrap gap-3 justify-between items-center">
+        <div class="flex items-center">
             <span>{{ __('Event Overview') }}</span>
-            @if($hasEditPermission)
-                <div class="flex flex-wrap justify-end gap-2 w-full sm:w-auto">
-                    <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
-                                   title="Show event type list">
-                        {{__("Event Type List")}}
-                    </x-button-link>
-                    <x-button-link href="{{route('event.create')}}" class="btn-success"
-                                   title="Create new event">
-                        {{__("Create new event")}}
-                    </x-button-link>
-                </div>
-            @endif
         </div>
     </x-slot>
+
+    @if($hasEditPermission)
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
+            <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
+                           title="Show event type list">
+                {{__("Event Type List")}}
+            </x-button-link>
+            <x-button-link href="{{route('event.create')}}" class="btn-success"
+                           title="Create new event">
+                {{__("Create new event")}}
+            </x-button-link>
+        </div>
+    @endif
 
     <div class="flex">
         <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
@@ -53,19 +54,19 @@
                     <td class="border px-2">
                         <span class="text-sm text-gray-600 mr-1">
                         @if($event->link)
-                            <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
-                        @endif
-                        @if($hasEditPermission && $event->logged_in_only)
-                            <i class="fa-solid fa-arrow-right-to-bracket"
-                               title="{{__("Visible only for logged in users")}}"></i>
-                        @endif
+                                <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                            @endif
+                            @if($hasEditPermission && $event->logged_in_only)
+                                <i class="fa-solid fa-arrow-right-to-bracket"
+                                   title="{{__("Visible only for logged in users")}}"></i>
+                            @endif
                         </span>
                         {{$event->title}}
                     </td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
                     @if($hasEditPermission)
                         <td class="border px-2 min-w-[70px]">
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 justify-center">
                                 @if($event->enabled)
                                     <button type="button" title="{{__("Disable this event")}}" class="text-green-600"
                                             wire:click="toggleEnabledState({{$event->id}})">
@@ -113,5 +114,4 @@
             @endif
         </div>
     @endif
-
 </div>
