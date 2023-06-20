@@ -44,7 +44,7 @@
 
         <div>
             <x-input-label for="link" :value="__('Link')"/>
-            <x-text-input id="link" name="link" type="text" class="mt-1 block w-full" wire:model.defer="event.link"
+            <x-text-input id="link" name="link" type="url" class="mt-1 block w-full" wire:model.defer="event.link"
                           required autofocus autocomplete="link"/>
             @error('event.link')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
