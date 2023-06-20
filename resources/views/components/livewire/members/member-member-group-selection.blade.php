@@ -1,0 +1,49 @@
+<section>
+    <header>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('Entrance and member group') }}
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600">
+            {{ __("Enter information about entrance and association to member groups.") }}
+        </p>
+    </header>
+
+    <div class="mt-6">
+
+        {{-- entrance_date --}}
+        <div class="mt-4">
+            <x-input-label for="entrance_date" :value="__('Entrance date')"/>
+            <x-input-date id="entrance_date" name="entrance_date" type="text" class="mt-1 block w-full"
+                              wire:model.lazy="entrance_date"
+                          autofocus autocomplete="entrance_date"/>
+            @error('entrance_date')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
+        {{-- leaving_date --}}
+        <div class="mt-4">
+            <x-input-label for="leaving_date" :value="__('Leaving date')"/>
+            <x-input-date id="leaving_date" name="leaving_date" type="text" class="mt-1 block w-full"
+                              wire:model.lazy="leaving_date"
+                          autofocus autocomplete="leaving_date"/>
+            @error('leaving_date')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
+
+        <div class="mt-5">
+            <x-input-label for="memberGroupList" :value="__('Member groups')"/>
+            <select name="memberGroupList" id="memberGroupList" size="10" multiple
+                    wire:model.defer="memberGroupList"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+            >
+                @foreach(\App\Models\MemberGroup::getLeafQuery()->get() as $memberGroup)
+                    <option value="{{$memberGroup->id}}">{{$memberGroup->title}}</option>
+                @endforeach
+            </select>
+            @error('memberGroupList')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+    </div>
+</section>
