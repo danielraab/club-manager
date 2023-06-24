@@ -10,16 +10,16 @@
 
 
 @layer components {
-    .bg-info {
-        @apply bg-blue-500 text-white;
+    .btn-info {
+        @apply bg-blue-500 text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700;
     }
 
     .btn-primary {
-        @apply bg-gray-800 text-white uppercase hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500;
+        @apply bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500;
     }
 
     .btn-secondary {
-        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-indigo-500;
+        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 focus:ring-indigo-500;
     }
 
     .btn-danger {
