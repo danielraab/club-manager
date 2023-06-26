@@ -43,8 +43,8 @@
         </div>
     </div>
 
-    @if($columnArray)
-        <livewire:members.member-import-field-sync :data="$data" :columnArray="$columnArray" />
+    @if($csvColumns)
+        <livewire:members.member-import-field-sync :rawData="$rawData" :csvColumns="$csvColumns" />
     @else
         <div class="flex justify-center mt-5">
             <p class="text-sm text-gray-600">
