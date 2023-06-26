@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -13,6 +14,7 @@ use Spatie\IcalendarGenerator\Components\Event;
 
 class EventCalendar extends Controller
 {
+    const CALENDAR_REFRESH_INTERVAL_MIN = 60*6;
     public function toJson()
     {
         return $this->getEventList();
@@ -29,18 +31,25 @@ class EventCalendar extends Controller
     private function getCsvString()
     {
 
-        $calendar = Calendar::create(env('APP_NAME'));
+        $calendar = Calendar::create(env('APP_NAME'))
+            ->refreshInterval(self::CALENDAR_REFRESH_INTERVAL_MIN);
 
         foreach ($this->getEventList() as $event) {
+            /** @var Carbon $end */
             $calEvent = Event::create($event->title)
-                ->startsAt($event->start)
-                ->endsAt($event->end);
+                ->startsAt($event->start);
+            $end = $event->end;
             if ($event->description) {
                 $calEvent->description($event->description);
             }
+            if($event->location) {
+                $calEvent->address($event->location);
+            }
             if ($event->whole_day) {
                 $calEvent->fullDay();
+                $end->addDay();
             }
+            $calEvent->endsAt($end);
             $calendar->event($calEvent);
         }
 
