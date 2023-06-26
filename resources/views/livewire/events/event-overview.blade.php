@@ -10,7 +10,7 @@
     </x-slot>
 
     @if($hasEditPermission)
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-end gap-2 items-center">
             <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
                            title="Show event type list">
                 {{__("Event Type List")}}
