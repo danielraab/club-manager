@@ -41,10 +41,12 @@ class MemberImport extends Component
         $this->data = Arr::map($lines, fn($elem) => str_getcsv($elem, $this->separator));
         $this->columnArray = array_shift($this->data);
         if(count($this->columnArray) < 3) {
-            $this->fileInformation = "Given file is not usable for member import";
+            $this->fileInformation = __("Given file is not usable for member import");
             $this->columnArray = [];
             $this->data = [];
+            return;
         }
+        $this->fileInformation = "";
     }
 
     public function render()
