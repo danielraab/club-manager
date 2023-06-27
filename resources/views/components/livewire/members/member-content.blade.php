@@ -10,6 +10,24 @@
     </header>
 
     <div class="mt-6">
+        <div class="grid grid-cols-2 gap-3">
+        <div>
+            <x-input-label for="title_pre" :value="__('Prefixed Title')"/>
+            <x-text-input id="title_pre" name="title_pre" type="text" class="mt-1 block w-full"
+                          wire:model.lazy="member.title_pre"
+                          required autofocus autocomplete="title_pre"/>
+            @error('member.title_pre')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+        <div>
+            <x-input-label for="title_post" :value="__('Postfixed Title')"/>
+            <x-text-input id="title_post" name="title_post" type="text" class="mt-1 block w-full"
+                          wire:model.lazy="member.title_post"
+                          required autofocus autocomplete="title_post"/>
+            @error('member.title_post')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+        </div>
         <div>
             <x-input-label for="firstname" :value="__('Firstname')"/>
             <x-text-input id="firstname" name="firstname" type="text" class="mt-1 block w-full"

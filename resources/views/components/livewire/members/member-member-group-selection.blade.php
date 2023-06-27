@@ -23,14 +23,26 @@
 
         {{-- leaving_date --}}
         <div class="mt-4">
-            <x-input-label for="leaving_date" :value="__('Leaving date')"/>
+            <x-input-label for="leaving_date">
+                <span>{{__('Leaving date')}}</span>
+                <i class="fa-solid fa-circle-info text-gray-500 ml-2" title="{{__("The Member is special marked after the leaving date is reached. And will not appear in export etc.")}}"></i>
+            </x-input-label>
             <x-input-date id="leaving_date" name="leaving_date" type="text" class="mt-1 block w-full"
                               wire:model.lazy="leaving_date"
                           autofocus autocomplete="leaving_date"/>
+
             @error('leaving_date')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
+        <!-- is active -->
+        <div class="mt-5 mb-4 ml-3">
+            <x-input-checkbox id="active" name="active" wire:model.defer="member.active"
+                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                {{ __('Is active') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
+                                         title="{{__("The Member is special marked.")}}"></i>
+            </x-input-checkbox>
+        </div>
 
         <div class="mt-5">
             <x-input-label for="memberGroupList" :value="__('Member groups')"/>

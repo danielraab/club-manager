@@ -10,9 +10,9 @@ trait MemberTrait
 {
     public Member $member;
     public array $memberGroupList;
-    public ?string $birthday;
+    public ?string $birthday = null;
     public string $entrance_date;
-    public ?string $leaving_date;
+    public ?string $leaving_date = null;
     public string $previousUrl;
 
     protected function rules()
@@ -20,6 +20,9 @@ trait MemberTrait
         return [
             'member.firstname' => ['required', 'string', 'max:255'],
             'member.lastname' => ['required', 'string', 'max:255'],
+            'member.title_pre' => ['nullable', 'string', 'max:255'],
+            'member.title_post' => ['nullable', 'string', 'max:255'],
+            'member.active' => ['nullable', 'boolean'],
             'member.phone' => ['nullable', 'string', 'max:255'],
             'member.email' => ['nullable', 'email', 'max:255'],
             'member.street' => ['nullable', 'string', 'max:255'],
