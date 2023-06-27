@@ -12,7 +12,7 @@ class SyncOverview extends Component
     public array $keyedData = [];
 
     public array $changedMembers = [];
-    public array $unChangedImports = [];
+    public array $unchangedImports = [];
     public array $newMembers = [];
 
     public function mount(): void
@@ -23,7 +23,7 @@ class SyncOverview extends Component
     private function calculateSyncResult(): void
     {
         $this->changedMembers = [];
-        $this->unChangedImports = [];
+        $this->unchangedImports = [];
         $this->newMembers = [];
         $currentMemberList = Member::all()->toArray();
 
@@ -34,11 +34,11 @@ class SyncOverview extends Component
                 if (count($memberImportInfo["imports"]) > 0) {
                     $this->changedMembers[] = $memberImportInfo;
                 } else {
-                    $this->unChangedImports[] = $memberImportInfo;
+                    $this->unchangedImports[] = $memberImportInfo;
                 }
 
             } catch (ItemNotFoundException $e) {
-                $this->newMembers = $importedMember;
+                $this->newMembers[] = $importedMember;
             }
         }
     }

@@ -10,29 +10,103 @@
             </p>
         </header>
 
-        <div x-data="{open:false}" class="w-[60vw] mx-auto bg-red-50">
-            <div class="flex justify-between items-center bg-red-200">
-                <p class="px-4">New Member</p>
-                <button @click="open=!open" x-html="open ? '-' :'+' " class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
-            </div>
-            <div x-show="open" x-cloak  class="mx-4 py-4" x-transition>
-                <div>
-                    @foreach($syncMap as $member)
-                        <div>
-                            @foreach($member as $key => $value)
-                                <span>{{$key}}</span>
-                                <span>{{$value}}</span>
-                            @endforeach
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <hr class="h-[0.1rem] bg-slate-500">
-        </div>
 
-        <div class="flex flex-row-reverse mt-5">
-            <x-default-button class="btn-danger" wire:click="syncMembers"
-                              title="Sync members">{{ __('Sync members') }}</x-default-button>
-        </div>
+        @if(!empty($newMembers))
+            <div x-data="{open:true}" class="bg-gray-50">
+                <div class="flex justify-between items-center bg-gray-200">
+                    <p class="px-4">{{__("New members")}}</p>
+                    <button @click="open=!open" x-html="open ? '-' :'+' "
+                            class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
+                </div>
+                <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-xs break-words">
+                        @foreach($newMembers as $member)
+                            <ul class="border-2 bg-white p-3">
+                                @foreach($member as $key => $value)
+                                    <li><strong>
+                                            {{\App\Http\Livewire\Members\Import\FieldSync::MEMBER_FIELD_ARRAY[$key]}}:
+                                        </strong> {{$value}}</li>
+                                @endforeach
+                            </ul>
+                        @endforeach
+                    </div>
+                </div>
+                <hr class="h-[0.1rem] bg-slate-500">
+            </div>
+        @endif
+
+        @if(!empty($changedMembers))
+            <div x-data="{open:true}" class="bg-gray-50">
+                <div class="flex justify-between items-center bg-gray-200">
+                    <p class="px-4">{{__("Members with updates")}}</p>
+                    <button @click="open=!open" x-html="open ? '-' :'+' "
+                            class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
+                </div>
+                <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs break-words">
+                        @foreach($changedMembers as $member)
+                            <div class="border-2 bg-white p-3 text-xs">
+                                @php
+                                    $originalMember = $member['original'];
+                                @endphp
+                                <div class="text-base mb-2">{{$originalMember['id']}}
+                                    - {{$originalMember['lastname']}} {{$originalMember['firstname']}}</div>
+                                <table class="border-2 w-full">
+                                    @foreach($member['imports'] as $key => $value)
+                                        <tr class="border-2">
+                                            <td class="border-2 font-bold">{{$key}}</td>
+                                            <td class="text-green-700">{{$originalMember[$key] ?? ""}}</td>
+                                            <td class="text-orange-600">{{$value}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <hr class="h-[0.1rem] bg-slate-500">
+            </div>
+        @endif
+
+
+
+        @if(!empty($unchangedImports))
+            <div x-data="{open:true}" class="bg-gray-50">
+                <div class="flex justify-between items-center bg-gray-200">
+                    <p class="px-4">{{__("Unchanged members")}}</p>
+                    <button @click="open=!open" x-html="open ? '-' :'+' "
+                            class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
+                </div>
+                <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
+                    <ul class="white list-disc ml-5">
+                        @foreach($unchangedImports as $member)
+                            @php
+                                $originalMember = $member['original'];
+                            @endphp
+                            <li>{{$originalMember['id']}}
+                                - {{$originalMember['lastname']}} {{$originalMember['firstname']}}</li>
+
+                        @endforeach
+                    </ul>
+                </div>
+                <hr class="h-[0.1rem] bg-slate-500">
+            </div>
+        @endif
+
+
+
+
+        @if(!empty($newMembers) || !empty($changedMembers))
+            <div class="flex flex-row-reverse mt-5">
+                <x-default-button class="btn-danger" wire:click="syncMembers"
+                                  title="Sync members">{{ __('Sync members') }}</x-default-button>
+            </div>
+        @else
+            <div class="flex justify-center mt-5">
+                <p class="text-sm text-gray-600">
+                    {{__("Nothing to import.")}}
+                </p>
+            </div>
+        @endif
     </section>
 </div>

@@ -9,20 +9,21 @@
     </x-slot>
 
     @if($hasEditPermission)
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-between gap-2 w-full sm:w-auto items-center">
-                    <x-button-link href="{{route('member.import')}}" class="btn-info"
-                                   title="Import member list">
-                        {{__("Import members")}}
-                    </x-button-link>
-                <div class="flex flex-wrap gap-2 justify-center">
-                    <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
-                                   title="Show member group list">
-                        {{__("Member Group List")}}
-                    </x-button-link>
-                    <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
-                        {{__("Add new member")}}
-                    </x-button-link>
-                </div>
+        <div
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-between gap-2 w-full sm:w-auto items-center">
+            <x-button-link href="{{route('member.import')}}" class="btn-info"
+                           title="Import member list">
+                {{__("Import members")}}
+            </x-button-link>
+            <div class="flex flex-wrap gap-2 justify-center">
+                <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
+                               title="Show member group list">
+                    {{__("Member Group List")}}
+                </x-button-link>
+                <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
+                    {{__("Add new member")}}
+                </x-button-link>
+            </div>
         </div>
     @endif
 
