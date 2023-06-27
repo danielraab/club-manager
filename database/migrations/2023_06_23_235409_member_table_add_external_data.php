@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('members', function(Blueprint $table) {
             $table->string("external_id")->unique()->nullable();
-            $table->dateTime("import_date")->nullable();
+            $table->dateTime("last_import_date")->nullable();
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('members', function(Blueprint $table) {
             $table->dropColumn("external_id");
-            $table->dropColumn("import_date");
+            $table->dropColumn("last_import_date");
         });
     }
 };

@@ -43,7 +43,7 @@ class SyncOverview extends Component
         }
     }
 
-    private function findMatchingMember($currentMemberList, $importedMember): Member
+    private function findMatchingMember($currentMemberList, $importedMember): array
     {
         if (isset($importedMember["external_id"])) {
             return $this->findExternalIdInMemberList($currentMemberList, $importedMember["external_id"]);
@@ -61,29 +61,29 @@ class SyncOverview extends Component
         throw new ItemNotFoundException();
     }
 
-    private function findExternalIdInMemberList(array $currentMemberList, string $externalId): Member
+    private function findExternalIdInMemberList(array $currentMemberList, string $externalId): array
     {
         $foundMembers = array_filter($currentMemberList, function ($member) use ($externalId) {
             return isset($member["external_id"]) && $member["external_id"] === $externalId;
         });
-        return $foundMembers[0] ?? throw new ItemNotFoundException();
+        return array_values($foundMembers)[0] ?? throw new ItemNotFoundException();
     }
 
-    private function findNameAndBirthdayInMemberList(array $currentMemberList, string $lastname, string $firstname, Carbon $birthday): Member
+    private function findNameAndBirthdayInMemberList(array $currentMemberList, string $lastname, string $firstname, Carbon $birthday): array
     {
         $foundMembers = array_filter($currentMemberList, function ($member) use ($lastname, $firstname, $birthday) {
             return $member["lastname"] === $lastname &&
                 $member["firstname"] === $firstname &&
                 Carbon::parse($member["birthday"])->toDateString() === $birthday->toDateString();
         });
-        return $foundMembers[0] ?? throw new ItemNotFoundException();
+        return array_values($foundMembers)[0] ?? throw new ItemNotFoundException();
     }
 
-    private function calculateChangedProperties($currentMember, $importedMember): array
+    private function calculateChangedProperties($currentMember,$importedMember): array
     {
         $propertyDelta = [];
         foreach ($importedMember as $key => $value) {
-            if ($currentMember[$key] !== $value) {
+            if (($currentMember[$key] ?? "") !== ($value ?: "")) {
                 $propertyDelta[$key] = $value;
             }
         }
@@ -95,6 +95,14 @@ class SyncOverview extends Component
 
     public function syncMembers()
     {
+        $newAdded = 0;
+        foreach ($this->newMembers as $memberProps) {
+            $memberProps["last_import_date"] = now();
+            if (!isset($memberProps["entrance_date"])) $memberProps["entrance_date"] = $memberProps["last_import_date"];
+            if ((new Member($memberProps))->saveQuietly()) $newAdded++;
+        }
+
+        session()->push("message", __(":count new members created during import.", ["count" => $newAdded]));
     }
 
     public function render()

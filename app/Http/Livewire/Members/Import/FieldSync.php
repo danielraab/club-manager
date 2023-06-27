@@ -13,6 +13,7 @@ class FieldSync extends Component
         "external_id" => "External Id",
         "title_pre" => "Prefixed Title",
         "title_post" => "Postfixed Title",
+        "entrance_date" => "Entrance date",
         "street" => "Street",
         "zip" => "ZIP",
         "city" => "City",
@@ -37,6 +38,8 @@ class FieldSync extends Component
     public function showSyncOverview()
     {
         $this->validate();
+        //remove empty values from associative array
+        $this->fieldMap = array_filter($this->fieldMap, function ($value, $key) { return is_numeric($value);},ARRAY_FILTER_USE_BOTH);
         $this->transformCSVData();
     }
 

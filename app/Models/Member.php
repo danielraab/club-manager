@@ -31,6 +31,8 @@ class Member extends Model
         'city',
         'entrance_date',
         'leaving_date',
+        'external_id',
+        'last_import_date',
     ];
 
     protected $casts = [
@@ -38,6 +40,7 @@ class Member extends Model
         'birthday' => 'date',
         'entrance_date' => 'datetime',
         'leaving_date' => 'datetime',
+        'last_import_date' => 'datetime',
     ];
 
     public function getFullName(): string
