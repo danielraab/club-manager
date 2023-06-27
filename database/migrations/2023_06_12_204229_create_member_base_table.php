@@ -32,6 +32,9 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('title_pre')->nullable();
+            $table->string('title_post')->nullable();
+            $table->boolean('active')->default(true);
             $table->date('birthday')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

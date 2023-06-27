@@ -19,6 +19,8 @@ class MemberFactory extends Factory
         return [
             "firstname" => fake()->firstName(),
             "lastname" => fake()->lastName(),
+            "title_pre" => fake()->title(),
+            "title_post" => fake()->title(),
             "birthday" => fake()->dateTimeThisCentury(now()->subYear()),
             "phone" => fake()->phoneNumber(),
             "email" => fake()->email(),

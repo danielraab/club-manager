@@ -41,16 +41,18 @@
             <tbody>
             @foreach($members as $member)
                 @php
-                    $rowBg = "bg-sky-200";
-                    if($member->entrance_date === null) {
+                    $rowBg = "bg-lime-200";
+                    if($member->entrance_date === null || $member->birthday === null) {
                         $rowBg = "bg-red-200";
                     } elseif($member->entrance_date > now() ||
                      ($member->leaving_date && $member->leaving_date < now())) {
                         $rowBg = "bg-gray-300";
+                    } elseif(!$member->active) {
+                        $rowBg = "bg-sky-200";
                     }
                 @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
-                    <td class="border px-4 py-2">{{ $member->lastname }} {{ $member->firstname }}</td>
+                    <td class="border px-4 py-2">{{ $member->getFullName() }}</td>
                     <td class="border px-4 py-2">{{ $member->birthday?->format("Y-m-d") }}</td>
                     <td class="border px-4 py-2">{{ $member->email }}</td>
                     <td class="border px-4 py-2">{{ $member->phone }}</td>

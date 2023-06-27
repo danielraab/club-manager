@@ -20,6 +20,9 @@ class Member extends Model
     protected $fillable = [
         'firstname',
         'lastname',
+        'title_pre',
+        'title_post',
+        'active',
         'birthday',
         'phone',
         'email',
@@ -31,11 +34,24 @@ class Member extends Model
     ];
 
     protected $casts = [
+        'active' => 'bool',
         'birthday' => 'date',
         'entrance_date' => 'datetime',
         'leaving_date' => 'datetime',
     ];
 
+    public function getFullName(): string
+    {
+        $fullName = "";
+        if ($this->title_pre) {
+            $fullName = $this->title_pre . " ";
+        }
+        $fullName .= $this->lastname . " " . $this->firstname;
+        if ($this->title_post) {
+            $fullName .= " " . $this->title_post;
+        }
+        return $fullName;
+    }
 
     public static function allActive()
     {
