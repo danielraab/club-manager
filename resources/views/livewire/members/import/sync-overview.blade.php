@@ -10,15 +10,24 @@
             </p>
         </header>
 
-        <div>
-            @foreach($syncMap as $member)
+        <div x-data="{open:false}" class="w-[60vw] mx-auto bg-red-50">
+            <div class="flex justify-between items-center bg-red-200">
+                <p class="px-4">New Member</p>
+                <button @click="open=!open" x-html="open ? '-' :'+' " class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
+            </div>
+            <div x-show="open" x-cloak  class="mx-4 py-4" x-transition>
                 <div>
-                @foreach($member as $key => $value)
-                    <span>{{$key}}</span>
-                    <span>{{$value}}</span>
-                @endforeach
+                    @foreach($syncMap as $member)
+                        <div>
+                            @foreach($member as $key => $value)
+                                <span>{{$key}}</span>
+                                <span>{{$value}}</span>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
+            <hr class="h-[0.1rem] bg-slate-500">
         </div>
 
         <div class="flex flex-row-reverse mt-5">
