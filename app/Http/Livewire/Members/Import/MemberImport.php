@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Members;
+namespace App\Http\Livewire\Members\Import;
 
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -58,6 +58,6 @@ class MemberImport extends Component
 
     public function render()
     {
-        return view('livewire.members.member-import')->layout('layouts.backend');
+        return view('livewire.members.import.member-import')->layout('layouts.backend');
     }
 }

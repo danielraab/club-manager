@@ -11,7 +11,7 @@
         </header>
 
         <div>
-            @foreach($keyedData as $member)
+            @foreach($syncMap as $member)
                 <div>
                 @foreach($member as $key => $value)
                     <span>{{$key}}</span>

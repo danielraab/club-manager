@@ -44,7 +44,7 @@
     </div>
 
     @if($csvColumns)
-        <livewire:members.member-import-field-sync :rawData="$rawData" :csvColumns="$csvColumns" :key="$csvColumnsHash"/>
+        <livewire:members.import.field-sync :rawData="$rawData" :csvColumns="$csvColumns" :key="$csvColumnsHash"/>
     @else
         <div class="flex justify-center mt-5">
             <p class="text-sm text-gray-600">
