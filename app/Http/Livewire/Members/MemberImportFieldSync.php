@@ -30,6 +30,7 @@ class MemberImportFieldSync extends Component
     public array $fieldMap = [];
     public array $rawData = [];
     public array $keyedData = [];
+    public string $keyedDataHash = "";
 
     protected function rules()
     {
@@ -53,6 +54,7 @@ class MemberImportFieldSync extends Component
                         return $csvLineEntry[intval($csvColumnId)];
                     }));
         });
+        $this->keyedDataHash = md5(json_encode($this->keyedData));
     }
 
     public function render()

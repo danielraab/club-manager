@@ -14,9 +14,10 @@ class MemberImport extends Component
     use WithFileUploads;
 
     public null|TemporaryUploadedFile|string $csvFile = null;
-    public string $fileInformation = "";
+    public string $fileInfoMessage = "";
     public string $separator = ";";
     public array $csvColumns = [];
+    public string $csvColumnsHash = "";
     public array $rawData = [];
 
     protected function rules()
@@ -28,7 +29,7 @@ class MemberImport extends Component
     }
 
     public function mount() {
-        $this->fileInformation = __("Please select a valid csv file.");
+        $this->fileInfoMessage = __("Please select a valid csv file.");
     }
 
     public function evaluateFile()
@@ -40,12 +41,13 @@ class MemberImport extends Component
         $this->filterRawData();
         $this->csvColumns = array_shift($this->rawData);
         if(count($this->rawData) < 2 || count($this->csvColumns) < 3) {
-            $this->fileInformation = __("Given file is not usable for member import");
+            $this->fileInfoMessage = __("Given file is not usable for member import");
             $this->csvColumns = [];
             $this->rawData = [];
             return;
         }
-        $this->fileInformation = "";
+        $this->csvColumnsHash = md5(json_encode($this->csvColumns));
+        $this->fileInfoMessage = "";
     }
 
     private function filterRawData(): void {

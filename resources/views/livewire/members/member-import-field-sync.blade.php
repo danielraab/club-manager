@@ -33,6 +33,6 @@
 </div>
 
     @if(!empty($keyedData))
-    <livewire:members.member-import-sync-overview :keyedData="$keyedData"/>
+    <livewire:members.member-import-sync-overview :keyedData="$keyedData" :key="$keyedDataHash"/>
     @endif
 </div>
