@@ -6,13 +6,13 @@
                     {{ __('Field mapping') }}
                 </h2>
 
-                <p class="mt-1 text-sm text-gray-600">
+                <p class="mt-1 text^-sm text-gray-600">
                     {{ __("Assign the available CSV Columns to the Member fields.") }}
                 </p>
             </header>
 
             <div class="flex flex-wrap flex-row justify-around gap-3 mt-5">
-                @foreach(\App\Http\Livewire\Members\Import\FieldSync::MEMBER_FIELD_ARRAY as $field => $fieldLabel)
+                @foreach(\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY as $field => $fieldLabel)
                     <div>
                         <x-input-label :for="$field" :value="__($fieldLabel)"/>
                         <select id="{{$field}}" name="{{$field}}" class="mt-2"
@@ -32,7 +32,8 @@
         </section>
     </div>
 
-    @if(!empty($keyedData))
-        <livewire:members.import.sync-overview :keyedData="$keyedData" :key="$keyedDataHash"/>
+    @if(!empty($importedMemberList))
+        <livewire:members.import.sync-overview :importedMemberList="$importedMemberList"
+                                               :key="$importedMemberListHash"/>
     @endif
 </div>

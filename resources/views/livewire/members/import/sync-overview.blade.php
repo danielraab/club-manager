@@ -20,11 +20,11 @@
                 </div>
                 <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-xs break-words">
-                        @foreach($newMembers as $member)
+                        @foreach($newMembers as $importedMember)
                             <ul class="border-2 bg-white p-3">
-                                @foreach($member as $key => $value)
+                                @foreach($importedMember as $key => $value)
                                     <li><strong>
-                                            {{\App\Http\Livewire\Members\Import\FieldSync::MEMBER_FIELD_ARRAY[$key]}}:
+                                            {{\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY[$key]}}:
                                         </strong> {{$value}}</li>
                                 @endforeach
                             </ul>
@@ -43,20 +43,20 @@
                             class="px-2 text-black hover:text-gray-500 font-bold text-3xl"></button>
                 </div>
                 <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs break-words">
-                        @foreach($changedMembers as $member)
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs break-all">
+                        @foreach($changedMembers as $wrapper)
                             <div class="border-2 bg-white p-3 text-xs">
                                 @php
-                                    $originalMember = $member['original'];
+                                    /** @var \App\Models\Import\MemberChangesWrapper $wrapper */
                                 @endphp
-                                <div class="text-base mb-2">{{$originalMember['id']}}
-                                    - {{$originalMember['lastname']}} {{$originalMember['firstname']}}</div>
+                                <div class="text-base mb-2">{{$wrapper->original->id}}
+                                    - {{$wrapper->original->getFullName()}}</div>
                                 <table class="border-2 w-full">
-                                    @foreach($member['imports'] as $key => $value)
+                                    @foreach($wrapper->attributeDifferenceList as $attributeName)
                                         <tr class="border-2">
-                                            <td class="border-2 font-bold">{{$key}}</td>
-                                            <td class="text-green-700">{{$originalMember[$key] ?? ""}}</td>
-                                            <td class="text-orange-600">{{$value}}</td>
+                                            <td class="border-2 font-bold">{{$attributeName}}</td>
+                                            <td class="text-green-700">{{$wrapper->original->getAttributeValue($attributeName)}}</td>
+                                            <td class="text-orange-600">{{$wrapper->imported->getAttribute($attributeName)}}</td>
                                         </tr>
                                     @endforeach
                                 </table>
@@ -79,13 +79,9 @@
                 </div>
                 <div x-show="open" x-cloak class="mx-4 py-4" x-transition>
                     <ul class="white list-disc ml-5">
-                        @foreach($unchangedImports as $member)
-                            @php
-                                $originalMember = $member['original'];
-                            @endphp
-                            <li>{{$originalMember['id']}}
-                                - {{$originalMember['lastname']}} {{$originalMember['firstname']}}</li>
-
+                        @foreach($unchangedImports as $importedMember)
+                            <li>{{$importedMember->getAttribute('lastname')}}
+                                {{$importedMember->getAttribute('firstname')}}</li>
                         @endforeach
                     </ul>
                 </div>

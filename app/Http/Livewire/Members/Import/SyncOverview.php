@@ -2,17 +2,31 @@
 
 namespace App\Http\Livewire\Members\Import;
 
+use App\Models\Import\ImportedMember;
+use App\Models\Import\MemberChangesWrapper;
 use App\Models\Member;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ItemNotFoundException;
 use Livewire\Component;
 
 class SyncOverview extends Component
 {
-    public array $keyedData = [];
-
+    /**
+     * @var ImportedMember[]
+     */
+    public array $importedMemberList = [];
+    /**
+     * @var MemberChangesWrapper[]
+     */
     public array $changedMembers = [];
+    /**
+     * @var ImportedMember[]
+     */
     public array $unchangedImports = [];
+    /**
+     * @var ImportedMember[]
+     */
     public array $newMembers = [];
 
     public function mount(): void
@@ -25,81 +39,84 @@ class SyncOverview extends Component
         $this->changedMembers = [];
         $this->unchangedImports = [];
         $this->newMembers = [];
-        $currentMemberList = Member::all()->toArray();
+        $currentMemberList = Member::all()->toBase();
 
-        foreach ($this->keyedData as $importedMember) {
+        foreach ($this->importedMemberList as $importedMember) {
             try {
                 $foundMember = $this->findMatchingMember($currentMemberList, $importedMember);
-                $memberImportInfo = $this->calculateChangedProperties($foundMember, $importedMember);
-                if (count($memberImportInfo["imports"]) > 0) {
-                    $this->changedMembers[] = $memberImportInfo;
+                $diffPropList = $importedMember->getDifferences($foundMember);
+                if (empty($diffPropList)) {
+                    $this->unchangedImports[] = $importedMember;
                 } else {
-                    $this->unchangedImports[] = $memberImportInfo;
+                    $this->changedMembers[] = new MemberChangesWrapper(
+                        $foundMember, $importedMember, $diffPropList
+                    );
                 }
-
             } catch (ItemNotFoundException $e) {
                 $this->newMembers[] = $importedMember;
             }
         }
     }
 
-    private function findMatchingMember($currentMemberList, $importedMember): array
+    private function findMatchingMember(Collection $currentMemberList, ImportedMember $importedMember): Member
     {
-        if (isset($importedMember["external_id"])) {
-            return $this->findExternalIdInMemberList($currentMemberList, $importedMember["external_id"]);
+        if ($importedMember->hasAttribute("external_id")) {
+            return $this->findExternalIdInMemberList($currentMemberList,
+                $importedMember->getAttribute("external_id"));
         }
 
-        if (isset($importedMember["firstname"]) &&
-            isset($importedMember["lastname"]) &&
-            isset($importedMember["birthday"])) {
+        if ($importedMember->hasAttribute("firstname") &&
+            $importedMember->hasAttribute("lastname") &&
+            $importedMember->hasAttribute("birthday")) {
             return $this->findNameAndBirthdayInMemberList(
                 $currentMemberList,
-                trim($importedMember["lastname"]),
-                trim($importedMember["firstname"]),
-                new Carbon($importedMember["birthday"]));
+                $importedMember->getAttribute("lastname"),
+                $importedMember->getAttribute("firstname"),
+                $importedMember->getAttribute("birthday"));
         }
         throw new ItemNotFoundException();
     }
 
-    private function findExternalIdInMemberList(array $currentMemberList, string $externalId): array
+    /**
+     * @param Collection $currentMemberList
+     * @param string $externalId
+     * @return Member
+     * @throws ItemNotFoundException
+     */
+    private function findExternalIdInMemberList(Collection $currentMemberList, string $externalId): Member
     {
-        $foundMembers = array_filter($currentMemberList, function ($member) use ($externalId) {
-            return isset($member["external_id"]) && $member["external_id"] === $externalId;
-        });
-        return array_values($foundMembers)[0] ?? throw new ItemNotFoundException();
+        return $currentMemberList->firstOrFail("external_id", "==", $externalId);
     }
 
-    private function findNameAndBirthdayInMemberList(array $currentMemberList, string $lastname, string $firstname, Carbon $birthday): array
+    /**
+     * @param Collection $currentMemberList
+     * @param string $lastname
+     * @param string $firstname
+     * @param Carbon $birthday
+     * @return Member
+     * @throws ItemNotFoundException
+     */
+    private function findNameAndBirthdayInMemberList(
+        Collection $currentMemberList,
+        string     $lastname,
+        string     $firstname,
+        Carbon     $birthday): Member
     {
-        $foundMembers = array_filter($currentMemberList, function ($member) use ($lastname, $firstname, $birthday) {
-            return $member["lastname"] === $lastname &&
-                $member["firstname"] === $firstname &&
-                Carbon::parse($member["birthday"])->toDateString() === $birthday->toDateString();
+        return $currentMemberList->firstOrFail(function (Member $member) use ($lastname, $firstname, $birthday) {
+            return $member->lastname === $lastname &&
+                $member->firstname === $firstname &&
+                $member->birthday->toDateString() === $birthday->toDateString();
         });
-        return array_values($foundMembers)[0] ?? throw new ItemNotFoundException();
-    }
-
-    private function calculateChangedProperties($currentMember,$importedMember): array
-    {
-        $propertyDelta = [];
-        foreach ($importedMember as $key => $value) {
-            if (($currentMember[$key] ?? "") !== ($value ?: "")) {
-                $propertyDelta[$key] = $value;
-            }
-        }
-        return [
-            "original" => $currentMember,
-            "imports" => $propertyDelta
-        ];
     }
 
     public function syncMembers()
     {
         $newAdded = 0;
-        foreach ($this->newMembers as $memberProps) {
-            $memberProps["last_import_date"] = now();
-            if (!isset($memberProps["entrance_date"])) $memberProps["entrance_date"] = $memberProps["last_import_date"];
-            if ((new Member($memberProps))->saveQuietly()) $newAdded++;
+        foreach ($this->newMembers as $importedMember) {
+            $importedMember->setAttribute("last_import_date", now());
+            if (!$importedMember->hasAttribute("entrance_date"))
+                $importedMember->setAttribute("entrance_date", now());
+            if ($importedMember->toMember()->saveQuietly()) $newAdded++;
         }
 
         session()->push("message", __(":count new members created during import.", ["count" => $newAdded]));
