@@ -58,6 +58,11 @@ class SyncOverview extends Component
         }
     }
 
+    /**
+     * @param Collection<int, Member> $currentMemberList
+     * @param ImportedMember $importedMember
+     * @return Member
+     */
     private function findMatchingMember(Collection $currentMemberList, ImportedMember $importedMember): Member
     {
         if ($importedMember->hasAttribute("external_id")) {
@@ -78,7 +83,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection $currentMemberList
+     * @param Collection<int, Member> $currentMemberList
      * @param string $externalId
      * @return Member
      * @throws ItemNotFoundException
@@ -89,7 +94,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection $currentMemberList
+     * @param Collection<int, Member> $currentMemberList
      * @param string $lastname
      * @param string $firstname
      * @param Carbon $birthday
@@ -105,18 +110,31 @@ class SyncOverview extends Component
         return $currentMemberList->firstOrFail(function (Member $member) use ($lastname, $firstname, $birthday) {
             return $member->lastname === $lastname &&
                 $member->firstname === $firstname &&
-                $member->birthday->toDateString() === $birthday->toDateString();
+                $member->birthday?->toDateString() === $birthday->toDateString();
         });
+    }
+
+    public function hydrate()
+    {
+        $this->newMembers = array_map(fn(array $e) => new ImportedMember($e), $this->newMembers);
+        $this->changedMembers = array_map(function (array $wrapper) {
+            return new MemberChangesWrapper(
+                new Member($wrapper["original"]),
+                new ImportedMember($wrapper["imported"]),
+                $wrapper["attributeDifferenceList"]
+            );
+        }, $this->changedMembers);
     }
 
     public function syncMembers()
     {
         $newAdded = 0;
         foreach ($this->newMembers as $importedMember) {
-            $importedMember->setAttribute("last_import_date", now());
-            if (!$importedMember->hasAttribute("entrance_date"))
-                $importedMember->setAttribute("entrance_date", now());
-            if ($importedMember->toMember()->saveQuietly()) $newAdded++;
+            $newMember = $importedMember->toMember();
+            $newMember->last_import_date = now();
+            if (!$newMember->entrance_date)
+                $newMember->entrance_date = $newMember->last_import_date;
+            if ($newMember->saveQuietly()) $newAdded++;
         }
 
         session()->push("message", __(":count new members created during import.", ["count" => $newAdded]));

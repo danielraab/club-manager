@@ -4,9 +4,8 @@ namespace App\Models\Import;
 
 use App\Models\Member;
 use Carbon\Carbon;
-use Livewire\Wireable;
 
-class ImportedMember implements \Iterator, Wireable, \JsonSerializable
+class ImportedMember implements \Iterator, \JsonSerializable
 {
     public const ATTRIBUTE_LABEL_ARRAY = [
         "title_pre" => "Prefixed Title",
@@ -78,9 +77,14 @@ class ImportedMember implements \Iterator, Wireable, \JsonSerializable
     {
         $keysWithDifference = [];
         foreach (self::possibleAttributeNames() as $key) {
-            if ($this->hasAttribute($key) &&
-                $member->getAttributeValue($key) !== $this->getAttribute($key)) {
-                $keysWithDifference[] = $key;
+            if ($this->hasAttribute($key)) {
+                $attr = $this->getAttribute($key);
+                if ($attr instanceof Carbon && $attr->equalTo($member->getAttributeValue($key))) {
+                    continue;
+                }
+                if ($member->getAttributeValue($key) !== $this->getAttribute($key)) {
+                    $keysWithDifference[] = $key;
+                }
             }
         }
         return $keysWithDifference;
@@ -125,16 +129,6 @@ class ImportedMember implements \Iterator, Wireable, \JsonSerializable
         return array_merge(
             array_keys(self::ATTRIBUTE_LABEL_ARRAY),
             self::ADDITIONAL_ALLOWED_ATTRIBUTES);
-    }
-
-    public function toLivewire()
-    {
-        return $this->attributes;
-    }
-
-    public static function fromLivewire($value)
-    {
-        return new ImportedMember($value);
     }
 
     public function jsonSerialize(): mixed
