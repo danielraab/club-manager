@@ -128,16 +128,29 @@ class SyncOverview extends Component
 
     public function syncMembers()
     {
-        $newAdded = 0;
+        $addedCnt = 0;
+        $updatedCnt = 0;
         foreach ($this->newMembers as $importedMember) {
             $newMember = $importedMember->toMember();
             $newMember->last_import_date = now();
             if (!$newMember->entrance_date)
                 $newMember->entrance_date = $newMember->last_import_date;
-            if ($newMember->saveQuietly()) $newAdded++;
+            if ($newMember->saveQuietly()) $addedCnt++;
         }
 
-        session()->push("message", __(":count new members created during import.", ["count" => $newAdded]));
+        foreach ($this->changedMembers as $memberWrapper) {
+            $id = $memberWrapper->original->id;
+            $member = Member::query()->find($id);
+            if($member->update($memberWrapper->imported->getAttributes()))
+                $updatedCnt++;
+        }
+
+        if($addedCnt > 0)
+            session()->push("message", __(":count new members created during import.", ["count" => $addedCnt]));
+        if($updatedCnt > 0)
+            session()->push("message", __(":count members updated during import.", ["count" => $addedCnt]));
+
+        return redirect(route("member.index"));
     }
 
     public function render()

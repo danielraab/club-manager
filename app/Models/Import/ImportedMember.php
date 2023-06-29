@@ -45,6 +45,11 @@ class ImportedMember implements \Iterator, \JsonSerializable
         $this->attributes = $attributes;
     }
 
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
     public function hasAttribute(string $attributeName): bool
     {
         return in_array($attributeName, array_keys($this->attributes));
@@ -62,7 +67,7 @@ class ImportedMember implements \Iterator, \JsonSerializable
         };
     }
 
-    public function setAttribute(string $name, string|Carbon|bool $value)
+    public function setAttribute(string $name, string|Carbon|bool $value): void
     {
         if (!in_array($name, self::possibleAttributeNames()))
             throw new \InvalidArgumentException("Invalid attribute name: $name");
