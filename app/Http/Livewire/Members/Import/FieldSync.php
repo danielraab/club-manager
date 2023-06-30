@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Members\Import;
 
 use App\Models\Import\ImportedMember;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Livewire\Component;
 
 class FieldSync extends Component
@@ -10,6 +12,8 @@ class FieldSync extends Component
     public array $csvColumns = [];
     public array $fieldMap = [];
     public array $rawData = [];
+
+    public array $errorArray = [];
 
     /**
      * @var ImportedMember[]
@@ -38,7 +42,7 @@ class FieldSync extends Component
         $this->importedMemberListHash = "";
         foreach ($this->rawData as $csvLine) {
             $importedMember = new ImportedMember();
-            foreach($this->fieldMap as $propertyName => $csvColumnId) {
+            foreach ($this->fieldMap as $propertyName => $csvColumnId) {
                 $importedMember->setAttribute($propertyName, $csvLine[intval($csvColumnId)]);
             }
             $this->importedMemberList[] = $importedMember;

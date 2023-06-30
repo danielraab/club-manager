@@ -71,7 +71,15 @@ class ImportedMember implements \Iterator, \JsonSerializable
     {
         if (!in_array($name, self::possibleAttributeNames()))
             throw new \InvalidArgumentException("Invalid attribute name: $name");
-        $this->attributes[$name] = $value;
+
+        switch($name) {
+            case "birthday":
+                if(is_string($value) && strlen(trim($value)) > 0)
+                    $this->attributes[$name] = $value;
+                break;
+            default:
+                $this->attributes[$name] = $value;
+        }
     }
 
     /**

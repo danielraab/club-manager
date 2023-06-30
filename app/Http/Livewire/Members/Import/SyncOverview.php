@@ -7,6 +7,7 @@ use App\Models\Import\MemberChangesWrapper;
 use App\Models\Member;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ItemNotFoundException;
 use Livewire\Component;
 
@@ -118,8 +119,10 @@ class SyncOverview extends Component
     {
         $this->newMembers = array_map(fn(array $e) => new ImportedMember($e), $this->newMembers);
         $this->changedMembers = array_map(function (array $wrapper) {
+            $originalMember =  new Member($wrapper["original"]);
+            $originalMember->id = $wrapper["original"]["id"];
             return new MemberChangesWrapper(
-                new Member($wrapper["original"]),
+                $originalMember,
                 new ImportedMember($wrapper["imported"]),
                 $wrapper["attributeDifferenceList"]
             );
@@ -130,19 +133,26 @@ class SyncOverview extends Component
     {
         $addedCnt = 0;
         $updatedCnt = 0;
-        foreach ($this->newMembers as $importedMember) {
-            $newMember = $importedMember->toMember();
-            $newMember->last_import_date = now();
-            if (!$newMember->entrance_date)
-                $newMember->entrance_date = $newMember->last_import_date;
-            if ($newMember->saveQuietly()) $addedCnt++;
-        }
+        try {
+            DB::beginTransaction();
+            foreach ($this->newMembers as $importedMember) {
+                $newMember = $importedMember->toMember();
+                $newMember->last_import_date = now();
+                if (!$newMember->entrance_date)
+                    $newMember->entrance_date = $newMember->last_import_date;
+                if ($newMember->saveQuietly()) $addedCnt++;
+            }
 
-        foreach ($this->changedMembers as $memberWrapper) {
-            $id = $memberWrapper->original->id;
-            $member = Member::query()->find($id);
-            if($member->update($memberWrapper->imported->getAttributes()))
-                $updatedCnt++;
+            foreach ($this->changedMembers as $memberWrapper) {
+                $id = $memberWrapper->original->id;
+                $member = Member::query()->find($id);
+                if ($member->update($memberWrapper->imported->getAttributes()))
+                    $updatedCnt++;
+            }
+            DB::commit();
+        } catch(\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
 
         if($addedCnt > 0)
