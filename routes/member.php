@@ -7,6 +7,7 @@ use App\Http\Livewire\Members\MemberCreate;
 use App\Http\Livewire\Members\MemberEdit;
 use App\Http\Livewire\Members\MemberGroupCreate;
 use App\Http\Livewire\Members\MemberGroupEdit;
+use App\Models\Import\ImportedMember;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,11 @@ Route::middleware(['auth', 'permission:' . Member::MEMBER_SHOW_PERMISSION . '|' 
         ->name('member.birthdayList.csv');
     Route::get('/members/birthdayList', [MemberBirthdayList::class, 'index'])
         ->name('member.birthdayList');
+});
+
+Route::middleware(['auth', 'permission:' . ImportedMember::MEMBER_IMPORT_PERMISSION])->group(function () {
+    Route::get('/members/import', MemberImport::class)
+        ->name('member.import');
 });
 
 Route::middleware(['auth', 'permission:' . Member::MEMBER_EDIT_PERMISSION])->group(function () {
@@ -31,7 +37,4 @@ Route::middleware(['auth', 'permission:' . Member::MEMBER_EDIT_PERMISSION])->gro
         ->name('member.create');
     Route::get('/members/member/{member}', MemberEdit::class)
         ->name('member.edit');
-
-    Route::get('/members/import', MemberImport::class)
-        ->name('member.import');
 });

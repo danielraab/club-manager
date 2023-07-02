@@ -7,7 +7,9 @@ use App\Models\Import\MemberChangesWrapper;
 use App\Models\Member;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ItemNotFoundException;
 use Livewire\Component;
 
@@ -140,19 +142,26 @@ class SyncOverview extends Component
                 $newMember->last_import_date = now();
                 if (!$newMember->entrance_date)
                     $newMember->entrance_date = $newMember->last_import_date;
+
+                $newMember->creator()->associate(Auth::user());
+                $newMember->lastUpdater()->associate(Auth::user());
+
                 if ($newMember->saveQuietly()) $addedCnt++;
             }
 
             foreach ($this->changedMembers as $memberWrapper) {
                 $id = $memberWrapper->original->id;
                 $member = Member::query()->find($id);
+                $member->lastUpdater()->associate(Auth::user());
                 if ($member->update($memberWrapper->imported->getAttributes()))
                     $updatedCnt++;
             }
             DB::commit();
         } catch(\Exception $e) {
             DB::rollBack();
-            throw $e;
+            Log::error("exception occurred while syncing imported members.", [$e]);
+            session()->push("message", __("An error occurred while syncing the imported members. Check your import file and try again."));
+            return redirect();
         }
 
         if($addedCnt > 0)

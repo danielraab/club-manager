@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Import\ImportedMember;
+use App\Models\UserPermission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +17,12 @@ return new class extends Migration
             $table->string("external_id")->unique()->nullable();
             $table->dateTime("last_import_date")->nullable();
         });
+
+        UserPermission::create([
+            'id' => ImportedMember::MEMBER_IMPORT_PERMISSION,
+            'label' => 'Show members and member groups',
+            'is_default' => false,
+        ]);
     }
 
     /**
@@ -26,5 +34,7 @@ return new class extends Migration
             $table->dropColumn("external_id");
             $table->dropColumn("last_import_date");
         });
+
+        UserPermission::find(ImportedMember::MEMBER_IMPORT_PERMISSION)?->delete();
     }
 };

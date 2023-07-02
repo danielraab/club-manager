@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class ImportedMember implements \Iterator, \JsonSerializable
 {
+    public const MEMBER_IMPORT_PERMISSION = 'memberImport';
+
     public const ATTRIBUTE_LABEL_ARRAY = [
         "title_pre" => "Prefixed Title",
         "firstname" => "Firstname",

@@ -44,7 +44,7 @@
             </x-input-checkbox>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5 mb-6">
             <x-input-label for="memberGroupList" :value="__('Member groups')"/>
             <select name="memberGroupList" id="memberGroupList" size="10" multiple
                     wire:model.defer="memberGroupList"
@@ -59,8 +59,16 @@
         </div>
 
 
+        @if($member && ($member->external_id || $member->last_import_date))
+            <div class="text-gray-500 mt-2 ml-3">
+                <i class="fa-solid fa-up-right-from-square"></i>
+                <span title="{{__("External id")}}">{{$member->external_id}}</span> -
+                <span title="{{__("Last import")}}">{{$member->last_import_date}}</span>
+            </div>
+        @endif
+
         @if($member && $member->created_at)
-            <div class="text-gray-500 mt-8 ml-3">
+            <div class="text-gray-500 mt-2 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
                 <span title="{{__("Creator")}}">{{$member->creator?->name}}</span> -
                 <span title="{{__("Created at")}}">{{$member->created_at->formatDateTimeWithSec()}}</span>

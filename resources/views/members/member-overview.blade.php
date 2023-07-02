@@ -1,5 +1,6 @@
 @php
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Member::MEMBER_EDIT_PERMISSION);
+    $hasImportPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
@@ -10,12 +11,14 @@
 
     @if($hasEditPermission)
         <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-between gap-2 w-full sm:w-auto items-center">
-            <x-button-link href="{{route('member.import')}}" class="btn-info"
-                           title="Import member list">
-                {{__("Import members")}}
-            </x-button-link>
-            <div class="flex flex-wrap gap-2 justify-center">
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 w-full sm:w-auto items-center">
+            @if($hasImportPermission)
+                <x-button-link href="{{route('member.import')}}" class="btn-info"
+                               title="Import member list">
+                    {{__("Import members")}}
+                </x-button-link>
+            @endif
+            <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
                 <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
                     {{__("Member Group List")}}
