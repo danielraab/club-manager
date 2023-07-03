@@ -10,11 +10,11 @@
             <section>
                 <header>
                     <h2 class="text-lg font-medium text-gray-900">
-                        {{ __('Import file') }}
+                        {{ __('Select file') }}
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-600">
-                        {{ __("Select CSV file with max. 1MB") }}
+                        {{ __("Select :filetype file with max. :size", ["filetype"=>"CSV", "size"=> "1MB"]) }}
                     </p>
                 </header>
                 <div class="flex flex-wrap items-top justify-center mt-5 gap-5">

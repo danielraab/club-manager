@@ -1,6 +1,6 @@
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 p-5 ">
     <section>
-        <header>
+        <header class="mb-3">
             <h2 class="text-lg font-medium text-gray-900">
                 {{ __('Check updated fields') }}
             </h2>
@@ -24,7 +24,7 @@
                             <ul class="border-2 bg-white p-3">
                                 @foreach($importedMember as $key => $value)
                                     <li><strong>
-                                            {{\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY[$key]}}:
+                                            {{__(\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY[$key])}}:
                                         </strong> {{$value}}</li>
                                 @endforeach
                             </ul>
@@ -54,7 +54,7 @@
                                 <table class="border-2 w-full">
                                     @foreach($wrapper->attributeDifferenceList as $attributeName)
                                         <tr class="border-2">
-                                            <td class="border-2 font-bold">{{$attributeName}}</td>
+                                            <td class="border-2 font-bold">{{__(\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY[$attributeName])}}</td>
                                             <td class="text-green-700">{{$wrapper->original->getAttributeValue($attributeName)}}</td>
                                             <td class="text-orange-600">{{$wrapper->imported->getAttribute($attributeName)}}</td>
                                         </tr>
@@ -95,7 +95,7 @@
         @if(!empty($newMembers) || !empty($changedMembers))
             <div class="flex flex-row-reverse mt-5">
                 <x-default-button class="btn-danger" wire:click="syncMembers"
-                                  title="Sync members">{{ __('Sync members') }}</x-default-button>
+                                  title="Import members">{{ __('Import members') }}</x-default-button>
             </div>
         @else
             <div class="flex justify-center mt-5">

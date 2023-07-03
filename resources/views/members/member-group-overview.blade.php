@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Member Group Overview') }}</span>
             <x-button-link href="{{route('member.group.create')}}" class="btn-success" title="Create new member group">
-                {{__("Create new member group")}}
+                {{__("Add member group")}}
             </x-button-link>
         </div>
     </x-slot>

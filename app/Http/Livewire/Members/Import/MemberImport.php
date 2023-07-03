@@ -31,7 +31,7 @@ class MemberImport extends Component
     }
 
     public function mount() {
-        $this->fileInfoMessage = __("Please select a valid csv file.");
+        $this->fileInfoMessage = __("Please select a valid import file.");
     }
 
     public function evaluateFile()

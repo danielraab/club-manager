@@ -19,7 +19,7 @@
                                 wire:model.defer="fieldMap.{{$field}}">
                             <option></option>
                             @foreach($csvColumns as $idx => $column)
-                                <option value="{{$idx}}">{{$column}}</option>
+                                <option value="{{$idx}}">{{__($column)}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="flex flex-row-reverse mt-5">
                 <x-default-button class="btn-primary" wire:click="showSyncOverview"
-                                  title="Show sync overview">{{ __('Show sync overview') }}</x-default-button>
+                                  title="Show import overview">{{ __('Show import overview') }}</x-default-button>
             </div>
         </section>
     </div>

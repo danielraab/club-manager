@@ -167,7 +167,7 @@ class SyncOverview extends Component
         if($addedCnt > 0)
             session()->push("message", __(":count new members created during import.", ["count" => $addedCnt]));
         if($updatedCnt > 0)
-            session()->push("message", __(":count members updated during import.", ["count" => $addedCnt]));
+            session()->push("message", __(":count members updated during import.", ["count" => $updatedCnt]));
 
         return redirect(route("member.index"));
     }

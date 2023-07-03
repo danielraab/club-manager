@@ -22,7 +22,7 @@
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
                 <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
-                    {{__("Member Group List")}}
+                    {{__("Member Groups")}}
                 </x-button-link>
                 <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
                     {{__("Add new member")}}
@@ -65,7 +65,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($this->members as $member)
+                @foreach($this->members->get() as $member)
                     @php
                         $rowBg = "bg-lime-200";
                         if($member->entrance_date === null || $member->birthday === null) {

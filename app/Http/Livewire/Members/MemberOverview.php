@@ -29,6 +29,7 @@ class MemberOverview extends Component
                 $query->whereIn('id', array_map(fn($group) => $group->id, $groupChildList));
             });
         }
+
         return $memberList;
     }
 

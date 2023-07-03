@@ -16,7 +16,7 @@
     @if(Auth::user()->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION, \App\Models\Member::MEMBER_EDIT_PERMISSION))
         <x-responsive-nav-link :href="route('member.index')"
                                :active="request()->routeIs('member.index')">
-            {{ __('Member') }}
+            {{ __('Members') }}
         </x-responsive-nav-link>
     @endif
 
