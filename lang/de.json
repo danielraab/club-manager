@@ -39,6 +39,7 @@
     "Postfixed Title": "Title nachgestellt",
     "External Id": "Externe Id",
     "Birthday": "Geburtstag",
+    "Phone": "Telefonnummer",
     "Phone number": "Telefonnummer",
     "Entrance date": "Eintrittsdatum",
     "Leaving date": "Austrittsdatum",
@@ -170,5 +171,12 @@
     "Unchanged members": "Mitglieder ohne Änderung",
     "Nothing to import.": "Es ist nichts zu importieren.",
     ":count new members created during import.": "Es wurden :count neue Mitglieder angelegt.",
-    ":count members updated during import.": "Es wurden :count neue Mitglieder upgedated."
+    ":count members updated during import.": "Es wurden :count neue Mitglieder upgedated.",
+    "Enter basic information of the member.": "Basisinformationen über das Mitglied eingeben.",
+    "Entrance and member group": "Eintritt und Mitgliedergruppen",
+    "Enter information about entrance and association to member groups.": "Informationen über den Eintritt und die zugewiesenen Mitgliedergruppen.",
+    "Member groups": "Mitgliedergruppen",
+    "The Member is special marked after the leaving date is reached. And will not appear in export etc.":
+        "Das Mitglied wird nicht in diversen Exports gelistet.",
+    "Create new member and stay on this site": "Neues Mitglied erstellen und auf der Seite bleiben."
 }
