@@ -19,7 +19,7 @@
             @php($todayDisplayed = false)
             @foreach($members as $member)
                 @php($current = $member->birthday->format("m-d"))
-                @if(!$todayDisplayed && strcmp($today, $current) < 0)
+                @if(!$todayDisplayed && strcmp($today, $current) <= 0)
                     <tr>
                         <td colspan="3">
                             <div class="relative py-4">
