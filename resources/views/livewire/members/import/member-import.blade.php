@@ -37,9 +37,9 @@
                 </div>
                 <div class="w-full text-right mt-5">
                     <div wire:loading class="fa fa-spinner fa-spin mr-3"></div>
-                        <x-default-button class="btn-primary" wire:click="evaluateFile" wire:loading.attr="disabled"
-                                          wire:target="evaluateFile, csvFile"
-                                          title="Read selected file">{{ __('Read file') }}</x-default-button>
+                    <x-default-button class="btn-primary" wire:click="evaluateFile" wire:loading.attr="disabled"
+                                      wire:target="evaluateFile, csvFile"
+                                      title="Read selected file">{{ __('Read file') }}</x-default-button>
                 </div>
             </section>
         </div>

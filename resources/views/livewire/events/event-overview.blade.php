@@ -22,6 +22,8 @@
         </div>
     @endif
 
+    <x-livewire.loading />
+
     <div class="flex">
         <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
     </div>

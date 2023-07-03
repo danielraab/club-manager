@@ -35,7 +35,6 @@ class MemberOverview extends Component
 
     public function render()
     {
-
         return view('livewire.members.member-overview')->layout('layouts.backend');
     }
 }
