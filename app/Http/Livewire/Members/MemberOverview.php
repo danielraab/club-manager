@@ -12,9 +12,8 @@ class MemberOverview extends Component
     public bool $onlyActive = false;
     public string $filterMemberGroup = "";
 
+    public function getMembersProperty() {
 
-    public function render()
-    {
         /** @var Builder $memberList */
         $memberList = Member::orderBy("lastname")->orderBy("firstname");
 
@@ -30,9 +29,12 @@ class MemberOverview extends Component
                 $query->whereIn('id', array_map(fn($group) => $group->id, $groupChildList));
             });
         }
+        return $memberList;
+    }
 
-        return view('livewire.members.member-overview', [
-            'members' => $memberList->get()]
-        )->layout('layouts.backend');
+    public function render()
+    {
+
+        return view('livewire.members.member-overview')->layout('layouts.backend');
     }
 }
