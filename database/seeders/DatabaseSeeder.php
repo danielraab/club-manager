@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
             UserManagementSeeder::class,
             NewsSeeder::class,
             EventSeeder::class,
-            MemberSeeder::class
+            MemberSeeder::class,
         ]);
     }
 }

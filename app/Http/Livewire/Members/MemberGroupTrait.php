@@ -8,21 +8,23 @@ use App\Models\MemberGroup;
 trait MemberGroupTrait
 {
     public MemberGroup $memberGroup;
+
     public string $previousUrl;
 
     public ?string $parent = null;
+
     public array $memberSelection = [];
 
     protected function rules()
     {
-        return[
+        return [
             'memberGroup.title' => ['required', 'string', 'max:255'],
             'memberGroup.description' => ['nullable', 'string'],
             'parent' => ['nullable', 'int', 'exists:member_groups,id'],
             'memberSelection' => ['array', 'nullable',
                 function (string $attribute, mixed $value, \Closure $fail) {
                     self::memberSelectionCheck($attribute, $value, $fail);
-                }]
+                }],
         ];
     }
 
@@ -55,6 +57,7 @@ trait MemberGroupTrait
         $this->memberGroup->members()->sync(array_unique($this->memberSelection));
 
         session()->put('message', $message);
+
         return redirect($this->previousUrl);
     }
 }

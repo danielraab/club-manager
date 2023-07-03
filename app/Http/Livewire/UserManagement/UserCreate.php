@@ -11,6 +11,7 @@ class UserCreate extends Component
     use UserPermissionComponentTrait;
 
     public User $user;
+
     public string $previousUrl;
 
     protected function rules()
@@ -38,6 +39,7 @@ class UserCreate extends Component
 
         Log::channel('userManagement')->info("User '".$this->user->getNameWithMail()."' has been created by '".auth()->user()->getNameWithMail()."'");
         session()->put('message', __("User '".$this->user->name."' created successfully."));
+
         return redirect($this->previousUrl);
     }
 

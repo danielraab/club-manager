@@ -21,7 +21,7 @@ class EventOverview extends Component
     public function toggleEnabledState(Event $event)
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $event->enabled = !$event->enabled;
+            $event->enabled = ! $event->enabled;
             $event->lastUpdater()->associate(Auth::user());
             $event->save();
         } else {
@@ -32,9 +32,9 @@ class EventOverview extends Component
     public function disableLastYearEvents()
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $cnt = Event::where("end", "<", now()->setMonth(0)->setDay(0)->setTime(0, 0, 0))
-                ->update(["enabled" => false]);
-            session()->flash("eventDisableMessage", __("Done. :cnt Event(s) affected.", ["cnt" => $cnt]));
+            $cnt = Event::where('end', '<', now()->setMonth(0)->setDay(0)->setTime(0, 0, 0))
+                ->update(['enabled' => false]);
+            session()->flash('eventDisableMessage', __('Done. :cnt Event(s) affected.', ['cnt' => $cnt]));
         } else {
             abort(403);
         }
@@ -53,7 +53,7 @@ class EventOverview extends Component
         if (Auth::guest()) {
             $eventList = $eventList->where('logged_in_only', false);
             $eventList = $eventList->where('enabled', true);
-        } elseif (!Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
+        } elseif (! Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
             $eventList = $eventList->where('enabled', true);
         }
 

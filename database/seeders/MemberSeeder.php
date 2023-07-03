@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class MemberSeeder extends Seeder
 {
-
     const MEMBER_GROUP_CNT = 10;
 
     private Collection $memberGroupCollection;
+
     private User $memberEdit;
 
     /**
@@ -54,55 +54,55 @@ class MemberSeeder extends Seeder
         MemberGroup::factory(2)->create();
         $this->memberGroupCollection = MemberGroup::factory(self::MEMBER_GROUP_CNT)->create();
 
-        $this->memberGroupCollection->each(function(MemberGroup $memberGroup) {
-            $memberGroup->parent()->associate(fake()->numberBetween(1,2))->save();
+        $this->memberGroupCollection->each(function (MemberGroup $memberGroup) {
+            $memberGroup->parent()->associate(fake()->numberBetween(1, 2))->save();
         });
     }
 
     private function addMembers(): void
     {
         $coll = Member::factory(25)->create([
-            "leaving_date" => null,
-            "creator_id" => $this->memberEdit->id,
-            "last_updater_id" => $this->memberEdit->id
+            'leaving_date' => null,
+            'creator_id' => $this->memberEdit->id,
+            'last_updater_id' => $this->memberEdit->id,
         ]);
         $coll = Member::factory(5)->create([
-            "leaving_date" => null,
-            "paused" => true,
-            "creator_id" => $this->memberEdit->id,
-            "last_updater_id" => $this->memberEdit->id
+            'leaving_date' => null,
+            'paused' => true,
+            'creator_id' => $this->memberEdit->id,
+            'last_updater_id' => $this->memberEdit->id,
         ]);
-        $coll->each(function(Member $member) {
+        $coll->each(function (Member $member) {
             $member->memberGroups()->attach(
-                fake()->numberBetween(3, self::MEMBER_GROUP_CNT+2));
+                fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
 
         $coll = Member::factory(10)->create([
-            "title_pre" => null,
-            "title_post" => null,
-            "birthday" => null,
-            "phone" => null,
-            "email" => null,
-            "street" => null,
-            "zip" => null,
-            "city" => null,
-            "leaving_date" => null,
-            "creator_id" => $this->memberEdit->id,
-            "last_updater_id" => $this->memberEdit->id
+            'title_pre' => null,
+            'title_post' => null,
+            'birthday' => null,
+            'phone' => null,
+            'email' => null,
+            'street' => null,
+            'zip' => null,
+            'city' => null,
+            'leaving_date' => null,
+            'creator_id' => $this->memberEdit->id,
+            'last_updater_id' => $this->memberEdit->id,
         ]);
-        $coll->each(function(Member $member) {
+        $coll->each(function (Member $member) {
             $member->memberGroups()->attach(
-                fake()->numberBetween(3, self::MEMBER_GROUP_CNT+2));
+                fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
 
         $coll = Member::factory(10)->create([
-            "creator_id" => $this->memberEdit->id,
-            "last_updater_id" => $this->memberEdit->id
+            'creator_id' => $this->memberEdit->id,
+            'last_updater_id' => $this->memberEdit->id,
         ]);
-        $coll->each(function(Member $member) {
+        $coll->each(function (Member $member) {
             $member->memberGroups()->attach(3);
             $member->memberGroups()->attach(
-                fake()->numberBetween(4, self::MEMBER_GROUP_CNT+2));
+                fake()->numberBetween(4, self::MEMBER_GROUP_CNT + 2));
         });
     }
 }

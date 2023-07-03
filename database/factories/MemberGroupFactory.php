@@ -17,8 +17,8 @@ class MemberGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            "title" => fake()->text(20),
-            "description" => fake()->text()
+            'title' => fake()->text(20),
+            'description' => fake()->text(),
         ];
     }
 }

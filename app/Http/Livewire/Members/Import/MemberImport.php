@@ -16,57 +16,66 @@ class MemberImport extends Component
     use WithFileUploads;
 
     public null|TemporaryUploadedFile|string $csvFile = null;
-    public string $fileInfoMessage = "";
-    public string $separator = ";";
+
+    public string $fileInfoMessage = '';
+
+    public string $separator = ';';
+
     public array $csvColumns = [];
-    public string $csvColumnsHash = "";
+
+    public string $csvColumnsHash = '';
+
     public array $rawData = [];
 
     protected function rules()
     {
         return [
             'csvFile' => ['required', File::types(['csv', 'txt'])->max(1024)],
-            'separator' => ['required', Rule::in([';',','])]
+            'separator' => ['required', Rule::in([';', ','])],
         ];
     }
 
-    public function mount() {
-        $this->fileInfoMessage = __("Please select a valid import file.");
+    public function mount()
+    {
+        $this->fileInfoMessage = __('Please select a valid import file.');
     }
 
     public function evaluateFile()
     {
-        $this->fileInfoMessage = "";
+        $this->fileInfoMessage = '';
         $this->validate();
 
         try {
             $this->readCSVFile();
             $this->parseHeadline();
         } catch (\Exception $e) {
-            Log::info("error while reading/parsing csv file", [$e->getTraceAsString()]);
-            $this->fileInfoMessage = "Problem occurred while reading the csv file. Please check the file and try again.";
+            Log::info('error while reading/parsing csv file', [$e->getTraceAsString()]);
+            $this->fileInfoMessage = 'Problem occurred while reading the csv file. Please check the file and try again.';
         }
     }
 
     /**
      * @throws FileNotFoundException
      */
-    private function readCSVFile() {
+    private function readCSVFile()
+    {
         $lines = explode("\n", $this->csvFile?->get());
-        $this->rawData = Arr::map($lines, fn($elem) => str_getcsv($elem, $this->separator));
+        $this->rawData = Arr::map($lines, fn ($elem) => str_getcsv($elem, $this->separator));
         $this->filterRawData();
     }
 
-    private function filterRawData(): void {
-        $this->rawData = array_filter($this->rawData, function($rowEntry) {
+    private function filterRawData(): void
+    {
+        $this->rawData = array_filter($this->rawData, function ($rowEntry) {
             return is_array($rowEntry) && count($rowEntry) > 1;
         });
     }
 
-    private function parseHeadline() {
+    private function parseHeadline()
+    {
         $this->csvColumns = array_shift($this->rawData);
-        if(count($this->rawData) < 2 || count($this->csvColumns) < 3) {
-            $this->fileInfoMessage = __("Given file is not usable for member import");
+        if (count($this->rawData) < 2 || count($this->csvColumns) < 3) {
+            $this->fileInfoMessage = __('Given file is not usable for member import');
             $this->csvColumns = [];
             $this->rawData = [];
         }

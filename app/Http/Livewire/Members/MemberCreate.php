@@ -13,7 +13,7 @@ class MemberCreate extends Component
     public function mount()
     {
         $this->member = new Member();
-        $this->entrance_date = now()->format("Y-m-d");
+        $this->entrance_date = now()->format('Y-m-d');
         $this->previousUrl = url()->previous();
     }
 
@@ -28,10 +28,12 @@ class MemberCreate extends Component
         $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
 
         session()->put('message', __('The member has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 
-    public function saveMemberAndStay() {
+    public function saveMemberAndStay()
+    {
         $this->validate();
         $this->propsToModel();
         $this->member->creator()->associate(Auth::user());
@@ -40,7 +42,7 @@ class MemberCreate extends Component
 
         $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
 
-        session()->flash("savedAndStayMessage", __("New member successfully created. You can create the next one now."));
+        session()->flash('savedAndStayMessage', __('New member successfully created. You can create the next one now.'));
     }
 
     public function render()

@@ -24,6 +24,7 @@ class EventTypeEdit extends Component
     {
         $this->eventType->delete();
         session()->put('message', __('The event type has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 

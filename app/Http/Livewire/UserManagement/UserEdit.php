@@ -11,6 +11,7 @@ class UserEdit extends Component
     use UserPermissionComponentTrait;
 
     public User $user;
+
     public string $previousUrl;
 
     protected function rules()
@@ -41,6 +42,7 @@ class UserEdit extends Component
         Log::channel('userManagement')
             ->info("User '".$this->user->getNameWithMail()."' has been edited by '".auth()->user()->getNameWithMail()."'");
         session()->put('message', __("User '".$this->user->name."' saved successfully."));
+
         return redirect($this->previousUrl);
     }
 
@@ -49,6 +51,7 @@ class UserEdit extends Component
         $this->user->delete();
         Log::channel('userManagement')
             ->info("User '".$this->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
+
         return back()->with('message', __("The user '".$this->user->getNameWithMail()."' has been deleted."));
     }
 

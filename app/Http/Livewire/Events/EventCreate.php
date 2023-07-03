@@ -31,6 +31,7 @@ class EventCreate extends Component
         $this->event->replicate()->save();
 
         session()->put('message', __('The event has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -42,7 +43,7 @@ class EventCreate extends Component
         $this->event->lastUpdater()->associate(Auth::user());
         $this->event->replicate()->save();
 
-        session()->flash("savedAndStayMessage", __("New event created."));
+        session()->flash('savedAndStayMessage', __('New event created.'));
     }
 
     public function render()

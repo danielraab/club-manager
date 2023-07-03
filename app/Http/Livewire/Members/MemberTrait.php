@@ -9,10 +9,15 @@ use Carbon\Carbon;
 trait MemberTrait
 {
     public Member $member;
+
     public array $memberGroupList;
+
     public ?string $birthday = null;
+
     public string $entrance_date;
+
     public ?string $leaving_date = null;
+
     public string $previousUrl;
 
     protected function rules()
@@ -36,7 +41,7 @@ trait MemberTrait
             'memberGroupList' => ['nullable', 'array',
                 function (string $attribute, mixed $value, \Closure $fail) {
                     self::memberGroupSelectionCheck($attribute, $value, $fail);
-                }]
+                }],
         ];
     }
 
@@ -50,11 +55,20 @@ trait MemberTrait
         }
     }
 
-    protected function propsToModel() {
-        if($this->birthday) $this->member->birthday = new Carbon($this->birthday);
-        else $this->member->birthday = null;
-        if($this->entrance_date) $this->member->entrance_date = new Carbon($this->entrance_date);
-        if($this->leaving_date) $this->member->leaving_date = new Carbon($this->leaving_date);
-        else $this->member->leaving_date = null;
+    protected function propsToModel()
+    {
+        if ($this->birthday) {
+            $this->member->birthday = new Carbon($this->birthday);
+        } else {
+            $this->member->birthday = null;
+        }
+        if ($this->entrance_date) {
+            $this->member->entrance_date = new Carbon($this->entrance_date);
+        }
+        if ($this->leaving_date) {
+            $this->member->leaving_date = new Carbon($this->leaving_date);
+        } else {
+            $this->member->leaving_date = null;
+        }
     }
 }

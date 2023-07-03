@@ -8,6 +8,7 @@ use Carbon\Carbon;
 trait EventTrait
 {
     public Event $event;
+
     public string $previousUrl;
 
     public string $start;

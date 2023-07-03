@@ -10,23 +10,25 @@ use Livewire\Component;
 class MemberOverview extends Component
 {
     public bool $onlyActive = false;
-    public string $filterMemberGroup = "";
 
-    public function getMembersProperty() {
+    public string $filterMemberGroup = '';
+
+    public function getMembersProperty()
+    {
 
         /** @var Builder $memberList */
-        $memberList = Member::orderBy("lastname")->orderBy("firstname");
+        $memberList = Member::orderBy('lastname')->orderBy('firstname');
 
         if ($this->onlyActive) {
             $memberList = Member::allActive();
         }
 
-        if($this->filterMemberGroup) {
+        if ($this->filterMemberGroup) {
             /** @var MemberGroup $selectedGroup */
             $selectedGroup = MemberGroup::query()->find(intval($this->filterMemberGroup));
             $groupChildList = $selectedGroup?->getAllChildrenRecursive() ?: [];
-            $memberList->whereHas('memberGroups', function($query) use ($groupChildList) {
-                $query->whereIn('id', array_map(fn($group) => $group->id, $groupChildList));
+            $memberList->whereHas('memberGroups', function ($query) use ($groupChildList) {
+                $query->whereIn('id', array_map(fn ($group) => $group->id, $groupChildList));
             });
         }
 

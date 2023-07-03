@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('member_groups')->onDelete('set null');
 
-            $table->smallInteger("sort_order")->default(0);
+            $table->smallInteger('sort_order')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

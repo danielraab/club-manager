@@ -34,6 +34,7 @@ class NewsCreate extends Component
 
         $this->news->save();
         session()->push('message', __('News successfully added.'));
+
         return redirect($this->previousUrl);
     }
 

@@ -14,7 +14,8 @@ use Spatie\IcalendarGenerator\Components\Event;
 
 class EventCalendar extends Controller
 {
-    const CALENDAR_REFRESH_INTERVAL_MIN = 60*6;
+    const CALENDAR_REFRESH_INTERVAL_MIN = 60 * 6;
+
     public function toJson()
     {
         return $this->getEventList();
@@ -42,7 +43,7 @@ class EventCalendar extends Controller
             if ($event->description) {
                 $calEvent->description($event->description);
             }
-            if($event->location) {
+            if ($event->location) {
                 $calEvent->address($event->location);
             }
             if ($event->whole_day) {
@@ -64,11 +65,12 @@ class EventCalendar extends Controller
         }
         $eventList = $eventList->where('enabled', true);
 
-        return $eventList->get(["id", "title", "description", "whole_day", "start", "end", "link", "location", "dress_code"]);
+        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
     }
 
-    public function next(Request $request) {
-        if(validator($request->query(), ["limit" => ["nullable", "int"]])->fails()) {
+    public function next(Request $request)
+    {
+        if (validator($request->query(), ['limit' => ['nullable', 'int']])->fails()) {
             abort(400);
         }
 
@@ -76,11 +78,11 @@ class EventCalendar extends Controller
         if (Auth::guest()) {
             $eventList = $eventList->where('logged_in_only', false);
         }
-        $eventList = $eventList->where('enabled', true)->where("end", ">", now());
-        if($limit = $request->query("limit")) {
+        $eventList = $eventList->where('enabled', true)->where('end', '>', now());
+        if ($limit = $request->query('limit')) {
             $eventList = $eventList->limit($limit);
         }
 
-        return $eventList->get(["id", "title", "description", "whole_day", "start", "end", "link", "location", "dress_code"]);
+        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\EventType;
 trait EventTypeTrait
 {
     public EventType $eventType;
+
     public string $previousUrl;
 
     public ?string $parent = null;
@@ -35,6 +36,7 @@ trait EventTypeTrait
         $this->eventType->save();
 
         session()->put('message', $message);
+
         return redirect($this->previousUrl);
     }
 }

@@ -21,10 +21,12 @@ class NewsEdit extends Component
     {
         $this->news->delete();
         session()->put('message', __('The news has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 
-    public function saveNewsCopy() {
+    public function saveNewsCopy()
+    {
 
         $this->validate();
         $this->additionalContentValidation();
@@ -37,7 +39,7 @@ class NewsEdit extends Component
         $this->news->save();
 
         session()->put('message', __('News successfully created.'));
-        $this->redirect(route('news.edit', ["news" => $this->news->id]));
+        $this->redirect(route('news.edit', ['news' => $this->news->id]));
     }
 
     public function saveNews()
@@ -50,6 +52,7 @@ class NewsEdit extends Component
 
         $this->news->save();
         session()->put('message', __('News successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

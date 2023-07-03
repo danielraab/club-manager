@@ -47,10 +47,11 @@ class EventType extends Model
 
     public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->whereNull("parent_id")->orderBy("sort_order")->orderBy("title");
+        return self::query()->whereNull('parent_id')->orderBy('sort_order')->orderBy('title');
     }
 
-    public function events(): HasMany {
+    public function events(): HasMany
+    {
         return $this->hasMany(Event::class);
     }
 }

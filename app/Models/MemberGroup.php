@@ -22,15 +22,14 @@ class MemberGroup extends Model
         'sort_order',
     ];
 
-
     public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->whereNull("parent_id")->orderBy("sort_order")->orderBy("title");
+        return self::query()->whereNull('parent_id')->orderBy('sort_order')->orderBy('title');
     }
 
     public static function getLeafQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->whereDoesntHave("children")->orderBy("sort_order")->orderBy("title");
+        return self::query()->whereDoesntHave('children')->orderBy('sort_order')->orderBy('title');
     }
 
     public function members(): BelongsToMany
@@ -48,11 +47,14 @@ class MemberGroup extends Model
         return $this->hasMany(MemberGroup::class, 'parent_id');
     }
 
-    public function getAllChildrenRecursive(array &$childList = [], $depth = 0): array {
+    public function getAllChildrenRecursive(array &$childList = [], $depth = 0): array
+    {
         $childList[] = $this;
-        if($depth >= self::MAX_CHILD_TREE_DEPTH) return $childList;
+        if ($depth >= self::MAX_CHILD_TREE_DEPTH) {
+            return $childList;
+        }
 
-        foreach($this->children()->get() as $child) {
+        foreach ($this->children()->get() as $child) {
             $child->getAllChildrenRecursive($childList, $depth + 1);
         }
 

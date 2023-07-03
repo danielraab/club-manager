@@ -22,6 +22,7 @@ class EventEdit extends Component
     {
         $this->event->delete();
         session()->put('message', __('The event has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -36,7 +37,7 @@ class EventEdit extends Component
         $this->event->save();
 
         session()->put('message', __('The event has been successfully created.'));
-        $this->redirect(route('event.edit', ["event" => $this->event->id]));
+        $this->redirect(route('event.edit', ['event' => $this->event->id]));
     }
 
     public function saveEvent()
@@ -47,6 +48,7 @@ class EventEdit extends Component
         $this->event->save();
 
         session()->put('message', __('The event has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

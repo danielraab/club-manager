@@ -38,13 +38,13 @@ class Event extends Model
 
     public static function getLocationHistory(): array
     {
-        return self::query()->select("location")->distinct()
-            ->orderBy("location")->pluck("location")->toArray();
+        return self::query()->select('location')->distinct()
+            ->orderBy('location')->pluck('location')->toArray();
     }
 
     public static function getDressCodeHistory(): array
     {
-        return self::query()->select("dress_code")->distinct()
-            ->orderBy("dress_code")->pluck("dress_code")->toArray();
+        return self::query()->select('dress_code')->distinct()
+            ->orderBy('dress_code')->pluck('dress_code')->toArray();
     }
 }

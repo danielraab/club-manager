@@ -14,7 +14,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroup = $memberGroup;
         $this->parent = $this->memberGroup->parent()->first()?->id;
-        $this->memberSelection = Arr::pluck($this->memberGroup->members()->getResults(), "id");
+        $this->memberSelection = Arr::pluck($this->memberGroup->members()->getResults(), 'id');
         $this->previousUrl = url()->previous();
     }
 
@@ -27,6 +27,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroup->delete();
         session()->put('message', __('The member group has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 

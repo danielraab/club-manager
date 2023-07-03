@@ -19,14 +19,17 @@ class SyncOverview extends Component
      * @var ImportedMember[]
      */
     public array $importedMemberList = [];
+
     /**
      * @var MemberChangesWrapper[]
      */
     public array $changedMembers = [];
+
     /**
      * @var ImportedMember[]
      */
     public array $unchangedImports = [];
+
     /**
      * @var ImportedMember[]
      */
@@ -62,53 +65,47 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
-     * @param ImportedMember $importedMember
-     * @return Member
+     * @param  Collection<int, Member>  $currentMemberList
      */
     private function findMatchingMember(Collection $currentMemberList, ImportedMember $importedMember): Member
     {
-        if ($importedMember->hasAttribute("external_id")) {
+        if ($importedMember->hasAttribute('external_id')) {
             return $this->findExternalIdInMemberList($currentMemberList,
-                $importedMember->getAttribute("external_id"));
+                $importedMember->getAttribute('external_id'));
         }
 
-        if ($importedMember->hasAttribute("firstname") &&
-            $importedMember->hasAttribute("lastname") &&
-            $importedMember->hasAttribute("birthday")) {
+        if ($importedMember->hasAttribute('firstname') &&
+            $importedMember->hasAttribute('lastname') &&
+            $importedMember->hasAttribute('birthday')) {
             return $this->findNameAndBirthdayInMemberList(
                 $currentMemberList,
-                $importedMember->getAttribute("lastname"),
-                $importedMember->getAttribute("firstname"),
-                $importedMember->getAttribute("birthday"));
+                $importedMember->getAttribute('lastname'),
+                $importedMember->getAttribute('firstname'),
+                $importedMember->getAttribute('birthday'));
         }
         throw new ItemNotFoundException();
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
-     * @param string $externalId
-     * @return Member
+     * @param  Collection<int, Member>  $currentMemberList
+     *
      * @throws ItemNotFoundException
      */
     private function findExternalIdInMemberList(Collection $currentMemberList, string $externalId): Member
     {
-        return $currentMemberList->firstOrFail("external_id", "==", $externalId);
+        return $currentMemberList->firstOrFail('external_id', '==', $externalId);
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
-     * @param string $lastname
-     * @param string $firstname
-     * @param Carbon $birthday
-     * @return Member
+     * @param  Collection<int, Member>  $currentMemberList
+     *
      * @throws ItemNotFoundException
      */
     private function findNameAndBirthdayInMemberList(
         Collection $currentMemberList,
-        string     $lastname,
-        string     $firstname,
-        Carbon     $birthday): Member
+        string $lastname,
+        string $firstname,
+        Carbon $birthday): Member
     {
         return $currentMemberList->firstOrFail(function (Member $member) use ($lastname, $firstname, $birthday) {
             return $member->lastname === $lastname &&
@@ -119,14 +116,15 @@ class SyncOverview extends Component
 
     public function hydrate()
     {
-        $this->newMembers = array_map(fn(array $e) => new ImportedMember($e), $this->newMembers);
+        $this->newMembers = array_map(fn (array $e) => new ImportedMember($e), $this->newMembers);
         $this->changedMembers = array_map(function (array $wrapper) {
-            $originalMember =  new Member($wrapper["original"]);
-            $originalMember->id = $wrapper["original"]["id"];
+            $originalMember = new Member($wrapper['original']);
+            $originalMember->id = $wrapper['original']['id'];
+
             return new MemberChangesWrapper(
                 $originalMember,
-                new ImportedMember($wrapper["imported"]),
-                $wrapper["attributeDifferenceList"]
+                new ImportedMember($wrapper['imported']),
+                $wrapper['attributeDifferenceList']
             );
         }, $this->changedMembers);
     }
@@ -140,36 +138,43 @@ class SyncOverview extends Component
             foreach ($this->newMembers as $importedMember) {
                 $newMember = $importedMember->toMember();
                 $newMember->last_import_date = now();
-                if (!$newMember->entrance_date)
+                if (! $newMember->entrance_date) {
                     $newMember->entrance_date = $newMember->last_import_date;
+                }
 
                 $newMember->creator()->associate(Auth::user());
                 $newMember->lastUpdater()->associate(Auth::user());
 
-                if ($newMember->saveQuietly()) $addedCnt++;
+                if ($newMember->saveQuietly()) {
+                    $addedCnt++;
+                }
             }
 
             foreach ($this->changedMembers as $memberWrapper) {
                 $id = $memberWrapper->original->id;
                 $member = Member::query()->find($id);
                 $member->lastUpdater()->associate(Auth::user());
-                if ($member->update($memberWrapper->imported->getAttributes()))
+                if ($member->update($memberWrapper->imported->getAttributes())) {
                     $updatedCnt++;
+                }
             }
             DB::commit();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            Log::error("exception occurred while syncing imported members.", [$e]);
-            session()->push("message", __("An error occurred while syncing the imported members. Check your import file and try again."));
+            Log::error('exception occurred while syncing imported members.', [$e]);
+            session()->push('message', __('An error occurred while syncing the imported members. Check your import file and try again.'));
+
             return redirect();
         }
 
-        if($addedCnt > 0)
-            session()->push("message", __(":count new members created during import.", ["count" => $addedCnt]));
-        if($updatedCnt > 0)
-            session()->push("message", __(":count members updated during import.", ["count" => $updatedCnt]));
+        if ($addedCnt > 0) {
+            session()->push('message', __(':count new members created during import.', ['count' => $addedCnt]));
+        }
+        if ($updatedCnt > 0) {
+            session()->push('message', __(':count members updated during import.', ['count' => $updatedCnt]));
+        }
 
-        return redirect(route("member.index"));
+        return redirect(route('member.index'));
     }
 
     public function render()

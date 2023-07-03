@@ -10,39 +10,41 @@ class ImportedMember implements \Iterator, \JsonSerializable
     public const MEMBER_IMPORT_PERMISSION = 'memberImport';
 
     public const ATTRIBUTE_LABEL_ARRAY = [
-        "title_pre" => "Prefixed Title",
-        "firstname" => "Firstname",
-        "lastname" => "Lastname",
-        "title_post" => "Postfixed Title",
-        "external_id" => "External Id",
-        "birthday" => "Birthday",
-        "phone" => "Phone number",
-        "email" => "Email",
-        "entrance_date" => "Entrance date",
-        "leaving_date" => "Leaving date",
-        "street" => "Street",
-        "zip" => "ZIP",
-        "city" => "City",
+        'title_pre' => 'Prefixed Title',
+        'firstname' => 'Firstname',
+        'lastname' => 'Lastname',
+        'title_post' => 'Postfixed Title',
+        'external_id' => 'External Id',
+        'birthday' => 'Birthday',
+        'phone' => 'Phone number',
+        'email' => 'Email',
+        'entrance_date' => 'Entrance date',
+        'leaving_date' => 'Leaving date',
+        'street' => 'Street',
+        'zip' => 'ZIP',
+        'city' => 'City',
     ];
 
     public const ADDITIONAL_ALLOWED_ATTRIBUTES = [
-        "id",
-        "creator_id",
-        "last_updater_id",
-        "deleted_at",
-        "created_at",
-        "updated_at",
-        "last_import_date"
+        'id',
+        'creator_id',
+        'last_updater_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
+        'last_import_date',
     ];
 
     private array $attributes;
+
     private int $position = 0;
 
     public function __construct(array $attributes = [])
     {
         $invalidNames = array_diff(array_keys($attributes), self::possibleAttributeNames());
-        if (count($invalidNames) > 0)
-            throw new \InvalidArgumentException("Invalid attribute name(s): " . json_encode($invalidNames));
+        if (count($invalidNames) > 0) {
+            throw new \InvalidArgumentException('Invalid attribute name(s): '.json_encode($invalidNames));
+        }
         $this->attributes = $attributes;
     }
 
@@ -58,25 +60,29 @@ class ImportedMember implements \Iterator, \JsonSerializable
 
     public function getAttribute(string $attributeName): string|Carbon|null
     {
-        if (!$this->hasAttribute($attributeName)) return null;
+        if (! $this->hasAttribute($attributeName)) {
+            return null;
+        }
 
         $value = $this->attributes[$attributeName];
 
         return match ($attributeName) {
-            "birthday", "entrance_date", "leaving_date", "last_import_date" => Carbon::parse($value),
+            'birthday', 'entrance_date', 'leaving_date', 'last_import_date' => Carbon::parse($value),
             default => $value
         };
     }
 
     public function setAttribute(string $name, string|Carbon|bool $value): void
     {
-        if (!in_array($name, self::possibleAttributeNames()))
+        if (! in_array($name, self::possibleAttributeNames())) {
             throw new \InvalidArgumentException("Invalid attribute name: $name");
+        }
 
-        switch($name) {
-            case "birthday":
-                if(is_string($value) && strlen(trim($value)) > 0)
+        switch ($name) {
+            case 'birthday':
+                if (is_string($value) && strlen(trim($value)) > 0) {
                     $this->attributes[$name] = $value;
+                }
                 break;
             default:
                 $this->attributes[$name] = $value;
@@ -84,7 +90,6 @@ class ImportedMember implements \Iterator, \JsonSerializable
     }
 
     /**
-     * @param Member $member
      * @return string[]
      */
     public function getDifferences(Member $member): array
@@ -101,6 +106,7 @@ class ImportedMember implements \Iterator, \JsonSerializable
                 }
             }
         }
+
         return $keysWithDifference;
     }
 
@@ -112,6 +118,7 @@ class ImportedMember implements \Iterator, \JsonSerializable
     public function current(): string|Carbon
     {
         $key = $this->key();
+
         return $this->getAttribute($key);
     }
 

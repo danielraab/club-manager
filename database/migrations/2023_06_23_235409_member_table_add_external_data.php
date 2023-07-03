@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('members', function(Blueprint $table) {
-            $table->string("external_id")->unique()->nullable();
-            $table->dateTime("last_import_date")->nullable();
+        Schema::table('members', function (Blueprint $table) {
+            $table->string('external_id')->unique()->nullable();
+            $table->dateTime('last_import_date')->nullable();
         });
 
         UserPermission::create([
@@ -30,9 +30,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('members', function(Blueprint $table) {
-            $table->dropColumn("external_id");
-            $table->dropColumn("last_import_date");
+        Schema::table('members', function (Blueprint $table) {
+            $table->dropColumn('external_id');
+            $table->dropColumn('last_import_date');
         });
 
         UserPermission::find(ImportedMember::MEMBER_IMPORT_PERMISSION)?->delete();

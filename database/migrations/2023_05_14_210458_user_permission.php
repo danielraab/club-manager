@@ -16,7 +16,7 @@ return new class() extends Migration
             $table->string('id')->primary();
             $table->string('label');
             $table->boolean('is_default')->default(false);
-            $table->smallInteger("sort_order")->default(0);
+            $table->smallInteger('sort_order')->default(0);
             $table->timestamps();
         });
 
