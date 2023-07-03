@@ -29,7 +29,12 @@
         <div>
             <x-input-label for="location" :value="__('Location')"/>
             <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" wire:model.defer="event.location"
-                          required autofocus autocomplete="location"/>
+                          list="locationHistory" required autofocus autocomplete="location"/>
+            <datalist id="locationHistory">
+                @foreach(\App\Models\Event::getLocationHistory() as $location)
+                    <option value="{{$location}}"></option>
+                @endforeach
+            </datalist>
             @error('event.location')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
@@ -37,7 +42,12 @@
         <div>
             <x-input-label for="dress_code" :value="__('Dress code')"/>
             <x-text-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full" wire:model.defer="event.dress_code"
-                          required autofocus autocomplete="dress_code"/>
+                          list="dressCodeHistory" required autofocus autocomplete="dress_code"/>
+            <datalist id="dressCodeHistory">
+                @foreach(\App\Models\Event::getDressCodeHistory() as $dressCode)
+                    <option value="{{$dressCode}}"></option>
+                @endforeach
+            </datalist>
             @error('event.dress_code')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

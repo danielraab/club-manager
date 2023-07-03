@@ -34,7 +34,8 @@ class EventCreate extends Component
         return redirect($this->previousUrl);
     }
 
-    public function saveEventAndStay() {
+    public function saveEventAndStay()
+    {
         $this->validate();
         $this->propToModel();
         $this->event->creator()->associate(Auth::user());
