@@ -73,8 +73,8 @@
                         } elseif($member->entrance_date > now() ||
                          ($member->leaving_date && $member->leaving_date < now())) {
                             $rowBg = "bg-gray-300";
-                        } elseif($member->special) {
-                            $rowBg = "bg-sky-500";
+                        } elseif($member->paused) {
+                            $rowBg = "bg-sky-200";
                         }
                     @endphp
                     <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">

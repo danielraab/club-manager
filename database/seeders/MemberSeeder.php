@@ -68,7 +68,7 @@ class MemberSeeder extends Seeder
         ]);
         $coll = Member::factory(5)->create([
             "leaving_date" => null,
-            "special" => true,
+            "paused" => true,
             "creator_id" => $this->memberEdit->id,
             "last_updater_id" => $this->memberEdit->id
         ]);

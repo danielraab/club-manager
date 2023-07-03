@@ -178,5 +178,7 @@
     "Member groups": "Mitgliedergruppen",
     "The Member is special marked after the leaving date is reached. And will not appear in export etc.":
         "Das Mitglied wird nicht in diversen Exports gelistet.",
-    "Create new member and stay on this site": "Neues Mitglied erstellen und auf der Seite bleiben."
+    "Create new member and stay on this site": "Neues Mitglied erstellen und auf der Seite bleiben.",
+    "Is paused": "pausiert",
+    "The membership is paused.": "Das Mitglied pausiert gerade."
 }

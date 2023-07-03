@@ -23,7 +23,7 @@ class Member extends Model
         'lastname',
         'title_pre',
         'title_post',
-        'special',
+        'paused',
         'birthday',
         'phone',
         'email',
@@ -37,7 +37,7 @@ class Member extends Model
     ];
 
     protected $casts = [
-        'special' => 'bool',
+        'paused' => 'bool',
         'birthday' => 'date',
         'entrance_date' => 'datetime',
         'leaving_date' => 'datetime',
@@ -57,11 +57,11 @@ class Member extends Model
         return $fullName;
     }
 
-    public static function allActive(bool $includeSpecial = true): Builder
+    public static function allActive(bool $includePaused = false): Builder
     {
         $selection = self::query()->where("entrance_date", "<", now());
-        if(!$includeSpecial) {
-            $selection->where("special", false);
+        if(!$includePaused) {
+            $selection->where("paused", false);
         }
         $selection->where(function (Builder $query) {
                 $query->whereNull("leaving_date")

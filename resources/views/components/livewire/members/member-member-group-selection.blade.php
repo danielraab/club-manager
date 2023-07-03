@@ -35,12 +35,12 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
-        <!-- is active -->
+        <!-- is paused -->
         <div class="mt-5 mb-4 ml-3">
-            <x-input-checkbox id="special" name="special" wire:model.defer="member.special"
+            <x-input-checkbox id="paused" name="paused" wire:model.defer="member.paused"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Is special') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
-                                         title="{{__("The Member is special marked.")}}"></i>
+                {{ __('Is paused') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
+                                         title="{{__("The membership is paused.")}}"></i>
             </x-input-checkbox>
         </div>
 

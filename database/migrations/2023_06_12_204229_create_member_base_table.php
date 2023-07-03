@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('title_pre')->nullable();
             $table->string('title_post')->nullable();
-            $table->boolean('special')->default(false);
+            $table->boolean('paused')->default(false);
             $table->date('birthday')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
