@@ -20,7 +20,7 @@ return new class extends Migration
 
         UserPermission::create([
             'id' => ImportedMember::MEMBER_IMPORT_PERMISSION,
-            'label' => 'Show members and member groups',
+            'label' => 'Import members via list',
             'is_default' => false,
         ]);
     }
