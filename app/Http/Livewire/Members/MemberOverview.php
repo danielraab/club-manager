@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Members;
 
 use App\Models\Member;
+use App\Models\MemberGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -22,7 +23,12 @@ class MemberOverview extends Component
         }
 
         if($this->filterMemberGroup) {
-            $memberList->whereRelation('memberGroups', 'id', intval($this->filterMemberGroup));
+            /** @var MemberGroup $selectedGroup */
+            $selectedGroup = MemberGroup::query()->find(intval($this->filterMemberGroup));
+            $groupChildList = $selectedGroup?->getAllChildrenRecursive() ?: [];
+            $memberList->whereHas('memberGroups', function($query) use ($groupChildList) {
+                $query->whereIn('id', array_map(fn($group) => $group->id, $groupChildList));
+            });
         }
 
         return view('livewire.members.member-overview', [

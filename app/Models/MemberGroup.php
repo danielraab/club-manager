@@ -14,6 +14,8 @@ class MemberGroup extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public const MAX_CHILD_TREE_DEPTH = 6;
+
     protected $fillable = [
         'title',
         'description',
@@ -44,5 +46,16 @@ class MemberGroup extends Model
     public function children(): HasMany
     {
         return $this->hasMany(MemberGroup::class, 'parent_id');
+    }
+
+    public function getAllChildrenRecursive(array &$childList = [], $depth = 0): array {
+        $childList[] = $this;
+        if($depth >= self::MAX_CHILD_TREE_DEPTH) return $childList;
+
+        foreach($this->children()->get() as $child) {
+            $child->getAllChildrenRecursive($childList, $depth + 1);
+        }
+
+        return $childList;
     }
 }

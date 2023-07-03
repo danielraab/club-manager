@@ -40,8 +40,8 @@
                         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
                 >
                     <option></option>
-                    @foreach(\App\Models\MemberGroup::getLeafQuery()->get() as $memberGroup)
-                        <option value="{{$memberGroup->id}}">{{$memberGroup->title}}</option>
+                    @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                        <x-members.member-group-select-option :memberGroup="$memberGroup" />
                     @endforeach
                 </select>
             </div>
