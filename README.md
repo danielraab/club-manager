@@ -46,6 +46,13 @@
     -   --> `sudo chown $USER:www-data -R src`
     -   and maybe: `sudo chmod g+w -R ./src`
 
+## tests
+
+### pint
+
+* show result of pint without changes: `vendor/bin/sail pint --test -vvv `
+* pint with autocorrect: `vendor/bin/sail pint`
+
 ## deploy
 
 Prerequisites:
