@@ -30,7 +30,7 @@ class MemberGroup extends Model
 
     public static function getLeafQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->whereNotNull("parent_id")->orderBy("sort_order")->orderBy("title");
+        return self::query()->whereDoesntHave("children")->orderBy("sort_order")->orderBy("title");
     }
 
     public function members(): BelongsToMany
