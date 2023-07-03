@@ -61,14 +61,14 @@ class MemberSeeder extends Seeder
 
     private function addMembers(): void
     {
-        $coll = Member::factory(20)->create([
+        $coll = Member::factory(25)->create([
             "leaving_date" => null,
             "creator_id" => $this->memberEdit->id,
             "last_updater_id" => $this->memberEdit->id
         ]);
-        $coll = Member::factory(10)->create([
+        $coll = Member::factory(5)->create([
             "leaving_date" => null,
-            "active" => false,
+            "special" => true,
             "creator_id" => $this->memberEdit->id,
             "last_updater_id" => $this->memberEdit->id
         ]);

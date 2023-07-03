@@ -37,9 +37,9 @@
 
         <!-- is active -->
         <div class="mt-5 mb-4 ml-3">
-            <x-input-checkbox id="active" name="active" wire:model.defer="member.active"
+            <x-input-checkbox id="special" name="special" wire:model.defer="member.special"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Is active') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
+                {{ __('Is special') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                          title="{{__("The Member is special marked.")}}"></i>
             </x-input-checkbox>
         </div>

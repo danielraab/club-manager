@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Deployer\select;
 
 class Member extends Model
 {
@@ -22,7 +23,7 @@ class Member extends Model
         'lastname',
         'title_pre',
         'title_post',
-        'active',
+        'special',
         'birthday',
         'phone',
         'email',
@@ -36,7 +37,7 @@ class Member extends Model
     ];
 
     protected $casts = [
-        'active' => 'bool',
+        'special' => 'bool',
         'birthday' => 'date',
         'entrance_date' => 'datetime',
         'leaving_date' => 'datetime',
@@ -56,13 +57,18 @@ class Member extends Model
         return $fullName;
     }
 
-    public static function allActive()
+    public static function allActive(bool $includeSpecial = true): Builder
     {
-        return self::query()->where("entrance_date", "<", now())
-            ->where(function (Builder $query) {
+        $selection = self::query()->where("entrance_date", "<", now());
+        if(!$includeSpecial) {
+            $selection->where("special", false);
+        }
+        $selection->where(function (Builder $query) {
                 $query->whereNull("leaving_date")
                     ->orWhere("leaving_date", ">", now());
             })->orderBy("lastname")->orderBy("firstname");
+
+        return $selection;
     }
 
     public function creator(): BelongsTo

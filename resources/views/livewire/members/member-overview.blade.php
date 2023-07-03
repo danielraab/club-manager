@@ -2,16 +2,17 @@
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Member::MEMBER_EDIT_PERMISSION);
     $hasImportPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
 @endphp
-<x-backend-layout>
-    <x-slot name="headline">
-        <div class="flex items-center">
-            <span>{{ __('Member Overview') }}</span>
-        </div>
-    </x-slot>
 
+<x-slot name="headline">
+    <div class="flex items-center">
+        <span>{{ __('Member Overview') }}</span>
+    </div>
+</x-slot>
+
+<div>
     @if($hasEditPermission)
         <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 w-full sm:w-auto items-center">
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             @if($hasImportPermission)
                 <x-button-link href="{{route('member.import')}}" class="btn-info"
                                title="Import member list">
@@ -32,6 +33,26 @@
 
 
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+        <div class="flex flex-wrap gap-5 justify-center text-sm mb-5">
+            <div class="flex items-center flex-wrap justify-center">
+                <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
+                <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
+                >
+                    <option></option>
+                    @foreach(\App\Models\MemberGroup::getLeafQuery()->get() as $memberGroup)
+                        <option value="{{$memberGroup->id}}">{{$memberGroup->title}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex items-center">
+                <x-input-checkbox id="active" name="active" wire:model.lazy="onlyActive"
+                                  class="rounded ext-indigo-600 shadow-sm focus:ring-indigo-500">
+                    {{ __('active members only') }}
+                </x-input-checkbox>
+            </div>
+        </div>
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
             <tr>
@@ -51,8 +72,8 @@
                     } elseif($member->entrance_date > now() ||
                      ($member->leaving_date && $member->leaving_date < now())) {
                         $rowBg = "bg-gray-300";
-                    } elseif(!$member->active) {
-                        $rowBg = "bg-sky-200";
+                    } elseif($member->special) {
+                        $rowBg = "bg-sky-500";
                     }
                 @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
@@ -91,4 +112,4 @@
                            title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
         </div>
     </div>
-</x-backend-layout>
+</div>

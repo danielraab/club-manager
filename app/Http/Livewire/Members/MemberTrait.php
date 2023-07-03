@@ -22,7 +22,7 @@ trait MemberTrait
             'member.lastname' => ['required', 'string', 'max:255'],
             'member.title_pre' => ['nullable', 'string', 'max:255'],
             'member.title_post' => ['nullable', 'string', 'max:255'],
-            'member.active' => ['nullable', 'boolean'],
+            'member.special' => ['nullable', 'boolean'],
             'member.phone' => ['nullable', 'string', 'max:255'],
             'member.email' => ['nullable', 'email', 'max:255'],
             'member.street' => ['nullable', 'string', 'max:255'],

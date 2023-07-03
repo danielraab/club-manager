@@ -27,7 +27,6 @@ class ImportedMember implements \Iterator, \JsonSerializable
 
     public const ADDITIONAL_ALLOWED_ATTRIBUTES = [
         "id",
-        "active",
         "creator_id",
         "last_updater_id",
         "deleted_at",
