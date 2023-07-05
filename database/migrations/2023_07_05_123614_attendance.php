@@ -9,55 +9,61 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('attendance_polls', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
+
+            $table->string('title');
+            $table->string('description')->nullable();
+
             $table->boolean('enabled')->default(true);
             $table->boolean('allow_anonymous_vote')->default(false);
-            $table->string('allowed_answer_set')->nullable();
             $table->dateTime('closing_at')->nullable();
 
-            $table->primary('id');
+            $table->foreignIdFor(User::class, 'creator_id')->nullable();
+            $table->foreign('creator_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreignIdFor(User::class, 'last_updater_id')->nullable();
+            $table->foreign('last_updater_id')->references('id')->on('users')->nullOnDelete();
 
             $table->timestamps();
         });
 
         Schema::create('attendances', function (Blueprint $table) {
+            $table->id();
+
             $table->foreignIdFor(Event::class, 'event_id');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-
+            $table->foreign('event_id')->references('id')->on('events')->cascadeOnDelete();
             $table->foreignIdFor(Member::class, 'member_id');
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->cascadeOnDelete();
+            $table->unique(["event_id", "member_id"]);
 
-            $table->smallInteger('poll_status',false, true)->nullable();
-            $table->smallInteger('final_status',false, true)->nullable();
-
-            $table->primary(["event_id", "member_id"]);
+            $table->enum('poll_status',
+                ['in', 'out', 'unsure'])->nullable();
+            $table->enum('final_status',
+                ['in', 'out'])->nullable();
 
             $table->foreignIdFor(User::class, 'creator_id')->nullable();
-            $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
-
+            $table->foreign('creator_id')->references('id')->on('users')->nullOnDelete();
             $table->foreignIdFor(User::class, 'last_updater_id')->nullable();
-            $table->foreign('last_updater_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('last_updater_id')->references('id')->on('users')->nullOnDelete();
 
             $table->timestamps();
         });
 
-
-        Schema::create('event_attendance_poll', function (Blueprint $table) {
+        Schema::create('attendance_poll_event', function (Blueprint $table) {
             $table->foreignIdFor(Event::class, 'event_id');
-            $table->foreignUuid('attendance_poll_id');
+            $table->foreignIdFor(AttendancePoll::class, 'attendance_poll_id');
             $table->foreign('event_id')->references('id')
-                ->on('events')->onDelete('cascade');
+                ->on('events')->cascadeOnDelete();
             $table->foreign('attendance_poll_id')->references('id')
-                ->on('attendance_polls')->onDelete('cascade');
+                ->on('attendance_polls')->cascadeOnDelete();
         });
+
 
         \App\Models\UserPermission::create([
             'id' => Attendance::ATTENDANCE_EDIT_PERMISSION,
@@ -78,6 +84,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('attendance_poll');
+        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('event_attendance_poll');
 
         \App\Models\UserPermission::find(Attendance::ATTENDANCE_EDIT_PERMISSION)?->delete();
         \App\Models\UserPermission::find(AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION)?->delete();

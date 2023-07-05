@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
@@ -72,6 +73,16 @@ class Member extends Model
         return $selection;
     }
 
+    public function memberGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(MemberGroup::class);
+    }
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -80,10 +91,5 @@ class Member extends Model
     public function lastUpdater(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function memberGroups(): BelongsToMany
-    {
-        return $this->belongsToMany(MemberGroup::class);
     }
 }

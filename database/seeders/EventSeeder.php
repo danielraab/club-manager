@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EventSeeder extends Seeder
 {
+    public static int $eventCnt = 0;
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
@@ -74,12 +75,15 @@ class EventSeeder extends Seeder
             'creator_id' => $this->eventEdit->id,
             'last_updater_id' => $this->eventEdit->id,
         ]);
+        self::$eventCnt += 10;
+
         Event::factory(10)->create([
             'logged_in_only' => true,
             'event_type_id' => $this->firstEventType->id,
             'creator_id' => $this->eventEdit->id,
             'last_updater_id' => $this->eventEdit->id,
         ]);
+        self::$eventCnt += 10;
 
         $startFirst = now()->addWeek();
         Event::factory()->create([
@@ -89,6 +93,7 @@ class EventSeeder extends Seeder
             'creator_id' => $this->eventEdit->id,
             'last_updater_id' => $this->eventEdit->id,
         ]);
+        self::$eventCnt++;
 
         $startSecond = now()->addDays(3);
         Event::factory()->create([
@@ -99,5 +104,6 @@ class EventSeeder extends Seeder
             'creator_id' => $this->eventEdit->id,
             'last_updater_id' => $this->eventEdit->id,
         ]);
+        self::$eventCnt++;
     }
 }

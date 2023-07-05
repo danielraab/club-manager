@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class MemberSeeder extends Seeder
 {
+    public static int $memberCnt = 0;
+
     const MEMBER_GROUP_CNT = 10;
 
     private Collection $memberGroupCollection;
@@ -66,16 +68,21 @@ class MemberSeeder extends Seeder
             'creator_id' => $this->memberEdit->id,
             'last_updater_id' => $this->memberEdit->id,
         ]);
+        self::$memberCnt += 25;
+
         $coll = Member::factory(5)->create([
             'leaving_date' => null,
             'paused' => true,
             'creator_id' => $this->memberEdit->id,
             'last_updater_id' => $this->memberEdit->id,
         ]);
+        self::$memberCnt += 5;
+
         $coll->each(function (Member $member) {
             $member->memberGroups()->attach(
                 fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
+
 
         $coll = Member::factory(10)->create([
             'title_pre' => null,
@@ -90,15 +97,20 @@ class MemberSeeder extends Seeder
             'creator_id' => $this->memberEdit->id,
             'last_updater_id' => $this->memberEdit->id,
         ]);
+        self::$memberCnt += 10;
+
         $coll->each(function (Member $member) {
             $member->memberGroups()->attach(
                 fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
 
+
         $coll = Member::factory(10)->create([
             'creator_id' => $this->memberEdit->id,
             'last_updater_id' => $this->memberEdit->id,
         ]);
+        self::$memberCnt += 10;
+
         $coll->each(function (Member $member) {
             $member->memberGroups()->attach(3);
             $member->memberGroups()->attach(
