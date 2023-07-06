@@ -38,7 +38,7 @@ class AttendanceFactory extends Factory
         return [
             ...array_pop(self::$availableEventMemberCombinations),
             'poll_status' => fake()->randomElement([null, ...Attendance::AVAILABLE_POLL_STATUS_LIST]),
-            'final_status' => fake()->randomElement([null, ...Attendance::AVAILABLE_FINAL_STATUS_LIST]),
+            'attended' => fake()->randomElement([null, true, false]),
         ];
     }
 }

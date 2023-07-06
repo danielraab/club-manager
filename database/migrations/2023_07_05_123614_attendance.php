@@ -44,8 +44,7 @@ return new class extends Migration {
 
             $table->enum('poll_status',
                 ['in', 'out', 'unsure'])->nullable();
-            $table->enum('final_status',
-                ['in', 'out'])->nullable();
+            $table->boolean('attended')->nullable();
 
             $table->foreignIdFor(User::class, 'creator_id')->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->nullOnDelete();
