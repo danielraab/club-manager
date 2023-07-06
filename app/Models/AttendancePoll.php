@@ -14,6 +14,7 @@ class AttendancePoll extends Model
     use HasUuids;
 
 
+    public const ATTENDANCE_POLL_SHOW_PERMISSION = 'attendancePollShow';
     public const ATTENDANCE_POLL_EDIT_PERMISSION = 'attendancePollEdit';
 
 

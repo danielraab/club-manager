@@ -14,6 +14,7 @@ class Attendance extends Model
     public const AVAILABLE_POLL_STATUS_LIST = ['in', 'out', 'unsure'];
     public const AVAILABLE_FINAL_STATUS_LIST = ['in', 'out'];
 
+    public const ATTENDANCE_SHOW_PERMISSION = 'attendanceShow';
     public const ATTENDANCE_EDIT_PERMISSION = 'attendanceEdit';
 
 

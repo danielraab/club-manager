@@ -26,5 +26,5 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/userManagement.php';
 require __DIR__.'/news.php';
-require __DIR__.'/events.php';
+require __DIR__.'/event.php';
 require __DIR__.'/member.php';

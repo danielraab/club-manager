@@ -66,8 +66,20 @@ return new class extends Migration {
 
 
         \App\Models\UserPermission::create([
+            'id' => Attendance::ATTENDANCE_SHOW_PERMISSION,
+            'label' => 'Show attendance to a event',
+            'is_default' => false,
+        ]);
+
+        \App\Models\UserPermission::create([
             'id' => Attendance::ATTENDANCE_EDIT_PERMISSION,
             'label' => 'Set and edit attendance to a event, unregarded to a poll',
+            'is_default' => false,
+        ]);
+
+        \App\Models\UserPermission::create([
+            'id' => AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION,
+            'label' => 'Show attendance polls and their summary. For showing the detailed attendances the additional permission is required.',
             'is_default' => false,
         ]);
 

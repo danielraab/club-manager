@@ -32,3 +32,5 @@ Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(f
     Route::get('/events/types/{eventType}', EventTypeEdit::class)
         ->name('event.type.edit');
 });
+
+require __DIR__.'/attendance.php';

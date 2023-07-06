@@ -1,5 +1,7 @@
 @php
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
+    $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
+    $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
 
 <div>
@@ -10,7 +12,8 @@
     </x-slot>
 
     @if($hasEditPermission)
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-end gap-2 items-center">
+        <div
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-end gap-2 items-center">
             <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
                            title="Show event type list">
                 {{__("Event Type List")}}
@@ -22,7 +25,7 @@
         </div>
     @endif
 
-    <x-livewire.loading />
+    <x-livewire.loading/>
 
     <div class="flex">
         <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
@@ -66,24 +69,40 @@
                         {{$event->title}}
                     </td>
                     <td class="border px-2">{{$event->eventType?->title}}</td>
-                    @if($hasEditPermission)
+                    @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
                         <td class="border px-2 min-w-[70px]">
                             <div class="flex gap-2 justify-center">
-                                @if($event->enabled)
-                                    <button type="button" title="{{__("Disable this event")}}" class="text-green-600"
-                                            wire:click="toggleEnabledState({{$event->id}})">
-                                        <i class="fa-solid fa-toggle-on text-base"></i>
-                                    </button>
-                                @else
-                                    <button type="button" title="{{__("Enable this event")}}" class="text-red-500"
-                                            wire:click="toggleEnabledState({{$event->id}})">
-                                        <i class="fa-solid fa-toggle-off text-base"></i>
-                                    </button>
+                                @if($hasAttendanceEditPermission)
+                                    <a href="{{route('event.attendance.edit', $event->id)}}"
+                                       title="{{__("Edit attendance of this event")}}"
+                                       class="inline-flex items-center text-cyan-900 p-0">
+                                        <i class="fa-solid fa-square-poll-horizontal"></i>
+                                    </a>
+                                @elseif($hasAttendanceShowPermission)
+                                    <a href="{{route('event.attendance.show', $event->id)}}"
+                                       title="{{__("Show attendance of this event")}}"
+                                       class="inline-flex items-center text-indigo-700 p-0">
+                                        <i class="fa-solid fa-square-poll-horizontal"></i>
+                                    </a>
                                 @endif
-                                <x-button-link href="{{route('event.edit', $event->id)}}" title="Edit this event"
-                                               class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </x-button-link>
+                                @if($hasEditPermission)
+                                    @if($event->enabled)
+                                        <button type="button" title="{{__("Disable this event")}}"
+                                                class="text-green-600"
+                                                wire:click="toggleEnabledState({{$event->id}})">
+                                            <i class="fa-solid fa-toggle-on text-base"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" title="{{__("Enable this event")}}" class="text-red-500"
+                                                wire:click="toggleEnabledState({{$event->id}})">
+                                            <i class="fa-solid fa-toggle-off text-base"></i>
+                                        </button>
+                                    @endif
+                                    <x-button-link href="{{route('event.edit', $event->id)}}" title="Edit this event"
+                                                   class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </x-button-link>
+                                @endif
                             </div>
                         </td>
                     @endif
