@@ -46,26 +46,8 @@
 
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div>
-            @php($memberGroupDataList = [
-    [
-        "memberGroup" => \App\Models\MemberGroup::getTopLevelQuery()->first(),
-        "statistics" => [
-            "in" => 1,
-            "unsure" => 2,
-            "out" => 3
-        ]
-    ],
-    [
-        "memberGroup" => \App\Models\MemberGroup::getTopLevelQuery()->first(),
-                "statistics" => [
-            "in" => 1,
-            "unsure" => 2,
-            "out" => 3
-        ]
-    ]
-])
-            @foreach($memberGroupDataList as $memberGroupData)
-                <x-attendance.member-group-tree :memberGroupData="$memberGroupData"/>
+            @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                <x-attendance.member-group-tree :memberGroup="$memberGroup" :event="$event"/>
             @endforeach
             </div>
         </div>

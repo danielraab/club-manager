@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Attendance;
-use App\Models\Member;
 use Database\Seeders\EventSeeder;
 use Database\Seeders\MemberSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;

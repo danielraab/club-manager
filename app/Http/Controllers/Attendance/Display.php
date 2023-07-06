@@ -26,7 +26,7 @@ class Display extends Controller
                     "unsure" => $cntUnsure,
                     "out" => $cntOut,
                     "unset" => $cntMembers - $cntIn - $cntUnsure - $cntOut,
-                    "attended" => 0
+                    "attended" => $event->attendances()->where("attended", true)->count()
                 ]
             ]
         );
