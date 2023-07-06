@@ -1,8 +1,11 @@
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex flex-wrap justify-between items-center">
+        <div class="flex flex-wrap justify-between items-center gap-3">
             <span>{{ __('Attendance overview') }}</span>
-            <span class="text-gray-400">{{$event->title}}</span>
+            <div class="flex flex-wrap justify-end gap-x-3">
+                <span class="text-gray-400">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</span>
+                <span class="text-gray-600 text-right">{{$event->title}}</span>
+            </div>
         </div>
     </x-slot>
 
