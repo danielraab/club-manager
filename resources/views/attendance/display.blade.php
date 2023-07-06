@@ -12,33 +12,40 @@
                 <div class="text-white bg-green-700 rounded-full w-10 h-10 flex justify-center items-center">
                     <i class="fa-solid fa-check "></i>
                 </div>
-                <div class="grow px-5">In</div>
-                <div class="text-gray-600 font-bold">8</div>
+                <div class="grow px-5">{{__("promised")}}</div>
+                <div class="text-green-900 font-bold text-xl">{{$statistics["in"]}}</div>
             </div>
             <div class="flex bg-white shadow-sm sm:rounded-lg p-5 items-center">
                 <div class="text-white bg-orange-700 rounded-full w-10 h-10 flex justify-center items-center">
                     <i class="fa-solid fa-exclamation "></i>
                 </div>
-                <div class="grow px-5">unsure</div>
-                <div class="text-gray-600 font-bold">8</div>
+                <div class="grow px-5">{{__("unsure")}}</div>
+                <div class="text-orange-900 font-bold text-xl">{{$statistics["unsure"]}}</div>
             </div>
             <div class="flex bg-white shadow-sm sm:rounded-lg p-5 items-center">
                 <div class="text-white bg-red-700 rounded-full w-10 h-10 flex justify-center items-center">
                     <i class="fa-solid fa-xmark "></i>
                 </div>
-                <div class="grow px-5">Out</div>
-                <div class="text-gray-600 font-bold">8</div>
+                <div class="grow px-5">{{__("cancelled")}}</div>
+                <div class="text-red-900 font-bold text-xl">{{$statistics["out"]}}</div>
             </div>
             <div class="flex bg-white shadow-sm sm:rounded-lg p-5 items-center">
                 <div class="text-white bg-blue-700 rounded-full w-10 h-10 flex justify-center items-center">
                     <i class="fa-solid fa-question "></i>
                 </div>
-                <div class="grow px-5">missing</div>
-                <div class="text-gray-600 font-bold">8</div>
+                <div class="grow px-5">{{__("missing")}}</div>
+                <div class="text-blue-900 font-bold text-xl">{{$statistics["unset"]}}</div>
+            </div>
+
+            <div class="flex bg-green-700 shadow-sm sm:rounded-lg p-5 items-center text-white">
+                    <i class="fa-solid fa-check fa-2xl"></i>
+                <div class="grow px-5">{{__("attended")}}</div>
+                <div class="font-bold text-xl">{{$statistics["attended"]}}</div>
             </div>
         </div>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+        <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
+            <div>
             @php($memberGroupDataList = [
     [
         "memberGroup" => \App\Models\MemberGroup::getTopLevelQuery()->first(),
@@ -60,6 +67,7 @@
             @foreach($memberGroupDataList as $memberGroupData)
                 <x-attendance.member-group-tree :memberGroupData="$memberGroupData"/>
             @endforeach
+            </div>
         </div>
     </div>
 </x-backend-layout>

@@ -72,16 +72,17 @@
                     @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
                         <td class="border px-2 min-w-[70px]">
                             <div class="flex gap-2 justify-center">
+                                @if($hasAttendanceShowPermission)
+                                    <a href="{{route('event.attendance.show', $event->id)}}"
+                                       title="{{__("Show attendance of this event")}}"
+                                       class="inline-flex items-center text-indigo-700 p-0">
+                                        <i class="fa-solid fa-square-poll-horizontal"></i>
+                                    </a>
+                                @endif
                                 @if($hasAttendanceEditPermission)
                                     <a href="{{route('event.attendance.edit', $event->id)}}"
                                        title="{{__("Edit attendance of this event")}}"
                                        class="inline-flex items-center text-cyan-900 p-0">
-                                        <i class="fa-solid fa-square-poll-horizontal"></i>
-                                    </a>
-                                @elseif($hasAttendanceShowPermission)
-                                    <a href="{{route('event.attendance.show', $event->id)}}"
-                                       title="{{__("Show attendance of this event")}}"
-                                       class="inline-flex items-center text-indigo-700 p-0">
                                         <i class="fa-solid fa-square-poll-horizontal"></i>
                                     </a>
                                 @endif

@@ -14,28 +14,21 @@ class Display extends Controller
 
     public function index(Event $event)
     {
+        $cntMembers = Member::allActive()->count();
+        $cntIn = $event->attendances()->where('poll_status', 'in')->count();
+        $cntUnsure = $event->attendances()->where('poll_status', 'unsure')->count();
+        $cntOut = $event->attendances()->where('poll_status', 'in')->count();
 
         return view('attendance.display', [
                 "event" => $event,
-                "memberList" => $this->getMemberAttendanceList($event)
+                "statistics" => [
+                    "in" => $cntIn,
+                    "unsure" => $cntUnsure,
+                    "out" => $cntOut,
+                    "unset" => $cntMembers - $cntIn - $cntUnsure - $cntOut,
+                    "attended" => 0
+                ]
             ]
         );
-    }
-
-    private function getMemberAttendanceList($event)
-    {
-        $memberList = [];
-
-        $attendances = $event->attendances()->get();
-        foreach ($attendances as $attendance) {
-            /** @var Attendance $attendance */
-            $memberList[] = [
-                "member" => $attendance->member()->first(),
-                "poll_status" => $attendance->poll_status,
-                "final_status" => $attendance->final_status
-            ];
-        }
-
-        return $memberList;
     }
 }

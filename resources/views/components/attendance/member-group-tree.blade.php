@@ -18,7 +18,7 @@ $statistics = $memberGroupData["statistics"];
         </div>
     </div>
     <!-- Content -->
-    <div x-show="show" class="px-5 pt-0 overflow-hidden" x-transition.duration.500ms>
-        {{$slot}}
+    <div x-show="show" class="ml-5 px-5 pt-0 overflow-hidden" x-transition.duration.500ms>
+
     </div>
 </div>
