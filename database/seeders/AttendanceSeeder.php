@@ -46,7 +46,7 @@ class AttendanceSeeder extends Seeder
 
     public function addAttendance()
     {
-        $coll = Attendance::factory(10)->create();
+        $coll = Attendance::factory(100)->create();
     }
     public function addAttendancePoll()
     {
