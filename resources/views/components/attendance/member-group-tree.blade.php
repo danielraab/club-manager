@@ -2,11 +2,11 @@
 /** @var \App\Models\MemberGroup $memberGroup */
 @endphp
 <!-- Accordion Wrapper -->
-<div x-data="{show:false}" class="transition hover:bg-indigo-50" :class="show ? 'bg-indigo-50':''">
+<div x-data="{show:false}" class="transition ">
     <!-- header -->
-    <div x-on:click="show= !show"
-        class="cursor-pointer transition flex justify-between sm:justify-start space-x-4 px-5 items-center">
-        <div class="flex items-center gap-2">
+    <div x-on:click="show= !show" :class="show ? 'bg-indigo-50':''"
+        class="cursor-pointer transition flex justify-between sm:justify-start space-x-4 px-5 items-center hover:bg-indigo-50 border-t">
+        <div class="flex items-center gap-2 py-2" >
             <i class="fas " :class="show ? 'fa-minus':'fa-plus'"></i>
             <h3>{{__($memberGroup->title)}}</h3>
         </div>
@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- Content -->
-    <div x-show="show" class="ml-5 px-5 pt-0 overflow-hidden" x-transition.duration.500ms>
+    <div x-show="show" class="ml-5 px-5 pt-0 overflow-hidden" x-transition>
         @foreach($memberGroup->members()->get() as $member)
             <div class="flex items-center gap-2">
                 <span>{{__($member->getFullName())}}</span>
