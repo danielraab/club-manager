@@ -11,7 +11,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:'. Attendance::ATTENDANCE_SHOW_PERMISSION.'|'.Attendance::ATTENDANCE_EDIT_PERMISSION])->group(function () {
-    Route::get('/events/event/{event}/attendance', [])
+    Route::get('/events/event/{event}/attendance', [\App\Http\Controllers\Attendance\Display::class, "index"])
         ->name('event.attendance.show');
 });
 
