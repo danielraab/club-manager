@@ -4,9 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
-use App\Models\Event;
-use Database\Factories\EventFactory;
-use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,7 +43,7 @@ class AttendanceSeeder extends Seeder
 
     public function addAttendance()
     {
-        $coll = Attendance::factory(100)->create();
+        $coll = Attendance::factory(1000)->create();
     }
     public function addAttendancePoll()
     {

@@ -16,6 +16,9 @@ class Attendance extends Model
     public const ATTENDANCE_SHOW_PERMISSION = 'attendanceShow';
     public const ATTENDANCE_EDIT_PERMISSION = 'attendanceEdit';
 
+    protected $casts = [
+        'attended' => 'boolean',
+    ];
 
     public function event(): BelongsTo
     {
