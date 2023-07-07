@@ -1,15 +1,28 @@
+@php
+    $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+@endphp
+
 <x-backend-layout>
     <x-slot name="headline">
         <div class="flex flex-wrap justify-between items-center gap-3">
             <span>{{ __('Attendance overview') }}</span>
-            <div class="flex flex-wrap justify-end gap-x-3">
-                <span class="text-gray-400">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</span>
-                <span class="text-gray-600 text-right">{{$event->title}}</span>
-            </div>
         </div>
     </x-slot>
 
     <div>
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
+            <div class="flex flex-wrap gap-2 items-center justify-between" >
+            <span
+                class="text-gray-500">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</span>
+                @if($hasAttendanceEditPermission)
+                    <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
+                        Edit Attendance
+                    </x-button-link>
+                @endif
+                    <span class="text-gray-700 text-xl">{{$event->title}}</span>
+            </div>
+        </div>
+
         <div class="flex flex-wrap gap-3 justify-center mb-3">
             <div class="flex bg-white shadow rounded-lg p-5 items-center">
                 <div class="text-white bg-green-700 rounded-full w-10 h-10 flex justify-center items-center">
