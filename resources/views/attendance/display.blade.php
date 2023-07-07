@@ -1,4 +1,5 @@
 @php
+    /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
 
@@ -9,17 +10,12 @@
         </div>
     </x-slot>
 
-    <div>
+    <div x-data="{displayType: 'memberGroups'}">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-            <div class="flex flex-wrap gap-2 items-center justify-between" >
+            <div class="flex flex-wrap gap-2 items-center justify-between">
             <span
                 class="text-gray-500">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</span>
-                @if($hasAttendanceEditPermission)
-                    <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
-                        Edit Attendance
-                    </x-button-link>
-                @endif
-                    <span class="text-gray-700 text-xl">{{$event->title}}</span>
+                <span class="text-gray-700 text-xl">{{$event->title}}</span>
             </div>
         </div>
 
@@ -62,12 +58,56 @@
             @endif
         </div>
 
+
+        <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
+            <div class="flex items-center flex-wrap justify-center gap-5">
+                <div class="inline-flex">
+                    @if(request('displayType') === 'list')
+                        <a href="?displayType=memberGroups" class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
+                            {{__("Member Groups")}}</a>
+                        <div class="py-2 px-4 rounded-r-lg bg-sky-600">
+                            {{__("List")}}</div>
+                    @else
+                        <div class="py-2 px-4 rounded-l-lg bg-sky-600">
+                            {{__("Member Groups")}}</div>
+                        <a href="?displayType=list"
+                           class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
+                            {{__("List")}}</a>
+                    @endif
+                </div>
+                @if($hasAttendanceEditPermission)
+                    <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
+                        Edit Attendance
+                    </x-button-link>
+                @endif
+            </div>
+        </div>
+
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div>
-                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                    <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event" initialShow="true"
-                                                    :memberGroupCntList="$memberGroupCntList"/>
-                @endforeach
+                @if(request('displayType') === 'list')
+                    @foreach($event->attendances()->get() as $attendance)
+                        @php
+                            /** @var \App\Models\Attendance $attendance */
+                                $cssClasses = $attendance->attended ? " bg-green-300" : '';
+                        @endphp
+                        <div class="flex gap-2 items-center px-2">
+                            <div class="h-2 w-2 rounded-full {{match($attendance->poll_status){
+                        "in" => 'bg-green-700',
+                        "unsure" => 'bg-yellow-600',
+                        "out" => 'bg-red-700',
+                        default => ''} }}"></div>
+                            <span
+                                class="rounded px-2 {{$cssClasses}}">{{__($attendance->member()->first()->getFullName())}}</span>
+                        </div>
+                    @endforeach
+                @else
+                    @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                        <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
+                                                                initialShow="true"
+                                                                :memberGroupCntList="$memberGroupCntList"/>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
