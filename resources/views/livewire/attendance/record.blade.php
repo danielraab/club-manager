@@ -23,13 +23,17 @@
     <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
             <div class="flex items-center flex-wrap justify-center">
-                <x-input-label for="displayType" :value="__('Display type:')"/>
-                <select name="displayType" id="displayType" wire:model.lazy="displayType"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
-                >
-                    <option value="alphabetically">{{__("Alphabetically")}}</option>
-                    <option value="memberGroups">{{__("Member Groups")}}</option>
-                </select>
+                @if($displayMemberGroups)
+                    <button type="button" wire:click="$set('displayMemberGroups',false)" class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
+                        {{__("List")}}</button>
+                    <div class="py-2 px-4 rounded-r-lg bg-sky-600">
+                        {{__("Groups")}}</div>
+                @else
+                    <div class="py-2 px-4 rounded-l-lg bg-sky-600">
+                        {{__("List")}}</div>
+                    <button type="button" wire:click="$set('displayMemberGroups',true)" class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
+                        {{__("Groups")}}</button>
+                @endif
             </div>
             <x-input-checkbox id="active" name="active" wire:model.lazy="onlyActive"
                               class="rounded ext-indigo-600 shadow-sm focus:ring-indigo-500">
@@ -39,21 +43,17 @@
         </div>
     </div>
     <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        @if($displayType ==="alphabetically")
-            <div class="flex flex-col justify-center text-center divide-y">
-                @foreach($members->get() as $member)
-                    <livewire:attendance.attendance :event="$event" :member="$member" wire:key="{{$event.'-'.$member}}"/>
-                @endforeach
-            </div>
-        @elseif($displayType === "memberGroups")
+        @if($displayMemberGroups)
             <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                     <div>{{$memberGroup->title}}</div>
                 @endforeach
             </div>
         @else
-            <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-                Please select a display type
+            <div class="flex flex-col justify-center text-center divide-y">
+                @foreach($members->get() as $member)
+                    <livewire:attendance.attendance :event="$event" :member="$member" wire:key="{{$event.'-'.$member}}"/>
+                @endforeach
             </div>
         @endif
     </div>

@@ -64,14 +64,13 @@
                 <div class="inline-flex">
                     @if(request('displayType') === 'list')
                         <a href="?displayType=memberGroups" class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
-                            {{__("Member Groups")}}</a>
+                            {{__("Groups")}}</a>
                         <div class="py-2 px-4 rounded-r-lg bg-sky-600">
                             {{__("List")}}</div>
                     @else
                         <div class="py-2 px-4 rounded-l-lg bg-sky-600">
-                            {{__("Member Groups")}}</div>
-                        <a href="?displayType=list"
-                           class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
+                            {{__("Groups")}}</div>
+                        <a href="?displayType=list" class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
                             {{__("List")}}</a>
                     @endif
                 </div>

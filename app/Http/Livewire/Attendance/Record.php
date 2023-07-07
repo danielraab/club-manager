@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Attendance;
 
-use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +12,7 @@ class Record extends Component
     public Event $event;
     public bool $onlyActive = false;
 
-    public string $displayType = "alphabetically";
+    public bool $displayMemberGroups = false;
 
     public function mount($event)
     {
