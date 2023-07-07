@@ -46,11 +46,12 @@
         @if($displayMemberGroups)
             <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                    <div>{{$memberGroup->title}}</div>
+                    <x-attendance.member-group-tree-record :memberGroup="$memberGroup" :event="$event"
+                                                            initialShow="true"/>
                 @endforeach
             </div>
         @else
-            <div class="flex flex-col justify-center text-center divide-y">
+            <div class="flex flex-col justify-center text-center divide-y divide-gray-500">
                 @foreach($members->get() as $member)
                     <livewire:attendance.attendance :event="$event" :member="$member" wire:key="{{$event.'-'.$member}}"/>
                 @endforeach

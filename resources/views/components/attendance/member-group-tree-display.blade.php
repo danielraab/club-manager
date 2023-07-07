@@ -5,7 +5,7 @@
 <div x-data="{show:{{$attributes->get('initialShow', 'false')}}}" class="transition mb-1">
     <!-- header -->
     <div x-on:click="show= !show" :class="show ? 'bg-indigo-100':''"
-         class="cursor-pointer transition flex justify-between sm:justify-start space-x-4 px-5 items-center hover:bg-indigo-200 border-t rounded">
+         class="cursor-pointer transition flex justify-between sm:justify-start space-x-4 px-5 items-center hover:bg-indigo-200 rounded">
         <div class="flex items-center gap-2 py-2">
             <i class="fas " :class="show ? 'fa-minus':'fa-plus'"></i>
             <h3>{{__($memberGroup->title)}}</h3>
