@@ -65,7 +65,7 @@
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                    <x-attendance.member-group-tree :memberGroup="$memberGroup" :event="$event" initialShow="true"
+                    <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event" initialShow="true"
                                                     :memberGroupCntList="$memberGroupCntList"/>
                 @endforeach
             </div>

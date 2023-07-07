@@ -43,7 +43,7 @@
 
         @foreach($memberGroup->children()->get() as $childMemberGroup)
             @if($childMemberGroup->members()->get()->isNotEmpty())
-                <x-attendance.member-group-tree :memberGroup="$childMemberGroup" :event="$event"
+                <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
                                                 :memberGroupCntList="$memberGroupCntList"/>
             @endif
         @endforeach
