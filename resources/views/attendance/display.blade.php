@@ -10,7 +10,7 @@
         </div>
     </x-slot>
 
-    <div x-data="{displayType: 'memberGroups'}">
+    <div>
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
             <div class="flex flex-wrap gap-2 items-center justify-between">
             <span

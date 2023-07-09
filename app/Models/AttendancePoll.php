@@ -17,6 +17,9 @@ class AttendancePoll extends Model
     public const ATTENDANCE_POLL_SHOW_PERMISSION = 'attendancePollShow';
     public const ATTENDANCE_POLL_EDIT_PERMISSION = 'attendancePollEdit';
 
+    protected $casts = [
+        'closing_at' => 'datetime',
+    ];
 
     public function events(): BelongsToMany
     {
