@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -47,6 +48,15 @@ class Event extends Model
     public function lastUpdater(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false) {
+
+        $eventList = Event::query()->where('start', '>', now());
+        if($onlyEnabled) $eventList = $eventList->where('enabled', true);
+        if(!$inclLoggedInOnly) $eventList = $eventList->where('logged_in_only', false);
+
+        return $eventList->orderBy('start');
     }
 
     public static function getLocationHistory(): array

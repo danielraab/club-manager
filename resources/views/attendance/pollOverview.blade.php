@@ -36,13 +36,21 @@
                         }
                     @endphp
                     <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
+                        <td class="px-4">{{$attendancePoll->title}}</td>
+                        <td class="px-4">{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                         <td>
+                            <div class="flex gap-2 justify-end py-2 px-4">
                             @if($attendancePoll->allow_anonymous_vote)
                                 <a href="" target="_blank"><i class="fa-solid fa-link"></i></a>
                             @endif
+                            @if($hasAttendancePollEditPermission)
+                                <x-button-link href="{{route('attendancePoll.edit', $attendancePoll->id)}}" title="Edit this attendance poll"
+                                               class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </x-button-link>
+                            @endif
+                            </div>
                         </td>
-                        <td>{{$attendancePoll->title}}</td>
-                        <td>{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                     </tr>
                 @endforeach
                 </tbody>
