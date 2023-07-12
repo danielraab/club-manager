@@ -41,10 +41,16 @@
                         <td class="px-4">{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
                         <td class="px-4">{{$attendancePoll->events()->count()}}</td>
                         <td>
-                            <div class="flex gap-2 justify-end py-2 px-4">
+                            <div class="flex gap-2 justify-end py-2 px-4 items-center">
                             @if($attendancePoll->allow_anonymous_vote)
-                                <a href="" target="_blank"><i class="fa-solid fa-link"></i></a>
+                                <a href="{{route('attendancePoll.public', $attendancePoll->id)}}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-link text-amber-800"></i>
+                                </a>
                             @endif
+                                <a href="{{route('attendancePoll.show', $attendancePoll->id)}}" title="Show summary of attendance poll">
+                                    <i class="fa-solid fa-circle-info text-sky-700"></i>
+                                </a>
                             @if($hasAttendancePollEditPermission)
                                 <x-button-link href="{{route('attendancePoll.edit', $attendancePoll->id)}}" title="Edit this attendance poll"
                                                class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">

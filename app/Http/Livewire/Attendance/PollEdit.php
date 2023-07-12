@@ -6,17 +6,15 @@ use App\Models\AttendancePoll;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class PollCreate extends Component
+class PollEdit extends Component
 {
     use PollTrait;
 
-    public function mount()
+    public function mount(AttendancePoll $attendancePoll)
     {
-        $this->poll = new AttendancePoll();
-        $this->poll->enabled = true;
-        $this->poll->allow_anonymous_vote = true;
-        $this->poll->closing_at = now()->addWeek()->setMinute(0)->setSecond(0);
+        $this->poll = $attendancePoll;
         $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
+        $this->selectedEvents = $this->poll->events()->pluck("id")->toArray();
         $this->previousUrl = url()->previous();
     }
 
@@ -24,18 +22,17 @@ class PollCreate extends Component
     {
         $this->validate();
         $this->propToModel();
-        $this->poll->creator()->associate(Auth::user());
         $this->poll->lastUpdater()->associate(Auth::user());
         $this->poll->save();
         $this->poll->events()->sync($this->selectedEvents);
 
-        session()->put('message', __('The attendance poll has been successfully created.'));
+        session()->put('message', __('The attendance poll has been successfully updated.'));
 
         return redirect($this->previousUrl);
     }
 
     public function render()
     {
-        return view('livewire.attendance.poll-create')->layout('layouts.backend');
+        return view('livewire.attendance.poll-edit')->layout('layouts.backend');
     }
 }

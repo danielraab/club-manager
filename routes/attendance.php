@@ -3,9 +3,12 @@
 use App\Http\Controllers\Attendance\Display;
 use App\Http\Controllers\Attendance\PollOverview;
 use App\Http\Livewire\Attendance\PollCreate;
+use App\Http\Livewire\Attendance\PollEdit;
 use App\Http\Livewire\Attendance\Record;
 use App\Models\Attendance;
+use App\Models\AttendancePoll;
 use Illuminate\Support\Facades\Route;
+
 
 Route::middleware(['auth', 'permission:' . Attendance::ATTENDANCE_SHOW_PERMISSION . '|' . Attendance::ATTENDANCE_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/{event}/attendance', [Display::class, "index"])
@@ -17,16 +20,21 @@ Route::middleware(['auth', 'permission:' . Attendance::ATTENDANCE_EDIT_PERMISSIO
         ->name('event.attendance.edit');
 });
 
-Route::middleware(['auth', 'permission:' . \App\Models\AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION . '|' . \App\Models\AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])
+
+Route::get('/attendancePolls/{attendancePoll}/public', fn() => view('attendance.pollOverview'))
+    ->name('attendancePoll.public');
+
+Route::middleware(['auth', 'permission:' . AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION . '|' . AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])
     ->group(function () {
         Route::get('/attendancePolls', fn() => view('attendance.pollOverview'))
             ->name('attendancePoll.index');
+        Route::get('/attendancePolls/{attendancePoll}/index', fn() => view('attendance.pollOverview'))
+            ->name('attendancePoll.show');
     });
 
-
-Route::middleware(['auth', 'permission:' . \App\Models\AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])->group(function () {
+Route::middleware(['auth', 'permission:' . AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])->group(function () {
         Route::get('/attendancePolls/create', PollCreate::class)
             ->name('attendancePoll.create');
-        Route::get('/attendancePolls/{attendancePoll}', PollCreate::class)
+        Route::get('/attendancePolls/{attendancePoll}/edit', PollEdit::class)
             ->name('attendancePoll.edit');
     });

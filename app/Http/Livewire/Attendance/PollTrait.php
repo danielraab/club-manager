@@ -15,14 +15,14 @@ trait PollTrait
     public string $previousUrl;
 
     /** @var int[] */
-    public array $eventList = [];
+    public array $selectedEvents = [];
 
     protected array $rules = [
         'poll.title' => ['required', 'string', 'max:255'],
         'poll.description' => ['nullable', 'string'],
         'poll.enabled' => ['nullable', 'boolean'],
         'poll.allow_anonymous_vote' => ['nullable', 'boolean'],
-        'eventList' => ['nullable', 'array'],
+        'selectedEvents' => ['nullable', 'array'],
         'closing_at' => ['required', 'date'],
     ];
 
@@ -33,11 +33,11 @@ trait PollTrait
 
     public function addEventsToSelection($additionalEventIdList): void
     {
-        $this->eventList = array_unique( array_merge($this->eventList, $additionalEventIdList));
+        $this->selectedEvents = array_unique( array_merge($this->selectedEvents, $additionalEventIdList));
     }
 
     public function removeEventFromSelection($eventId): void
     {
-        $this->eventList = array_filter($this->eventList, fn($loopEventId) => $loopEventId != $eventId);
+        $this->selectedEvents = array_filter($this->selectedEvents, fn($loopEventId) => $loopEventId != $eventId);
     }
 }

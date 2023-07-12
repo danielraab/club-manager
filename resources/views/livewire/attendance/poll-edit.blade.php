@@ -1,6 +1,10 @@
+@php
+    $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
+    $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+@endphp
 <x-slot name="headline">
     <div class="flex justify-between items-center">
-        {{ __("Create new attendance poll") }}
+        {{ __("Update attendance poll") }}
     </div>
 </x-slot>
 
@@ -14,7 +18,7 @@ addEvents() {
             <div class="ml-auto">
                 <x-default-button class="btn btn-primary inline-flex" wire:click="savePoll"
                                   x-bind:disabled="additionalEventList.length > 0"
-                                  title="Create new attendance poll">{{ __('Save') }}</x-default-button>
+                                  title="Update attendance poll">{{ __('Save') }}</x-default-button>
             </div>
             <span x-cloak class="text-gray-500 text-xs mt-1"
                   x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
@@ -28,7 +32,7 @@ addEvents() {
            <x-livewire.attendance.poll-basics />
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.attendance.poll-event-selection :selectedEvents="$selectedEvents" :poll="$poll"/>
+            <x-livewire.attendance.poll-event-selection :selectedEvents="$selectedEvents" :poll="$poll" />
         </div>
     </div>
 
