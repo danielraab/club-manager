@@ -8,10 +8,21 @@
     </div>
 </x-slot>
 
-<div>
+<div x-data="{additionalEventList:[],
+addEvents() {
+    $wire.addEventsToSelection(this.additionalEventList);
+    this.additionalEventList = [];
+}}">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
-        <x-default-button class="btn-primary" wire:click="savePoll"
-                          title="Create new attendance poll">{{ __('Save') }}</x-default-button>
+        <div class="flex flex-col">
+            <div class="ml-auto">
+                <x-default-button class="btn btn-primary inline-flex" wire:click="savePoll"
+                                  x-bind:disabled="additionalEventList.length > 0"
+                                  title="Create new attendance poll">{{ __('Save') }}</x-default-button>
+            </div>
+            <span x-cloak class="text-gray-500 text-xs mt-1"
+                  x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
+        </div>
     </div>
 
 
@@ -133,11 +144,7 @@
 
 
                 {{--  poll event selection --}}
-                <div class="my-4"
-                     x-data="{additionalEventList:[], addEvents() {
-                $wire.addEventsToSelection(this.additionalEventList);
-                this.additionalEventList = [];
-            }}">
+                <div class="my-4">
                     <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
                     <select id="eventSelectionList" name="eventSelectionList" multiple size="5"
                             x-model="additionalEventList"

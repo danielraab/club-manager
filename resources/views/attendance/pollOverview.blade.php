@@ -57,7 +57,6 @@
                 @endforeach
                 </tbody>
             </x-always-responsive-table>
-
         </div>
     </div>
 </x-backend-layout>
