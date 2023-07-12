@@ -1,3 +1,7 @@
+@php
+    $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
+    $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+@endphp
 <x-slot name="headline">
     <div class="flex justify-between items-center">
         {{ __("Create new event") }}
@@ -89,20 +93,49 @@
                     </p>
                 </header>
 
-                <div class="mt-6 flex justify-center">
+                <div class="mt-6 flex flex-col justify-center">
 
-                    @forelse(\App\Models\Event::query()->whereIn("id", $eventList)->orderBy("start")->get() as $event)
-                        <div>{{$event->start->formatDateOnly()}} - {{$event->title}}</div>
-                    @empty
-                        <div>no events selected.</div>
-                    @endforelse
+                    <x-always-responsive-table class="table-auto mx-auto text-center">
+                        <tbody>
+                        @forelse(\App\Models\Event::query()->whereIn("id", $eventList)->orderBy("start")->get() as $event)
+                            <tr class="[&:nth-child(2n)]:bg-opacity-50 bg-gray-300">
+                                <td>{{$event->start->formatDateOnly()}}</td>
+                                <td>{{$event->title}}</td>
+                                <td class="whitespace-nowrap">
+                                    @if($hasAttendanceEditPermission)
+                                        <a href="{{route('event.attendance.edit', $event->id)}}"
+                                           title="{{__("Edit attendance of this event")}}"
+                                           class="inline-flex items-center text-cyan-900 p-0">
+                                            <i class="fa-solid fa-square-poll-horizontal"></i>
+                                        </a>
+                                    @elseif($hasAttendanceShowPermission)
+                                        <a href="{{route('event.attendance.show', $event->id)}}"
+                                           title="{{__("Show attendance of this event")}}"
+                                           class="inline-flex items-center text-indigo-700 p-0">
+                                            <i class="fa-solid fa-square-poll-horizontal"></i>
+                                        </a>
+                                    @endif
+                                    <x-default-button type="button" title="Remove event selection"
+                                                      class="btn btn-danger"
+                                                      wire:click="removeEventFromSelection({{$event->id}})">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </x-default-button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td>no events selected.</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </x-always-responsive-table>
                 </div>
 
 
                 {{--  poll event selection --}}
                 <div class="my-4"
                      x-data="{additionalEventList:[], addEvents() {
-                $wire.addEventList(this.additionalEventList);
+                $wire.addEventsToSelection(this.additionalEventList);
                 this.additionalEventList = [];
             }}">
                     <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>

@@ -27,6 +27,7 @@ class PollCreate extends Component
         $this->poll->creator()->associate(Auth::user());
         $this->poll->lastUpdater()->associate(Auth::user());
         $this->poll->save();
+        $this->poll->events()->sync($this->eventList);
 
         session()->put('message', __('The attendance poll has been successfully created.'));
 

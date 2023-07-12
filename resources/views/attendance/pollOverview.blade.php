@@ -20,8 +20,9 @@
             <x-always-responsive-table class="table-auto mx-auto text-center">
                 <thead class="font-bold">
                 <tr>
-                    <td class="px-4 py-2">Title</td>
+                    <td class="px-4 py-2">{{__("Title")}}</td>
                     <td class="px-4 py-2">{{__("Closing at")}}</td>
+                    <td class="px-4 py-2">{{__("Event count")}}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,15 +30,16 @@
                     @php
                         /** @var \App\Models\AttendancePoll $attendancePoll */
                         $rowBg = "bg-lime-200";
-                        if($attendancePoll->enabled) {
-                            $rowBg = "bg-red-200";
-                        } elseif($attendancePoll->closing_at && $attendancePoll->closing_at < now()) {
+                        if($attendancePoll->closing_at && $attendancePoll->closing_at < now()) {
                             $rowBg = "bg-gray-400";
+                        } elseif(!$attendancePoll->enabled) {
+                            $rowBg = "bg-red-200";
                         }
                     @endphp
                     <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
                         <td class="px-4">{{$attendancePoll->title}}</td>
                         <td class="px-4">{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
+                        <td class="px-4">{{$attendancePoll->events()->count()}}</td>
                         <td>
                             <div class="flex gap-2 justify-end py-2 px-4">
                             @if($attendancePoll->allow_anonymous_vote)

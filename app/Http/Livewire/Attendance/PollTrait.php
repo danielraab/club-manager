@@ -22,16 +22,22 @@ trait PollTrait
         'poll.description' => ['nullable', 'string'],
         'poll.enabled' => ['nullable', 'boolean'],
         'poll.allow_anonymous_vote' => ['nullable', 'boolean'],
-        'eventList' => ['required', 'array'],
+        'eventList' => ['nullable', 'array'],
         'closing_at' => ['required', 'date'],
     ];
 
-    protected function propToModel() {
+    protected function propToModel(): void
+    {
         $this->poll->closing_at = Carbon::parseFromDatetimeLocalInput($this->closing_at);
     }
 
-    public function addEventList($additionalEventIdList) {
-
+    public function addEventsToSelection($additionalEventIdList): void
+    {
         $this->eventList = array_unique( array_merge($this->eventList, $additionalEventIdList));
+    }
+
+    public function removeEventFromSelection($eventId): void
+    {
+        $this->eventList = array_filter($this->eventList, fn($loopEventId) => $loopEventId != $eventId);
     }
 }
