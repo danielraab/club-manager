@@ -104,7 +104,7 @@
                     @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                         <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
                                                                 initialShow="true"
-                                                                :memberGroupCntList="$memberGroupCntList"/>
+                                                                :memberGroupCntList="$statistics['memberGroupStatistics']"/>
                     @endforeach
                 @endif
             </div>
