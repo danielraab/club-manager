@@ -48,7 +48,7 @@
                                     <i class="fa-solid fa-link text-amber-800"></i>
                                 </a>
                             @endif
-                                <a href="{{route('attendancePoll.show', $attendancePoll->id)}}" title="Show summary of attendance poll">
+                                <a href="{{route('attendancePoll.statistic', $attendancePoll->id)}}" title="Show summary of attendance poll">
                                     <i class="fa-solid fa-circle-info text-sky-700"></i>
                                 </a>
                             @if($hasAttendancePollEditPermission)
