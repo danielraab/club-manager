@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Attendance\Display;
-use App\Http\Controllers\Attendance\PollStatistic;
 use App\Http\Livewire\Attendance\PollCreate;
 use App\Http\Livewire\Attendance\PollEdit;
 use App\Http\Livewire\Attendance\Record;
@@ -28,13 +27,15 @@ Route::middleware(['auth', 'permission:' . AttendancePoll::ATTENDANCE_POLL_SHOW_
     ->group(function () {
         Route::get('/attendancePolls', fn() => view('attendance.poll-list'))
             ->name('attendancePoll.index');
-        Route::get('/attendancePolls/{attendancePoll}/index', [PollStatistic::class, "index"])
-            ->name('attendancePoll.statistic');
+        Route::get(
+            '/attendancePolls/{attendancePoll}/index',
+            fn(AttendancePoll $attendancePoll) => view('attendance.poll-statistic', ["attendancePoll" => $attendancePoll])
+        )->name('attendancePoll.statistic');
     });
 
 Route::middleware(['auth', 'permission:' . AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])->group(function () {
-        Route::get('/attendancePolls/create', PollCreate::class)
-            ->name('attendancePoll.create');
-        Route::get('/attendancePolls/{attendancePoll}/edit', PollEdit::class)
-            ->name('attendancePoll.edit');
-    });
+    Route::get('/attendancePolls/create', PollCreate::class)
+        ->name('attendancePoll.create');
+    Route::get('/attendancePolls/{attendancePoll}/edit', PollEdit::class)
+        ->name('attendancePoll.edit');
+});
