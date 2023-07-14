@@ -3,6 +3,7 @@
 use App\Http\Controllers\Attendance\Display;
 use App\Http\Livewire\Attendance\PollCreate;
 use App\Http\Livewire\Attendance\PollEdit;
+use App\Http\Livewire\Attendance\PollPublic;
 use App\Http\Livewire\Attendance\Record;
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
@@ -20,7 +21,7 @@ Route::middleware(['auth', 'permission:' . Attendance::ATTENDANCE_EDIT_PERMISSIO
 });
 
 
-Route::get('/attendancePolls/{attendancePoll}/public', fn() => view('attendance.poll-list'))
+Route::get('/attendancePolls/{attendancePoll}/public', PollPublic::class)
     ->name('attendancePoll.public');
 
 Route::middleware(['auth', 'permission:' . AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION . '|' . AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])

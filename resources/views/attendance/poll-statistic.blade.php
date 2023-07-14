@@ -19,38 +19,6 @@
             </div>
         </div>
 
-
-        {{--        <div class="flex flex-wrap gap-3 justify-center mb-3">--}}
-        {{--            <div class="flex bg-white shadow rounded-lg p-5 items-center">--}}
-        {{--                <div class="text-white bg-green-700 rounded-full w-10 h-10 flex justify-center items-center">--}}
-        {{--                    <i class="fa-solid fa-check "></i>--}}
-        {{--                </div>--}}
-        {{--                <div class="grow px-5">{{__("promised")}}</div>--}}
-        {{--                <div class="text-green-900 font-bold text-xl">{{$statistics["in"]}}</div>--}}
-        {{--            </div>--}}
-        {{--            <div class="flex bg-white shadow rounded-lg p-5 items-center">--}}
-        {{--                <div class="text-white bg-yellow-600 rounded-full w-10 h-10 flex justify-center items-center">--}}
-        {{--                    <i class="fa-solid fa-exclamation "></i>--}}
-        {{--                </div>--}}
-        {{--                <div class="grow px-5">{{__("unsure")}}</div>--}}
-        {{--                <div class="text-orange-900 font-bold text-xl">{{$statistics["unsure"]}}</div>--}}
-        {{--            </div>--}}
-        {{--            <div class="flex bg-white shadow rounded-lg p-5 items-center">--}}
-        {{--                <div class="text-white bg-red-700 rounded-full w-10 h-10 flex justify-center items-center">--}}
-        {{--                    <i class="fa-solid fa-xmark "></i>--}}
-        {{--                </div>--}}
-        {{--                <div class="grow px-5">{{__("cancelled")}}</div>--}}
-        {{--                <div class="text-red-900 font-bold text-xl">{{$statistics["out"]}}</div>--}}
-        {{--            </div>--}}
-        {{--            <div class="flex bg-white shadow rounded-lg p-5 items-center">--}}
-        {{--                <div class="text-white bg-blue-700 rounded-full w-10 h-10 flex justify-center items-center">--}}
-        {{--                    <i class="fa-solid fa-question "></i>--}}
-        {{--                </div>--}}
-        {{--                <div class="grow px-5">{{__("missing")}}</div>--}}
-        {{--                <div class="text-blue-900 font-bold text-xl">{{$statistics["unset"]}}</div>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div class="table min-w-full divide-y">
                 @foreach($attendancePoll->events()->get() as $event)
