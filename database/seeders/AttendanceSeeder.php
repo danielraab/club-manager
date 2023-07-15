@@ -26,12 +26,26 @@ class AttendanceSeeder extends Seeder
 
     private function addUsers(): void
     {
+        $attendanceShow = \App\Models\User::factory()->create([
+            'name' => 'Attendance Show User',
+            'email' => 'attendanceShow@draab.at',
+            'password' => Hash::make('attendanceShow'),
+        ]);
+        $attendanceShow->userPermissions()->attach(Attendance::ATTENDANCE_SHOW_PERMISSION);
+
         $this->attendanceEdit = \App\Models\User::factory()->create([
             'name' => 'Attendance Edit User',
             'email' => 'attendanceEdit@draab.at',
             'password' => Hash::make('attendanceEdit'),
         ]);
         $this->attendanceEdit->userPermissions()->attach(Attendance::ATTENDANCE_EDIT_PERMISSION);
+
+        $attendancePollShow = \App\Models\User::factory()->create([
+            'name' => 'Attendance Poll Show User',
+            'email' => 'attendancePollShow@draab.at',
+            'password' => Hash::make('attendancePollShow'),
+        ]);
+        $attendancePollShow->userPermissions()->attach(AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION);
 
         $this->attendancePollEdit = \App\Models\User::factory()->create([
             'name' => 'Attendance Poll Edit User',

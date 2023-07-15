@@ -53,7 +53,7 @@
                                     <a href="{{route('event.attendance.edit', $event->id)}}"
                                        title="{{__("Edit attendance of this event")}}"
                                        class="inline-flex items-center text-cyan-900 p-0">
-                                        <i class="fa-solid fa-square-poll-horizontal"></i>
+                                        <i class="fa-solid fa-check-to-slot"></i>
                                     </a>
                                 @endif
                             </div>

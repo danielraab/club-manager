@@ -29,6 +29,7 @@
                 @foreach(\App\Models\AttendancePoll::query()->orderByDesc("closing_at")->get() as $attendancePoll)
                     @php
                         /** @var \App\Models\AttendancePoll $attendancePoll */
+                        if(!$attendancePoll->enabled && !$hasAttendancePollEditPermission) continue;
                         $rowBg = "bg-lime-200";
                         if($attendancePoll->closing_at && $attendancePoll->closing_at < now()) {
                             $rowBg = "bg-gray-400";
@@ -42,7 +43,7 @@
                         <td class="px-4">{{$attendancePoll->events()->count()}}</td>
                         <td>
                             <div class="flex gap-2 justify-end py-2 px-4 items-center">
-                            @if($attendancePoll->allow_anonymous_vote)
+                            @if($attendancePoll->isPublicPollAvailable())
                                 <a href="{{route('attendancePoll.public', $attendancePoll->id)}}"
                                    target="_blank">
                                     <i class="fa-solid fa-link text-amber-800"></i>

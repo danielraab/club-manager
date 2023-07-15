@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Attendance;
 
 use App\Models\AttendancePoll;
 use App\Models\Member;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
 class PollPublic extends Component
@@ -12,12 +13,16 @@ class PollPublic extends Component
     public string $memberSelection = "";
     public Member|null $selectedMember = null;
 
-    public function mount(string $attendancePoll)
+    public function mount(AttendancePoll $attendancePoll)
     {
-        dd(AttendancePoll::query()->find($attendancePoll)->where("enabled", true)->get()); //TODO
-        $this->poll = AttendancePoll::query()->find($attendancePoll)->where("enabled", true)->firstOrFail();
+        if($attendancePoll->isPublicPollAvailable()) {
+            $this->poll  = $attendancePoll;
+            return;
+        }
+        throw (new ModelNotFoundException)->setModel(
+            AttendancePoll::class, $attendancePoll->id
+        );
     }
-
 
     public function render()
     {
