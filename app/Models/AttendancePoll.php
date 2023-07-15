@@ -19,7 +19,6 @@ class AttendancePoll extends Model
     public const ATTENDANCE_POLL_EDIT_PERMISSION = 'attendancePollEdit';
 
     protected $casts = [
-        'enabled' => 'boolean',
         'allow_anonymous_vote' => 'boolean',
         'closing_at' => 'datetime',
     ];
@@ -41,8 +40,7 @@ class AttendancePoll extends Model
 
     public function isPublicPollAvailable(): bool
     {
-        return $this->enabled === true &&
-            $this->allow_anonymous_vote === true &&
+        return $this->allow_anonymous_vote === true &&
             $this->closing_at > now();
     }
 }

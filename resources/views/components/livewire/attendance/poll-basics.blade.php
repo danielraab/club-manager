@@ -29,14 +29,6 @@
         </div>
 
 
-        <!-- Enabled -->
-        <div class="mt-4 ml-3">
-            <x-input-checkbox id="enabled" name="enabled" wire:model.defer="poll.enabled"
-                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Enabled') }}
-            </x-input-checkbox>
-        </div>
-
         <!-- allow_anonymous_vote -->
         <div class="mt-4 ml-3">
             <x-input-checkbox id="allow_anonymous_vote" name="allow_anonymous_vote"

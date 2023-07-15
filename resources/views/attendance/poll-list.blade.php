@@ -29,12 +29,9 @@
                 @foreach(\App\Models\AttendancePoll::query()->orderByDesc("closing_at")->get() as $attendancePoll)
                     @php
                         /** @var \App\Models\AttendancePoll $attendancePoll */
-                        if(!$attendancePoll->enabled && !$hasAttendancePollEditPermission) continue;
                         $rowBg = "bg-lime-200";
                         if($attendancePoll->closing_at && $attendancePoll->closing_at < now()) {
                             $rowBg = "bg-gray-400";
-                        } elseif(!$attendancePoll->enabled) {
-                            $rowBg = "bg-red-200";
                         }
                     @endphp
                     <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">

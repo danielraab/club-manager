@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description')->nullable();
 
-            $table->boolean('enabled')->default(true);
             $table->boolean('allow_anonymous_vote')->default(false);
             $table->dateTime('closing_at')->nullable();
 

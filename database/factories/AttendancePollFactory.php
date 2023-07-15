@@ -16,7 +16,6 @@ class AttendancePollFactory extends Factory
         return [
             'title' => fake()->text(20),
             'description' => fake()->text(),
-            'enabled' => fake()->boolean(),
             'allow_anonymous_vote' => fake()->boolean(),
             'closing_at' => fake()->dateTimeBetween(
                 now()->subWeeks(2),

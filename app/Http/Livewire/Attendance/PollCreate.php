@@ -13,7 +13,6 @@ class PollCreate extends Component
     public function mount()
     {
         $this->poll = new AttendancePoll();
-        $this->poll->enabled = true;
         $this->poll->allow_anonymous_vote = true;
         $this->poll->closing_at = now()->addWeek()->setMinute(0)->setSecond(0);
         $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
