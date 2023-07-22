@@ -6,7 +6,6 @@
     $attendance = $event->attendances()->where("member_id", $member->id)->first();
 @endphp
 <div class="flex flex-col justify-between sm:flex-row py-2">
-{{--    <x-livewire.loading/>--}}
     <div class="p-2">{{$member->getFullName()}}</div>
     <div class="flex justify-center gap-2">
         <div wire:click="recordPoll({{$attendance?->poll_status === "in" ? 'null' : "'in'"}})" title="{{__("In")}}"
