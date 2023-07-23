@@ -29,7 +29,7 @@
             </div>
             <div class="flex bg-white shadow rounded-lg p-5 items-center">
                 <div class="text-white bg-yellow-600 rounded-full w-10 h-10 flex justify-center items-center">
-                    <i class="fa-solid fa-exclamation "></i>
+                    <i class="fa-solid fa-question "></i>
                 </div>
                 <div class="grow px-5">{{__("unsure")}}</div>
                 <div class="text-orange-900 font-bold text-xl">{{$statistics["unsure"]}}</div>
@@ -43,7 +43,7 @@
             </div>
             <div class="flex bg-white shadow rounded-lg p-5 items-center">
                 <div class="text-white bg-blue-700 rounded-full w-10 h-10 flex justify-center items-center">
-                    <i class="fa-solid fa-question "></i>
+                    <i class="fa-solid fa-exclamation"></i>
                 </div>
                 <div class="grow px-5">{{__("missing")}}</div>
                 <div class="text-blue-900 font-bold text-xl">{{$statistics["unset"]}}</div>

@@ -11,19 +11,19 @@
         <div wire:click="recordPoll({{$attendance?->poll_status === "in" ? 'null' : "'in'"}})" title="{{__("In")}}"
              class="rounded-full w-10 h-10 flex justify-center items-center cursor-pointer
                         {{$attendance?->poll_status === "in" ? 'text-white bg-green-700' : 'text-green-700'}}">
-            <i class="fa-solid fa-check "></i>
+            <i class="fa-solid fa-check"></i>
         </div>
 
         <div wire:click="recordPoll({{$attendance?->poll_status === "unsure" ? 'null' : "'unsure'"}})" title="{{__("Unsure")}}"
             class="rounded-full w-10 h-10 flex justify-center items-center cursor-pointer
                         {{$attendance?->poll_status === "unsure" ? 'text-white bg-yellow-700' : 'text-yellow-700'}}">
-            <i class="fa-solid fa-exclamation "></i>
+            <i class="fa-solid fa-question"></i>
         </div>
 
         <div wire:click="recordPoll({{$attendance?->poll_status === "out" ? 'null' : "'out'"}})" title="{{__("Out")}}"
             class="rounded-full w-10 h-10 flex justify-center items-center cursor-pointer
                         {{$attendance?->poll_status === "out" ? 'text-white bg-red-700' : 'text-red-700'}}">
-            <i class="fa-solid fa-xmark "></i>
+            <i class="fa-solid fa-xmark"></i>
         </div>
 
 

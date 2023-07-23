@@ -89,7 +89,7 @@
                                     <div
                                         title="{{__("Unsure")}}"
                                         class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-yellow-700">
-                                        <i class="fa-solid fa-exclamation"></i>
+                                        <i class="fa-solid fa-question"></i>
                                     </div>
                                 @else
                                     <div
@@ -98,7 +98,7 @@
                                         @endif
                                         title="{{__("Unsure")}}"
                                         class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-yellow-700">
-                                        <i class="fa-solid fa-exclamation"></i>
+                                        <i class="fa-solid fa-question"></i>
                                     </div>
                                 @endif
 
