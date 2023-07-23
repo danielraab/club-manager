@@ -4,7 +4,7 @@ use App\Http\Controllers\Attendance\Display;
 use App\Http\Livewire\Attendance\PollCreate;
 use App\Http\Livewire\Attendance\PollEdit;
 use App\Http\Livewire\Attendance\PollPublic;
-use App\Http\Livewire\Attendance\Record;
+use App\Http\Livewire\Attendance\AttendanceRecord;
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +16,7 @@ Route::middleware(['auth', 'permission:' . Attendance::ATTENDANCE_SHOW_PERMISSIO
 });
 
 Route::middleware(['auth', 'permission:' . Attendance::ATTENDANCE_EDIT_PERMISSION])->group(function () {
-    Route::get('/events/event/{event}/attendance/edit', Record::class)
+    Route::get('/events/event/{event}/attendance/edit', AttendanceRecord::class)
         ->name('event.attendance.edit');
 });
 

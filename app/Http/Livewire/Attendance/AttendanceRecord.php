@@ -7,7 +7,7 @@ use App\Models\Member;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class Record extends Component
+class AttendanceRecord extends Component
 {
     public Event $event;
     public bool $onlyActive = false;
@@ -28,6 +28,6 @@ class Record extends Component
         if ($this->onlyActive) {
             $memberList = Member::allActive();
         }
-        return view('livewire.attendance.record', ["members" => $memberList])->layout('layouts.backend');
+        return view('livewire.attendance.attendance-record', ["members" => $memberList])->layout('layouts.backend');
     }
 }
