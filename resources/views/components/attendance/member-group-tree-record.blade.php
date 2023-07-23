@@ -14,7 +14,7 @@
     <div x-show="show" class="px-5 pt-0 overflow-hidden" x-transition>
         <div class="space-y-1 divide-y divide-gray-500">
         @foreach($memberGroup->members()->get() as $member)
-            <livewire:attendance.attendance :event="$event" :member="$member" wire:key="{{$event.'-'.$member}}"/>
+            <livewire:attendance.single-attendance :event="$event" :member="$member" wire:key="tree-att-{{$event->id.'-'.$member->id}}"/>
         @endforeach
         </div>
 

@@ -76,7 +76,7 @@
                 </div>
                 @if($hasAttendanceEditPermission)
                     <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
-                        Edit Attendance
+                        {{__("Edit Attendance")}}
                     </x-button-link>
                 @endif
             </div>

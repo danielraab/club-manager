@@ -7,7 +7,7 @@ use App\Models\Event;
 use App\Models\Member;
 use Livewire\Component;
 
-class AttendanceOverview extends Component
+class SingleAttendance extends Component
 {
     public Event $event;
     public Member $member;
@@ -46,6 +46,6 @@ class AttendanceOverview extends Component
 
     public function render()
     {
-        return view('livewire.attendance.attendance-overview');
+        return view('components.livewire.attendance.single-attendance');
     }
 }

@@ -39,7 +39,7 @@
                               class="rounded ext-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('active members only') }}
             </x-input-checkbox>
-            <x-button-link class="btn-primary" href="{{route('event.attendance.show', $event->id)}}">Show Overview</x-button-link>
+            <x-button-link class="btn-primary" href="{{route('event.attendance.show', $event->id)}}">{{__("Show Overview")}}</x-button-link>
         </div>
     </div>
     <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
@@ -53,7 +53,7 @@
         @else
             <div class="flex flex-col justify-center text-center divide-y divide-gray-500">
                 @foreach($members->get() as $member)
-                    <livewire:attendance.attendance :event="$event" :member="$member" wire:key="{{$event.'-'.$member}}"/>
+                    <livewire:attendance.single-attendance :event="$event" :member="$member" wire:key="att-{{$event->id.'-'.$member->id}}"/>
                 @endforeach
             </div>
         @endif
