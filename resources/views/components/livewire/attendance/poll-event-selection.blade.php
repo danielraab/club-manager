@@ -71,7 +71,7 @@
         <div class="flex justify-center mt-2">
             <x-default-button type="button" class="btn btn-primary"
                               x-bind:disabled="additionalEventList.length === 0"
-                              x-on:click="addEvents">Add events to poll
+                              x-on:click="addEvents">{{__("Add events to poll")}}
             </x-default-button>
         </div>
         @endif

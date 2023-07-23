@@ -41,12 +41,12 @@
                         <td>
                             <div class="flex gap-2 justify-end py-2 px-4 items-center">
                             @if($attendancePoll->isPublicPollAvailable())
-                                <a href="{{route('attendancePoll.public', $attendancePoll->id)}}"
+                                <a href="{{route('attendancePoll.public', $attendancePoll->id)}}" title="{{__("Public link for poll")}}"
                                    target="_blank">
                                     <i class="fa-solid fa-link text-amber-800"></i>
                                 </a>
                             @endif
-                                <a href="{{route('attendancePoll.statistic', $attendancePoll->id)}}" title="Show summary of attendance poll">
+                                <a href="{{route('attendancePoll.statistic', $attendancePoll->id)}}" title="{{__("Show summary of attendance poll")}}">
                                     <i class="fa-solid fa-circle-info text-sky-700"></i>
                                 </a>
                             @if($hasAttendancePollEditPermission)
