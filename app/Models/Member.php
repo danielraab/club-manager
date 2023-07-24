@@ -79,6 +79,12 @@ class Member extends Model
         return $selection;
     }
 
+    public function matchFilter(MemberFilter $memberFilter):bool {
+        return ($memberFilter->inclBeforeEntrance || $this->entrance_date < now()) &&
+            ($memberFilter->inclAfterRetired || $this->leaving_date > now()) &&
+            ($memberFilter->inclPaused || !$this->paused);
+    }
+
     public static function addFilterToBuilder(Builder $builder, MemberFilter $filter): Builder
     {
 
