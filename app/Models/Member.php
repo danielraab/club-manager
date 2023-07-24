@@ -49,26 +49,56 @@ class Member extends Model
     {
         $fullName = '';
         if ($this->title_pre) {
-            $fullName = $this->title_pre.' ';
+            $fullName = $this->title_pre . ' ';
         }
-        $fullName .= $this->lastname.' '.$this->firstname;
+        $fullName .= $this->lastname . ' ' . $this->firstname;
         if ($this->title_post) {
-            $fullName .= ' '.$this->title_post;
+            $fullName .= ' ' . $this->title_post;
         }
 
         return $fullName;
     }
 
+    /**
+     * @deprecated use getAllFiltered method instead
+     * @see Member::getAllFiltered
+     * @param bool $includePaused
+     * @return Builder
+     */
     public static function allActive(bool $includePaused = false): Builder
     {
         $selection = self::query()->where('entrance_date', '<', now());
-        if (! $includePaused) {
+        if (!$includePaused) {
             $selection->where('paused', false);
         }
         $selection->where(function (Builder $query) {
             $query->whereNull('leaving_date')
                 ->orWhere('leaving_date', '>', now());
         })->orderBy('lastname')->orderBy('firstname');
+
+        return $selection;
+    }
+
+    public static function getAllFiltered(bool $hasAlreadyJoined = true, bool $hasNotRetired = true, bool $isNotPaused = true): Builder
+    {
+        $selection = self::query();
+
+        if ($hasAlreadyJoined) {
+            $selection->where('entrance_date', '<', now());
+        }
+
+        if ($hasNotRetired) {
+            $selection->where(function (Builder $query) {
+                $query->whereNull('leaving_date')
+                    ->orWhere('leaving_date', '>', now());
+            });
+        }
+
+        if ($isNotPaused) {
+            $selection->where('paused', false);
+        }
+
+        $selection->orderBy('lastname')->orderBy('firstname');
 
         return $selection;
     }
