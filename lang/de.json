@@ -223,5 +223,6 @@
     "Remove event selection": "Veranstaltungsauswahl entfernen",
     "Select an event to add:": "Veranstaltungen auswählen:",
     "Add events to poll": "Veranstaltungen hinzufügen",
-    "No attendance polls to display.": "Keine Veranstaltungsabfragen."
+    "No attendance polls to display.": "Keine Veranstaltungsabfragen.",
+    "Currently no attendance information.": "Aktuell gibt es keine Teilnahmeinformationen."
 }

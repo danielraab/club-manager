@@ -85,7 +85,7 @@
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div>
                 @if(request('displayType') === 'list')
-                    @foreach($event->attendances()->get() as $attendance)
+                    @forelse($event->attendances()->get() as $attendance)
                         @php
                             /** @var \App\Models\Attendance $attendance */
                                 $cssClasses = $attendance->attended ? " bg-green-300" : '';
@@ -99,7 +99,10 @@
                             <span
                                 class="rounded px-2 {{$cssClasses}}">{{__($attendance->member()->first()->getFullName())}}</span>
                         </div>
-                    @endforeach
+
+                    @empty
+                        <span>{{__("Currently no attendance information.")}}</span>
+                    @endforelse
                 @else
                     @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                         <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
