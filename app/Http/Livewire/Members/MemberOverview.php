@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Members;
 
+use App\Http\Livewire\MemberFilterTrait;
 use App\Models\Member;
 use App\Models\MemberGroup;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,7 +10,7 @@ use Livewire\Component;
 
 class MemberOverview extends Component
 {
-    public bool $onlyActive = false;
+    use MemberFilterTrait;
 
     public string $filterMemberGroup = '';
 
@@ -17,11 +18,11 @@ class MemberOverview extends Component
     {
 
         /** @var Builder $memberList */
-        $memberList = Member::orderBy('lastname')->orderBy('firstname');
-
-        if ($this->onlyActive) {
-            $memberList = Member::allActive();
-        }
+        $memberList = Member::getAllFiltered(
+            !$this->filterShowBeforeEntrance,
+            !$this->filterShowAfterRetired,
+            !$this->filterShowPaused
+        );
 
         if ($this->filterMemberGroup) {
             /** @var MemberGroup $selectedGroup */

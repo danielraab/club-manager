@@ -34,7 +34,7 @@
     @if($this->members->exists())
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-            <x-livewire.loading />
+            <x-livewire.loading/>
             <div class="flex flex-wrap gap-5 justify-center text-sm mb-5">
                 <div class="flex items-center flex-wrap justify-center">
                     <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
@@ -48,12 +48,7 @@
                     </select>
                 </div>
 
-                <div class="flex items-center">
-                    <x-input-checkbox id="active" name="active" wire:model.lazy="onlyActive"
-                                      class="rounded ext-indigo-600 shadow-sm focus:ring-indigo-500">
-                        {{ __('active members only') }}
-                    </x-input-checkbox>
-                </div>
+                <x-livewire.member-filter />
             </div>
             <x-always-responsive-table class="table-auto mx-auto text-center">
                 <thead class="font-bold">
@@ -102,6 +97,9 @@
                 @endforeach
                 </tbody>
             </x-always-responsive-table>
+            <div class="p-2">
+                <span>{{__("Members") . ': ' . $this->members->count() }}</span>
+            </div>
         </div>
 
 
