@@ -12,7 +12,6 @@ class AttendanceDisplay extends Component
     use MemberFilterTrait;
 
     public Event $event;
-    public bool $displayMemberGroups = true;
 
     public function mount(Event $event)
     {
