@@ -222,5 +222,6 @@
     "Select the events for the attendance poll.": "Wählen sie die Veranstaltungen für die Abfrage aus.",
     "Remove event selection": "Veranstaltungsauswahl entfernen",
     "Select an event to add:": "Veranstaltungen auswählen:",
-    "Add events to poll": "Veranstaltungen hinzufügen"
+    "Add events to poll": "Veranstaltungen hinzufügen",
+    "No attendance polls to display.": "Keine Veranstaltungsabfragen."
 }
