@@ -35,6 +35,15 @@ class MemberEdit extends Component
         return redirect($this->previousUrl);
     }
 
+    public function deleteMember() {
+
+        $this->member->delete();
+
+        session()->put('message', __('The member has been successfully deleted.'));
+
+        return redirect($this->previousUrl);
+    }
+
     public function render()
     {
         return view('livewire.members.member-edit')->layout('layouts.backend');

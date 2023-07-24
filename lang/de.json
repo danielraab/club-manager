@@ -160,6 +160,8 @@
     "Create new member group": "Neue Mitgliedergruppe erstellen",
     "Edit this member group": "Diese Mitgliedergruppe bearbeiten",
     "Member count": "Mitgliederanzahl",
+    "Delete member": "Mitglied löschen",
+    "Delete this member": "Dieses Mitglied löschen",
     "Enter basic information for the member group.": "Basisinformationen für die Mitgliedergruppe eingeben.",
     "Parent member group": "Übergeordnete Mitgliedergruppe",
     "Select the associated members.": "Wählen Sie die dazugehörigen Mitglieder aus.",
