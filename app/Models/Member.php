@@ -79,26 +79,32 @@ class Member extends Model
         return $selection;
     }
 
-    public static function getAllFiltered(MemberFilter $filter = null): Builder
+    public static function addFilterToBuilder(Builder $builder, MemberFilter $filter): Builder
     {
-        if ($filter === null) $filter = new MemberFilter();
-
-        $selection = self::query();
 
         if (!$filter->inclBeforeEntrance) {
-            $selection->where('entrance_date', '<', now());
+            $builder->where('entrance_date', '<', now());
         }
 
         if (!$filter->inclAfterRetired) {
-            $selection->where(function (Builder $query) {
+            $builder->where(function (Builder $query) {
                 $query->whereNull('leaving_date')
                     ->orWhere('leaving_date', '>', now());
             });
         }
 
         if (!$filter->inclPaused) {
-            $selection->where('paused', false);
+            $builder->where('paused', false);
         }
+
+        return $builder;
+    }
+
+    public static function getAllFiltered(MemberFilter $filter = null): Builder
+    {
+        if ($filter === null) $filter = new MemberFilter();
+
+        $selection = self::addFilterToBuilder(self::query(), $filter);
 
         $selection->orderBy('lastname')->orderBy('firstname');
 

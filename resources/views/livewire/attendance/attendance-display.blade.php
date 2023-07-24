@@ -1,6 +1,7 @@
 @php
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+    $memberFilter = new \App\Models\MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused);
 @endphp
 
 <x-slot name="headline">
@@ -87,13 +88,12 @@
         <div x-cloak x-show="displayMemberGroups">
             @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                 <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
-                                                        initialShow="true"
+                                                        initialShow="true" :memberFilter="$memberFilter"
                                                         :memberGroupCntList="$statistics['memberGroupStatistics']"/>
             @endforeach
         </div>
         <div x-cloak x-show="!displayMemberGroups">
-            @forelse($members = \App\Models\Member::getAllFiltered(
-    new \App\Models\MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused))->get() as $member)
+            @forelse($members = \App\Models\Member::getAllFiltered($memberFilter)->get() as $member)
                 @php
                     /** @var \App\Models\Member $member */
                     $attendance = $member->attendances()->where("event_id", $event->id)->first();

@@ -26,7 +26,7 @@
     </div>
     <!-- Content -->
     <div x-show="show" class="px-5 pt-0 overflow-hidden space-y-1" x-transition>
-        @foreach($memberGroup->members()->get() as $member)
+        @foreach($memberGroup->filteredMembers($memberFilter)->get() as $member)
             @php
                 $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
                 $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
@@ -42,9 +42,10 @@
         @endforeach
 
         @foreach($memberGroup->children()->get() as $childMemberGroup)
-            @if($childMemberGroup->members()->get()->isNotEmpty() || $childMemberGroup->children()->get()->isNotEmpty())
+            @if($childMemberGroup->filteredMembers($memberFilter)->get()->isNotEmpty() ||
+                $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
-                                                :memberGroupCntList="$memberGroupCntList"/>
+                                                :memberGroupCntList="$memberGroupCntList" :memberFilter="$memberFilter"/>
             @endif
         @endforeach
     </div>

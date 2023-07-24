@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +36,15 @@ class MemberGroup extends Model
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(Member::class);
+    }
+
+    public function filteredMembers(MemberFilter $filter): Builder
+    {
+        $selection = Member::addFilterToBuilder($this->members()->getQuery(), $filter);
+
+        $selection->orderBy('lastname')->orderBy('firstname');
+
+        return $selection;
     }
 
     public function parent(): BelongsTo
