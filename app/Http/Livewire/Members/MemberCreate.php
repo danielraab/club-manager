@@ -13,6 +13,7 @@ class MemberCreate extends Component
     public function mount()
     {
         $this->member = new Member();
+        $this->member->paused = false;
         $this->entrance_date = now()->format('Y-m-d');
         $this->previousUrl = url()->previous();
     }
@@ -38,9 +39,10 @@ class MemberCreate extends Component
         $this->propsToModel();
         $this->member->creator()->associate(Auth::user());
         $this->member->lastUpdater()->associate(Auth::user());
-        $this->member->replicate()->save();
+        $newMember = $this->member->replicate();
 
-        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
+        $newMember->save();
+        $newMember->memberGroups()->sync(array_unique($this->memberGroupList));
 
         session()->flash('savedAndStayMessage', __('New member successfully created. You can create the next one now.'));
     }
