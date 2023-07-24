@@ -13,6 +13,7 @@ class Attendance extends Model
     public const AVAILABLE_POLL_STATUS_LIST = ['in', 'out', 'unsure'];
 
     public const ATTENDANCE_SHOW_PERMISSION = 'attendanceShow';
+
     public const ATTENDANCE_EDIT_PERMISSION = 'attendanceEdit';
 
     protected $casts = [
@@ -20,7 +21,7 @@ class Attendance extends Model
     ];
 
     protected $fillable = [
-        'event_id', 'member_id'
+        'event_id', 'member_id',
     ];
 
     public function event(): BelongsTo

@@ -10,6 +10,7 @@ use Livewire\Component;
 class AttendanceRecord extends Component
 {
     public Event $event;
+
     public bool $onlyActive = false;
 
     public bool $displayMemberGroups = false;
@@ -28,6 +29,7 @@ class AttendanceRecord extends Component
         if ($this->onlyActive) {
             $memberList = Member::allActive();
         }
-        return view('livewire.attendance.attendance-record', ["members" => $memberList])->layout('layouts.backend');
+
+        return view('livewire.attendance.attendance-record', ['members' => $memberList])->layout('layouts.backend');
     }
 }

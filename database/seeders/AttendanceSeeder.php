@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AttendanceSeeder extends Seeder
 {
     public mixed $attendanceEdit;
+
     public mixed $attendancePollEdit;
 
     public $attendancePollCollection;
@@ -59,12 +60,14 @@ class AttendanceSeeder extends Seeder
     {
         $coll = Attendance::factory(1000)->create();
     }
+
     public function addAttendancePoll()
     {
         $this->attendancePollCollection = AttendancePoll::factory(10)->create();
         $this->attendancePollCollection->each(function (AttendancePoll $attendancePoll) {
-            for($i = 0; $i < fake()->numberBetween(1, 5); $i++)
+            for ($i = 0; $i < fake()->numberBetween(1, 5); $i++) {
                 $attendancePoll->events()->attach(fake()->numberBetween(1, EventSeeder::$eventCnt));
+            }
         });
     }
 }

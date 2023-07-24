@@ -3,15 +3,14 @@
 namespace App\Http\Livewire\Attendance;
 
 use App\Models\AttendancePoll;
-use App\Models\Event;
 use Carbon\Carbon;
-use function Deployer\add;
 
 trait PollTrait
 {
-
     public AttendancePoll $poll;
+
     public string $closing_at;
+
     public string $previousUrl;
 
     /** @var int[] */
@@ -33,11 +32,11 @@ trait PollTrait
 
     public function addEventsToSelection($additionalEventIdList): void
     {
-        $this->selectedEvents = array_unique( array_merge($this->selectedEvents, $additionalEventIdList));
+        $this->selectedEvents = array_unique(array_merge($this->selectedEvents, $additionalEventIdList));
     }
 
     public function removeEventFromSelection($eventId): void
     {
-        $this->selectedEvents = array_filter($this->selectedEvents, fn($loopEventId) => $loopEventId != $eventId);
+        $this->selectedEvents = array_filter($this->selectedEvents, fn ($loopEventId) => $loopEventId != $eventId);
     }
 }

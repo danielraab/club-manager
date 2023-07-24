@@ -14,7 +14,7 @@ class PollEdit extends Component
     {
         $this->poll = $attendancePoll;
         $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
-        $this->selectedEvents = $this->poll->events()->pluck("id")->toArray();
+        $this->selectedEvents = $this->poll->events()->pluck('id')->toArray();
         $this->previousUrl = url()->previous();
     }
 

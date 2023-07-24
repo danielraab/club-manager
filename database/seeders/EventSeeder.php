@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class EventSeeder extends Seeder
 {
     public static int $eventCnt = 0;
+
     /**
      * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */

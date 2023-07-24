@@ -10,17 +10,20 @@ use Livewire\Component;
 class PollPublic extends Component
 {
     public AttendancePoll $poll;
-    public string $memberSelection = "";
+
+    public string $memberSelection = '';
+
     public Member|null $selectedMember = null;
 
     protected array $rules = [
-        "selectedMember" => ["nullable", "string"]
+        'selectedMember' => ['nullable', 'string'],
     ];
 
     public function mount(AttendancePoll $attendancePoll)
     {
         if ($attendancePoll->isPublicPollAvailable()) {
             $this->poll = $attendancePoll;
+
             return;
         }
         throw (new ModelNotFoundException)->setModel(
@@ -40,10 +43,10 @@ class PollPublic extends Component
         if ($this->selectedMember) {
             /** @var \App\Models\Attendance $attendance */
             $attendance = \App\Models\Attendance::query()->firstOrCreate([
-                "event_id" => $eventId,
-                "member_id" => $this->selectedMember->id
+                'event_id' => $eventId,
+                'member_id' => $this->selectedMember->id,
             ], [
-                "creator_id" => auth()->user()?->id ?? null
+                'creator_id' => auth()->user()?->id ?? null,
             ]);
             $attendance->poll_status = $result;
             $attendance->save();

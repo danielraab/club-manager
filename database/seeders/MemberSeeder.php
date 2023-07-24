@@ -83,7 +83,6 @@ class MemberSeeder extends Seeder
                 fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
 
-
         $coll = Member::factory(10)->create([
             'title_pre' => null,
             'title_post' => null,
@@ -103,7 +102,6 @@ class MemberSeeder extends Seeder
             $member->memberGroups()->attach(
                 fake()->numberBetween(3, self::MEMBER_GROUP_CNT + 2));
         });
-
 
         $coll = Member::factory(10)->create([
             'creator_id' => $this->memberEdit->id,

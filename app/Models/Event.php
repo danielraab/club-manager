@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -34,7 +33,6 @@ class Event extends Model
         return $this->hasMany(Attendance::class);
     }
 
-
     public function attendancePolls(): BelongsToMany
     {
         return $this->belongsToMany(AttendancePoll::class);
@@ -50,11 +48,16 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false) {
+    public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
+    {
 
         $eventList = Event::query()->where('start', '>', now());
-        if($onlyEnabled) $eventList = $eventList->where('enabled', true);
-        if(!$inclLoggedInOnly) $eventList = $eventList->where('logged_in_only', false);
+        if ($onlyEnabled) {
+            $eventList = $eventList->where('enabled', true);
+        }
+        if (! $inclLoggedInOnly) {
+            $eventList = $eventList->where('logged_in_only', false);
+        }
 
         return $eventList->orderBy('start');
     }
@@ -71,7 +74,8 @@ class Event extends Model
             ->orderBy('dress_code')->pluck('dress_code')->toArray();
     }
 
-    public function getAttendanceStatistics(): array {
+    public function getAttendanceStatistics(): array
+    {
         $cntIn = 0;
         $cntUnsure = 0;
         $cntOut = 0;
@@ -84,30 +88,44 @@ class Event extends Model
 
         foreach ($attendances as $attendance) {
             /** @var Attendance $attendance */
-            if($attendance->poll_status === "in") $cntIn++;
-            if($attendance->poll_status === "unsure") $cntUnsure++;
-            if($attendance->poll_status === "out") $cntOut++;
-            if($attendance->attended === true) $cntAttended++;
+            if ($attendance->poll_status === 'in') {
+                $cntIn++;
+            }
+            if ($attendance->poll_status === 'unsure') {
+                $cntUnsure++;
+            }
+            if ($attendance->poll_status === 'out') {
+                $cntOut++;
+            }
+            if ($attendance->attended === true) {
+                $cntAttended++;
+            }
 
-            foreach($attendance->member()->first()->memberGroups()->get() as $memberGroup) {
+            foreach ($attendance->member()->first()->memberGroups()->get() as $memberGroup) {
                 $groupElem = $memberGroupCntList[$memberGroup->id] ?? [
-                    "in" => 0,
-                    "unsure" => 0,
-                    "out" => 0,
+                    'in' => 0,
+                    'unsure' => 0,
+                    'out' => 0,
                 ];
-                if($attendance->poll_status === "in") $groupElem["in"] = $groupElem["in"] + 1;
-                if($attendance->poll_status === "unsure") $groupElem["unsure"] = $groupElem["unsure"] + 1;
-                if($attendance->poll_status === "out") $groupElem["out"] = $groupElem["out"] + 1;
+                if ($attendance->poll_status === 'in') {
+                    $groupElem['in'] = $groupElem['in'] + 1;
+                }
+                if ($attendance->poll_status === 'unsure') {
+                    $groupElem['unsure'] = $groupElem['unsure'] + 1;
+                }
+                if ($attendance->poll_status === 'out') {
+                    $groupElem['out'] = $groupElem['out'] + 1;
+                }
                 $memberGroupCntList[$memberGroup->id] = $groupElem;
             }
         }
 
         return [
-            "in" => $cntIn,
-            "unsure" => $cntUnsure,
-            "out" => $cntOut,
-            "attended" => $cntAttended,
-            "memberGroupStatistics" => $memberGroupCntList
+            'in' => $cntIn,
+            'unsure' => $cntUnsure,
+            'out' => $cntOut,
+            'attended' => $cntAttended,
+            'memberGroupStatistics' => $memberGroupCntList,
         ];
     }
 }

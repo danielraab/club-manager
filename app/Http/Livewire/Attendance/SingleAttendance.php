@@ -10,6 +10,7 @@ use Livewire\Component;
 class SingleAttendance extends Component
 {
     public Event $event;
+
     public Member $member;
 
     public function mount($event, $member)
@@ -18,10 +19,11 @@ class SingleAttendance extends Component
         $this->member = $member;
     }
 
-    public function recordPoll(?string $result) {
-        $attendance = $this->event->attendances()->where("member_id", $this->member->id)->first();
+    public function recordPoll(?string $result)
+    {
+        $attendance = $this->event->attendances()->where('member_id', $this->member->id)->first();
 
-        if($attendance === null) {
+        if ($attendance === null) {
             $attendance = new AttendanceModel();
             $attendance->event_id = $this->event->id;
             $attendance->member_id = $this->member->id;
@@ -31,10 +33,11 @@ class SingleAttendance extends Component
         $attendance->save();
     }
 
-    public function recordAttend(?bool $attend) {
-        $attendance = $this->event->attendances()->where("member_id", $this->member->id)->first();
+    public function recordAttend(?bool $attend)
+    {
+        $attendance = $this->event->attendances()->where('member_id', $this->member->id)->first();
 
-        if($attendance === null) {
+        if ($attendance === null) {
             $attendance = new AttendanceModel();
             $attendance->event_id = $this->event->id;
             $attendance->member_id = $this->member->id;

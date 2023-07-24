@@ -9,7 +9,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -39,7 +40,7 @@ return new class extends Migration {
             $table->foreign('event_id')->references('id')->on('events')->cascadeOnDelete();
             $table->foreignIdFor(Member::class, 'member_id');
             $table->foreign('member_id')->references('id')->on('members')->cascadeOnDelete();
-            $table->unique(["event_id", "member_id"]);
+            $table->unique(['event_id', 'member_id']);
 
             $table->enum('poll_status',
                 ['in', 'out', 'unsure'])->nullable();
@@ -61,7 +62,6 @@ return new class extends Migration {
             $table->foreign('attendance_poll_id')->references('id')
                 ->on('attendance_polls')->cascadeOnDelete();
         });
-
 
         \App\Models\UserPermission::create([
             'id' => Attendance::ATTENDANCE_SHOW_PERMISSION,
