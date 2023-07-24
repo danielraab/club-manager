@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class MemberBirthdayList extends Controller

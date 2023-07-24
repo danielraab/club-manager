@@ -55,7 +55,7 @@ class Event extends Model
         if ($onlyEnabled) {
             $eventList = $eventList->where('enabled', true);
         }
-        if (! $inclLoggedInOnly) {
+        if (!$inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
 
@@ -80,7 +80,6 @@ class Event extends Model
         $cntUnsure = 0;
         $cntOut = 0;
         $cntAttended = 0;
-        $cntMembers = Member::allActive()->count();
 
         $attendances = $this->attendances()->get();
 
