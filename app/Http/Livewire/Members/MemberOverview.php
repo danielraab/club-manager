@@ -18,11 +18,7 @@ class MemberOverview extends Component
     {
 
         /** @var Builder $memberList */
-        $memberList = Member::getAllFiltered(
-            !$this->filterShowBeforeEntrance,
-            !$this->filterShowAfterRetired,
-            !$this->filterShowPaused
-        );
+        $memberList = Member::getAllFiltered($this->getMemberFilter());
 
         if ($this->filterMemberGroup) {
             /** @var MemberGroup $selectedGroup */

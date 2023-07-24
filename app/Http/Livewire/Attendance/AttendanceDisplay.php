@@ -21,11 +21,7 @@ class AttendanceDisplay extends Component
     public function render()
     {
         $attendanceStatistics = $this->event->getAttendanceStatistics();
-        $cntMembers = Member::getAllFiltered(
-            !$this->filterShowBeforeEntrance,
-            !$this->filterShowAfterRetired,
-            !$this->filterShowPaused
-        )->count();
+        $cntMembers = Member::getAllFiltered($this->getMemberFilter())->count();
 
         return view('livewire.attendance.attendance-display', [
                 'statistics' => [

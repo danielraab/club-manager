@@ -60,10 +60,10 @@ class Member extends Model
     }
 
     /**
-     * @deprecated use getAllFiltered method instead
-     * @see Member::getAllFiltered
      * @param bool $includePaused
      * @return Builder
+     * @deprecated use getAllFiltered method instead
+     * @see Member::getAllFiltered
      */
     public static function allActive(bool $includePaused = false): Builder
     {
@@ -79,22 +79,24 @@ class Member extends Model
         return $selection;
     }
 
-    public static function getAllFiltered(bool $hasAlreadyJoined = true, bool $hasNotRetired = true, bool $isNotPaused = true): Builder
+    public static function getAllFiltered(MemberFilter $filter = null): Builder
     {
+        if ($filter === null) $filter = new MemberFilter();
+
         $selection = self::query();
 
-        if ($hasAlreadyJoined) {
+        if (!$filter->inclBeforeEntrance) {
             $selection->where('entrance_date', '<', now());
         }
 
-        if ($hasNotRetired) {
+        if (!$filter->inclAfterRetired) {
             $selection->where(function (Builder $query) {
                 $query->whereNull('leaving_date')
                     ->orWhere('leaving_date', '>', now());
             });
         }
 
-        if ($isNotPaused) {
+        if (!$filter->inclPaused) {
             $selection->where('paused', false);
         }
 

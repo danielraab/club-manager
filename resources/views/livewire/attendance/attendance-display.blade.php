@@ -92,7 +92,8 @@
             @endforeach
         </div>
         <div x-cloak x-show="!displayMemberGroups">
-            @forelse($members = \App\Models\Member::getAllFiltered(!$filterShowBeforeEntrance, !$filterShowAfterRetired, !$filterShowPaused)->get() as $member)
+            @forelse($members = \App\Models\Member::getAllFiltered(
+    new \App\Models\MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused))->get() as $member)
                 @php
                     /** @var \App\Models\Member $member */
                     $attendance = $member->attendances()->where("event_id", $event->id)->first();

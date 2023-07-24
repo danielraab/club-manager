@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\MemberFilter;
 use Illuminate\Support\Facades\Response;
 
 class MemberBirthdayList extends Controller
@@ -49,7 +50,7 @@ class MemberBirthdayList extends Controller
 
     private function getBirthdaySortedMembers(bool $allMembers = false): \Illuminate\Database\Eloquent\Collection|array
     {
-        return Member::getAllFiltered(!$allMembers, !$allMembers, !$allMembers)->whereNotNull('birthday')->get()
+        return Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNotNull('birthday')->get()
             ->sort(function ($memberA, $memberB) {
                 return strcmp($memberA->birthday->isoFormat('MM-DD'), $memberB->birthday->isoFormat('MM-DD'));
             });
@@ -61,7 +62,7 @@ class MemberBirthdayList extends Controller
 
     public function birthdayList(bool $allMembers = false)
     {
-        $missingBirthdayList = Member::getAllFiltered(!$allMembers, !$allMembers, !$allMembers)->whereNull('birthday')
+        $missingBirthdayList = Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNull('birthday')
             ->orderBy('lastname')->get();
         $memberList = $this->getBirthdaySortedMembers($allMembers);
 

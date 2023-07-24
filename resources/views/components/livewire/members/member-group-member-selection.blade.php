@@ -17,7 +17,7 @@
                         wire:model.defer="memberSelection"
                         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
                 >
-                    @foreach(\App\Models\Member::allActive()->get() as $member)
+                    @foreach(\App\Models\Member::getAllFiltered()->get() as $member)
                         <option value="{{$member->id}}">{{$member->lastname}} {{$member->firstname}}</option>
                     @endforeach
                 </select>
