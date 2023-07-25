@@ -32,6 +32,6 @@ class AttendanceDisplay extends Component
                     ...$attendanceStatistics,
                 ],
             ]
-        );
+        )->layout('layouts.backend');
     }
 }

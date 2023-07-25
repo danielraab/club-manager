@@ -1,5 +1,7 @@
 @php
+    /** @var \App\Models\Event $event */
     /** @var \App\Models\MemberGroup $memberGroup */
+    /** @var \App\Models\MemberFilter $memberFilter */
 @endphp
     <!-- Accordion Wrapper -->
 <div x-data="{show:{{$attributes->get('initialShow', 'false')}}}" class="transition mb-1">
@@ -26,10 +28,12 @@
     </div>
     <!-- Content -->
     <div x-show="show" class="px-5 pt-0 overflow-hidden space-y-1" x-transition>
-        @foreach($memberGroup->filteredMembers($memberFilter)->get() as $member)
+        @foreach($memberGroup->members()->get() as $member)
             @php
-                $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
-                $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
+                /** @var \App\Models\Member $member */
+                    $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
+                    if(!$member->matchFilter($memberFilter) && $currentAttendance === null) continue;
+                    $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
             @endphp
             <div class="flex gap-2 items-center px-2">
                 <div class="h-2 w-2 rounded-full {{match($currentAttendance?->poll_status){
@@ -42,10 +46,11 @@
         @endforeach
 
         @foreach($memberGroup->children()->get() as $childMemberGroup)
-            @if($childMemberGroup->filteredMembers($memberFilter)->get()->isNotEmpty() ||
+            @if($childMemberGroup->members()->get()->isNotEmpty() ||
                 $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
-                                                :memberGroupCntList="$memberGroupCntList" :memberFilter="$memberFilter"/>
+                                                        :memberGroupCntList="$memberGroupCntList"
+                                                        :memberFilter="$memberFilter"/>
             @endif
         @endforeach
     </div>

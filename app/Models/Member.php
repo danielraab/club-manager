@@ -80,8 +80,8 @@ class Member extends Model
     }
 
     public function matchFilter(MemberFilter $memberFilter):bool {
-        return ($memberFilter->inclBeforeEntrance || $this->entrance_date < now()) &&
-            ($memberFilter->inclAfterRetired || $this->leaving_date > now()) &&
+        return ($memberFilter->inclBeforeEntrance || $this->entrance_date === null || $this->entrance_date <= now()) &&
+            ($memberFilter->inclAfterRetired || $this->leaving_date === null || $this->leaving_date >= now()) &&
             ($memberFilter->inclPaused || !$this->paused);
     }
 
