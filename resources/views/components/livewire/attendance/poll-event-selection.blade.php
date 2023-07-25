@@ -56,7 +56,9 @@
     <div class="my-4">
         @php
         /** @var \Illuminate\Database\Eloquent\Collection $possibleEvents */
-            $possibleEvents = \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $selectedEvents)->get();
+            $possibleEvents = $showOnlyFutureEvents ?
+                \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $selectedEvents)->get() :
+                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->get();
         @endphp
         @if($possibleEvents->count() > 0)
         <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
@@ -68,7 +70,12 @@
                     - {{$event->title}}</option>
             @endforeach
         </select>
-        <div class="flex justify-center mt-2">
+        <div class="flex justify-center mt-2 gap-3">
+            <x-input-checkbox id="show_only_future_events" name="show_only_future_events"
+                              wire:model="showOnlyFutureEvents"
+                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                {{ __('only future events') }}
+            </x-input-checkbox>
             <x-default-button type="button" class="btn btn-primary"
                               x-bind:disabled="additionalEventList.length === 0"
                               x-on:click="addEvents">{{__("Add events to poll")}}

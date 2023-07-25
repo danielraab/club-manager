@@ -32,7 +32,7 @@ addEvents() {
            <x-livewire.attendance.poll-basics />
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.attendance.poll-event-selection :selectedEvents="$selectedEvents" :poll="$poll" />
+            <x-livewire.attendance.poll-event-selection :selectedEvents="$selectedEvents" :poll="$poll" :showOnlyFutureEvents="$showOnlyFutureEvents"/>
         </div>
     </div>
 

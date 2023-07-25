@@ -10,6 +10,7 @@ trait PollTrait
     public AttendancePoll $poll;
 
     public string $closing_at;
+    public bool $showOnlyFutureEvents = true;
 
     public string $previousUrl;
 
