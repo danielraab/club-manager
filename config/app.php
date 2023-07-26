@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => 'v0.2.2',
+    'version' => 'v0.2.3',
 
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Club manager'),
 
     /*
     |--------------------------------------------------------------------------

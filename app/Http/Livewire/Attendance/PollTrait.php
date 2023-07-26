@@ -20,7 +20,6 @@ trait PollTrait
     protected array $rules = [
         'poll.title' => ['required', 'string', 'max:255'],
         'poll.description' => ['nullable', 'string'],
-        'poll.enabled' => ['nullable', 'boolean'],
         'poll.allow_anonymous_vote' => ['nullable', 'boolean'],
         'selectedEvents' => ['nullable', 'array'],
         'closing_at' => ['required', 'date'],

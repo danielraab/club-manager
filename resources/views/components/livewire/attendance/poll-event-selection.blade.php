@@ -58,7 +58,7 @@
         /** @var \Illuminate\Database\Eloquent\Collection $possibleEvents */
             $possibleEvents = $showOnlyFutureEvents ?
                 \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $selectedEvents)->get() :
-                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->get();
+                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->whereNotIn('id', $selectedEvents)->get();
         @endphp
         @if($possibleEvents->count() > 0)
         <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
