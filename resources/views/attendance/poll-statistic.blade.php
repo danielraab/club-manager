@@ -21,7 +21,7 @@
 
         <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
             <div class="table min-w-full divide-y">
-                @foreach($attendancePoll->events()->get() as $event)
+                @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Event $event */
                         $statistic = $event->getAttendanceStatistics();
