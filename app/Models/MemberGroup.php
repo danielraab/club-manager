@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,6 +46,17 @@ class MemberGroup extends Model
         $selection->orderBy('lastname')->orderBy('firstname');
 
         return $selection;
+    }
+
+    public function getRecursiveMembers(MemberFilter $filter): Collection {
+        $collection = new Collection();
+        $members = $this->filteredMembers($filter)->get();
+        $collection = $collection->merge($members);
+        foreach($this->children()->get() as $child) {
+            /** @var $child MemberGroup */
+            $collection = $collection->merge($child->getRecursiveMembers($filter));
+        }
+        return $collection;
     }
 
     public function parent(): BelongsTo

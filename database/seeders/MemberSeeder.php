@@ -69,6 +69,10 @@ class MemberSeeder extends Seeder
             'last_updater_id' => $this->memberEdit->id,
         ]);
         self::$memberCnt += 25;
+        $coll->each(function (Member $member) {
+            $member->memberGroups()->attach(
+                fake()->numberBetween(4, self::MEMBER_GROUP_CNT + 2));
+        });
 
         $coll = Member::factory(5)->create([
             'leaving_date' => null,

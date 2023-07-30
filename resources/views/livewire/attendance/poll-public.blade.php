@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Models\AttendancePoll $attendancePoll */
+    /** @var \App\Models\AttendancePoll $poll */
 
     $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
@@ -33,7 +33,18 @@
                             required autofocus autocomplete="memberSelection"
                         @disabled($selectedMember !== null)>
                         <option></option>
-                        @foreach(\App\Models\Member::allActive()->get() as /** @var \App\Models\Member $member */ $member)
+                        @php
+                            $memberList = new \Illuminate\Database\Eloquent\Collection();
+                            $memberGroup = $poll->memberGroup()->first();
+                            /** @var \App\Models\MemberGroup $memberGroup */
+                            $filter = new \App\Models\MemberFilter();
+                            if($memberGroup) {
+                                $memberList = $memberGroup->getRecursiveMembers($filter);
+                            } else {
+                                $memberList = \App\Models\Member::getAllFiltered($filter)->get();
+                            }
+                        @endphp
+                        @foreach($memberList as /** @var \App\Models\Member $member */ $member)
                             <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                         @endforeach
                     </select>
