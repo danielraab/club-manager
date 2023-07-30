@@ -71,7 +71,7 @@
                     @php
                         /** @var \App\Models\Attendance|null $attendance */
                         $attendance = $event->attendances()->where("member_id", $selectedMember->id)->first();
-                        $isPast = $event->start > now();
+                        $isPast = $event->start < now();
                     @endphp
                     <div class="flex flex-col sm:table-row gap-2 py-2 items-center">
                         <div
