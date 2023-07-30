@@ -39,6 +39,11 @@ class AttendancePoll extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function memberGroup(): BelongsTo
+    {
+        return $this->belongsTo(MemberGroup::class);
+    }
+
     public function isPublicPollAvailable(): bool
     {
         return $this->allow_anonymous_vote === true &&
