@@ -4,18 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\WebPushSubscription;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class WebPush extends Controller
 {
+    public function hasEndpoint(Request $request)
+    {
+        $this->validate($request, [
+            'endpoint' => 'required',
+        ]);
 
+        $subscription = WebPushSubscription::findByEndpoint($request->endpoint);
 
-    /**
-     * Store the PushSubscription.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+        return response(null, $subscription ? 200 : 404);
+    }
+
+    public function removeEndpoint(Request $request)
+    {
+        $this->validate($request, [
+            'endpoint' => 'required',
+        ]);
+
+        $subscription = WebPushSubscription::findByEndpoint($request->endpoint);
+        if($subscription === null) {
+            return response(null, 404);
+        }
+        $done = $subscription?->delete();
+
+        return response(null, $done ? 200 : 500);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -27,14 +44,13 @@ class WebPush extends Controller
         $token = $request->keys['auth'];
         $key = $request->keys['p256dh'];
 
-        $user = Auth::user();
-        WebPushSubscription::query()->create([
-            'logged_in' => $user !== null,
+        WebPushSubscription::query()->updateOrCreate([
             'endpoint' => $endpoint,
+        ], [
             'public_key' => $key,
             'auth_token' => $token,
         ]);
 
-        return response()->json(['success' => true], 200);
+        return response(null, 200);
     }
 }
