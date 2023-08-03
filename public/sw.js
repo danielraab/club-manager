@@ -16,3 +16,17 @@ self.addEventListener('push', function (event) {
         );
     }
 });
+
+self.addEventListener('notificationclick', function(event) {
+    console.log(event.notification.data);
+
+    event.notification.close();
+
+    if (event.action === 'events') {
+        clients.openWindow("/events");
+    } else if (event.action === 'news') {
+        clients.openWindow("/news");
+    } else {
+        clients.openWindow("/");
+    }
+}, false);

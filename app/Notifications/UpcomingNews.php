@@ -3,23 +3,25 @@
 namespace App\Notifications;
 
 use App\Models\Event;
+use App\Models\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
-class UpcomingEvent extends Notification
+class UpcomingNews extends Notification
 {
     use Queueable;
 
-    private Event $event;
+    private News $news;
+
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Event $event)
+    public function __construct(News $news)
     {
-        $this->event = $event;
+        $this->news = $news;
     }
 
     /**
@@ -35,9 +37,9 @@ class UpcomingEvent extends Notification
     public function toWebPush($notifiable, $notification)
     {
         return (new WebPushMessage())
-            ->title($this->event->title)
+            ->title($this->news->title)
             ->icon(url('/').'/logo.svg')
-            ->body('Great, Push Notifications work!')
-            ->action(__('View Events'), 'events');
+            ->body($this->news->content)
+            ->action(__('View News'), 'news');
     }
 }

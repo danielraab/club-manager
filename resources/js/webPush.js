@@ -4,16 +4,17 @@ const webPush = {
     checkBrowserRequirements: () => {
 
         if (!"serviceWorker" in navigator) {
-            //service worker isn't supported
+            console.log("service Worker not supported in this browser.");
             return false;
         }
 
         //don't use it here if you use service worker
         //for other stuff.
         if (!"PushManager" in window) {
-            //push isn't supported
+            console.log("push manager not supported in this browser.")
             return false;
         }
+        return true;
     },
 
     serviceWorker: {
@@ -99,7 +100,8 @@ const webPush = {
                     };
 
                     return registration.pushManager.subscribe(subscribeOptions).then(pushSub => {
-                        return pushSub instanceof PushSubscription;
+                        if(pushSub instanceof PushSubscription) return pushSub;
+                        return false;
                     });
                 }).catch(() => {
                     return false;
@@ -139,7 +141,6 @@ const webPush = {
                         return res.status === 200;
                     })
                     .catch((err) => {
-                        console.log(err)
                         return false;
                     });
             },
@@ -178,6 +179,40 @@ const webPush = {
             outputArray[i] = rawData.charCodeAt(i);
         }
         return outputArray;
+    },
+
+    setupAll: async () => {
+        if (!webPush.checkBrowserRequirements()) return false;
+
+        if (!webPush.notification.isNotificationGranted()) {
+            if (!(await webPush.notification.requestNotificationPermission())) {
+                console.log("unable to request notification permission.")
+                return false;
+            }
+        }
+
+        if (!(await webPush.serviceWorker.hasServiceWorker())) {
+            if (!(await webPush.serviceWorker.registerServiceWorker())) {
+                console.log('unable to install serviceWorker');
+                return false;
+            }
+        }
+
+        let pushSubscription = null;
+        if (!(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
+            if (!(pushSubscription = await webPush.pushSubscription.addPushSubscription())) {
+                console.log("unable to add push subscription to manager");
+                return false;
+            }
+        }
+
+        if (!(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
+            if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
+                console.log("unable to store subscription on server");
+                return false;
+            }
+        }
+        return true;
     }
 }
 
