@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Models\Event;
+use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Notification;
+use NotificationChannels\WebPush\PushSubscription;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,7 +16,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
+            $events = Event::query()->where('start', '>', now())
+                ->where('start', '<', $tomorrowNight)->get();
+            if($events->count() > 0) {
+                foreach($events as $event) {
+                    Notification::send(
+                        PushSubscription::all(),
+                        new UpcomingEvent($event)
+                    );
+                }
+            }
+        })
+            ->name("event web push notifications (tomorrow events)")
+            ->dailyAt('17:00');
     }
 
     /**
@@ -20,7 +38,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
