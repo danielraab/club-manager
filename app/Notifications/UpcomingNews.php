@@ -36,10 +36,14 @@ class UpcomingNews extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
+        $body = __("Please be aware of the news ':name'", [
+            "name" => $this->news->title,
+        ]);
+
         return (new WebPushMessage())
-            ->title($this->news->title)
+            ->title(__(":app - news", ["app" => config("app.name")]))
             ->icon(url('/').'/logo.svg')
-            ->body($this->news->content)
-            ->action(__('View News'), 'news');
+            ->body($body)
+            ->action(__('View News'), 'dashboard');
     }
 }

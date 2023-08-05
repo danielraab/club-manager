@@ -2,14 +2,16 @@
 
 namespace App\Http\Livewire\Events;
 
+use App\Notifications\UpcomingEvent;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use NotificationChannels\WebPush\PushSubscription;
 
 class EventEdit extends Component
 {
     use EventTrait;
 
-    public function mount($event)
+    public function mount($event): void
     {
         $this->event = $event;
         $this->start = $this->event->start->formatDatetimeLocalInput();
@@ -37,7 +39,7 @@ class EventEdit extends Component
         $this->event->save();
 
         session()->put('message', __('The event has been successfully created.'));
-        $this->redirect(route('event.edit', ['event' => $this->event->id]));
+        return redirect(route('event.edit', ['event' => $this->event->id]));
     }
 
     public function saveEvent()
@@ -50,6 +52,18 @@ class EventEdit extends Component
         session()->put('message', __('The event has been successfully updated.'));
 
         return redirect($this->previousUrl);
+    }
+
+    public function forceWebPush()
+    {
+        $this->validate();
+        $this->propToModel();
+        $this->event->lastUpdater()->associate(Auth::user());
+
+        \Illuminate\Support\Facades\Notification::send(
+            PushSubscription::all(),
+            new UpcomingEvent($this->event)
+        );
     }
 
     public function render()

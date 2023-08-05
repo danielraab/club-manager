@@ -3,14 +3,17 @@
 namespace App\Http\Livewire\News;
 
 use App\Models\News;
+use App\Notifications\UpcomingEvent;
+use App\Notifications\UpcomingNews;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use NotificationChannels\WebPush\PushSubscription;
 
 class NewsEdit extends Component
 {
     use NewsTrait;
 
-    public function mount(News $news)
+    public function mount(News $news): void
     {
         $this->news = $news;
         $this->display_until = $news->display_until->formatDatetimeLocalInput();
@@ -39,7 +42,7 @@ class NewsEdit extends Component
         $this->news->save();
 
         session()->put('message', __('News successfully created.'));
-        $this->redirect(route('news.edit', ['news' => $this->news->id]));
+        return redirect(route('news.edit', ['news' => $this->news->id]));
     }
 
     public function saveNews()
@@ -54,6 +57,19 @@ class NewsEdit extends Component
         session()->put('message', __('News successfully updated.'));
 
         return redirect($this->previousUrl);
+    }
+
+    public function forceWebPush(): void
+    {
+        $this->validate();
+        $this->additionalContentValidation();
+        $this->propToModel();
+        $this->news->lastUpdater()->associate(Auth::user());
+
+        \Illuminate\Support\Facades\Notification::send(
+            PushSubscription::all(),
+            new UpcomingNews($this->news)
+        );
     }
 
     public function render()

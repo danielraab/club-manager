@@ -30,7 +30,7 @@
 
         <!-- Enabled -->
         <div class="ml-3">
-            <x-input-checkbox id="enabled" name="enabled" wire:model.defer="event.enabled"
+            <x-input-checkbox id="enabled" name="enabled" wire:model="event.enabled"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Enabled') }}<i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                       title="{{__("Disabled events are not shown on the calendar export neither the json export.")}}"></i>
@@ -40,7 +40,7 @@
 
         <!-- only internal -->
         <div class="mt-4 ml-3">
-            <x-input-checkbox id="logged_in_only" name="logged_in_only" wire:model.defer="event.logged_in_only"
+            <x-input-checkbox id="logged_in_only" name="logged_in_only" wire:model="event.logged_in_only"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Only for logged in user') }}
             </x-input-checkbox>
@@ -50,7 +50,7 @@
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
             <x-input-datetime id="start" name="start" type="text" class="mt-1 block w-full"
-                              wire:model.lazy="start"
+                              wire:model="start"
                               required autofocus autocomplete="start"/>
             @error('start')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
