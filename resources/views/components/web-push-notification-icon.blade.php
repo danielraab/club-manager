@@ -37,7 +37,7 @@
                 }
 
                 if (webPush.hasPushSubscription) {
-                    this.title.push("The no push subscription is registered.");
+                    this.title.push("No push subscription is registered.");
                 }
 
                 if (webPush.isPushSubscriptionStored) {

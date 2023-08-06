@@ -22,6 +22,11 @@
 *   execute `./vendor/bin/sail artisan key:generate` or via button on the first error page
     - node: `./vendor/bin/sail npm install`
 
+* create vapid keys for webpush: `./vendor/bin/sail artisan webpush:vapid`
+
+* install cron job like in deployment section or
+  * execute specific tasks `./vendor/bin/sail artisan schedule:test` 
+
 -   install dependencies:
 
     - node/npm: `./vendor/bin/sail npm install`

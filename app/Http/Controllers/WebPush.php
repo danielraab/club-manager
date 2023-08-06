@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class WebPush extends Controller
 {
+    public function vapidPublicKey() {
+        return response()->json(["public_key" => config("webpush.vapid")["public_key"]], 200);
+    }
+
     public function hasEndpoint(Request $request)
     {
         $this->validate($request, [

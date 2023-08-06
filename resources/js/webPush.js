@@ -1,10 +1,34 @@
 const webPush = {
-    vapidPublicKey: import.meta.env.VITE_VAPID_PUBLIC_KEY,
     isBrowserReady: null,
     hasServiceWorker: null,
     hasPushSubscription: null,
     isPushSubscriptionStored: null,
     forceIsReady: false,
+
+    getVapidPublicKey: async function ()  {
+        let vapidPublicKey = localStorage.getItem("vapidPublicKey");
+        if(vapidPublicKey && vapidPublicKey.length > 0) return vapidPublicKey;
+
+        const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+
+        return await fetch('/webPush/vapidPublicKey', {
+            method: 'GET', headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+            }
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                const publicKey = res.public_key;
+                localStorage.setItem("vapidPublicKey", publicKey);
+                return publicKey;
+            })
+            .catch((err) => {
+                console.log(err)
+                return null;
+            });
+    },
 
     isReady() {
         return this.forceIsReady ||
@@ -88,8 +112,8 @@ const webPush = {
 
         getPushSubscription: () => {
             return navigator.serviceWorker.ready.then(swr => {
-                return swr.pushManager.getSubscription().then(sub => {
-                    if (webPush.urlBase64ToUint8Array(webPush.vapidPublicKey).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
+                return swr.pushManager.getSubscription().then(async sub => {
+                    if (webPush.urlBase64ToUint8Array(await webPush.getVapidPublicKey()).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
                         webPush.hasPushSubscription = true;
                         return sub;
                     }
@@ -117,10 +141,10 @@ const webPush = {
 
         addPushSubscription: () => {
             return navigator.serviceWorker.ready
-                .then((registration) => {
+                .then(async (registration) => {
                     const subscribeOptions = {
                         userVisibleOnly: true,
-                        applicationServerKey: webPush.urlBase64ToUint8Array(webPush.vapidPublicKey)
+                        applicationServerKey: webPush.urlBase64ToUint8Array(await webPush.getVapidPublicKey())
                     };
 
                     return registration.pushManager.subscribe(subscribeOptions).then(pushSub => {
@@ -146,7 +170,8 @@ const webPush = {
                     }
                 })
                     .then((res) => {
-                        return res.status === 200;
+                        webPush.isPushSubscriptionStored = res.status === 200;
+                        return webPush.isPushSubscriptionStored;
                     })
                     .catch((err) => {
                         console.log(err)
