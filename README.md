@@ -77,3 +77,7 @@ Steps to deploy:
     * `git commit -m "add assests"`
     * `git push`
 * deploy `./vendor/bin/dep deploy` or `./vendor/bin/sail bin dep deploy`
+
+* enable cron tasks
+  * add the following line to your crontab `* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
+  * change the path to the project path

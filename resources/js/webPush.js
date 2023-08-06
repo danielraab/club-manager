@@ -1,28 +1,43 @@
 const webPush = {
     vapidPublicKey: import.meta.env.VITE_VAPID_PUBLIC_KEY,
+    isBrowserReady: null,
+    hasServiceWorker: null,
+    hasPushSubscription: null,
+    isPushSubscriptionStored: null,
 
-    checkBrowserRequirements: () => {
+    isReady() {
+        return this.isBrowserReady &&
+            this.notification.isNotificationGranted() &&
+            this.hasServiceWorker &&
+            this.hasPushSubscription &&
+            this.isPushSubscriptionStored;
+    },
+
+    checkBrowserRequirements: function() {
+        this.isBrowserReady = true;
 
         if (!"serviceWorker" in navigator) {
             console.log("service Worker not supported in this browser.");
-            return false;
+            this.isBrowserReady = false;
         }
 
         //don't use it here if you use service worker
         //for other stuff.
         if (!"PushManager" in window) {
             console.log("push manager not supported in this browser.")
-            return false;
+            this.isBrowserReady = false;
         }
-        return true;
+        return this.isBrowserReady;
     },
 
     serviceWorker: {
 
         hasServiceWorker: () => {
             return navigator.serviceWorker.getRegistration().then(reg => {
-                return reg !== undefined;
+                webPush.hasServiceWorker = reg !== undefined;
+                return webPush.hasServiceWorker;
             }).catch(() => {
+                webPush.hasServiceWorker = false;
                 return false;
             });
         },
@@ -31,9 +46,11 @@ const webPush = {
             return navigator.serviceWorker.register('../sw.js')
                 .then(() => {
                     console.log('serviceWorker installed!')
+                    webPush.hasServiceWorker = true;
                     return true;
                 })
                 .catch((err) => {
+                    webPush.hasServiceWorker = false;
                     return false;
                 });
         },
@@ -42,6 +59,7 @@ const webPush = {
             navigator.serviceWorker.getRegistration().then(swr => {
                 swr?.unregister().then(unreg => {
                     console.log("service worker unregistering: " + unreg);
+                    webPush.hasServiceWorker = false;
                 });
             })
         },
@@ -70,11 +88,14 @@ const webPush = {
             return navigator.serviceWorker.ready.then(swr => {
                 return swr.pushManager.getSubscription().then(sub => {
                     if (webPush.urlBase64ToUint8Array(webPush.vapidPublicKey).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
+                        webPush.hasPushSubscription = true;
                         return sub;
                     }
+                    webPush.hasPushSubscription = false;
                     return false;
                 });
             }).catch(err => {
+                webPush.hasPushSubscription = false;
                 return false;
             });
         },
@@ -82,8 +103,9 @@ const webPush = {
         removePushSubscription: async () => {
             return navigator.serviceWorker.ready.then(swr => {
                 return swr.pushManager.getSubscription().then(sub => {
-                    return sub.unsubscribe().then((fulfilled => {
-                        return fulfilled
+                    return sub.unsubscribe().then((result => {
+                        if (result) webPush.hasPushSubscription = false;
+                        return result
                     }));
                 });
             }).catch(() => {
@@ -100,7 +122,10 @@ const webPush = {
                     };
 
                     return registration.pushManager.subscribe(subscribeOptions).then(pushSub => {
-                        if(pushSub instanceof PushSubscription) return pushSub;
+                        if (pushSub instanceof PushSubscription) {
+                            webPush.hasPushSubscription = true;
+                            return pushSub;
+                        }
                         return false;
                     });
                 }).catch(() => {
@@ -138,9 +163,11 @@ const webPush = {
                     }
                 })
                     .then((res) => {
-                        return res.status === 200;
+                        webPush.isPushSubscriptionStored = res.status === 200;
+                        return webPush.isPushSubscriptionStored;
                     })
                     .catch((err) => {
+                        webPush.isPushSubscriptionStored = false;
                         return false;
                     });
             },
@@ -156,7 +183,11 @@ const webPush = {
                     }
                 })
                     .then((res) => {
-                        return res.status === 200;
+                        if (res.status === 200) {
+                            webPush.isPushSubscriptionStored = false;
+                            return true;
+                        }
+                        return false;
                     })
                     .catch((err) => {
                         console.log(err)
@@ -181,38 +212,42 @@ const webPush = {
         return outputArray;
     },
 
-    setupAll: async () => {
-        if (!webPush.checkBrowserRequirements()) return false;
+    setupAll: async function () {
+        let checksSuccessful = true;
+        if (!webPush.checkBrowserRequirements()) checksSuccessful = false;
 
-        if (!webPush.notification.isNotificationGranted()) {
+        if (checksSuccessful && !webPush.notification.isNotificationGranted()) {
             if (!(await webPush.notification.requestNotificationPermission())) {
                 console.log("unable to request notification permission.")
-                return false;
+                checksSuccessful = false;
             }
         }
 
-        if (!(await webPush.serviceWorker.hasServiceWorker())) {
+        if (checksSuccessful && !(await webPush.serviceWorker.hasServiceWorker())) {
             if (!(await webPush.serviceWorker.registerServiceWorker())) {
                 console.log('unable to install serviceWorker');
-                return false;
+                checksSuccessful = false;
             }
         }
 
         let pushSubscription = null;
-        if (!(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
+        if (checksSuccessful && !(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
             if (!(pushSubscription = await webPush.pushSubscription.addPushSubscription())) {
                 console.log("unable to add push subscription to manager");
-                return false;
+                checksSuccessful = false;
             }
         }
 
-        if (!(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
+        if (checksSuccessful && !(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
             if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
                 console.log("unable to store subscription on server");
-                return false;
+                checksSuccessful = false;
             }
         }
-        return true;
+
+        window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
+
+        return checksSuccessful;
     }
 }
 
