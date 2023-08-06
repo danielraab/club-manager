@@ -50,6 +50,14 @@
     "ZIP": "PLZ",
     "City": "Stadt",
 
+    "Force web push": "Benachrichtigung auslösen",
+    "Force a web push to all subscribes (with the updated data).": "Browser-Benachrichtigung an alle Abonennten senden (mit aktualisierten Daten).",
+    "Please be aware of the news ':name'": "Bitte beachte die Neuigkeit ':name'",
+    ":app - news": ":app - News",
+    "View News": "News anzeigen",
+    "Please be aware of the event ':name' on :date": "Bitte beachte die Veranstaltung ':name' am :date",
+    "Be aware of tomorrows event ':name' at :date": "Beachte die morgige Veranstaltung ':name' um :date Uhr",
+    "Be aware of todays event ':name' at :date": "Beachte die heutige Veranstaltung ':name' um :date Uhr",
 
     "Save": "Speichern",
     "Save copy": "Kopie Speichern",

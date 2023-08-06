@@ -41,11 +41,19 @@ class UpcomingEvent extends Notification
         ]);
 
         $diff = $this->event->start->diff(now());
-        if($diff->invert === 1 && $diff->days === 1) {
-            $body = __("Be aware of tomorrows event ':name' on :date", [
-                "name" => $this->event->title,
-                "date" => $this->event->start->setTimezone(config('app.displayed_timezone'))->isoFormat('HH:mm')
-            ]);
+        if($diff->invert === 1) {
+            if ($diff->days === 0) {
+                $body = __("Be aware of todays event ':name' at :date", [
+                    "name" => $this->event->title,
+                    "date" => $this->event->start->setTimezone(config('app.displayed_timezone'))->isoFormat('HH:mm')
+                ]);
+            }
+            if ($diff->days === 1) {
+                $body = __("Be aware of tomorrows event ':name' at :date", [
+                    "name" => $this->event->title,
+                    "date" => $this->event->start->setTimezone(config('app.displayed_timezone'))->isoFormat('HH:mm')
+                ]);
+            }
         }
 
         return (new WebPushMessage())
