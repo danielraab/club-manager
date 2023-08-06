@@ -4,16 +4,18 @@ const webPush = {
     hasServiceWorker: null,
     hasPushSubscription: null,
     isPushSubscriptionStored: null,
+    forceIsReady: false,
 
     isReady() {
-        return this.isBrowserReady &&
-            this.notification.isNotificationGranted() &&
-            this.hasServiceWorker &&
-            this.hasPushSubscription &&
-            this.isPushSubscriptionStored;
+        return this.forceIsReady ||
+            (this.isBrowserReady &&
+                this.notification.isNotificationGranted() &&
+                this.hasServiceWorker &&
+                this.hasPushSubscription &&
+                this.isPushSubscriptionStored);
     },
 
-    checkBrowserRequirements: function() {
+    checkBrowserRequirements: function () {
         this.isBrowserReady = true;
 
         if (!"serviceWorker" in navigator) {
@@ -214,6 +216,15 @@ const webPush = {
 
     setupAll: async function () {
         let checksSuccessful = true;
+
+        let lastSetup = localStorage.getItem('clubManagerSubscriptionCheck');
+        if(lastSetup && (Number(lastSetup) < Date.now()+300000)) {
+            this.forceIsReady = true;
+            console.log("webPush check timestamp found");
+            window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
+            return true;
+        }
+
         if (!webPush.checkBrowserRequirements()) checksSuccessful = false;
 
         if (checksSuccessful && !webPush.notification.isNotificationGranted()) {
@@ -246,6 +257,10 @@ const webPush = {
         }
 
         window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
+
+        if (checksSuccessful) {
+            localStorage.setItem("clubManagerSubscriptionCheck", Date.now().toString());
+        }
 
         return checksSuccessful;
     }
