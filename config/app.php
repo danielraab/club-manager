@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => 'v0.3.0',
+    'version' => 'v0.3.1',
 
     /*
     |--------------------------------------------------------------------------
