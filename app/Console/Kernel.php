@@ -17,9 +17,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
+            $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
-            $events = Event::query()->where('start', '>', now())
-                ->where('start', '<', $tomorrowNight)->get();
+            $events = Event::query()->where('start', '>=', $tomorrowMorning)
+                ->where('start', '<=', $tomorrowNight)->get();
             if($events->count() > 0) {
                 foreach($events as $event) {
                     Notification::send(

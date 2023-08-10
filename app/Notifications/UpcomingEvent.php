@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Event;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
@@ -40,7 +39,9 @@ class UpcomingEvent extends Notification
             "date" => $this->event->start->formatDateTimeWithSec()
         ]);
 
-        $diff = $this->event->start->diff(now());
+        $today = now()->setTime(0, 0);
+
+        $diff = $this->event->start->diff($today);
         if($diff->invert === 1) {
             if ($diff->days === 0) {
                 $body = __("Be aware of todays event ':name' at :date", [
