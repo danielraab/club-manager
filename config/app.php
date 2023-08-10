@@ -5,7 +5,12 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => 'v0.3.3',
+    'version' => 'v0.3.4',
+
+    /*
+     * works only if the configs are cached (strongly recommended for production)
+     */
+    'deployDateTime' => new \Carbon\Carbon(env('DEPLOY_TIMESTAMP', now())),
 
     /*
     |--------------------------------------------------------------------------
