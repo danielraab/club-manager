@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+
+/**
+ * @property int id
+ * @property string title
+ * @property|null string description
+ * @property int sort_order
+ * @see /database/migrations/2023_05_20_223845_create_events_table.php
+ */
 class EventType extends Model
 {
     use HasFactory;

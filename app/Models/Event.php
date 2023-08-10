@@ -9,6 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int id
+ * @property string title
+ * @property string|null description
+ * @property string|null location
+ * @property string|null dress_code
+ * @property \DateTime start
+ * @property \DateTime end
+ * @property boolean whole_day
+ * @property boolean enabled
+ * @property boolean logged_in_only
+ * @property string|null link
+ * @see /database/migrations/2023_05_20_223845_create_events_table.php
+ */
 class Event extends Model
 {
     use HasFactory;

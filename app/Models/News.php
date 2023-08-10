@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int id
+ * @property boolean enabled
+ * @property string|null title
+ * @property string|null content
+ * @property boolean logged_in_only
+ * @property \DateTime display_until
+ * @see /database/migrations/2023_05_18_062253_news.php
+ */
 class News extends Model
 {
     use HasFactory;

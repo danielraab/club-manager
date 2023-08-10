@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+
+/**
+ * @property int id
+ * @property string|null poll_status
+ * @property boolean|null attended
+ * @see /database/migrations/2023_07_05_123614_attendance.php
+ */
 class Attendance extends Model
 {
     use HasFactory;

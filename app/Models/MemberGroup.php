@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int id
+ * @property string title
+ * @property string|null description
+ * @property int sort_order
+ * @see /database/migrations/2023_06_12_204229_create_member_base_table.php
+ */
 class MemberGroup extends Model
 {
     use HasFactory;

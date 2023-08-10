@@ -9,11 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $public_key
  * @property string|null $auth_token
  * @property string|null $content_encoding
- * @property boolean $logged_in
- * @property boolean $upcoming_event
- * @property boolean $push_event
- * @property boolean $push_news
- * @property boolean $push_attendance_poll
+ * @see /database/migrations/2023_07_31_183210_create_push_subscriptions_table.php
  */
 class WebPushSubscription extends Model
 {

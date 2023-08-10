@@ -11,6 +11,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
+/**
+ * @property int id
+ * @property string name
+ * @property string email
+ * @property \DateTime|null email_verified_at
+ * @property string|null password
+ * @property string|null remember_token
+ * @see /database/migrations/2014_10_12_000000_create_users_table.php
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;

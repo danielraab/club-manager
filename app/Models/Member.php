@@ -10,6 +10,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int id
+ * @property string firstname
+ * @property string lastname
+ * @property string|null title_pre
+ * @property string|null title_post
+ * @property boolean paused
+ * @property \DateTime|null birthday
+ * @property string|null phone
+ * @property string|null email
+ * @property string|null street
+ * @property string|null zip
+ * @property string|null city
+ * @property \DateTime entrance_date
+ * @property \DateTime|null leaving_date
+ * @property string|null external_id
+ * @property \DateTime|null last_import_date
+ * @see /database/migrations/2023_06_12_204229_create_member_base_table.php
+ * @see /database/migrations/2023_06_23_235409_member_table_add_external_data.php
+ */
 class Member extends Model
 {
     use HasFactory;
