@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="relative flex justify-center">
                                         <span
-                                            class="bg-indigo-700 text-white px-4 border border-black rounded">Today - {{now()->isoFormat("D. MMMM")}}</span>
+                                            class="bg-indigo-700 text-white px-4 border border-black rounded">{{__('Today')}} - {{now()->isoFormat("D. MMMM")}}</span>
                                     </div>
                                 </div>
                             </td>

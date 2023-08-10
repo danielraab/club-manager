@@ -108,8 +108,6 @@
                 <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                                href="{{route('member.birthdayList')}}"
                                title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
-                <x-button-link class="bg-cyan-900 text-white" href="{{route('member.fullBirthdayList')}}"
-                               title="Show full birthday list. (Incl Paused, retired and coming members)">{{ __('Full list') }}</x-button-link>
                 <x-button-link class="bg-gray-500 text-white" href="{{route('member.birthdayList.csv')}}"
                                title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
                 <x-button-link class="bg-gray-700 text-white" href="{{route('member.fullBirthdayList.csv')}}"

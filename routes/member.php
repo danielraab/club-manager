@@ -20,8 +20,6 @@ Route::middleware(['auth', 'permission:'.Member::MEMBER_SHOW_PERMISSION.'|'.Memb
         ->name('member.fullBirthdayList.csv');
     Route::get('/members/birthdayList', [MemberBirthdayList::class, 'birthdayList'])
         ->name('member.birthdayList');
-    Route::get('/members/fullBirthdayList', [MemberBirthdayList::class, 'fullBirthdayList'])
-        ->name('member.fullBirthdayList');
 });
 
 Route::middleware(['auth', 'permission:'.ImportedMember::MEMBER_IMPORT_PERMISSION])->group(function () {

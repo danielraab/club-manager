@@ -49,6 +49,7 @@
     "Street": "Straße",
     "ZIP": "PLZ",
     "City": "Stadt",
+    "Today": "Heute",
 
     "Force web push": "Benachrichtigung auslösen",
     "Force a web push to all subscribes (with the updated data).": "Browser-Benachrichtigung an alle Abonennten senden (mit aktualisierten Daten).",
@@ -196,7 +197,15 @@
     "The membership is paused.": "Das Mitglied pausiert gerade.",
     "Member Birthday list": "Mitglieder-Geburtstagsliste",
     "No members": "Keine Mitglieder vorhanden",
-
+    "Missing birthdays": "Fehlende Geburtstage",
+    "Missing birthday entry for following members.": "Für folgende Mitglieder ist kein Geburtstag eingetragen.",
+    "Birthday list": "Geburtstagsliste",
+    "Birthday CSV": "CSV Geburtstagsliste (aktiv)",
+    "Full Birthday CSV": "CSV Geburtstagsliste (alle)",
+    "Filter member group:": "nach Mitgliedergruppe filtern:",
+    "show before entrance": "Mitglieder vor dem Eintritt anzeigen",
+    "show after retired": "Mitglieder nach dem Austritt anzeigen",
+    "show paused": "pausierte Mitglieder anzeigen",
 
     "Attendance overview": "Übersicht der Anwesenheiten",
     "Update event attendance": "Anwesenheiten bearbeiten",

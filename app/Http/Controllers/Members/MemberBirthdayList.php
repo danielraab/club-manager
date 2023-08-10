@@ -56,11 +56,7 @@ class MemberBirthdayList extends Controller
             });
     }
 
-    public function fullBirthdayList() {
-        return $this->birthdayList(true);
-    }
-
-    public function birthdayList(bool $allMembers = false)
+    public function birthdayList(bool $allMembers = true)
     {
         $missingBirthdayList = Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNull('birthday')
             ->orderBy('lastname')->get();
