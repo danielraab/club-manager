@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
-            $events = Event::query()->where('start', '>=', $tomorrowMorning)
+            $events = Event::getFutureEvents()->where('start', '>=', $tomorrowMorning)
                 ->where('start', '<=', $tomorrowNight)->get();
             if($events->count() > 0) {
                 foreach($events as $event) {
