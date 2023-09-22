@@ -20,7 +20,7 @@
         </div>
 
         @foreach($memberGroup->children()->get() as $childMemberGroup)
-            @if($childMemberGroup->filteredMembers($memberFilter)->get()->isNotEmpty())
+            @if($childMemberGroup->filteredMembers($memberFilter)->get()->isNotEmpty() || $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-record :memberGroup="$childMemberGroup" :event="$event"
                                                        :memberFilter="$memberFilter"/>
             @endif
