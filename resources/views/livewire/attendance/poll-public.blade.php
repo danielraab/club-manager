@@ -66,8 +66,9 @@
     <div
         class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
         @if($selectedMember !== null)
+
             <div class="flex flex-col sm:table divide-y divide-gray-500">
-                @foreach($poll->events()->orderBy('start')->get() as $event)
+                @foreach($poll->events()->where("end", ">", now())->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Attendance|null $attendance */
                         $attendance = $event->attendances()->where("member_id", $selectedMember->id)->first();
