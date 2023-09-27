@@ -2,14 +2,16 @@
 
 namespace App\Http\Livewire\Events;
 
+use App\Http\Livewire\EventFilterTrait;
 use App\Models\Event;
+use App\Models\EventFilter;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class EventOverview extends Component
 {
-    use WithPagination;
+    use WithPagination, EventFilterTrait;
 
     public ?string $search = null;
 
@@ -49,13 +51,17 @@ class EventOverview extends Component
 
     private function getEventList()
     {
-        $eventList = Event::orderBy('start', 'desc');
-        if (Auth::guest()) {
-            $eventList = $eventList->where('logged_in_only', false);
-            $eventList = $eventList->where('enabled', true);
-        } elseif (! Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $eventList = $eventList->where('enabled', true);
+        $eventFilter = new EventFilter(true, false, false);
+        if (Auth::user()) {
+            $eventFilter->inclLoggedInOnly = true;
+            if (Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
+                $eventFilter->inclDisabled = true;
+            }
         }
+
+        //TODO add event filter results
+
+        $eventList = Event::getAllFiltered($eventFilter);
 
         if ($this->search && strlen($this->search) >= 3) {
             $eventList = $eventList->where('title', 'like', "%$this->search%");

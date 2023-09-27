@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -92,6 +93,34 @@ class Event extends Model
         }
 
         return $eventList->orderBy('start');
+    }
+
+    public static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
+    {
+
+        if (!$filter->inclPast) {
+            $builder->where('end', '>', now());
+        }
+
+        if (!$filter->inclDisabled) {
+            $builder->where('enabled', true);
+        }
+
+        if (!$filter->inclLoggedInOnly) {
+            $builder->whereNot('logged_in_only', false);
+        }
+
+        return $builder;
+    }
+
+
+    public static function getAllFiltered(EventFilter $filter = null): Builder {
+        if($filter === null) $filter = new EventFilter();
+
+        $builder = self::addFilterToBuilder(self::query(), $filter);
+        $builder->orderBy('start');
+
+        return $builder;
     }
 
     public static function getLocationHistory(): array
