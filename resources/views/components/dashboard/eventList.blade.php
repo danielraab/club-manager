@@ -1,3 +1,9 @@
+@php
+    $hasEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
+    $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
+    $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+@endphp
+
 <div class="flex flex-col gap-2">
 
     @forelse($eventList as $event)
@@ -20,9 +26,22 @@
                     <i class="fa-regular fa-calendar"></i> {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat($startFormat)}}
                     @if($end) --- {{$end}} @endif
                 </p>
-                @if($event->link)
-                    <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
-                @endif
+                <div class="space-x-1">
+                    @if($event->link)
+                        <a href="{{$event->link}}" target="_blank" title="{{__("Link")}}"><i class="fa-solid fa-link"></i></a>
+                    @endif
+                    @if($hasAttendanceEditPermission)
+                        <a href="{{route('event.attendance.edit', $event->id)}}" target="_self"
+                           title="{{__("Edit attendance of this event")}}">
+                            <i class="fa-solid fa-check-to-slot"></i>
+                        </a>
+                    @endif
+                    @if($hasEditPermission)
+                        <a href="{{route('event.edit', $event->id)}}" title="Edit this event">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                    @endif
+                </div>
             </div>
             <p class="font-bold">{{$event->title}}</p>
             <p class="text-sm">{{$event->description}}</p>
