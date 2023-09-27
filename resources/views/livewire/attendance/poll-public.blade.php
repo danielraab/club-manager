@@ -1,13 +1,30 @@
 @php
     /** @var \App\Models\AttendancePoll $poll */
 
+    $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
     $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+    $hasPollShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION) ?? false;
+    $hasPollEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION) ?? false;
 @endphp
 
 <x-slot name="headline">
     <div class="flex flex-wrap justify-between items-center gap-3">
         <span>{{ __('Attend poll') }}</span>
+        <div>
+            @if($hasPollShowPermission)
+                <x-button-link href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn btn-secondary"
+                   title="Show summary of attendance poll">
+                    {{__("Summary")}}
+                </x-button-link>
+            @endif
+            @if($hasPollEditPermission)
+                <x-button-link href="{{route('attendancePoll.edit', $poll->id)}}" class="btn btn-primary"
+                               title="Edit this attendance poll" >
+                    {{__("Edit Poll")}}
+                </x-button-link>
+            @endif
+        </div>
     </div>
 </x-slot>
 
@@ -75,8 +92,14 @@
                         $isPast = $event->start < now();
                     @endphp
                     <div class="flex flex-col sm:table-row gap-2 py-2 items-center">
-                        <div
-                            class="text-gray-500 text-center sm:table-cell align-middle">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</div>
+                        <div class="text-gray-500 text-center sm:table-cell align-middle">
+                            @if($hasEventEditPermission)
+                                <a href="{{route('event.edit', $event->id)}}" title="Edit this event" class="px-3">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            @endif
+                            {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}
+                        </div>
                         <div class="text-gray-700 text-center sm:table-cell px-3 align-middle">{{$event->title}}</div>
 
                         <div class="sm:table-cell">
