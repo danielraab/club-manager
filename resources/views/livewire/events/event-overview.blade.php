@@ -55,7 +55,13 @@
                     elseif($event->end < now()) $rowBg = "bg-gray-300";
                 @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
-                    <td class="border px-1 min-w-[150px]">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
+                    <td class="border px-1 min-w-[150px]">
+                        @if($event->whole_day)
+                            {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY")}}
+                        @else
+                            {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}
+                        @endif
+                    </td>
                     <td class="border px-2">
                         <span class="text-sm text-gray-600 mr-1">
                         @if($event->link)
