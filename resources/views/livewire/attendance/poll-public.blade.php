@@ -87,6 +87,7 @@
             <div class="flex flex-col sm:table divide-y divide-gray-500">
                 @foreach($poll->events()->where("end", ">", now())->orderBy('start')->get() as $event)
                     @php
+                        /** @var \App\Models\Event $event */
                         /** @var \App\Models\Attendance|null $attendance */
                         $attendance = $event->attendances()->where("member_id", $selectedMember->id)->first();
                         $isPast = $event->start < now();
@@ -98,7 +99,7 @@
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                             @endif
-                            {{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}
+                            {{$event->getFormattedStart()}}
                         </div>
                         <div class="text-gray-700 text-center sm:table-cell px-3 align-middle">{{$event->title}}</div>
 

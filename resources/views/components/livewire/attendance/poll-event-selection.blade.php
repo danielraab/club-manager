@@ -18,8 +18,11 @@
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <tbody>
             @forelse(\App\Models\Event::query()->whereIn("id", $selectedEvents)->orderBy("start")->get() as $event)
+                @php
+                /** @var \App\Models\Event $event */
+                @endphp
                 <tr class="[&:nth-child(2n)]:bg-opacity-50 bg-gray-300">
-                    <td>{{$event->start->formatDateOnly()}}</td>
+                    <td>{{$event->getFormattedStart()}}</td>
                     <td>{{$event->title}}</td>
                     <td class="whitespace-nowrap">
                         @if($hasAttendanceEditPermission)
@@ -66,7 +69,8 @@
                 x-model="additionalEventList"
                 class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
             @foreach($possibleEvents as $event)
-                <option value="{{$event->id}}">{{$event->start->formatDateOnly()}}
+                @php /** @var \App\Models\Event $event*/ @endphp
+                <option value="{{$event->id}}">{{$event->getFormattedStart()}}
                     - {{$event->title}}</option>
             @endforeach
         </select>

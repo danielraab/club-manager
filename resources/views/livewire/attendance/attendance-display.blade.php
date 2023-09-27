@@ -14,7 +14,7 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
             <span
-                class="text-gray-500">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</span>
+                class="text-gray-500">{{$event->getFormattedStart()}}</span>
             <span class="text-gray-700 text-xl">{{$event->title}}</span>
         </div>
     </div>

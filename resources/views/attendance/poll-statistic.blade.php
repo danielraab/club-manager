@@ -28,7 +28,7 @@
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
-                            class="text-gray-500 text-center sm:table-cell">{{$event->start->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</div>
+                            class="text-gray-500 text-center sm:table-cell">{{$event->getFormattedStart()}}</div>
                         <div class="text-gray-700 text-center sm:table-cell">{{$event->title}}</div>
                         <div class="flex justify-center sm:table-cell">
                             <div class="flex sm:grid grid-cols-4 place-items-center">

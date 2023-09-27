@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null description
  * @property string|null location
  * @property string|null dress_code
- * @property \DateTime start
- * @property \DateTime end
+ * @property Carbon start
+ * @property Carbon end
  * @property boolean whole_day
  * @property boolean enabled
  * @property boolean logged_in_only
@@ -60,6 +61,23 @@ class Event extends Model
     public function lastUpdater(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getFormattedStart(): string {
+        $start = $this->start->setTimezone(config("app.displayed_timezone"));
+        return $this->formatDateTime($start);
+    }
+
+    public function getFormattedEnd(): string {
+        $end = $this->end->setTimezone(config("app.displayed_timezone"));
+        return $this->formatDateTime($end);
+    }
+
+    private function formatDateTime($datetime): string {
+        if($this->whole_day) {
+            return $datetime->isoFormat("ddd D. MMM YYYY");
+        }
+        return $datetime->isoFormat("ddd D. MMM YYYY HH:mm");
     }
 
     public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
