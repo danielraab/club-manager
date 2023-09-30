@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 trait EventFilterTrait
 {
+
+    public bool $sortAsc = true;
     public bool $showPast = false;
     public bool $showDisabled = false;
     public bool $showLoggedInOnly = true;
@@ -32,6 +34,8 @@ trait EventFilterTrait
         return new EventFilter(
             $this->canFilterShowPast() ? $this->showPast : false,
             $this->canFilterShowDisabled() ? $this->showDisabled : false,
-            $this->canFilterShowLoggedInOnly() ? $this->showLoggedInOnly : false);
+            $this->canFilterShowLoggedInOnly() ? $this->showLoggedInOnly : false,
+            $this->sortAsc
+        );
     }
 }

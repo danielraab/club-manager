@@ -16,7 +16,7 @@
     </div>
 
     <div x-cloak x-show="open"
-         class="absolute left-1/2 transform -translate-x-1/2 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+         class="absolute left-1/2 transform -translate-x-1/2 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-500 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div class="py-1">
             @if($this->canFilterShowPast())
             <div class="px-4 py-1">
@@ -42,6 +42,16 @@
                 </x-input-checkbox>
             </div>
             @endif
+        </div>
+        <div class="py-1 px-3">
+            <x-default-button class="btn-secondary px-3" wire:click="$toggle('sortAsc')">
+                @if($this->sortAsc)
+                    <i class="fa-solid fa-arrow-down"></i>
+                @else
+                    <i class="fa-solid fa-arrow-up"></i>
+                @endif
+                <span class="pl-2">{{$this->sortAsc ? __("sorted ascending") : __("sorted descending")}}</span>
+            </x-default-button>
         </div>
     </div>
 </div>

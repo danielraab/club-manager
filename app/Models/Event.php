@@ -110,6 +110,8 @@ class Event extends Model
             $builder->whereNot('logged_in_only', false);
         }
 
+        $builder->orderBy('start', $filter->sortAsc ? "asc" : "desc");
+
         return $builder;
     }
 
