@@ -14,8 +14,6 @@ class EventOverview extends Component
 
     public ?string $search = null;
 
-    public bool $sortAsc = true;
-
     public function updatingSearch()
     {
         $this->resetPage();
@@ -58,8 +56,6 @@ class EventOverview extends Component
         if ($this->search && strlen($this->search) >= 3) {
             $eventList = $eventList->where('title', 'like', "%$this->search%");
         }
-
-        $eventList->orderBy('start', $this->sortAsc ? "asc" : "desc");
 
         return $eventList->paginate(20)->onEachSide(1);
     }
