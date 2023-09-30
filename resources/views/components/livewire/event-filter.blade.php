@@ -1,9 +1,9 @@
 
 <div x-data="{
     open:false,
-    showPast: $persist(@entangle('filterShowPast')),
-    showDisabled: $persist(@entangle('filterShowDisabled')),
-    showLoggedInOnly: $persist(@entangle('filterLoggedInOnly')),
+    showPast: $persist(@entangle('showPast')),
+    showDisabled: $persist(@entangle('showDisabled')),
+    showLoggedInOnly: $persist(@entangle('showLoggedInOnly')),
 }" class="relative inline-block text-left" @click.outside="open = false">
     <div>
         <button type="button"
@@ -18,24 +18,30 @@
     <div x-cloak x-show="open"
          class="absolute left-1/2 transform -translate-x-1/2 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div class="py-1">
+            @if($this->canFilterShowPast())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_past" name="filter_past"
-                                  wire:model="filterShowPast">
+                                  wire:model="showPast">
                     {{ __('show past') }}
                 </x-input-checkbox>
             </div>
+            @endif
+            @if($this->canFilterShowDisabled())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_disabled" name="filter_disabled"
-                                  wire:model="filterShowDisabled">
+                                  wire:model="showDisabled">
                     {{ __('show disabled') }}
                 </x-input-checkbox>
             </div>
+            @endif
+            @if($this->canFilterShowLoggedInOnly())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_logged_in_only" name="filter_logged_in_only"
-                                  wire:model="filterLoggedInOnly">
+                                  wire:model="showLoggedInOnly">
                     {{ __('show logged in only events') }}
                 </x-input-checkbox>
             </div>
+            @endif
         </div>
     </div>
 </div>

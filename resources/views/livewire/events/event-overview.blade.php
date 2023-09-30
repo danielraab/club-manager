@@ -27,8 +27,9 @@
 
     <x-livewire.loading/>
 
-    <div class="flex">
+    <div class="flex flex-wrap justify-center items-center gap-3">
         <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
+        <x-livewire.event-filter />
     </div>
 
     <div class="flex justify-center my-3">
@@ -36,6 +37,9 @@
     </div>
 
     <div class="flex flex-col gap-3 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+        @if($eventList->isEmpty())
+            <span class="text-center">{{__("No events to display.")}}</span>
+        @else
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
             <tr>
@@ -114,6 +118,7 @@
             @endforeach
             </tbody>
         </x-always-responsive-table>
+        @endif
     </div>
     <div class="flex justify-center mt-3">
         {!! $eventList->links('vendor.livewire.paginator') !!}

@@ -117,10 +117,7 @@ class Event extends Model
     public static function getAllFiltered(EventFilter $filter = null): Builder {
         if($filter === null) $filter = new EventFilter();
 
-        $builder = self::addFilterToBuilder(self::query(), $filter);
-        $builder->orderBy('start');
-
-        return $builder;
+        return self::addFilterToBuilder(self::query(), $filter);
     }
 
     public static function getLocationHistory(): array

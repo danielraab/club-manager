@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Events;
 
 use App\Http\Livewire\EventFilterTrait;
 use App\Models\Event;
-use App\Models\EventFilter;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +13,8 @@ class EventOverview extends Component
     use WithPagination, EventFilterTrait;
 
     public ?string $search = null;
+
+    public bool $sortAsc = true;
 
     public function updatingSearch()
     {
@@ -51,21 +52,14 @@ class EventOverview extends Component
 
     private function getEventList()
     {
-        $eventFilter = new EventFilter(true, false, false);
-        if (Auth::user()) {
-            $eventFilter->inclLoggedInOnly = true;
-            if (Auth::user()->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-                $eventFilter->inclDisabled = true;
-            }
-        }
-
-        //TODO add event filter results
-
+        $eventFilter = $this->getEventFilter();
         $eventList = Event::getAllFiltered($eventFilter);
 
         if ($this->search && strlen($this->search) >= 3) {
             $eventList = $eventList->where('title', 'like', "%$this->search%");
         }
+
+        $eventList->orderBy('start', $this->sortAsc ? "asc" : "desc");
 
         return $eventList->paginate(20)->onEachSide(1);
     }
