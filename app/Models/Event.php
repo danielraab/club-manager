@@ -83,7 +83,7 @@ class Event extends Model
     public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
     {
 
-        $eventList = Event::query()->where('start', '>', now());
+        $eventList = Event::query()->where('end', '>', now());
         if ($onlyEnabled) {
             $eventList = $eventList->where('enabled', true);
         }
