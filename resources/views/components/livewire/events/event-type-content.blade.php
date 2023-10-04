@@ -15,7 +15,7 @@
             <div>
                 <x-input-label for="title" :value="__('Title')"/>
                 <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
-                              wire:model.defer="eventType.title"
+                              wire:model="eventType.title"
                               required autofocus autocomplete="title"/>
                 @error('eventType.title')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -25,7 +25,7 @@
         <div class="my-3">
             <x-input-label for="description" :value="__('Description')"/>
             <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[100px]"
-                        wire:model.defer="eventType.description" required autocomplete="description"/>
+                        wire:model="eventType.description" required autocomplete="description"/>
             @error('eventType.description')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
@@ -34,7 +34,7 @@
         <div>
             <x-input-label for="eventType" :value="__('Parent event type')"/>
             <select id="parent" name="parent"
-                    wire:model.defer="parent"
+                    wire:model="parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventTypeTreeElem)

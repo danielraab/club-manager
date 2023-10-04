@@ -1,9 +1,9 @@
 
 <div x-data="{
     open:false,
-    showBeforeEntrance: $persist(@entangle('filterShowBeforeEntrance')),
-    showAfterRetired: $persist(@entangle('filterShowAfterRetired')),
-    showPaused: $persist(@entangle('filterShowPaused')),
+    showBeforeEntrance: $persist(@entangle('filterShowBeforeEntrance').live),
+    showAfterRetired: $persist(@entangle('filterShowAfterRetired').live),
+    showPaused: $persist(@entangle('filterShowPaused').live),
 }" class="relative inline-block text-left" @click.outside="open = false">
     <div>
         <button type="button"
@@ -20,19 +20,19 @@
         <div class="py-1">
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_before_entrance" name="filter_before_entrance"
-                                  wire:model="filterShowBeforeEntrance">
+                                  wire:model.live="filterShowBeforeEntrance">
                     {{ __('show before entrance') }}
                 </x-input-checkbox>
             </div>
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_after_entrance" name="filter_after_entrance"
-                                  wire:model="filterShowAfterRetired">
+                                  wire:model.live="filterShowAfterRetired">
                     {{ __('show after retired') }}
                 </x-input-checkbox>
             </div>
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_not_paused" name="filter_not_paused"
-                                  wire:model="filterShowPaused">
+                                  wire:model.live="filterShowPaused">
                     {{ __('show paused') }}
                 </x-input-checkbox>
             </div>

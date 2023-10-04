@@ -12,7 +12,7 @@
     <div class="mt-6">
         <div>
             <x-input-label for="title" :value="__('Title')"/>
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" wire:model.defer="event.title"
+            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" wire:model="event.title"
                           required autofocus autocomplete="title"/>
             @error('event.title')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -21,14 +21,14 @@
         <div class="my-3">
             <x-input-label for="description" :value="__('Description')"/>
             <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[100px]"
-                        wire:model.defer="event.description" required autocomplete="description"/>
+                        wire:model="event.description" required autocomplete="description"/>
             @error('event.description')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
         <div>
             <x-input-label for="location" :value="__('Location')"/>
-            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" wire:model.defer="event.location"
+            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" wire:model="event.location"
                           list="locationHistory" required autofocus autocomplete="location"/>
             <datalist id="locationHistory">
                 @foreach(\App\Models\Event::getLocationHistory() as $location)
@@ -41,7 +41,7 @@
 
         <div>
             <x-input-label for="dress_code" :value="__('Dress code')"/>
-            <x-text-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full" wire:model.defer="event.dress_code"
+            <x-text-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full" wire:model="event.dress_code"
                           list="dressCodeHistory" required autofocus autocomplete="dress_code"/>
             <datalist id="dressCodeHistory">
                 @foreach(\App\Models\Event::getDressCodeHistory() as $dressCode)
@@ -54,7 +54,7 @@
 
         <div>
             <x-input-label for="link" :value="__('Link')"/>
-            <x-text-input id="link" name="link" type="url" class="mt-1 block w-full" wire:model.defer="event.link"
+            <x-text-input id="link" name="link" type="url" class="mt-1 block w-full" wire:model="event.link"
                           required autofocus autocomplete="link"/>
             @error('event.link')
             <x-input-error class="mt-2" :messages="$message"/>@enderror

@@ -14,7 +14,7 @@
             <div>
                 <x-input-label for="members" :value="__('Members')"/>
                 <select name="members" id="members" size="10" multiple
-                        wire:model.defer="memberSelection"
+                        wire:model="memberSelection"
                         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
                 >
                     @foreach(\App\Models\Member::getAllFiltered()->get() as $member)

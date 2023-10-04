@@ -17,7 +17,7 @@
         <div class="my-4">
             <x-input-label for="type" :value="__('Type')"/>
             <select id="type" name="type"
-                    wire:model.defer="type"
+                    wire:model="type"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
@@ -60,7 +60,7 @@
         <div class="mt-4">
             <x-input-label for="end" :value="__('End')"/>
             <x-input-datetime id="end" name="end" type="text" class="mt-1 block w-full"
-                              wire:model.lazy="end"
+                              wire:model.blur="end"
                               required autofocus autocomplete="end"/>
             @error('end')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -69,7 +69,7 @@
 
         <!-- whole day -->
         <div class="mt-4 mb-4 ml-3">
-            <x-input-checkbox id="whole_day" name="whole_day" wire:model.defer="event.whole_day"
+            <x-input-checkbox id="whole_day" name="whole_day" wire:model="event.whole_day"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Whole day') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                          title="{{__("The time will not be shown.")}}"></i>

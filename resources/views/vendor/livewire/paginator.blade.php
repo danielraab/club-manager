@@ -1,9 +1,7 @@
 <div>
     @if ($paginator->hasPages())
-        @php(isset($this->numberOfPaginatorsRendered[$paginator->getPageName()]) ? $this->numberOfPaginatorsRendered[$paginator->getPageName()]++ : $this->numberOfPaginatorsRendered[$paginator->getPageName()] = 1)
-
         <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
-            <div class="flex gap-3 items-center justify-between flex-1 lg:hidden">
+            <div class="flex gap-3 items-center justify-between flex-1 sm:hidden">
                 <span>
                     @if ($paginator->onFirstPage())
                         <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md select-none">
@@ -52,9 +50,9 @@
                 </span>
             </div>
 
-            <div class="hidden lg:flex-1 lg:flex lg:items-center lg:justify-between">
-                <div class="mr-3">
-                    <p class="text-sm text-center text-gray-700 leading-5">
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-700 leading-5">
                         <span>{!! __('Showing') !!}</span>
                         <span class="font-medium">{{ $paginator->firstItem() }}</span>
                         <span>{!! __('to') !!}</span>
@@ -98,7 +96,7 @@
                             {{-- Array Of Links --}}
                             @if (is_array($element))
                                 @foreach ($element as $page => $url)
-                                    <span wire:key="paginator-{{ $paginator->getPageName() }}-{{ $this->numberOfPaginatorsRendered[$paginator->getPageName()] }}-page{{ $page }}">
+                                    <span wire:key="paginator-{{ $paginator->getPageName() }}-page{{ $page }}">
                                         @if ($page == $paginator->currentPage())
                                             <span aria-current="page">
                                                 <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 select-none">{{ $page }}</span>

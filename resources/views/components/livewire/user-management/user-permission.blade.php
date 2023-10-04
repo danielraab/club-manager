@@ -26,7 +26,7 @@
                     <td class="border px-4 py-2" >
                         <input type="checkbox" data-permission
                                id="{{$permission->id}}"
-                               wire:model.defer="permissionArr.{{$permission->id}}"
+                               wire:model="permissionArr.{{$permission->id}}"
                         >
                     </td>
                     <td class="border px-4 py-2" ><label for="{{$permission->id}}">{{$permission->id}}</label></td>

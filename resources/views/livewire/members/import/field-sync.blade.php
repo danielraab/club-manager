@@ -16,7 +16,7 @@
                     <div>
                         <x-input-label :for="$field" :value="__($fieldLabel)"/>
                         <select id="{{$field}}" name="{{$field}}" class="mt-2"
-                                wire:model.defer="fieldMap.{{$field}}">
+                                wire:model.lazy="fieldMap.{{$field}}">
                             <option></option>
                             @foreach($csvColumns as $idx => $column)
                                 <option value="{{$idx}}">{{__($column)}}</option>
