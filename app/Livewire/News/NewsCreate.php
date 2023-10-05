@@ -2,20 +2,18 @@
 
 namespace App\Livewire\News;
 
-use App\Models\News;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Forms\NewsForm;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class NewsCreate extends Component
 {
-    use NewsTrait;
+    public NewsForm $newsForm;
+    public string $previousUrl;
 
     public function mount()
     {
-        $this->news = new News();
-        $this->news->enabled = true;
-        $this->news->logged_in_only = false;
+//        $this->news->setNewsModel();
         $this->display_until = now()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
     }
@@ -25,14 +23,7 @@ class NewsCreate extends Component
      */
     public function saveNews()
     {
-        $this->validate();
-        $this->additionalContentValidation();
-        $this->propToModel();
-
-        $this->news->creator()->associate(Auth::user());
-        $this->news->lastUpdater()->associate(Auth::user());
-
-        $this->news->save();
+        $this->newsForm->store();
         session()->push('message', __('News successfully added.'));
 
         return redirect($this->previousUrl);
