@@ -20,20 +20,19 @@
 * start docker stack: `./vendor/bin/sail up`
 
 *   execute `./vendor/bin/sail artisan key:generate` or via button on the first error page
-    - node: `./vendor/bin/sail npm install`
+
+- create database: `./vendor/bin/sail artisan migrate:fresh`
+    - add `--seed` if test data should be installed.
 
 * create vapid keys for webpush: `./vendor/bin/sail artisan webpush:vapid`
 
 * install cron job like in deployment section or
   * execute specific tasks `./vendor/bin/sail artisan schedule:test` 
 
--   install dependencies:
-
-    - node/npm: `./vendor/bin/sail npm install`
+-   install node/npm packages: `./vendor/bin/sail npm install`
 
 -   start node server for assets:  `./vendor/bin/sail npm run dev`
 
-- create database: `./vendor/bin/sail artisan migrate:fresh`
 
 ## sail commands
 
