@@ -1,4 +1,4 @@
-@props(["news" => null, "newsForm" => null])
+@props(["newsForm" => null])
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -43,16 +43,16 @@
         @if($newsForm?->news?->creator)
             <div  class="text-gray-500 mt-20 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
-                <span title="{{__("Creator")}}">{{$news->creator->name}}</span> -
-                <span title="{{__("Created at")}}">{{$news->created_at?->formatDateTimeWithSec()}}</span>
+                <span title="{{__("Creator")}}">{{$newsForm?->news?->creator->name}}</span> -
+                <span title="{{__("Created at")}}">{{$newsForm?->news?->created_at?->formatDateTimeWithSec()}}</span>
             </div>
         @endif
 
         @if($newsForm?->news?->lastUpdater)
             <div  class="text-gray-500 mt-1 ml-3">
                 <i class="fa-solid fa-pencil"></i>
-                <span title="{{__("Last updater")}}">{{ $news->lastUpdater->name }}</span> -
-                <span title="{{__("Updated at")}}">{{$news->updated_at?->formatDateTimeWithSec()}}</span>
+                <span title="{{__("Last updater")}}">{{ $newsForm?->news?->lastUpdater->name }}</span> -
+                <span title="{{__("Updated at")}}">{{$newsForm?->news?->updated_at?->formatDateTimeWithSec()}}</span>
             </div>
         @endif
 

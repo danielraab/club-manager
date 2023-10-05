@@ -2,73 +2,67 @@
 
 namespace App\Livewire\News;
 
+use App\Livewire\Forms\NewsForm;
 use App\Models\News;
 use App\Notifications\UpcomingEvent;
 use App\Notifications\UpcomingNews;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use NotificationChannels\WebPush\PushSubscription;
 
 class NewsEdit extends Component
 {
-    use NewsTrait;
+    public NewsForm $newsForm;
+    public string $previousUrl;
 
     public function mount(News $news): void
     {
-        $this->news = $news;
-        $this->display_until = $news->display_until->formatDatetimeLocalInput();
+        $this->newsForm->setNewsModel($news);
         $this->previousUrl = url()->previous();
     }
 
     public function deleteNews()
     {
-        $this->news->delete();
+        $this->newsForm->delete();
         session()->put('message', __('The news has been successfully deleted.'));
 
         return redirect($this->previousUrl);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function saveNewsCopy()
     {
-
-        $this->validate();
-        $this->additionalContentValidation();
-        $this->propToModel();
-
-        $this->news->creator()->associate(Auth::user());
-        $this->news->lastUpdater()->associate(Auth::user());
-
-        $this->news = $this->news->replicate();
-        $this->news->save();
+        $this->newsForm->store();
 
         session()->put('message', __('News successfully created.'));
-        return redirect(route('news.edit', ['news' => $this->news->id]));
+        return redirect(route('news.edit', ['news' => $this->newsForm->news->id]));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function saveNews()
     {
-        $this->validate();
-        $this->additionalContentValidation();
-        $this->propToModel();
+        $this->newsForm->update();
 
-        $this->news->lastUpdater()->associate(Auth::user());
-
-        $this->news->save();
         session()->put('message', __('News successfully updated.'));
-
         return redirect($this->previousUrl);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function forceWebPush(): void
     {
-        $this->validate();
-        $this->additionalContentValidation();
-        $this->propToModel();
-        $this->news->lastUpdater()->associate(Auth::user());
+        $this->newsForm->validate();
+        $this->newsForm->additionalContentValidation();
 
         \Illuminate\Support\Facades\Notification::send(
             PushSubscription::all(),
-            new UpcomingNews($this->news)
+            new UpcomingNews($this->newsForm->news)
         );
     }
 

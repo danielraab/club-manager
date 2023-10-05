@@ -13,8 +13,7 @@ class NewsCreate extends Component
 
     public function mount()
     {
-//        $this->news->setNewsModel();
-        $this->display_until = now()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
+        $this->display_until = now()->addWeek()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
     }
 

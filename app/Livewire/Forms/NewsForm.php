@@ -25,6 +25,7 @@ class NewsForm extends Form
     public function setNewsModel(News $news): void {
         $this->news = $news;
         $this->title = $news->title;
+        $this->content = $news->content;
         $this->enabled = $news->enabled;
         $this->logged_in_only = $news->logged_in_only;
         $this->display_until = $news->display_until->formatDatetimeLocalInput();
@@ -45,6 +46,13 @@ class NewsForm extends Form
 
         $this->news->creator()->associate(Auth::user());
         $this->news->lastUpdater()->associate(Auth::user());
+
+        $this->news->save();
+    }
+
+    public function delete(): void
+    {
+        $this->news?->delete();
     }
 
     /**
@@ -56,7 +64,7 @@ class NewsForm extends Form
         $this->additionalContentValidation();
 
         $this->news->update([
-            ...$this->except("display_until"),
+            ...$this->except("news", "display_until"),
             "display_until" => Carbon::parseFromDatetimeLocalInput($this->display_until)
         ]);
         $this->news->lastUpdater()->associate(Auth::user());
@@ -66,7 +74,7 @@ class NewsForm extends Form
     /**
      * @throws ValidationException
      */
-    private function additionalContentValidation(): void
+    public function additionalContentValidation(): void
     {
         if (($this->title === null || strlen(trim($this->title)) === 0) &&
             ($this->content === null || strlen(trim($this->content)) === 0)
