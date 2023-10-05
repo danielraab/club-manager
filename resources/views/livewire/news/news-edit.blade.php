@@ -1,5 +1,8 @@
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+        <a href="{{route("news.index")}}">
+            <i class="fa-solid fa-arrow-left-long text-gray-500"></i>
+        </a>
         {{ __("Edit news") }}
     </div>
 </x-slot>
