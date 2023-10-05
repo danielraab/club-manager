@@ -2,22 +2,29 @@
 
 namespace App\Livewire\Events;
 
-use App\Models\EventType;
+use App\Livewire\Forms\EventTypeForm;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class EventTypeCreate extends Component
 {
-    use EventTypeTrait;
+    public EventTypeForm $eventTypeForm;
+    public string $previousUrl;
 
     public function mount()
     {
-        $this->eventType = new EventType();
         $this->previousUrl = url()->previous();
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function saveEventType()
     {
-        $this->saveEventTypeWithMessage(__('The event type has been successfully created.'));
+        $this->eventTypeForm->store();
+
+        session()->put('message', __('The event type has been successfully created.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

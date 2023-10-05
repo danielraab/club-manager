@@ -2,30 +2,39 @@
 
 namespace App\Livewire\Events;
 
+use App\Livewire\Forms\EventTypeForm;
+use App\Models\EventType;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class EventTypeEdit extends Component
 {
-    use EventTypeTrait;
+    public EventTypeForm $eventTypeForm;
+    public string $previousUrl;
 
-    public function mount($eventType)
+    public function mount(EventType $eventType)
     {
-        $this->eventType = $eventType;
-        $this->parent = $this->eventType->parent()->first()?->id;
+        $this->eventTypeForm->setEventType($eventType);
         $this->previousUrl = url()->previous();
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function saveEventType()
     {
-        $this->saveEventTypeWithMessage(__('The event type has been successfully updated.'));
+        $this->eventTypeForm->store();
+
+        session()->put('message', __('The event type has been successfully updated.'));
+        return redirect($this->previousUrl);
     }
 
     public function deleteEventType()
     {
-        $this->eventType->delete();
-        session()->put('message', __('The event type has been successfully deleted.'));
+        $this->eventTypeForm->delete();
 
-        return redirect($this->previousUrl);
+        session()->put('message', __('The event type has been successfully deleted.'));
+        return redirect(route("event.type.index"));
     }
 
     public function render()

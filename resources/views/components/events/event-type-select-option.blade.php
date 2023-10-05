@@ -1,12 +1,12 @@
-@props(["eventType", "currentEditingEventType" => null, "level" => 0])
+@props(["eventType", "currentEditingEventTypeForm" => null, "level" => 0])
 @php
 /** @var \App\Models\EventType $eventType */
 @endphp
 
-@if($eventType->id !== $currentEditingEventType?->id)
+@if($eventType->id !== $currentEditingEventTypeForm?->eventType?->id)
     <option
         value="{{ $eventType->id }}">{{str_repeat("|--- ", $level)}}{{ $eventType->title }}</option>
     @foreach($eventType->children()->get() as $child)
-        <x-events.event-type-select-option :eventType="$child" :level="$level+1" :currentEditingEventType="$currentEditingEventType" />
+        <x-events.event-type-select-option :eventType="$child" :level="$level+1" :currentEditingEventTypeForm="$currentEditingEventTypeForm" />
     @endforeach
 @endif

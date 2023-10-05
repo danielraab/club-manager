@@ -11,7 +11,7 @@ use Livewire\Form;
 
 class NewsForm extends Form
 {
-    public ?\App\Models\News $news;
+    public ?News $news;
 
     #[Rule('max:255')]
     public ?string $title = null;
@@ -39,7 +39,7 @@ class NewsForm extends Form
         $this->validate();
         $this->additionalContentValidation();
 
-        $this->news = \App\Models\News::create([
+        $this->news = News::create([
             "display_until" => Carbon::parseFromDatetimeLocalInput($this->display_until),
             ...$this->except("news", "display_until")
         ]);

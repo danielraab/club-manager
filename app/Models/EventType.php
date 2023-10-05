@@ -11,13 +11,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int id
  * @property string title
- * @property|null string description
+ * @property ?string description
  * @property int sort_order
  * @see /database/migrations/2023_05_20_223845_create_events_table.php
  */
 class EventType extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'parent_id',
+    ];
 
     public function parent(): BelongsTo
     {
