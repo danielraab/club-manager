@@ -57,8 +57,7 @@ class NewsEdit extends Component
      */
     public function forceWebPush(): void
     {
-        $this->newsForm->validate();
-        $this->newsForm->additionalContentValidation();
+        $this->newsForm->update();
 
         \Illuminate\Support\Facades\Notification::send(
             PushSubscription::all(),

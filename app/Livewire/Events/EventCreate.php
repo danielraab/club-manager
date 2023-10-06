@@ -2,46 +2,37 @@
 
 namespace App\Livewire\Events;
 
-use App\Models\Event;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Forms\EventForm;
 use Livewire\Component;
 
 class EventCreate extends Component
 {
-    use EventTrait;
+    public EventForm $eventForm;
+    public string $previousUrl;
 
-    public function mount()
+
+    public function mount(): void
     {
-        $this->event = new Event();
-        $this->event->enabled = true;
-        $this->event->logged_in_only = false;
-        $this->event->whole_day = false;
-        $initial = now()->setMinute(0)->setSecond(0);
-        $this->start = $initial->formatDatetimeLocalInput();
-        $this->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
+        $this->eventForm->enabled = true;
+        $this->eventForm->logged_in_only = false;
+        $this->eventForm->whole_day = false;
+        $initial = now()->addHour()->setMinute(0)->setSecond(0);
+        $this->eventForm->start = $initial->formatDatetimeLocalInput();
+        $this->eventForm->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
     }
 
     public function saveEvent()
     {
-        $this->validate();
-        $this->propToModel();
-        $this->event->creator()->associate(Auth::user());
-        $this->event->lastUpdater()->associate(Auth::user());
-        $this->event->replicate()->save();
+        $this->eventForm->store();
 
         session()->put('message', __('The event has been successfully created.'));
-
         return redirect($this->previousUrl);
     }
 
-    public function saveEventAndStay()
+    public function saveEventAndStay(): void
     {
-        $this->validate();
-        $this->propToModel();
-        $this->event->creator()->associate(Auth::user());
-        $this->event->lastUpdater()->associate(Auth::user());
-        $this->event->replicate()->save();
+        $this->eventForm->store();
 
         session()->flash('savedAndStayMessage', __('New event created.'));
     }

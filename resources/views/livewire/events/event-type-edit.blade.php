@@ -1,7 +1,7 @@
 <x-slot name="headline">
     <div class="flex gap-3 items-center">
         <a href="{{route("event.type.index")}}">
-            <i class="fa-solid fa-arrow-left-long text-gray-500"></i>
+            <i class="fa-solid fa-arrow-left-long"></i>
         </a>
         {{ __("Update event type") }}
     </div>
