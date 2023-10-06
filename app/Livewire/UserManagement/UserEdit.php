@@ -2,57 +2,45 @@
 
 namespace App\Livewire\UserManagement;
 
+use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class UserEdit extends Component
 {
-    use UserPermissionComponentTrait;
-
-    public User $user;
+    public UserForm $userForm;
 
     public string $previousUrl;
 
-    protected function rules()
+    public function mount(User $user): void
     {
-        return array_merge([
-            'user.name' => ['required', 'string', 'min:5'],
-            'user.email' => ['required', 'string', 'email',
-                \Illuminate\Validation\Rule::unique('users', 'email')->ignore($this->user->id)],
-        ], $this->permissionRules());
-    }
-
-    public function mount(User $user)
-    {
-        $this->user = $user;
-        $this->fillPermissionArr($user);
+        $this->userForm->setUserModel($user);
         $this->previousUrl = url()->previous();
     }
 
-    public function saveUser()
+    public function saveUser(): RedirectResponse|Redirector
     {
-        $this->validate();
-
-        $this->user->save();
-        $this->user->userPermissions()->sync(
-            $this->getSelectedPermissionKeys()
-        );
+        $this->userForm->update();
 
         Log::channel('userManagement')
-            ->info("User '".$this->user->getNameWithMail()."' has been edited by '".auth()->user()->getNameWithMail()."'");
-        session()->put('message', __("User '".$this->user->name."' saved successfully."));
+            ->info("User '".$this->userForm->user->getNameWithMail()."' has been edited by '".auth()->user()->getNameWithMail()."'");
+        session()->put('message', __("User '".$this->userForm->user->name."' saved successfully."));
 
         return redirect($this->previousUrl);
     }
 
-    public function deleteUser()
+    public function deleteUser(): RedirectResponse|Redirector
     {
-        $this->user->delete();
+        $this->userForm->delete();
         Log::channel('userManagement')
-            ->info("User '".$this->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
+            ->info("User '".$this->userForm->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
 
-        return back()->with('message', __("The user '".$this->user->getNameWithMail()."' has been deleted."));
+        session()->put('message', __("The user '".$this->userForm->user->getNameWithMail()."' has been deleted."));
+
+        return redirect(route("userManagement.index"));
     }
 
     public function render()

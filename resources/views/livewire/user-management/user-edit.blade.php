@@ -32,12 +32,12 @@
             <div class="p-4 sm:p-8 max-w-xl">
                 <div class="text-gray-500 mt-3 ml-3 space-x-2">
                     <i class="fa-regular fa-square-plus"></i>
-                    <span title="{{__("Created at")}}">{{$user->created_at?->formatDateTimeWithSec()}}</span>
+                    <span title="{{__("Created at")}}">{{$userForm->user->created_at?->formatDateTimeWithSec()}}</span>
                 </div>
-                @if($user->last_login_at)
+                @if($userForm->user->last_login_at)
                     <div class="text-gray-500 mt-3 ml-3 space-x-2">
                         <i class="fa-solid fa-right-to-bracket"></i>
-                        <span title="{{__("Last login at")}}">{{$user->last_login_at?->formatDateTimeWithSec()}}</span>
+                        <span title="{{__("Last login at")}}">{{$userForm->user->last_login_at?->formatDateTimeWithSec()}}</span>
                     </div>
                 @endif
             </div>

@@ -10,7 +10,7 @@
     </header>
 
     <div class="mt-6">
-        @error('permissionArr') <x-input-error class="mt-2" :messages="$message"/>@enderror
+        @error('userForm.permissionArr') <x-input-error class="mt-2" :messages="$message"/>@enderror
 
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <thead class="font-bold">
@@ -26,7 +26,7 @@
                     <td class="border px-4 py-2" >
                         <input type="checkbox" data-permission
                                id="{{$permission->id}}"
-                               wire:model="permissionArr.{{$permission->id}}"
+                               wire:model="userForm.permissionArr.{{$permission->id}}"
                         >
                     </td>
                     <td class="border px-4 py-2" ><label for="{{$permission->id}}">{{$permission->id}}</label></td>

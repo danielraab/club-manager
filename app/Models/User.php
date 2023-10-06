@@ -60,7 +60,7 @@ class User extends Authenticatable
         'last_login_at' => 'datetime',
     ];
 
-    public function register()
+    public function register(): void
     {
         $this->save();
 

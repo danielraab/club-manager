@@ -2,43 +2,27 @@
 
 namespace App\Livewire\UserManagement;
 
-use App\Models\User;
+use App\Livewire\Forms\UserForm;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class UserCreate extends Component
 {
-    use UserPermissionComponentTrait;
-
-    public User $user;
+    public UserForm $userForm;
 
     public string $previousUrl;
 
-    protected function rules()
+    public function mount(): void
     {
-        return array_merge([
-            'user.name' => ['required', 'string', 'min:5'],
-            'user.email' => ['required', 'string', 'email', 'unique:users,email'],
-        ], $this->permissionRules());
-    }
-
-    public function mount()
-    {
-        $this->user = new User();
         $this->previousUrl = url()->previous();
     }
 
     public function saveUser()
     {
-        $this->validate();
+        $this->userForm->store();
 
-        $this->user->register();
-        $this->user->userPermissions()->sync(
-            $this->getSelectedPermissionKeys()
-        );
-
-        Log::channel('userManagement')->info("User '".$this->user->getNameWithMail()."' has been created by '".auth()->user()->getNameWithMail()."'");
-        session()->put('message', __("User '".$this->user->name."' created successfully."));
+        Log::channel('userManagement')->info("User '".$this->userForm->user->getNameWithMail()."' has been created by '".auth()->user()->getNameWithMail()."'");
+        session()->put('message', __("User '".$this->userForm->user->name."' created successfully."));
 
         return redirect($this->previousUrl);
     }
