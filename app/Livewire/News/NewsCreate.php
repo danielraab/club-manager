@@ -11,9 +11,9 @@ class NewsCreate extends Component
     public NewsForm $newsForm;
     public string $previousUrl;
 
-    public function mount()
+    public function mount(): void
     {
-        $this->display_until = now()->addWeek()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
+        $this->newsForm->display_until = now()->addWeek()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
     }
 

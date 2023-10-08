@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Members;
 
+use App\Livewire\Forms\MemberForm;
 use App\Models\Member;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -9,38 +10,28 @@ use Livewire\Component;
 
 class MemberEdit extends Component
 {
-    use MemberTrait;
+    public MemberForm $memberForm;
+    public string $previousUrl;
 
-    public function mount(Member $member)
+    public function mount(Member $member): void
     {
-        $this->member = $member;
-        $this->birthday = $member->birthday?->format('Y-m-d');
-        $this->entrance_date = $member->entrance_date->format('Y-m-d');
-        $this->leaving_date = $member->leaving_date?->format('Y-m-d');
-        $this->memberGroupList = Arr::pluck($member->memberGroups()->getResults(), 'id');
+        $this->memberForm->setMemberModal($member);
         $this->previousUrl = url()->previous();
     }
 
     public function saveMember()
     {
-        $this->validate();
-        $this->propsToModel();
-        $this->member->lastUpdater()->associate(Auth::user());
-        $this->member->save();
-
-        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
+        $this->memberForm->update();
 
         session()->put('message', __('The member has been successfully updated.'));
-
         return redirect($this->previousUrl);
     }
 
     public function deleteMember() {
 
-        $this->member->delete();
+        $this->memberForm->delete();
 
         session()->put('message', __('The member has been successfully deleted.'));
-
         return redirect($this->previousUrl);
     }
 

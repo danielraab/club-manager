@@ -2,48 +2,33 @@
 
 namespace App\Livewire\Members;
 
-use App\Models\Member;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Forms\MemberForm;
 use Livewire\Component;
 
 class MemberCreate extends Component
 {
-    use MemberTrait;
+    public MemberForm $memberForm;
 
-    public function mount()
+    public string $previousUrl;
+
+    public function mount(): void
     {
-        $this->member = new Member();
-        $this->member->paused = false;
-        $this->entrance_date = now()->format('Y-m-d');
+        $this->memberForm->paused = false;
+        $this->memberForm->entrance_date = now()->format('Y-m-d');
         $this->previousUrl = url()->previous();
     }
 
     public function saveMember()
     {
-        $this->validate();
-        $this->propsToModel();
-        $this->member->creator()->associate(Auth::user());
-        $this->member->lastUpdater()->associate(Auth::user());
-        $this->member->save();
-
-        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
+        $this->memberForm->store();
 
         session()->put('message', __('The member has been successfully created.'));
-
         return redirect($this->previousUrl);
     }
 
-    public function saveMemberAndStay()
+    public function saveMemberAndStay(): void
     {
-        $this->validate();
-        $this->propsToModel();
-        $this->member->creator()->associate(Auth::user());
-        $this->member->lastUpdater()->associate(Auth::user());
-        $newMember = $this->member->replicate();
-
-        $newMember->save();
-        $newMember->memberGroups()->sync(array_unique($this->memberGroupList));
-
+        $this->memberForm->store();
         session()->flash('savedAndStayMessage', __('New member successfully created. You can create the next one now.'));
     }
 
