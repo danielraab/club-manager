@@ -44,6 +44,24 @@
 
 -   `./vendor/bin/sail npm run dev` to start vite
 
+### debugging with sail
+
+* add environment variables to yml file in sail/app container:
+```yml
+    XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+    XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+```
+
+* set environment variable in `.env` file:
+```conf
+SAIL_XDEBUG_MODE=develop,debug,coverage
+```
+
+* in php storm add new server:
+  * host: `0.0.0.0`
+  * port: `APP_PORT`
+  * use path mapping: project files to: `/var/www/html`
+
 ## others
 
 -   if some files are generated via composer or an php command execute:
