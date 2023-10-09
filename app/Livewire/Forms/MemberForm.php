@@ -47,7 +47,7 @@ class MemberForm extends Form
             'city' => ['nullable', 'string', 'max:255'],
 
             'entrance_date' => ['required', 'date'],
-            'leaving_date' => ['nullable', 'date', 'after_or_equal:entrance_date'],
+            'leaving_date' => ['nullable', 'date', 'after_or_equal:memberForm.entrance_date'],
             'birthday' => ['nullable', 'date'],
 
             'memberGroupList' => ['nullable', 'array',
