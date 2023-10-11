@@ -97,7 +97,6 @@ class Event extends Model
 
     public static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
     {
-
         if (!$filter->inclPast) {
             $builder->where('end', '>', now());
         }
@@ -107,7 +106,7 @@ class Event extends Model
         }
 
         if (!$filter->inclLoggedInOnly) {
-            $builder->whereNot('logged_in_only', false);
+            $builder->where('logged_in_only', false);
         }
 
         $builder->orderBy('start', $filter->sortAsc ? "asc" : "desc");
