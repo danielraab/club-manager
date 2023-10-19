@@ -2,34 +2,38 @@
 
 namespace App\Livewire\Attendance;
 
-use App\Models\AttendancePoll;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Forms\PollForm;
 use Livewire\Component;
 
 class PollCreate extends Component
 {
-    use PollTrait;
+    public PollForm $pollForm;
 
-    public function mount()
+    public string $previousUrl;
+
+    public function mount(): void
     {
-        $this->poll = new AttendancePoll();
-        $this->poll->allow_anonymous_vote = true;
-        $this->poll->closing_at = now()->addWeek()->setMinute(0)->setSecond(0);
-        $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
+        $this->pollForm->allow_anonymous_vote = true;
+        $this->pollForm->closing_at =
+            now()->addWeek()->setMinute(0)->setSecond(0)->formatDatetimeLocalInput();
         $this->previousUrl = url()->previous();
+    }
+
+    public function addEventsToSelection($additionalEventIdList): void
+    {
+        $this->pollForm->addEventsToSelection($additionalEventIdList);
+    }
+
+    public function removeEventFromSelection($eventId): void
+    {
+        $this->pollForm->removeEventFromSelection($eventId);
     }
 
     public function savePoll()
     {
-        $this->validate();
-        $this->propToModel();
-        $this->poll->creator()->associate(Auth::user());
-        $this->poll->lastUpdater()->associate(Auth::user());
-        $this->poll->save();
-        $this->poll->events()->sync($this->selectedEvents);
+        $this->pollForm->store();
 
         session()->put('message', __('The attendance poll has been successfully created.'));
-
         return redirect($this->previousUrl);
     }
 

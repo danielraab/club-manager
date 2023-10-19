@@ -13,17 +13,17 @@
         <div>
             <x-input-label for="title" :value="__('Title')"/>
             <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
-                          wire:model="poll.title"
+                          wire:model="pollForm.title"
                           required autofocus autocomplete="title"/>
-            @error('poll.title')
+            @error('pollForm.title')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
         <div class="my-3">
             <x-input-label for="description" :value="__('Description')"/>
             <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[200px]"
-                        wire:model="poll.description" required autocomplete="description"/>
-            @error('poll.description')
+                        wire:model="pollForm.description" required autocomplete="description"/>
+            @error('pollForm.description')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
 
         </div>
@@ -32,7 +32,7 @@
         <!-- allow_anonymous_vote -->
         <div class="mt-4 ml-3">
             <x-input-checkbox id="allow_anonymous_vote" name="allow_anonymous_vote"
-                              wire:model="poll.allow_anonymous_vote"
+                              wire:model="pollForm.allow_anonymous_vote"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Allow anonymous votes') }}
             </x-input-checkbox>
@@ -42,9 +42,9 @@
         <div class="mt-4">
             <x-input-label for="closing_at" :value="__('Closing at')"/>
             <x-input-datetime id="closing_at" name="closing_at" type="text" class="mt-1 block w-full"
-                              wire:model="closing_at"
+                              wire:model="pollForm.closing_at"
                               required autofocus autocomplete="closing_at"/>
-            @error('closing_at')
+            @error('pollForm.closing_at')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
@@ -53,14 +53,14 @@
         <div class="mt-4">
             <x-input-label for="memberGroup" :value="__('Member group')"/>
             <select id="memberGroup" name="memberGroup"
-                    wire:model.lazy="memberGroup"
+                    wire:model.lazy="pollForm.memberGroup"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
                     <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" />
                 @endforeach
             </select>
-            @error('memberGroup')
+            @error('pollForm.memberGroup')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
     </div>

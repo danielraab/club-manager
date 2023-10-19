@@ -1,4 +1,5 @@
 @php
+    /** @var \App\Livewire\Forms\PollForm $pollForm */
     $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
@@ -17,7 +18,7 @@
 
         <x-always-responsive-table class="table-auto mx-auto text-center">
             <tbody>
-            @forelse(\App\Models\Event::query()->whereIn("id", $selectedEvents)->orderBy("start")->get() as $event)
+            @forelse(\App\Models\Event::query()->whereIn("id", $pollForm->selectedEvents)->orderBy("start")->get() as $event)
                 @php
                 /** @var \App\Models\Event $event */
                 @endphp
@@ -59,50 +60,54 @@
     <div class="my-4">
         @php
         /** @var \Illuminate\Database\Eloquent\Collection $possibleEvents */
-            $possibleEvents = $showOnlyFutureEvents ?
-                \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $selectedEvents)->get() :
-                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->whereNotIn('id', $selectedEvents)->get();
+            $possibleEvents = $pollForm->showOnlyFutureEvents ?
+                \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $pollForm->selectedEvents)->get() :
+                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->whereNotIn('id', $pollForm->selectedEvents)->get();
         @endphp
         @if($possibleEvents->count() > 0)
-        <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
-        <select id="eventSelectionList" name="eventSelectionList" multiple size="5"
-                x-model="additionalEventList"
-                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
-            @foreach($possibleEvents as $event)
-                @php /** @var \App\Models\Event $event*/ @endphp
-                <option value="{{$event->id}}">{{$event->getFormattedStart()}}
-                    - {{$event->title}}</option>
-            @endforeach
-        </select>
-        <div class="flex justify-center mt-2 gap-3">
-            <x-input-checkbox id="show_only_future_events" name="show_only_future_events"
-                              wire:model="showOnlyFutureEvents"
-                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('only future events') }}
-            </x-input-checkbox>
-            <x-default-button type="button" class="btn btn-primary"
-                              x-bind:disabled="additionalEventList.length === 0"
-                              x-on:click="addEvents">{{__("Add events to poll")}}
-            </x-default-button>
-        </div>
+            <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
+            <select id="eventSelectionList" name="eventSelectionList" multiple size="5"
+                    x-model="additionalEventList"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                @foreach($possibleEvents as $event)
+                    @php /** @var \App\Models\Event $event*/ @endphp
+                    <option value="{{$event->id}}">{{$event->getFormattedStart()}}
+                        - {{$event->title}}</option>
+                @endforeach
+            </select>
+        @else
+            <div class="text-center text-gray-700">
+                <span>{{__("No further events available.")}}</span>
+            </div>
         @endif
+            <div class="flex justify-center mt-2 gap-3">
+                <x-input-checkbox id="show_only_future_events" name="show_only_future_events"
+                                  wire:model.live="pollForm.showOnlyFutureEvents"
+                                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                    {{ __('only future events') }}
+                </x-input-checkbox>
+                <x-default-button type="button" class="btn btn-primary"
+                                  x-bind:disabled="additionalEventList.length === 0"
+                                  x-on:click="addEvents">{{__("Add events to poll")}}
+                </x-default-button>
+            </div>
     </div>
 
 
 
-    @if($poll && $poll->created_at)
+    @if($pollForm->poll?->created_at)
         <div class="text-gray-500 mt-3 ml-3">
             <i class="fa-regular fa-square-plus"></i>
-            <span title="{{__("Creator")}}">{{$poll->creator?->name}}</span> -
-            <span title="{{__("Created at")}}">{{$poll->created_at->formatDateTimeWithSec()}}</span>
+            <span title="{{__("Creator")}}">{{$pollForm->poll?->creator?->name}}</span> -
+            <span title="{{__("Created at")}}">{{$pollForm->poll?->created_at->formatDateTimeWithSec()}}</span>
         </div>
     @endif
 
-    @if($poll && $poll->updated_at)
+    @if($pollForm->poll?->updated_at)
         <div class="text-gray-500 mt-2 ml-3">
             <i class="fa-solid fa-pencil"></i>
-            <span title="{{__("Last updater")}}">{{ $poll->lastUpdater?->name }}</span> -
-            <span title="{{__("Updated at")}}">{{ $poll->updated_at->formatDateTimeWithSec() }}</span>
+            <span title="{{__("Last updater")}}">{{ $pollForm->poll?->lastUpdater?->name }}</span> -
+            <span title="{{__("Updated at")}}">{{ $pollForm->poll?->updated_at->formatDateTimeWithSec() }}</span>
         </div>
     @endif
 

@@ -2,34 +2,38 @@
 
 namespace App\Livewire\Attendance;
 
+use App\Livewire\Forms\PollForm;
 use App\Models\AttendancePoll;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PollEdit extends Component
 {
-    use PollTrait;
+    public PollForm $pollForm;
+
+    public string $previousUrl;
 
     public function mount(AttendancePoll $attendancePoll)
     {
-        $this->poll = $attendancePoll;
-        $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
-        $this->selectedEvents = $this->poll->events()->pluck('id')->toArray();
-        $this->memberGroup = $this->poll->memberGroup()->first("id")?->id;
+        $this->pollForm->setModel($attendancePoll);
         $this->previousUrl = url()->previous();
     }
 
     public function savePoll()
     {
-        $this->validate();
-        $this->propToModel();
-        $this->poll->lastUpdater()->associate(Auth::user());
-        $this->poll->save();
-        $this->poll->events()->sync($this->selectedEvents);
+        $this->pollForm->update();
 
         session()->put('message', __('The attendance poll has been successfully updated.'));
-
         return redirect($this->previousUrl);
+    }
+
+    public function addEventsToSelection($additionalEventIdList): void
+    {
+        $this->pollForm->addEventsToSelection($additionalEventIdList);
+    }
+
+    public function removeEventFromSelection($eventId): void
+    {
+        $this->pollForm->removeEventFromSelection($eventId);
     }
 
     public function render()

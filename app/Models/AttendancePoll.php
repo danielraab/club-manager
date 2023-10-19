@@ -27,6 +27,14 @@ class AttendancePoll extends Model
 
     public const ATTENDANCE_POLL_EDIT_PERMISSION = 'attendancePollEdit';
 
+    protected $fillable = [
+        "title",
+        "description",
+        "allow_anonymous_vote",
+        "closing_at",
+        "member_group_id"
+    ];
+
     protected $casts = [
         'allow_anonymous_vote' => 'boolean',
         'closing_at' => 'datetime',
