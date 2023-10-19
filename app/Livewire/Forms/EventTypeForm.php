@@ -52,4 +52,14 @@ class EventTypeForm extends Form
     {
         $this->eventType?->delete();
     }
+
+    public function update(): void
+    {
+        $this->validate();
+
+        $this->eventType->update([
+            "parent_id" => $this->getParentId(),
+            ...$this->except("eventType", "parent")
+        ]);
+    }
 }

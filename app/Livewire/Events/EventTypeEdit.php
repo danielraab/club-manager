@@ -23,7 +23,7 @@ class EventTypeEdit extends Component
      */
     public function saveEventType()
     {
-        $this->eventTypeForm->store();
+        $this->eventTypeForm->update();
 
         session()->put('message', __('The event type has been successfully updated.'));
         return redirect($this->previousUrl);
