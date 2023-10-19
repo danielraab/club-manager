@@ -1,5 +1,8 @@
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+        <a href="{{route("news.index")}}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </a>
         {{ __("Edit news") }}
     </div>
 </x-slot>
@@ -19,7 +22,7 @@
                     }}"
                     x-on:click="onClick()" title="Delete this news"
                     class="btn-danger">{{ __('Delete news') }}</x-default-button>
-                @if($display_until > now() && $news->enabled && $news->logged_in_only)
+                @if($newsForm->display_until > now() && $newsForm->enabled && $newsForm->logged_in_only)
                     <x-default-button
                         x-data="{ clickCnt: 0, disabled: false, onClick() {
                             if(this.clickCnt == 1) {
@@ -50,7 +53,7 @@
             <x-livewire.news.news-content/>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.news.news-settings :news="$news"/>
+            <x-livewire.news.news-settings :newsForm="$newsForm"/>
         </div>
     </div>
 </div>

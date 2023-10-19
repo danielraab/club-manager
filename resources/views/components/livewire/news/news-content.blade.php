@@ -12,17 +12,18 @@
     <div class="mt-6">
         <div>
             <x-input-label for="title" :value="__('Title')"/>
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" wire:model.defer="news.title"
+            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
+                          wire:model="newsForm.title"
                           required autofocus autocomplete="title"/>
-            @error('news.title')
+            @error('newsForm.title')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
         <div class="my-3">
             <x-input-label for="content" :value="__('Content')"/>
             <x-textarea id="content" name="content" class="mt-1 block w-full min-h-[200px]"
-                        wire:model.defer="news.content" required autocomplete="content"/>
-            @error('news.content')
+                        wire:model="newsForm.content" required autocomplete="content"/>
+            @error('newsForm.content')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
 
         </div>

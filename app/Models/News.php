@@ -24,8 +24,11 @@ class News extends Model
     public const NEWS_EDIT_PERMISSION = 'newsEdit';
 
     protected $fillable = [
+        'enabled',
         'title',
         'content',
+        'logged_in_only',
+        'display_until',
     ];
 
     protected $casts = [

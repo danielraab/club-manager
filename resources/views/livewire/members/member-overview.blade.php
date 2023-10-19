@@ -30,26 +30,26 @@
             </div>
         </div>
     @endif
+        <div class="flex flex-wrap gap-5 justify-center text-sm mb-5">
+            <div class="flex items-center flex-wrap justify-center">
+                <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
+                <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
+                >
+                    <option></option>
+                    @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                        <x-members.member-group-select-option :memberGroup="$memberGroup"/>
+                    @endforeach
+                </select>
+            </div>
 
+            <x-livewire.member-filter/>
+        </div>
     @if($this->members->exists())
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
             <x-livewire.loading/>
-            <div class="flex flex-wrap gap-5 justify-center text-sm mb-5">
-                <div class="flex items-center flex-wrap justify-center">
-                    <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
-                    <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
-                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
-                    >
-                        <option></option>
-                        @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                            <x-members.member-group-select-option :memberGroup="$memberGroup"/>
-                        @endforeach
-                    </select>
-                </div>
 
-                <x-livewire.member-filter/>
-            </div>
             <x-always-responsive-table class="table-auto mx-auto text-center">
                 <thead class="font-bold">
                 <tr>

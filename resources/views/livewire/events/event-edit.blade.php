@@ -1,5 +1,8 @@
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+        <a href="{{route("event.index")}}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </a>
         {{ __("Update event") }}
     </div>
 </x-slot>
@@ -20,7 +23,7 @@
                     x-on:click="onClick()" title="Delete this event"
                     class="btn-danger">{{ __('Delete event') }}</x-default-button>
 
-                @if($start > now() && $event->enabled && !$event->logged_in_only)
+                @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
                     <x-default-button
                         x-data="{ clickCnt: 0, disabled: false, onClick() {
                             if(this.clickCnt == 1) {
@@ -50,10 +53,10 @@
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
 
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.events.event-content :event="$event"/>
+            <x-livewire.events.event-content :eventForm="$eventForm"/>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.events.event-settings :event="$event"/>
+            <x-livewire.events.event-settings :eventForm="$eventForm"/>
         </div>
     </div>
 

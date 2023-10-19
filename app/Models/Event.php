@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property boolean enabled
  * @property boolean logged_in_only
  * @property string|null link
+ * @property ?int event_type_id
+ * @property ?EventType eventType
  * @see /database/migrations/2023_05_20_223845_create_events_table.php
  */
 class Event extends Model
@@ -31,6 +33,21 @@ class Event extends Model
     use SoftDeletes;
 
     public const EVENT_EDIT_PERMISSION = 'eventEdit';
+
+
+    protected $fillable = [
+        'title',
+        'description',
+        'location',
+        'dress_code',
+        'start',
+        'end',
+        'whole_day',
+        'enabled',
+        'logged_in_only',
+        'link',
+        'event_type_id',
+    ];
 
     protected $casts = [
         'start' => 'datetime',

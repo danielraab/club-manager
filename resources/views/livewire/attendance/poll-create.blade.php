@@ -10,14 +10,14 @@ addEvents() {
     this.additionalEventList = [];
 }}">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
-        <div class="flex flex-col">
+        <div class="flex gap-2 items-center">
+            <span x-cloak class="text-gray-500 text-xs mt-1"
+                  x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
             <div class="ml-auto">
                 <x-default-button class="btn btn-primary inline-flex" wire:click="savePoll"
                                   x-bind:disabled="additionalEventList.length > 0"
                                   title="Create new attendance poll">{{ __('Save') }}</x-default-button>
             </div>
-            <span x-cloak class="text-gray-500 text-xs mt-1"
-                  x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
         </div>
     </div>
 
@@ -28,7 +28,7 @@ addEvents() {
            <x-livewire.attendance.poll-basics />
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.attendance.poll-event-selection :selectedEvents="$selectedEvents" :poll="$poll" :showOnlyFutureEvents="$showOnlyFutureEvents"/>
+            <x-livewire.attendance.poll-event-selection :pollForm="$pollForm"/>
         </div>
     </div>
 

@@ -28,7 +28,7 @@
             <x-livewire.members.member-content/>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.members.member-member-group-selection :member="$member"/>
+            <x-livewire.members.member-member-group-selection :memberForm="$memberForm"/>
         </div>
     </div>
 

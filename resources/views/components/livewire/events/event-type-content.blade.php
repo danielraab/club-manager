@@ -15,9 +15,9 @@
             <div>
                 <x-input-label for="title" :value="__('Title')"/>
                 <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
-                              wire:model.defer="eventType.title"
+                              wire:model="eventTypeForm.title"
                               required autofocus autocomplete="title"/>
-                @error('eventType.title')
+                @error('eventTypeForm.title')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
         </div>
@@ -25,8 +25,8 @@
         <div class="my-3">
             <x-input-label for="description" :value="__('Description')"/>
             <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[100px]"
-                        wire:model.defer="eventType.description" required autocomplete="description"/>
-            @error('eventType.description')
+                        wire:model="eventTypeForm.description" required autocomplete="description"/>
+            @error('eventTypeForm.description')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
@@ -34,14 +34,14 @@
         <div>
             <x-input-label for="eventType" :value="__('Parent event type')"/>
             <select id="parent" name="parent"
-                    wire:model.defer="parent"
+                    wire:model="eventTypeForm.parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventTypeTreeElem)
-                    <x-events.event-type-select-option :eventType="$eventTypeTreeElem" :currentEditingEventType="$eventType" />
+                    <x-events.event-type-select-option :eventType="$eventTypeTreeElem" :currentEditingEventTypeForm="$eventTypeForm" />
                 @endforeach
             </select>
-            @error('parent')
+            @error('eventTypeForm.parent')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 

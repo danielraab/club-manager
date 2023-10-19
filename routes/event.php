@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Events\EventCalendar;
-use App\Http\Livewire\Events\EventCreate;
-use App\Http\Livewire\Events\EventEdit;
-use App\Http\Livewire\Events\EventOverview;
-use App\Http\Livewire\Events\EventTypeCreate;
-use App\Http\Livewire\Events\EventTypeEdit;
+use App\Livewire\Events\EventCreate;
+use App\Livewire\Events\EventEdit;
+use App\Livewire\Events\EventOverview;
+use App\Livewire\Events\EventTypeCreate;
+use App\Livewire\Events\EventTypeEdit;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 

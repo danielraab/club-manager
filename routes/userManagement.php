@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserManagement\UserOverview;
-use App\Http\Livewire\UserManagement\UserCreate;
-use App\Http\Livewire\UserManagement\UserEdit;
+use App\Livewire\UserManagement\UserCreate;
+use App\Livewire\UserManagement\UserEdit;
 use App\Models\UserPermission;
 use Illuminate\Support\Facades\Route;
 

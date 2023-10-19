@@ -1,4 +1,4 @@
-@props(["event" => null])
+@props(["eventForm" => null])
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -11,26 +11,25 @@
     </header>
 
     <div class="mt-6">
-
-
-        {{--        event type--}}
+        {{-- event type--}}
         <div class="my-4">
             <x-input-label for="type" :value="__('Type')"/>
             <select id="type" name="type"
-                    wire:model.defer="type"
+                    wire:model="eventForm.type"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
                     <x-events.event-type-select-option :eventType="$eventType"/>
                 @endforeach
             </select>
-            @error('type')
+            @error('eventForm.type')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
         <!-- Enabled -->
         <div class="ml-3">
-            <x-input-checkbox id="enabled" name="enabled" wire:model="event.enabled"
+            <x-input-checkbox id="enabled" name="enabled"
+                              wire:model="eventForm.enabled"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Enabled') }}<i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                       title="{{__("Disabled events are not shown on the calendar export neither the json export.")}}"></i>
@@ -40,7 +39,8 @@
 
         <!-- only internal -->
         <div class="mt-4 ml-3">
-            <x-input-checkbox id="logged_in_only" name="logged_in_only" wire:model="event.logged_in_only"
+            <x-input-checkbox id="logged_in_only" name="logged_in_only"
+                              wire:model="eventForm.logged_in_only"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Only for logged in user') }}
             </x-input-checkbox>
@@ -50,9 +50,9 @@
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
             <x-input-datetime id="start" name="start" type="text" class="mt-1 block w-full"
-                              wire:model="start"
+                              wire:model.blur="eventForm.start"
                               required autofocus autocomplete="start"/>
-            @error('start')
+            @error('eventForm.start')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
@@ -60,16 +60,16 @@
         <div class="mt-4">
             <x-input-label for="end" :value="__('End')"/>
             <x-input-datetime id="end" name="end" type="text" class="mt-1 block w-full"
-                              wire:model.lazy="end"
+                              wire:model.blur="eventForm.end"
                               required autofocus autocomplete="end"/>
-            @error('end')
+            @error('eventForm.end')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
 
         <!-- whole day -->
         <div class="mt-4 mb-4 ml-3">
-            <x-input-checkbox id="whole_day" name="whole_day" wire:model.defer="event.whole_day"
+            <x-input-checkbox id="whole_day" name="whole_day" wire:model="eventForm.whole_day"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Whole day') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                          title="{{__("The time will not be shown.")}}"></i>
@@ -77,19 +77,19 @@
         </div>
 
 
-        @if($event && $event->created_at)
+        @if($eventForm?->event?->created_at)
             <div class="text-gray-500 mt-3 ml-3">
                 <i class="fa-regular fa-square-plus"></i>
-                <span title="{{__("Creator")}}">{{$event->creator?->name}}</span> -
-                <span title="{{__("Created at")}}">{{$event->created_at->formatDateTimeWithSec()}}</span>
+                <span title="{{__("Creator")}}">{{$eventForm->event?->creator?->name}}</span> -
+                <span title="{{__("Created at")}}">{{$eventForm->event?->created_at->formatDateTimeWithSec()}}</span>
             </div>
         @endif
 
-        @if($event && $event->updated_at)
+        @if($eventForm?->event?->updated_at)
             <div class="text-gray-500 mt-2 ml-3">
                 <i class="fa-solid fa-pencil"></i>
-                <span title="{{__("Last updater")}}">{{ $event->lastUpdater?->name }}</span> -
-                <span title="{{__("Updated at")}}">{{$event->updated_at->formatDateTimeWithSec()}}</span>
+                <span title="{{__("Last updater")}}">{{ $eventForm->event?->lastUpdater?->name }}</span> -
+                <span title="{{__("Updated at")}}">{{$eventForm->event?->updated_at->formatDateTimeWithSec()}}</span>
             </div>
         @endif
 

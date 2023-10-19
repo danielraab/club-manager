@@ -1,5 +1,8 @@
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+        <a href="{{route("event.type.index")}}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </a>
         {{ __("Create new event type") }}
     </div>
 </x-slot>
@@ -13,7 +16,7 @@
 
     <div class="flex justify-center">
 
-        <x-livewire.events.event-type-content :eventType="$eventType"/>
+        <x-livewire.events.event-type-content :eventTypeForm="$eventTypeForm"/>
 
     </div>
 

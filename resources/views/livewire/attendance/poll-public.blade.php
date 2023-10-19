@@ -46,7 +46,7 @@
                     <select id="memberSelection" name="memberSelection"
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1
                             disabled:text-gray-500"
-                            wire:model="memberSelection"
+                            wire:model.lazy="memberSelection"
                             required autofocus autocomplete="memberSelection"
                         @disabled($selectedMember !== null)>
                         <option></option>

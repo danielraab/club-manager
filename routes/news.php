@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\News\NewsOverview;
-use App\Http\Livewire\News\NewsCreate;
-use App\Http\Livewire\News\NewsEdit;
+use App\Livewire\News\NewsCreate;
+use App\Livewire\News\NewsEdit;
 use App\Models\News;
 use Illuminate\Support\Facades\Route;
 

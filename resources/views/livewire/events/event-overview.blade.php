@@ -28,7 +28,7 @@
     <x-livewire.loading/>
 
     <div class="flex flex-wrap justify-center items-center gap-3">
-        <x-input-search wire:model.lazy="search" wire:click="$refresh"/>
+        <x-input-search wire:model.live.debounce.1000ms="search" wire:click="$refresh"/>
         <x-livewire.event-filter />
     </div>
 

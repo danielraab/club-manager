@@ -1,9 +1,9 @@
 
 <div x-data="{
     open:false,
-    showPast: $persist(@entangle('showPast')),
-    showDisabled: $persist(@entangle('showDisabled')),
-    showLoggedInOnly: $persist(@entangle('showLoggedInOnly')),
+    showPast: $persist(@entangle('showPast').live),
+    showDisabled: $persist(@entangle('showDisabled').live),
+    showLoggedInOnly: $persist(@entangle('showLoggedInOnly').live),
 }" class="relative inline-block text-left" @click.outside="open = false">
     <div>
         <button type="button"
@@ -21,7 +21,7 @@
             @if($this->canFilterShowPast())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_past" name="filter_past"
-                                  wire:model="showPast">
+                                  wire:model.live="showPast">
                     {{ __('show past') }}
                 </x-input-checkbox>
             </div>
@@ -29,7 +29,7 @@
             @if($this->canFilterShowDisabled())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_disabled" name="filter_disabled"
-                                  wire:model="showDisabled">
+                                  wire:model.live="showDisabled">
                     {{ __('show disabled') }}
                 </x-input-checkbox>
             </div>
@@ -37,7 +37,7 @@
             @if($this->canFilterShowLoggedInOnly())
             <div class="px-4 py-1">
                 <x-input-checkbox id="filter_logged_in_only" name="filter_logged_in_only"
-                                  wire:model="showLoggedInOnly">
+                                  wire:model.live="showLoggedInOnly">
                     {{ __('show logged in only events') }}
                 </x-input-checkbox>
             </div>

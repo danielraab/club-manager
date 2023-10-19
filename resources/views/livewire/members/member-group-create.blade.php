@@ -13,7 +13,7 @@
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-        <x-livewire.members.member-group-content :memberGroup="$memberGroup"/>
+        <x-livewire.members.member-group-content :memberGroupForm="$memberGroupForm"/>
         <x-livewire.members.member-group-member-selection />
     </div>
 

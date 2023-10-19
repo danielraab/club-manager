@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Livewire\Attendance\AttendanceRecord;
-use App\Http\Livewire\Attendance\AttendanceDisplay;
-use App\Http\Livewire\Attendance\PollCreate;
-use App\Http\Livewire\Attendance\PollEdit;
-use App\Http\Livewire\Attendance\PollPublic;
+use App\Livewire\Attendance\AttendanceRecord;
+use App\Livewire\Attendance\AttendanceDisplay;
+use App\Livewire\Attendance\PollCreate;
+use App\Livewire\Attendance\PollEdit;
+use App\Livewire\Attendance\PollPublic;
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
 use Illuminate\Support\Facades\Route;

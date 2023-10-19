@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Members\MemberBirthdayList;
-use App\Http\Livewire\Members\Import\MemberImport;
-use App\Http\Livewire\Members\MemberCreate;
-use App\Http\Livewire\Members\MemberEdit;
-use App\Http\Livewire\Members\MemberGroupCreate;
-use App\Http\Livewire\Members\MemberGroupEdit;
-use App\Http\Livewire\Members\MemberOverview;
+use App\Livewire\Members\Import\MemberImport;
+use App\Livewire\Members\MemberCreate;
+use App\Livewire\Members\MemberEdit;
+use App\Livewire\Members\MemberGroupCreate;
+use App\Livewire\Members\MemberGroupEdit;
+use App\Livewire\Members\MemberOverview;
 use App\Models\Import\ImportedMember;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
