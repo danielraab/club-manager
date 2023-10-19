@@ -2,32 +2,35 @@
 
 namespace App\Livewire\Members;
 
+use App\Livewire\Forms\MemberGroupForm;
 use App\Models\MemberGroup;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 
 class MemberGroupEdit extends Component
 {
-    use MemberGroupTrait;
+    public MemberGroupForm $memberGroupForm;
+    public string $previousUrl;
 
-    public function mount(MemberGroup $memberGroup)
+    public function mount(MemberGroup $memberGroup): void
     {
-        $this->memberGroup = $memberGroup;
-        $this->parent = $this->memberGroup->parent()->first()?->id;
-        $this->memberSelection = Arr::pluck($this->memberGroup->members()->getResults(), 'id');
+        $this->memberGroupForm->setModel($memberGroup);
         $this->previousUrl = url()->previous();
     }
 
     public function saveMemberGroup()
     {
-        return $this->saveMemberGroupWithMessage(__('The member group has been successfully updated.'));
+        $this->memberGroupForm->update();
+
+        session()->put('message', __('The member group has been successfully updated.'));
+        return redirect($this->previousUrl);
     }
 
     public function deleteMemberGroup()
     {
-        $this->memberGroup->delete();
-        session()->put('message', __('The member group has been successfully deleted.'));
+        $this->memberGroupForm->delete();
 
+        session()->put('message', __('The member group has been successfully deleted.'));
         return redirect($this->previousUrl);
     }
 

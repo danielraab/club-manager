@@ -2,22 +2,25 @@
 
 namespace App\Livewire\Members;
 
-use App\Models\MemberGroup;
+use App\Livewire\Forms\MemberGroupForm;
 use Livewire\Component;
 
 class MemberGroupCreate extends Component
 {
-    use MemberGroupTrait;
+    public MemberGroupForm $memberGroupForm;
+    public string $previousUrl;
 
-    public function mount()
+    public function mount(): void
     {
-        $this->memberGroup = new MemberGroup();
         $this->previousUrl = url()->previous();
     }
 
     public function saveMemberGroup()
     {
-        return $this->saveMemberGroupWithMessage(__('The member group has been successfully created.'));
+        $this->memberGroupForm->store();
+
+        session()->put('message', __('The member group has been successfully created.'));
+        return redirect($this->previousUrl);
     }
 
     public function render()

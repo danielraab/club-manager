@@ -15,9 +15,9 @@
             <div>
                 <x-input-label for="title" :value="__('Title')"/>
                 <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
-                              wire:model="memberGroup.title"
+                              wire:model="memberGroupForm.title"
                               required autofocus autocomplete="title"/>
-                @error('memberGroup.title')
+                @error('memberGroupForm.title')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
         </div>
@@ -25,8 +25,8 @@
         <div class="my-3">
             <x-input-label for="description" :value="__('Description')"/>
             <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[100px]"
-                        wire:model="memberGroup.description" required autocomplete="description"/>
-            @error('memberGroup.description')
+                        wire:model="memberGroupForm.description" required autocomplete="description"/>
+            @error('memberGroupForm.description')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
@@ -34,14 +34,14 @@
         <div>
             <x-input-label for="memberGroup" :value="__('Parent member group')"/>
             <select id="parent" name="parent"
-                    wire:model.blur="parent"
+                    wire:model.blur="memberGroupForm.parent"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
-                    <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" :currentEditingMemberGroup="$memberGroup" />
+                    <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" :currentEditingMemberGroup="$memberGroupForm->memberGroup" />
                 @endforeach
             </select>
-            @error('parent')
+            @error('memberGroupForm.parent')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 

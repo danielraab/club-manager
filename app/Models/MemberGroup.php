@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string title
  * @property string|null description
  * @property int sort_order
+ * @property int|null parent_id
  * @see /database/migrations/2023_06_12_204229_create_member_base_table.php
  */
 class MemberGroup extends Model
@@ -29,6 +30,7 @@ class MemberGroup extends Model
         'title',
         'description',
         'sort_order',
+        'parent_id'
     ];
 
     public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
