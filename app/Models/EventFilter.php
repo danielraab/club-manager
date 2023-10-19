@@ -14,8 +14,9 @@ class EventFilter
      * @param bool $inclPast
      * @param bool $inclDisabled
      * @param bool $inclLoggedInOnly
+     * @param bool $sortAsc
      */
-    public function __construct(bool $inclPast = false, bool $inclDisabled = false, bool $inclLoggedInOnly = true, bool $sortAsc = true)
+    public function __construct(bool $inclPast = false, bool $inclDisabled = false, bool $inclLoggedInOnly = false, bool $sortAsc = true)
     {
         $this->inclPast = $inclPast;
         $this->inclDisabled = $inclDisabled;

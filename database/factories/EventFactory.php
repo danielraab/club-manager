@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,7 +17,7 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $start = fake()->dateTimeThisYear();
+        $start = new Carbon(fake()->dateTimeThisYear());
 
         return [
             'title' => fake()->text(50),
@@ -24,7 +25,7 @@ class EventFactory extends Factory
             'location' => fake()->text(50),
             'dress_code' => fake()->text(50),
             'start' => $start,
-            'end' => fake()->dateTimeBetween($start),
+            'end' => fake()->dateTimeBetween($start, $start->clone()->addDays(2)),
             'link' => fake()->url(),
         ];
     }
