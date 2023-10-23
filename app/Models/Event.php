@@ -95,7 +95,7 @@ class Event extends Model
         if($this->whole_day) {
             return $datetime->isoFormat("ddd D. MMM YYYY");
         }
-        return $datetime->isoFormat("ddd D. MMM YYYY HH:mm");
+        return $datetime->isoFormat("ddd D. MMM YYYY - HH:mm");
     }
 
     public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
