@@ -9,7 +9,7 @@
     @forelse($eventList as $event)
         @php
             /** @var \App\Models\Event $event */
-            $end = null;
+            $end = null; 
             if(!$event->end->isSameDay($event->start)) {
                 $end = $event->getFormattedEnd();
             }
