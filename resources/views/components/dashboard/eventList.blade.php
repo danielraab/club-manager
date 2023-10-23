@@ -9,19 +9,19 @@
     @forelse($eventList as $event)
         @php
             /** @var \App\Models\Event $event */
-            $end = null;
+            $end = null; 
             if(!$event->end->isSameDay($event->start)) {
                 $end = $event->getFormattedEnd();
             }
         @endphp
 
         <div class="bg-green-100 text-green-700 px-4 py-3">
-            <div class="flex justify-between">
+            <div class="flex gap-2 justify-between items-center">
                 <p class="text-green-500">
                     <i class="fa-regular fa-calendar"></i> {{$event->getFormattedStart()}}
                     @if($end) --- {{$end}} @endif
                 </p>
-                <div class="space-x-1">
+                <div class="flex gap-2">
                     @if($event->link)
                         <a href="{{$event->link}}" target="_blank" title="{{__("Link")}}"><i class="fa-solid fa-link"></i></a>
                     @endif

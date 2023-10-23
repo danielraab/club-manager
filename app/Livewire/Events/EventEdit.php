@@ -19,6 +19,16 @@ class EventEdit extends Component
         $this->eventForm->setEventModel($event);
         $this->previousUrl = url()->previous();
     }
+    
+    public function updatingEventFormStart($updatedValue): void
+    {
+        $this->eventForm->updatingStart($updatedValue);
+    }
+
+    public function updatingEventFormEnd($updatedValue): void
+    {
+        $this->eventForm->updatingEnd($updatedValue);
+    }
 
     public function deleteEvent()
     {
