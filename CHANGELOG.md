@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unpublished
+
+...
+
+## v0.4.1 - 2023-10-26
+
+### Added
+
+- location to event overview
+- this change log file
+
+### Changed
+
+- event overview is responsive now
+
+### Fixed
+
+- event livecycle (date update) on event forms
+
 ## v0.4.0 - 2023-10-20
 
 ### Changed
