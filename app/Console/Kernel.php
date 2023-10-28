@@ -3,8 +3,10 @@
 namespace App\Console;
 
 use App\Models\Event;
+use App\Models\EventFilter;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Notification;
 use NotificationChannels\WebPush\PushSubscription;
@@ -19,10 +21,14 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
-            $events = Event::getFutureEvents()->where('start', '>=', $tomorrowMorning)
-                ->where('start', '<=', $tomorrowNight)->get();
-            if($events->count() > 0) {
-                foreach($events as $event) {
+
+            $events = Event::getAllFiltered(new EventFilter(true, false, false))
+                ->where('start', '>=', $tomorrowMorning)
+                ->where('start', '<=', $tomorrowNight)
+                ->get();
+
+            if ($events->count() > 0) {
+                foreach ($events as $event) {
                     Notification::send(
                         PushSubscription::all(),
                         new UpcomingEvent($event)
@@ -31,7 +37,26 @@ class Kernel extends ConsoleKernel
             }
         })
             ->name("event web push notifications (tomorrow events)")
-            ->dailyAt('17:00');
+            ->dailyAt('15:00'); // timezone UTC
+
+
+        $schedule->call(function() {
+            $events = Event::getAllFiltered(new EventFilter(true, false, false))
+                ->where('start', '>=', now()->addHours(2)->setMinute(0)->setSecond(0))
+                ->where('start', '<=', now()->addHours(2)->setMinute(59)->setSecond(59))
+                ->get();
+
+            if ($events->count() > 0) {
+                foreach ($events as $event) {
+                    Notification::send(
+                        PushSubscription::all(),
+                        new UpcomingEvent($event)
+                    );
+                }
+            }
+        })
+            ->name("event web push notifications 2 hours before start")
+            ->hourly();
     }
 
     /**

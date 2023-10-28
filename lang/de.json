@@ -56,9 +56,7 @@
     "Please be aware of the news ':name'": "Bitte beachte die Neuigkeit ':name'",
     ":app - news": ":app - News",
     "View News": "News anzeigen",
-    "Please be aware of the event ':name' on :date": "Bitte beachte die Veranstaltung ':name' am :date",
-    "Be aware of tomorrows event ':name' at :date": "Beachte die morgige Veranstaltung ':name' um :date Uhr",
-    "Be aware of todays event ':name' at :date": "Beachte die heutige Veranstaltung ':name' um :date Uhr",
+    "Do not forget the event ':name' on :date": "Die Veranstaltung ':name' am :date nicht vergessen.",
 
     "Save": "Speichern",
     "Save copy": "Kopie Speichern",

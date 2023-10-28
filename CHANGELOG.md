@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Added
+
+- new hourly cronjob for event web push notification
+
 ### Changed
 
 - member group tree accordions are now initial shown
+- general message for event web push notification (it cant be ensured when the notification will be read)
 
 ## v0.4.1 - 2023-10-26
 

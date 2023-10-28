@@ -34,28 +34,10 @@ class UpcomingEvent extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-        $body = __("Please be aware of the event ':name' on :date", [
+        $body = __("Do not forget the event ':name' on :date", [
             "name" => $this->event->title,
-            "date" => $this->event->start->formatDateTimeWithSec()
+            "date" => $this->event->getFormattedStart()
         ]);
-
-        $today = now()->setTime(0, 0);
-
-        $diff = $this->event->start->diff($today);
-        if($diff->invert === 1) {
-            if ($diff->days === 0) {
-                $body = __("Be aware of todays event ':name' at :date", [
-                    "name" => $this->event->title,
-                    "date" => $this->event->start->setTimezone(config('app.displayed_timezone'))->isoFormat('HH:mm')
-                ]);
-            }
-            if ($diff->days === 1) {
-                $body = __("Be aware of tomorrows event ':name' at :date", [
-                    "name" => $this->event->title,
-                    "date" => $this->event->start->setTimezone(config('app.displayed_timezone'))->isoFormat('HH:mm')
-                ]);
-            }
-        }
 
         return (new WebPushMessage())
             ->title(__(":app - event", ["app" => config("app.name")]))
