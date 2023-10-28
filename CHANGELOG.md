@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
-...
+### Changed
+
+- member group tree accordions are now initial shown
 
 ## v0.4.1 - 2023-10-26
 
