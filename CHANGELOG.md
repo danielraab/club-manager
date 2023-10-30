@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+...
+
+## v0.4.2 - 2023-10-30
+
 ### Added
 
 - new hourly cronjob for event web push notification
+- Admin with the permission user management can send password reset links
 
 ### Changed
 
