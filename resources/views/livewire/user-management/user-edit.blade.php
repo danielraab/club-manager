@@ -6,32 +6,37 @@
 
 <div class="space-y-4">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        <div class="flex gap-1 items-center justify-between">
-            <div>
-                <div class="flex flex-wrap grow-0 gap-1 justify-center">
-                    <x-default-button
-                        x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt > 0) {
+        <div class="flex flex-col sm:flex-row gap-2 items-center sm:justify-between">
+            <div class="flex flex-wrap gap-2 justify-center items-center">
+                <x-default-button
+                    x-data="{ clickCnt: 0, onClick() {
+                        if(this.clickCnt === 1) {
+                            this.clickCnt++;
                             $wire.deleteUser();
                         } else {
                             this.clickCnt++;
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-                        x-on:click="onClick()" title="Delete this user"
-                        class="btn-danger">{{ __('Delete user') }}</x-default-button>
-                    <x-default-button
-                        x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt > 0) {
+                    x-on:click="onClick()" title="Delete this user"
+                    x-bind:disabled="clickCnt > 1"
+                    class="btn-danger">{{ __('Delete user') }}</x-default-button>
+                <x-default-button
+                    x-data="{ clickCnt: 0, onClick() {
+                        if(this.clickCnt === 1) {
+                            this.clickCnt++;
                             $wire.sendResetLink();
                         } else {
                             this.clickCnt++;
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-                        x-on:click="onClick()" title="Send reset link"
-                        class="btn-secondary">{{ __('Send reset link') }}</x-default-button>
-                </div>
+                    x-on:click="onClick()" title="Send password reset link."
+                    x-bind:disabled="clickCnt > 1"
+                    class="btn-secondary">{{ __('Send reset link') }}</x-default-button>
+                @if(session()->has("sendResetLinkMessage"))
+                    <span class="text-gray-700">{{session()->pull("sendResetLinkMessage")}}</span>
+                @endif
             </div>
             <x-default-button class="btn-primary" wire:click="saveUser"
                               title="Save the current changes">{{ __('Save') }}</x-default-button>

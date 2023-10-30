@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 use Livewire\Component;
 
 class UserEdit extends Component
@@ -41,6 +42,32 @@ class UserEdit extends Component
         session()->put('message', __("The user '".$this->userForm->user->getNameWithMail()."' has been deleted."));
 
         return redirect(route("userManagement.index"));
+    }
+
+    public function sendResetLink() {
+        $email = $this->userForm->user?->email;
+
+        $status = Password::sendResetLink([
+            "email" => $email
+        ]);
+
+        switch($status) {
+            case Password::RESET_LINK_SENT:
+                session()->flash("sendResetLinkMessage", __("Password reset link successfully sent."));
+                return;
+
+            case Password::RESET_THROTTLED:
+                session()->flash("sendResetLinkMessage", __("The reset mail was throttled."));
+                return;
+
+            case Password::INVALID_USER:
+                session()->flash("sendResetLinkMessage", __("User/Mail not found."));
+                return;
+
+            default:
+                session()->flash("sendResetLinkMessage", __("Not able to send password reset link."));
+        }
+
     }
 
     public function render()
