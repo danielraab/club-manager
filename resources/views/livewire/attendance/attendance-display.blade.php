@@ -1,7 +1,8 @@
 @php
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
-    $memberFilter = new \App\Models\MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused);
+
+    $memberFilter = $this->getMemberFilter();
 @endphp
 
 <x-slot name="headline">
@@ -11,6 +12,7 @@
 </x-slot>
 
 <div x-data="{displayMemberGroups:true}">
+    <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
             <span
@@ -61,6 +63,12 @@
 
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
+
+            @if($hasAttendanceEditPermission)
+                <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
+                    {{__("Edit Attendance")}}
+                </x-button-link>
+            @endif
             <div x-show="displayMemberGroups" class="flex items-center flex-wrap justify-center">
                 <div class="py-2 px-4 rounded-l-lg bg-sky-600">
                     {{__("Groups")}}</div>
@@ -76,11 +84,6 @@
                     {{__("List")}}</div>
             </div>
             <x-livewire.member-filter/>
-            @if($hasAttendanceEditPermission)
-                <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
-                    {{__("Edit Attendance")}}
-                </x-button-link>
-            @endif
         </div>
     </div>
 

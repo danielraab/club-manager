@@ -9,10 +9,10 @@
     </div>
 </x-slot>
 
-<div>
+<div class="flex flex-col gap-5">
     @if($hasEditPermission)
         <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             @if($hasImportPermission)
                 <x-button-link href="{{route('member.import')}}" class="btn-info"
                                title="Import member list">
@@ -30,21 +30,9 @@
             </div>
         </div>
     @endif
-        <div class="flex flex-wrap gap-5 justify-center text-sm mb-5">
-            <div class="flex items-center flex-wrap justify-center">
-                <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
-                <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
-                >
-                    <option></option>
-                    @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                        <x-members.member-group-select-option :memberGroup="$memberGroup"/>
-                    @endforeach
-                </select>
-            </div>
 
-            <x-livewire.member-filter/>
-        </div>
+    <x-livewire.member-filter useMemberGroupFilter/>
+
     @if($this->members->exists())
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
@@ -103,7 +91,7 @@
         </div>
 
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 p-5">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
             <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
                 <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                                href="{{route('member.birthdayList')}}"

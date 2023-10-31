@@ -1,7 +1,8 @@
 @php
     /** @var $event \App\Models\Event */
     /** @var $members \Illuminate\Database\Eloquent\Collection */
-        $memberFilter = new \App\Models\MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused);
+
+    $memberFilter = $this->getMemberFilter();
 @endphp
 
 <x-slot name="headline">

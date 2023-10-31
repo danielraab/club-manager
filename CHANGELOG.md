@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Birthday list link on dashboard (if permissions)
 
+### Changed
+
+- moved memberGroup filter to memberFilter
+
 ## v0.4.2 - 2023-10-30
 
 ### Added

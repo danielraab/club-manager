@@ -123,6 +123,14 @@ class Member extends Model
             $builder->where('paused', false);
         }
 
+
+        if ($filter->memberGroup) {
+            $groupChildList = $filter->memberGroup->getAllChildrenRecursive() ?: [];
+            $builder->whereHas('memberGroups', function ($query) use ($groupChildList) {
+                $query->whereIn('id', array_map(fn ($group) => $group->id, $groupChildList));
+            });
+        }
+
         return $builder;
     }
 
