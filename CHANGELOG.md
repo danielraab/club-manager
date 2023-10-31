@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - moved memberGroup filter to memberFilter
+- move member import btn after member list
 
 ## v0.4.2 - 2023-10-30
 

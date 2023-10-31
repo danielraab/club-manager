@@ -13,12 +13,6 @@
     @if($hasEditPermission)
         <div
             class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
-            @if($hasImportPermission)
-                <x-button-link href="{{route('member.import')}}" class="btn-info"
-                               title="Import member list">
-                    {{__("Import members")}}
-                </x-button-link>
-            @endif
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
                 <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
@@ -100,6 +94,12 @@
                                title="Download birthday list as CSV file">{{ __('Birthday CSV') }}</x-button-link>
                 <x-button-link class="bg-gray-700 text-white" href="{{route('member.fullBirthdayList.csv')}}"
                                title="Download full birthday list as CSV file. (Incl Paused, retired and coming members)">{{ __('Full Birthday CSV') }}</x-button-link>
+                @if($hasImportPermission)
+                    <x-button-link href="{{route('member.import')}}" class="btn-info ml-auto"
+                                   title="Import member list">
+                        {{__("Import members")}}
+                    </x-button-link>
+                @endif
             </div>
         </div>
 
