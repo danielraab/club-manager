@@ -1,6 +1,15 @@
+@php
+    $hasShowPermission = (bool) \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
+@endphp
 <x-backend-layout>
     <x-slot name="headline">
-        {{ __('Dashboard') }}
+        <div class="flex justify-between items-center">
+            <span>{{ __('Dashboard') }}</span>
+            @if($hasShowPermission)
+                <x-button-link class="btn-secondary"
+                               href="{{route('member.birthdayList')}}"
+                               title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
+        @endif
     </x-slot>
 
     <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">

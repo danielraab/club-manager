@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
-...
+### Added
+
+- Birthday list link on dashboard (if permissions)
 
 ## v0.4.2 - 2023-10-30
 
