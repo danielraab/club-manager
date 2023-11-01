@@ -24,6 +24,8 @@
 
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
+            <x-button-link class="btn-primary"
+                           href="{{route('event.attendance.show', $event->id)}}">{{__("Show Overview")}}</x-button-link>
             <div class="flex items-center flex-wrap justify-center">
                 @if($displayMemberGroups)
                     <button type="button" wire:click="$set('displayMemberGroups',false)"
@@ -40,8 +42,6 @@
                 @endif
             </div>
             <x-livewire.member-filter/>
-            <x-button-link class="btn-primary"
-                           href="{{route('event.attendance.show', $event->id)}}">{{__("Show Overview")}}</x-button-link>
         </div>
     </div>
     <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">

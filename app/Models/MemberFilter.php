@@ -8,7 +8,8 @@ class MemberFilter
     public bool $inclAfterRetired;
     public bool $inclPaused;
 
-    public ?MemberGroup $memberGroup;
+    /** @var MemberGroup[]|null  */
+    public ?array $memberGroupList;
 
     /**
      * @param bool $inclBeforeEntrance
@@ -25,7 +26,10 @@ class MemberFilter
         $this->inclBeforeEntrance = $inclBeforeEntrance;
         $this->inclAfterRetired = $inclAfterRetired;
         $this->inclPaused = $inclPaused;
-        $this->memberGroup = $memberGroup;
+        $this->memberGroupList = null;
+        if($memberGroup) {
+            $this->memberGroupList = $memberGroup->getAllChildrenRecursive();
+        }
     }
 
 

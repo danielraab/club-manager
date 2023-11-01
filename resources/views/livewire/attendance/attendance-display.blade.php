@@ -83,7 +83,7 @@
                 <div class="py-2 px-4 rounded-r-lg bg-sky-600">
                     {{__("List")}}</div>
             </div>
-            <x-livewire.member-filter/>
+            <x-livewire.member-filter />
         </div>
     </div>
 

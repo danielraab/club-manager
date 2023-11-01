@@ -78,7 +78,12 @@ class MemberGroup extends Model
         return $this->hasMany(MemberGroup::class, 'parent_id');
     }
 
-    public function getAllChildrenRecursive(array &$childList = [], $depth = 0): array
+    /**
+     * @param MemberGroup[] $childList
+     * @param int $depth
+     * @return MemberGroup[]
+     */
+    public function getAllChildrenRecursive(array &$childList = [], int $depth = 0): array
     {
         $childList[] = $this;
         if ($depth >= self::MAX_CHILD_TREE_DEPTH) {

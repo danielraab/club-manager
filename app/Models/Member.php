@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 /**
  * @property int id
@@ -102,7 +103,10 @@ class Member extends Model
     public function matchFilter(MemberFilter $memberFilter):bool {
         return ($memberFilter->inclBeforeEntrance || $this->entrance_date === null || $this->entrance_date <= now()) &&
             ($memberFilter->inclAfterRetired || $this->leaving_date === null || $this->leaving_date >= now()) &&
-            ($memberFilter->inclPaused || !$this->paused);
+            ($memberFilter->inclPaused || !$this->paused) &&
+            ($memberFilter->memberGroupList === null ||
+                count($this->memberGroups()->pluck("id")->intersect(
+                    Arr::pluck($memberFilter->memberGroupList, "id"))) > 0);
     }
 
     public static function addFilterToBuilder(Builder $builder, MemberFilter $filter): Builder
@@ -124,10 +128,9 @@ class Member extends Model
         }
 
 
-        if ($filter->memberGroup) {
-            $groupChildList = $filter->memberGroup->getAllChildrenRecursive() ?: [];
-            $builder->whereHas('memberGroups', function ($query) use ($groupChildList) {
-                $query->whereIn('id', array_map(fn ($group) => $group->id, $groupChildList));
+        if ($filter->memberGroupList) {
+            $builder->whereHas('memberGroups', function ($query) use ($filter) {
+                $query->whereIn('id', array_map(fn ($group) => $group->id, $filter->memberGroupList));
             });
         }
 

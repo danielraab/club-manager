@@ -32,7 +32,7 @@
             @php
                 /** @var \App\Models\Member $member */
                     $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
-                    if(!$member->matchFilter($memberFilter) && $currentAttendance === null) continue;
+                    if(!$member->matchFilter($memberFilter) || $currentAttendance === null) continue;
                     $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
             @endphp
             <div class="flex gap-2 items-center px-2">

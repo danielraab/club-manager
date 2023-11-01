@@ -150,7 +150,7 @@ class Event extends Model
             ->orderBy('dress_code')->pluck('dress_code')->toArray();
     }
 
-    public function getAttendanceStatistics(): array
+    public function getAttendanceStatistics(MemberFilter $memberFilter): array
     {
         $cntIn = 0;
         $cntUnsure = 0;
@@ -163,6 +163,8 @@ class Event extends Model
 
         foreach ($attendances as $attendance) {
             /** @var Attendance $attendance */
+            if(!$attendance->member()->first()->matchFilter($memberFilter)) continue;
+
             if ($attendance->poll_status === 'in') {
                 $cntIn++;
             }
@@ -201,6 +203,7 @@ class Event extends Model
             'out' => $cntOut,
             'attended' => $cntAttended,
             'memberGroupStatistics' => $memberGroupCntList,
+            'unset' => $attendances->count() - ($cntIn + $cntUnsure + $cntOut)
         ];
     }
 }
