@@ -20,7 +20,8 @@ class MemberList extends Controller
 
             $header = array(
                 __('Name') => 'string',
-                __('Birthday') => 'date',
+                __('Birthday date') => 'date',
+                __('Birthday') => 'string',
                 __('Age') => 'integer',
                 __("Email") => 'string',
                 __("Phone") => 'string'
@@ -32,6 +33,7 @@ class MemberList extends Controller
                 /** @var Member $member */
                 $writer->writeSheetRow($sheetName, [
                     $member->getFullName(),
+                    $member->birthday?->format("Y-m-d"),
                     $member->birthday?->isoFormat('D. MMMM'),
                     $member->birthday ? now()->format('Y') - $member->birthday->format('Y') : null,
                     $member->email,

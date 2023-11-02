@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Fixed
+
+- excel Birthday list export birthday column type
 
 ## v0.4.3 - 2023-11-02
 
