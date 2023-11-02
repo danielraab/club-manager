@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "mk-j/php_xlsxwriter": "^0.39.0",
         "spatie/icalendar-generator": "^2.5",
         "spatie/laravel-welcome-notification": "^2.3"
     },

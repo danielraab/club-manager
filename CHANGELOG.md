@@ -4,15 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+
+## v0.4.3 - 2023-11-02
+
 ### Added
 
 - Birthday list link on dashboard (if permissions)
+- Excel (xlsx) file export for members
 
 ### Changed
 
 - moved memberGroup filter to memberFilter
 - move member import btn after member list
 - move member group selection into filter with possibility to no use
+- member export (former birthday list export) considers the member filter now
 
 ## v0.4.2 - 2023-10-30
 

@@ -2,13 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
+
 class MemberFilter
 {
+    public const PARAM_INCL_PAUSED = "paused";
+    public const PARAM_INCL_BEFORE = "before";
+    public const PARAM_INCL_AFTER = "after";
+    public const PARAM_INCL_MEMBER_GROUP_LIST = "groupList";
+
     public bool $inclBeforeEntrance;
     public bool $inclAfterRetired;
     public bool $inclPaused;
 
-    /** @var MemberGroup[]|null  */
+    /** @var int[]|null  */
     public ?array $memberGroupList;
 
     /**
@@ -28,9 +36,31 @@ class MemberFilter
         $this->inclPaused = $inclPaused;
         $this->memberGroupList = null;
         if($memberGroup) {
-            $this->memberGroupList = $memberGroup->getAllChildrenRecursive();
+            $this->memberGroupList = Arr::map($memberGroup->getAllChildrenRecursive(), fn($group) => $group->id);
         }
     }
 
+    public function toParameterArray(): array {
+        return [
+            self::PARAM_INCL_PAUSED => $this->inclPaused,
+            self::PARAM_INCL_BEFORE => $this->inclBeforeEntrance,
+            self::PARAM_INCL_AFTER => $this->inclAfterRetired,
+            self::PARAM_INCL_MEMBER_GROUP_LIST => $this->memberGroupList ?
+                implode(',', $this->memberGroupList) : null
+        ];
+    }
 
+    public static function getMemberFilterFromRequest(): MemberFilter
+    {
+        $memberFilter = new MemberFilter(
+            Request::get(self::PARAM_INCL_BEFORE),
+            Request::get(self::PARAM_INCL_AFTER),
+            Request::get(self::PARAM_INCL_PAUSED));
+
+        $memberGroupParameter = Request::get(self::PARAM_INCL_MEMBER_GROUP_LIST);
+        if($memberGroupParameter)
+            $memberFilter->memberGroupList = explode(',', Request::get(self::PARAM_INCL_MEMBER_GROUP_LIST));
+
+        return $memberFilter;
+    }
 }

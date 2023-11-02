@@ -130,7 +130,7 @@ class Member extends Model
 
         if ($filter->memberGroupList) {
             $builder->whereHas('memberGroups', function ($query) use ($filter) {
-                $query->whereIn('id', array_map(fn ($group) => $group->id, $filter->memberGroupList));
+                $query->whereIn('id', $filter->memberGroupList);
             });
         }
 

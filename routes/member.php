@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Members\MemberBirthdayList;
+use App\Http\Controllers\Members\MemberList;
 use App\Livewire\Members\Import\MemberImport;
 use App\Livewire\Members\MemberCreate;
 use App\Livewire\Members\MemberEdit;
@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'permission:'.Member::MEMBER_SHOW_PERMISSION.'|'.Member::MEMBER_EDIT_PERMISSION])->group(function () {
     Route::get('/members', MemberOverview::class)
         ->name('member.index');
-    Route::get('/members/birthdayList/csv', [MemberBirthdayList::class, 'csv'])
-        ->name('member.birthdayList.csv');
-    Route::get('/members/fullBirthdayList/csv', [MemberBirthdayList::class, 'fullCsv'])
-        ->name('member.fullBirthdayList.csv');
-    Route::get('/members/birthdayList', [MemberBirthdayList::class, 'birthdayList'])
+    Route::get('/members/list/csv', [MemberList::class, 'csv'])
+        ->name('member.list.csv');
+    Route::get('/members/list/excel', [MemberList::class, 'excel'])
+        ->name('member.list.excel');
+    Route::get('/members/birthdayList', [MemberList::class, 'birthdayList'])
         ->name('member.birthdayList');
 });
 
