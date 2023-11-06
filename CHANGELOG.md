@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Added
+
+- event detail page added with route and controller
+
 ### Fixed
 
 - excel Birthday list export birthday column type

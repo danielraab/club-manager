@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventDetail;
 use App\Http\Controllers\Events\EventCalendar;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
@@ -11,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/events', EventOverview::class)
     ->name('event.index');
+
+Route::get('/events/{event}/detail', [EventDetail::class, "index"])
+    ->name('event.detail');
 
 Route::get('/events/ics', [EventCalendar::class, 'iCalendar'])
     ->name('event.iCalendar');
