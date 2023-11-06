@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - excel Birthday list export birthday column type
+- missing member filter on poll statistic
 
 ## v0.4.3 - 2023-11-02
 

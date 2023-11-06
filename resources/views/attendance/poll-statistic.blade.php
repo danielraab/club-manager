@@ -24,7 +24,7 @@
                 @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Event $event */
-                        $statistic = $event->getAttendanceStatistics();
+                        $statistic = $event->getAttendanceStatistics(new \App\Models\MemberFilter(true, true, true));
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
