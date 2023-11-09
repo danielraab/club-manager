@@ -8,11 +8,13 @@ All notable changes to this project will be documented in this file.
 
 - event detail page with route and controller
 - news detail page with route and controller
+- edit news button on dashboard
 
 ### Fixed
 
 - excel Birthday list export birthday column type
 - missing member filter on poll statistic
+- web push notification only for news without the flag loggedInOnly
 
 ### Changed
 

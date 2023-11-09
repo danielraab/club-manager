@@ -22,7 +22,7 @@
                     }}"
                     x-on:click="onClick()" title="Delete this news"
                     class="btn-danger">{{ __('Delete news') }}</x-default-button>
-                @if($newsForm->display_until > now() && $newsForm->enabled && $newsForm->logged_in_only)
+                @if($newsForm->display_until > now() && $newsForm->enabled && !$newsForm->logged_in_only)
                     <x-default-button
                         x-data="{ clickCnt: 0, disabled: false, onClick() {
                             if(this.clickCnt == 1) {
