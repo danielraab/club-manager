@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+
+## v0.4.4 - 2023-11-09
+
 ### Added
 
 - event detail page with route and controller
