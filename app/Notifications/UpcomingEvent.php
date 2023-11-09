@@ -43,6 +43,7 @@ class UpcomingEvent extends Notification
             ->title(__(":app - event", ["app" => config("app.name")]))
             ->icon(url('/').'/logo.svg')
             ->body($body)
-            ->action(__('View Events'), 'events');
+            ->action(__('View Events'), 'event-detail')
+            ->data(["id"=>$this->event->id]);
     }
 }

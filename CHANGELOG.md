@@ -6,12 +6,17 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- event detail page added with route and controller
+- event detail page with route and controller
+- news detail page with route and controller
 
 ### Fixed
 
 - excel Birthday list export birthday column type
 - missing member filter on poll statistic
+
+### Changed
+
+- web push notification button points now to detail pages
 
 ## v0.4.3 - 2023-11-02
 

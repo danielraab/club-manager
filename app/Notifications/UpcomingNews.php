@@ -42,8 +42,9 @@ class UpcomingNews extends Notification
 
         return (new WebPushMessage())
             ->title(__(":app - news", ["app" => config("app.name")]))
-            ->icon(url('/').'/logo.svg')
+            ->icon(url('/') . '/logo.svg')
             ->body($body)
-            ->action(__('View News'), 'dashboard');
+            ->action(__('View News'), 'news-detail')
+            ->data(["id" => $this->news->id]);
     }
 }

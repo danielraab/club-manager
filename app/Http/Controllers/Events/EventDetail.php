@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Events;
 
 
+use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\EventDetail;
 use App\Http\Controllers\Events\EventCalendar;
+use App\Http\Controllers\Events\EventDetail;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
 use App\Livewire\Events\EventOverview;
