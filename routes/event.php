@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Events\EventCalendar;
 use App\Http\Controllers\Events\EventDetail;
+use App\Http\Controllers\Events\EventExport;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
 use App\Livewire\Events\EventOverview;
@@ -18,9 +19,9 @@ Route::get('/events/{event}/detail', [EventDetail::class, "index"])
 
 Route::get('/events/ics', [EventCalendar::class, 'iCalendar'])
     ->name('event.iCalendar');
-Route::get('/events/json', [EventCalendar::class, 'toJson'])
+Route::get('/events/json', [EventExport::class, 'toJson'])
     ->name('event.json');
-Route::get('/events/next', [EventCalendar::class, 'next'])
+Route::get('/events/next', [EventExport::class, 'next'])
     ->name('event.next');
 
 Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {

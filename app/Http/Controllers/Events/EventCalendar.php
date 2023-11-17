@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Livewire\Profile\CalendarLinks;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Response;
+use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 
@@ -16,26 +17,32 @@ class EventCalendar extends Controller
 {
     const CALENDAR_REFRESH_INTERVAL_MIN = 60 * 6;
 
-    public function toJson()
+    public function iCalendar(): \Illuminate\Http\Response
     {
-        return $this->getEventList();
-    }
+        $calendar = Calendar::create(env('APP_NAME'))->refreshInterval(self::CALENDAR_REFRESH_INTERVAL_MIN);
 
-    public function iCalendar()
-    {
-        return Response::make($this->getCsvString(), 200, [
-            'Content-Type' => 'text/cvs',
-            'Content-Disposition' => 'attachment; filename="calendar.csv"',
+        $authToken = false;
+        $token = request()->get("t");
+        if ($token && PersonalAccessToken::query()
+                ->where("token", $token)
+                ->where("name", CalendarLinks::CALENDAR_TOKEN_NAME)
+                ->first()) {
+            $authToken = true;
+
+            //TODO add member birthdays
+        }
+
+        $this->addEventsToCalendar($calendar, auth()->user() || $authToken);
+
+        return Response::make($calendar->get(), 200, [
+            'Content-Type' => 'text/ics',
+            'Content-Disposition' => 'attachment; filename="calendar.ics"',
         ]);
     }
 
-    private function getCsvString()
+    private function addEventsToCalendar(Calendar $calendar, $inclLoggedInOnly = false): void
     {
-
-        $calendar = Calendar::create(env('APP_NAME'))
-            ->refreshInterval(self::CALENDAR_REFRESH_INTERVAL_MIN);
-
-        foreach ($this->getEventList() as $event) {
+        foreach ($this->getEventList($inclLoggedInOnly) as $event) {
             /** @var Carbon $end */
             $calEvent = Event::create($event->title)
                 ->startsAt($event->start);
@@ -53,35 +60,15 @@ class EventCalendar extends Controller
             $calEvent->endsAt($end);
             $calendar->event($calEvent);
         }
-
-        return $calendar->get();
     }
 
-    private function getEventList()
+    private function getEventList($inclLoggedInOnly = false): Collection
     {
-        $eventList = \App\Models\Event::orderBy('start', 'desc');
-        if (Auth::guest()) {
+        $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
+        if (!$inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
         $eventList = $eventList->where('enabled', true);
-
-        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
-    }
-
-    public function next(Request $request)
-    {
-        if (validator($request->query(), ['limit' => ['nullable', 'int']])->fails()) {
-            abort(400);
-        }
-
-        $eventList = \App\Models\Event::orderBy('start', 'asc');
-        if (Auth::guest()) {
-            $eventList = $eventList->where('logged_in_only', false);
-        }
-        $eventList = $eventList->where('enabled', true)->where('end', '>', now());
-        if ($limit = $request->query('limit')) {
-            $eventList = $eventList->limit($limit);
-        }
 
         return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
     }
