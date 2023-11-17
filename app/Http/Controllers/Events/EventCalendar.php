@@ -6,7 +6,10 @@ namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
 use App\Livewire\Profile\CalendarLinks;
+use App\Models\Member;
+use App\Models\MemberFilter;
 use Carbon\Carbon;
+use http\Exception\UnexpectedValueException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Response;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -28,8 +31,7 @@ class EventCalendar extends Controller
                 ->where("name", CalendarLinks::CALENDAR_TOKEN_NAME)
                 ->first()) {
             $authToken = true;
-
-            //TODO add member birthdays
+            $this->addMembersToCalendar($calendar);
         }
 
         $this->addEventsToCalendar($calendar, auth()->user() || $authToken);
@@ -38,6 +40,37 @@ class EventCalendar extends Controller
             'Content-Type' => 'text/ics',
             'Content-Disposition' => 'attachment; filename="calendar.ics"',
         ]);
+    }
+
+
+    private function addMembersToCalendar(Calendar $calendar): void
+    {
+        $currentYear = Carbon::now()->year;
+
+        foreach ($this->getBirthdaySortedMembers() as $member) {
+            /** @var $member Member */
+
+            /** @var Carbon $birthday */
+            $birthday = $member->birthday->clone();
+            $birthday->setYear($currentYear);
+
+            $calEvent = Event::create($member->getFullName());
+            $calEvent->startsAt($birthday);
+            $calEvent->description((string) ($currentYear - $member->birthday->year));
+            $calEvent->fullDay();
+
+            $calendar->event($calEvent);
+        }
+    }
+
+    private function getBirthdaySortedMembers(): \Illuminate\Database\Eloquent\Collection|array
+    {
+        return Member::getAllFiltered(new MemberFilter(true, true, true))
+            ->whereNotNull('birthday')
+            ->get()
+            ->sort(function ($memberA, $memberB) {
+                return strcmp($memberA->birthday->isoFormat('MM-DD'), $memberB->birthday->isoFormat('MM-DD'));
+            });
     }
 
     private function addEventsToCalendar(Calendar $calendar, $inclLoggedInOnly = false): void
