@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.4.5 - 2023-11-18
+
+### Added
+
+- new feature: personal calendar link (with personal access token)
+
 ## v0.4.4 - 2023-11-09
 
 ### Added
