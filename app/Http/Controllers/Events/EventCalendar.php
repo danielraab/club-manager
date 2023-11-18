@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Livewire\Profile\CalendarLinks;
 use App\Models\Member;
 use App\Models\MemberFilter;
+use App\Models\User;
 use Carbon\Carbon;
-use http\Exception\UnexpectedValueException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Response;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -24,13 +24,9 @@ class EventCalendar extends Controller
     {
         $calendar = Calendar::create(env('APP_NAME'))->refreshInterval(self::CALENDAR_REFRESH_INTERVAL_MIN);
 
-        $authToken = false;
-        $token = request()->get("t");
-        if ($token && PersonalAccessToken::query()
-                ->where("token", $token)
-                ->where("name", CalendarLinks::CALENDAR_TOKEN_NAME)
-                ->first()) {
-            $authToken = true;
+        $authToken = $this->getPersonalAccessToken();
+
+        if ($authToken && $this->hasMemberShowPermission($authToken)) {
             $this->addMembersToCalendar($calendar);
         }
 
@@ -40,6 +36,30 @@ class EventCalendar extends Controller
             'Content-Type' => 'text/ics',
             'Content-Disposition' => 'attachment; filename="calendar.ics"',
         ]);
+    }
+
+    private function getPersonalAccessToken(): ?PersonalAccessToken
+    {
+        $token = request()->get("t");
+
+        if ($token) {
+            /** @var PersonalAccessToken $pat */
+            $pat = PersonalAccessToken::query()
+                ->where("token", $token)
+                ->where("name", CalendarLinks::CALENDAR_TOKEN_NAME)
+                ->first();
+
+            return $pat;
+        }
+        return null;
+    }
+
+    private function hasMemberShowPermission(PersonalAccessToken $pat): bool
+    {
+        /** @var User $user */
+        $user = $pat->tokenable()->first();
+
+        return $user?->hasPermission(Member::MEMBER_SHOW_PERMISSION, Member::MEMBER_EDIT_PERMISSION) ?: false;
     }
 
 
@@ -56,7 +76,7 @@ class EventCalendar extends Controller
 
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthday);
-            $calEvent->description((string) ($currentYear - $member->birthday->year));
+            $calEvent->description((string)($currentYear - $member->birthday->year));
             $calEvent->fullDay();
 
             $calendar->event($calEvent);

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Fixed
+
+- show member birthday in personal calendar link only with member show or edit permissions
 
 ## v0.4.5 - 2023-11-18
 
