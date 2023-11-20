@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             MemberSeeder::class,
             AttendanceSeeder::class,
+            ConfigurationSeeder::class
         ]);
     }
 }
