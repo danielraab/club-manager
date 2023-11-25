@@ -1,6 +1,6 @@
 <?php
 $hasShowMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
-$hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
+$hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
 ?>
 <section>
     <header>
