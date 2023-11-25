@@ -82,6 +82,17 @@
     "Delete Account": "Benutzer löschen",
     "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Sobald Ihr Konto gelöscht ist, sind all Ihre Daten dauerhaft gelöscht. Dieser Vorgang kann nicht rückgängig gemacht werden.",
 
+    "Settings": "Einstellungen",
+    "Show and edit user specific settings.": "Benutzerspezifische Einstellungen anzeigen und bearbeiten.",
+    "Dashboard Buttons": "Dashboard Buttons",
+    "Show or hide buttons on dashboard header.": "Schaltflächen im Dashboardheader ein- und ausblenden.",
+    "Email notifications": "Email Benachrichtigungen",
+    "Enable or disable email notifications on specific events.": "Benachrichtigungen für spezielle Ereignisse ein- bzw. ausschalten.",
+
+    "Calendar Links": "Kalendarlinks",
+    "Generate user specific calendar links. Link will contain logged in only events and member birthdays if you have the permission.": "Benutzerspezifische Kalenderlinks. Diese Links beinhalten Veranstaltungen die mit 'nur angemeldete' gekennzeichnet sind und Mitarbeitergeburtstage.",
+    "New link": "Neuer Link",
+
 
 
     "Users": "Benutzer",

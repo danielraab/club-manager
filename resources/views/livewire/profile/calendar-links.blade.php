@@ -36,6 +36,6 @@
             </div>
         @endforeach
         <x-default-button class="btn btn-primary inline-flex" wire:click="createLink"
-                          title="Create new calendar link">{{ __('New') }}</x-default-button>
+                          title="Create new calendar link">{{ __('New link') }}</x-default-button>
     </div>
 </section>

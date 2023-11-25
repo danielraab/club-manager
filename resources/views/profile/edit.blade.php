@@ -14,6 +14,10 @@
             </div>
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <livewire:profile.settings />
+            </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <livewire:profile.calendar-links />
             </div>
 
