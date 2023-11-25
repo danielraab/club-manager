@@ -77,10 +77,13 @@ class User extends Authenticatable
 
     public function hasPermission(string ...$permission): bool
     {
-        return $this->userPermissions()->whereIn('id', [...$permission, UserPermission::ADMIN_USER_PERMISSION])->exists();
+        return $this->userPermissions()->whereIn(
+            'id',
+            [...$permission, UserPermission::ADMIN_USER_PERMISSION]
+        )->exists();
     }
 
-    public function getNameWithMail()
+    public function getNameWithMail(): string
     {
         return $this->name.' <'.$this->email.'>';
     }

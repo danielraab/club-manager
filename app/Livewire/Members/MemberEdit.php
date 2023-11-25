@@ -4,8 +4,10 @@ namespace App\Livewire\Members;
 
 use App\Livewire\Forms\MemberForm;
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class MemberEdit extends Component
@@ -33,6 +35,34 @@ class MemberEdit extends Component
 
         session()->put('message', __('The member has been successfully deleted.'));
         return redirect($this->previousUrl);
+    }
+
+    public function createUser()
+    {
+        $member = $this->memberForm->member;
+        if(!$member) {
+            session()->flash('createUserStatus', "error");
+            session()->flash('createUserMessage', __("Not able to create a user for this memeber."));
+            return;
+        }
+
+        if(User::query()->where("email", $member->email)->exists()) {
+            session()->flash('createUserStatus', "error");
+            session()->flash('createUserMessage', __("A user with the member email already exists."));
+            return;
+        }
+
+        /** @var User $user */
+        $user = User::query()->create([
+            "name" => $member->getFullName(),
+            "email" => $member->email
+        ]);
+
+        Log::channel('userManagement')->info("User '".$user->getNameWithMail()."' has been created by '".auth()->user()?->getNameWithMail()."'");
+        session()->flash('createUserStatus', "success");
+        session()->flash('createUserMessage', __("User '".$user->name."' created successfully."));
+
+        $user->register();
     }
 
     public function render()
