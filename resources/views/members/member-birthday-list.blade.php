@@ -1,49 +1,41 @@
 <x-backend-layout>
     <x-slot name="headline">
         <div class="flex justify-between items-center">
-            <span>{{ __('Member Birthday list') }}</span>
+            <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
         </div>
     </x-slot>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg lg:p-6 text-gray-900">
         @if($members && $members->isNotEmpty())
-            <x-always-responsive-table class="table-auto mx-auto text-center">
-                <thead class="font-bold">
-                <tr>
-                    <td class="px-4 py-2">Name</td>
-                    <td class="px-4 py-2">{{__("Birthday")}}</td>
-                    <td class="px-4 py-2">{{__("Age")}}</td>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="flex flex-col divide-y">
                 @php($today = now()->format("m-d"))
+                @php($lastMonth = '')
                 @php($todayDisplayed = false)
                 @foreach($members as $member)
+                    @if($lastMonth != $member->birthday->isoFormat("MMMM"))
+                        @php($lastMonth = $member->birthday->isoFormat("MMMM"))
+                        <div class="text-center font-bold bg-gray-300 px-3 py-1">{{$lastMonth}}</div>
+                    @endif
                     @php($current = $member->birthday->format("m-d"))
                     @if(!$todayDisplayed && strcmp($today, $current) <= 0)
-                        <tr>
-                            <td colspan="3">
-                                <div class="relative py-4">
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="w-full border-b border-black"></div>
-                                    </div>
-                                    <div class="relative flex justify-center">
-                                        <span
-                                            class="bg-indigo-700 text-white px-4 border border-black rounded">{{__('Today')}} - {{now()->isoFormat("D. MMMM")}}</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        <div class="relative py-4">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-b border-black"></div>
+                            </div>
+                            <div class="relative flex justify-center">
+                                <span
+                                    class="bg-indigo-700 text-white px-4 border border-black rounded">{{__('Today')}} - {{now()->isoFormat("D. MMMM")}}</span>
+                            </div>
+                        </div>
                         @php($todayDisplayed = true)
                     @endif
-                    <tr class="[&:nth-child(2n)]:bg-indigo-200">
-                        <td class="border px-4 py-2">{{ $member->lastname }} {{ $member->firstname }}</td>
-                        <td class="border px-4 py-2">{{ $member->birthday->isoFormat("D. MMMM") }}</td>
-                        <td class="border px-4 py-2">{{ now()->format("Y") - $member->birthday->format("Y") }}</td>
-                    </tr>
+                    <div class="flex justify-between max-w-xl w-full self-center">
+                        <div class="px-4 py-2">{{ $member->lastname }} {{ $member->firstname }}</div>
+                        <div class="px-4 py-2">{{ $member->birthday->isoFormat("D. MMMM") }}</div>
+                        <div class="px-4 py-2">{{ now()->format("Y") - $member->birthday->format("Y") }}</div>
+                    </div>
                 @endforeach
-                </tbody>
-            </x-always-responsive-table>
+            </div>
         @else
             <div class="w-full text-center">{{__("No members")}}</div>
         @endif

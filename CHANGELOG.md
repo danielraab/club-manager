@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - button on member edit form to create a user from member data
+### Changed
+- update birthday list styling
 
 ## v0.5.1 - 2023-11-25
 ### Fixed
