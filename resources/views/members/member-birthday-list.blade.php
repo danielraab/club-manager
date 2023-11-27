@@ -2,6 +2,9 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
+            <x-button-link href='{{route("member.birthdayList.print")}}' class="btn-secondary">
+                <i class="fa-solid fa-print mr-2"></i>Print
+            </x-button-link>
         </div>
     </x-slot>
 

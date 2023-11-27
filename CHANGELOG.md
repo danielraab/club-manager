@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.5.5 - 2023-11-27
+### Added
+- Print member birthday list
+
 ## v0.5.4 - 2023-11-27
 ### Fixed
 - fix the fix

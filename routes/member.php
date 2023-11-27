@@ -18,6 +18,8 @@ Route::middleware(['auth', 'permission:'.Member::MEMBER_SHOW_PERMISSION.'|'.Memb
         ->name('member.list.csv');
     Route::get('/members/list/excel', [MemberList::class, 'excel'])
         ->name('member.list.excel');
+    Route::get('/members/birthdayList/print', [MemberList::class, 'birthdayListPrint'])
+        ->name('member.birthdayList.print');
     Route::get('/members/birthdayList', [MemberList::class, 'birthdayList'])
         ->name('member.birthdayList');
 });

@@ -80,6 +80,18 @@ class MemberList extends Controller
             });
     }
 
+    public function birthdayListPrint(bool $allMembers = true)
+    {
+        $missingBirthdayList = Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNull('birthday')
+            ->orderBy('lastname')->get();
+        $memberList = $this->getBirthdaySortedMembers($allMembers);
+
+        return view('members.member-birthday-list-print', [
+                'missingBirthdayList' => $missingBirthdayList,
+                'members' => $memberList
+            ]
+        );
+    }
     public function birthdayList(bool $allMembers = true)
     {
         $missingBirthdayList = Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNull('birthday')
