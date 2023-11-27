@@ -3,8 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.5.2 - 2023-11-27
 ### Added
 - button on member edit form to create a user from member data
+- calendar page (with fullCalendar plugin)
 ### Changed
 - update birthday list styling
 

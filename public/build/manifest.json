@@ -32,7 +32,7 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-7c98d7c2.css",
+    "file": "assets/app-c26f234d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -56,5 +56,10 @@
     "file": "assets/app-51fb375f.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/fullCalendar.js": {
+    "file": "assets/fullCalendar-f7bdde3b.js",
+    "isEntry": true,
+    "src": "resources/js/fullCalendar.js"
   }
 }

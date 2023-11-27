@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Events\EventCalendar;
+use App\Http\Controllers\Events\EventICalExport;
 use App\Http\Controllers\Events\EventDetail;
 use App\Http\Controllers\Events\EventExport;
 use App\Livewire\Events\EventCreate;
@@ -17,7 +18,9 @@ Route::get('/events', EventOverview::class)
 Route::get('/events/{event}/detail', [EventDetail::class, "index"])
     ->name('event.detail');
 
-Route::get('/events/ics', [EventCalendar::class, 'iCalendar'])
+Route::get('/events/calendar', [EventCalendar::class, 'render'])
+    ->name('event.calendar');
+Route::get('/events/ics', [EventICalExport::class, 'iCalendar'])
     ->name('event.iCalendar');
 Route::get('/events/json', [EventExport::class, 'toJson'])
     ->name('event.json');

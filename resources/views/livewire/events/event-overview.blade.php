@@ -10,26 +10,32 @@
             <span>{{ __('Event Overview') }}</span>
         </div>
     </x-slot>
+    <div
+        class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 items-center">
+        <x-button-link href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
+            <i class="fa-solid fa-calendar-days mr-1"></i>
+            {{__("Calendar")}}
+        </x-button-link>
+        @if($hasEditPermission)
+            <div class="ml-auto flex flex-row flex-wrap gap-2 justify-center">
+                <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
+                               title="Show event type list">
+                    {{__("Event Type List")}}
+                </x-button-link>
+                <x-button-link href="{{route('event.create')}}" class="btn-success"
+                               title="Create new event">
+                    {{__("Create new event")}}
+                </x-button-link>
+            </div>
+        @endif
 
-    @if($hasEditPermission)
-        <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap justify-center sm:justify-end gap-2 items-center">
-            <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
-                           title="Show event type list">
-                {{__("Event Type List")}}
-            </x-button-link>
-            <x-button-link href="{{route('event.create')}}" class="btn-success"
-                           title="Create new event">
-                {{__("Create new event")}}
-            </x-button-link>
-        </div>
-    @endif
+    </div>
 
     <x-livewire.loading/>
 
     <div class="flex flex-wrap justify-center items-center gap-3">
         <x-input-search wire:model.live.debounce.1000ms="search" wire:click="$refresh"/>
-        <x-livewire.event-filter />
+        <x-livewire.event-filter/>
     </div>
 
     <div class="flex justify-center my-3">
@@ -40,87 +46,89 @@
         @if($eventList->isEmpty())
             <span class="text-center">{{__("No events to display.")}}</span>
         @else
-        <x-always-responsive-table class="table-auto mx-auto text-center">
-            <thead class="font-bold">
-            <tr class="hidden md:table-row">
-                <td>{{__("Start")}}</td>
-                <td class="min-w-[150px]">{{__("Title")}}</td>
-                <td class="min-w-[150px]">{{__("Type")}}</td>
-                @if($hasEditPermission)
-                    <td>{{__("Action")}}</td>
-                @endif
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($eventList as $event)
-                @php
-                    /** @var \App\Models\Event $event */
-                    $rowBg = "bg-sky-200";
-                    if(!$event->enabled) $rowBg = "bg-red-200";
-                    elseif($event->end < now()) $rowBg = "bg-gray-300";
-                @endphp
-                <tr class="[&:nth-child(2n)]:bg-opacity-50 block md:table-row max-md:py-2 {{$rowBg}}">
-                    <td class="md:border px-1 min-w-[150px] block md:table-cell">
-                        {{$event->getFormattedStart()}}
-                    </td>
-                    <td class="md:border px-2 block md:table-cell">
-                        <span class="text-sm text-gray-600 mr-1">
-                        @if($event->link)
-                            <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
-                        @endif
-                        @if($hasEditPermission && $event->logged_in_only)
-                            <i class="fa-solid fa-arrow-right-to-bracket"
-                            title="{{__("Visible only for logged in users")}}"></i>
-                        @endif
-                        </span>
-                        {{$event->title}}
-                        @if($event->location && strlen(trim($event->location)) > 0)
-                            <p class="text-gray-500">{{$event->location}}</p>
-                        @endif
-                    </td>
-                    <td class="md:border px-2 hidden md:table-cell">{{$event->eventType?->title}}</td>
-                    @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
-                        <td class="md:border px-2 min-w-[70px] block md:table-cell">
-                            <div class="flex gap-2 justify-center">
-                                @if($hasAttendanceShowPermission)
-                                    <a href="{{route('event.attendance.show', $event->id)}}"
-                                       title="{{__("Show attendance of this event")}}"
-                                       class="inline-flex items-center text-indigo-700 p-0">
-                                        <i class="fa-solid fa-square-poll-horizontal"></i>
-                                    </a>
-                                @endif
-                                @if($hasAttendanceEditPermission)
-                                    <a href="{{route('event.attendance.edit', $event->id)}}"
-                                       title="{{__("Edit attendance of this event")}}"
-                                       class="inline-flex items-center text-cyan-900 p-0">
-                                        <i class="fa-solid fa-check-to-slot"></i>
-                                    </a>
-                                @endif
-                                @if($hasEditPermission)
-                                    @if($event->enabled)
-                                        <button type="button" title="{{__("Disable this event")}}"
-                                                class="text-green-600"
-                                                wire:click="toggleEnabledState({{$event->id}})">
-                                            <i class="fa-solid fa-toggle-on text-base"></i>
-                                        </button>
-                                    @else
-                                        <button type="button" title="{{__("Enable this event")}}" class="text-red-500"
-                                                wire:click="toggleEnabledState({{$event->id}})">
-                                            <i class="fa-solid fa-toggle-off text-base"></i>
-                                        </button>
-                                    @endif
-                                    <x-button-link href="{{route('event.edit', $event->id)}}" title="Edit this event"
-                                                   class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </x-button-link>
-                                @endif
-                            </div>
-                        </td>
+            <x-always-responsive-table class="table-auto mx-auto text-center">
+                <thead class="font-bold">
+                <tr class="hidden md:table-row">
+                    <td>{{__("Start")}}</td>
+                    <td class="min-w-[150px]">{{__("Title")}}</td>
+                    <td class="min-w-[150px]">{{__("Type")}}</td>
+                    @if($hasEditPermission)
+                        <td>{{__("Action")}}</td>
                     @endif
                 </tr>
-            @endforeach
-            </tbody>
-        </x-always-responsive-table>
+                </thead>
+                <tbody>
+                @foreach($eventList as $event)
+                    @php
+                        /** @var \App\Models\Event $event */
+                        $rowBg = "bg-sky-200";
+                        if(!$event->enabled) $rowBg = "bg-red-200";
+                        elseif($event->end < now()) $rowBg = "bg-gray-300";
+                    @endphp
+                    <tr class="[&:nth-child(2n)]:bg-opacity-50 block md:table-row max-md:py-2 {{$rowBg}}">
+                        <td class="md:border px-1 min-w-[150px] block md:table-cell">
+                            {{$event->getFormattedStart()}}
+                        </td>
+                        <td class="md:border px-2 block md:table-cell">
+                        <span class="text-sm text-gray-600 mr-1">
+                        @if($event->link)
+                                <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                            @endif
+                            @if($hasEditPermission && $event->logged_in_only)
+                                <i class="fa-solid fa-arrow-right-to-bracket"
+                                   title="{{__("Visible only for logged in users")}}"></i>
+                            @endif
+                        </span>
+                            {{$event->title}}
+                            @if($event->location && strlen(trim($event->location)) > 0)
+                                <p class="text-gray-500">{{$event->location}}</p>
+                            @endif
+                        </td>
+                        <td class="md:border px-2 hidden md:table-cell">{{$event->eventType?->title}}</td>
+                        @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
+                            <td class="md:border px-2 min-w-[70px] block md:table-cell">
+                                <div class="flex gap-2 justify-center">
+                                    @if($hasAttendanceShowPermission)
+                                        <a href="{{route('event.attendance.show', $event->id)}}"
+                                           title="{{__("Show attendance of this event")}}"
+                                           class="inline-flex items-center text-indigo-700 p-0">
+                                            <i class="fa-solid fa-square-poll-horizontal"></i>
+                                        </a>
+                                    @endif
+                                    @if($hasAttendanceEditPermission)
+                                        <a href="{{route('event.attendance.edit', $event->id)}}"
+                                           title="{{__("Edit attendance of this event")}}"
+                                           class="inline-flex items-center text-cyan-900 p-0">
+                                            <i class="fa-solid fa-check-to-slot"></i>
+                                        </a>
+                                    @endif
+                                    @if($hasEditPermission)
+                                        @if($event->enabled)
+                                            <button type="button" title="{{__("Disable this event")}}"
+                                                    class="text-green-600"
+                                                    wire:click="toggleEnabledState({{$event->id}})">
+                                                <i class="fa-solid fa-toggle-on text-base"></i>
+                                            </button>
+                                        @else
+                                            <button type="button" title="{{__("Enable this event")}}"
+                                                    class="text-red-500"
+                                                    wire:click="toggleEnabledState({{$event->id}})">
+                                                <i class="fa-solid fa-toggle-off text-base"></i>
+                                            </button>
+                                        @endif
+                                        <x-button-link href="{{route('event.edit', $event->id)}}"
+                                                       title="Edit this event"
+                                                       class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </x-button-link>
+                                    @endif
+                                </div>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+                </tbody>
+            </x-always-responsive-table>
         @endif
     </div>
     <div class="flex justify-center mt-3">
