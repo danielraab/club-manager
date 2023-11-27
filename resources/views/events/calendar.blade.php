@@ -42,7 +42,6 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                             if(info.event.extendedProps.link)
                                 eventInfoText += '\nLink: ' + info.event.extendedProps.link;
 
-                            console.log(info.event);
                             alert(eventInfoText);
                         }
                     });

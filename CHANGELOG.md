@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.5.3 - 2023-11-27
+### Fixed
+- new line bug on Calendar (json parse problem)
+
 ## v0.5.2 - 2023-11-27
 ### Added
 - button on member edit form to create a user from member data
