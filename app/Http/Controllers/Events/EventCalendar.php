@@ -19,7 +19,9 @@ class EventCalendar extends Controller
         )
             ->get(["title", "start", "end", "whole_day", "description", "location", "dress_code"])
             ->map(function ($event) {
-                $event["description"] = str_replace("\n", "; ", $event["description"]);
+                if ($event["description"]) {
+                    $event["description"] = str_replace("\n", "; ", $event["description"]);
+                }
                 $event["allDay"] = $event["whole_day"];
                 unset($event["whole_day"]);
                 return $event;

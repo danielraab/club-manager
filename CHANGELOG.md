@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.5.4 - 2023-11-27
+### Fixed
+- fix the fix
+
 ## v0.5.3 - 2023-11-27
 ### Fixed
 - new line bug on Calendar (json parse problem)
