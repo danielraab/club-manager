@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('enabled')->default(true);
             $table->string('title')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->boolean('logged_in_only')->default(false);
             $table->dateTime('display_until');
 

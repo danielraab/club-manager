@@ -36,6 +36,11 @@
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/trix.css": {
+    "file": "assets/trix-3271296f.css",
+    "isEntry": true,
+    "src": "resources/css/trix.css"
+  },
   "resources/fonts/nunito-latin-400-normal.woff2": {
     "file": "assets/nunito-latin-400-normal-5e2f97ea.woff2",
     "src": "resources/fonts/nunito-latin-400-normal.woff2"
@@ -61,5 +66,10 @@
     "file": "assets/fullCalendar-f7bdde3b.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar.js"
+  },
+  "resources/js/trix.umd.min.js": {
+    "file": "assets/trix.umd.min-a9505c12.js",
+    "isEntry": true,
+    "src": "resources/js/trix.umd.min.js"
   }
 }
