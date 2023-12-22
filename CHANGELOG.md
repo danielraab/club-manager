@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+
+## v0.5.6
 ### Added
 - add rich text formatter for news content
 ### Changed
