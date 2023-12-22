@@ -8,6 +8,7 @@ use Livewire\Component;
 class MemberGroupCreate extends Component
 {
     public MemberGroupForm $memberGroupForm;
+
     public string $previousUrl;
 
     public function mount(): void
@@ -20,6 +21,7 @@ class MemberGroupCreate extends Component
         $this->memberGroupForm->store();
 
         session()->put('message', __('The member group has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 

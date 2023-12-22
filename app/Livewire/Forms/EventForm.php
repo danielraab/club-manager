@@ -14,23 +14,31 @@ class EventForm extends Form
 
     #[Rule('required|max:255')]
     public string $title;
+
     public ?string $description;
+
     #[Rule('max:255')]
     public ?string $location;
+
     #[Rule('max:255')]
     public ?string $dress_code;
+
     public ?string $link;
+
     public ?bool $enabled;
+
     public ?bool $whole_day;
+
     public ?bool $logged_in_only;
 
     #[Rule('required|date')]
     public string $start;
+
     #[Rule('required|date|after_or_equal:start')]
     public string $end;
+
     #[Rule('int|exists:event_types,id')]
     public ?string $type = null;
-
 
     public function updatingStart($updatedValue): void
     {
@@ -48,15 +56,15 @@ class EventForm extends Form
         }
     }
 
-    public function store():void
+    public function store(): void
     {
         $this->validate();
 
         $this->event = Event::create([
-            ...$this->except(["event", "start", "end", "type"]),
-            "start" => Carbon::parseFromDatetimeLocalInput($this->start),
-            "end" => Carbon::parseFromDatetimeLocalInput($this->end),
-            "event_type_id" => $this->getEventTypeId()
+            ...$this->except(['event', 'start', 'end', 'type']),
+            'start' => Carbon::parseFromDatetimeLocalInput($this->start),
+            'end' => Carbon::parseFromDatetimeLocalInput($this->end),
+            'event_type_id' => $this->getEventTypeId(),
         ]);
 
         $this->event->creator()->associate(Auth::user());
@@ -65,15 +73,15 @@ class EventForm extends Form
         $this->event->save();
     }
 
-    public function update():void
+    public function update(): void
     {
         $this->validate();
 
         $this->event->update([
-            ...$this->except(["event", "start", "end", "type"]),
-            "start" => Carbon::parseFromDatetimeLocalInput($this->start),
-            "end" => Carbon::parseFromDatetimeLocalInput($this->end),
-            "event_type_id" => $this->getEventTypeId()
+            ...$this->except(['event', 'start', 'end', 'type']),
+            'start' => Carbon::parseFromDatetimeLocalInput($this->start),
+            'end' => Carbon::parseFromDatetimeLocalInput($this->end),
+            'event_type_id' => $this->getEventTypeId(),
         ]);
         $this->event->lastUpdater()->associate(Auth::user());
 
@@ -86,6 +94,7 @@ class EventForm extends Form
         if ($eventTypeId > 0) {
             return $eventTypeId;
         }
+
         return null;
     }
 

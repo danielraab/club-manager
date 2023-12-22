@@ -15,16 +15,16 @@ class MemberList extends Controller
     {
         return Response::stream(function () {
 
-            $sheetName = "memberList";
+            $sheetName = 'memberList';
 
-            $header = array(
+            $header = [
                 __('Name') => 'string',
                 __('Birthday date') => 'date',
                 __('Birthday') => 'string',
                 __('Age') => 'integer',
-                __("Email") => 'string',
-                __("Phone") => 'string'
-            );
+                __('Email') => 'string',
+                __('Phone') => 'string',
+            ];
             $writer = new \XLSXWriter();
 
             $writer->writeSheetHeader($sheetName, $header);
@@ -32,11 +32,11 @@ class MemberList extends Controller
                 /** @var Member $member */
                 $writer->writeSheetRow($sheetName, [
                     $member->getFullName(),
-                    $member->birthday?->format("Y-m-d"),
+                    $member->birthday?->format('Y-m-d'),
                     $member->birthday?->isoFormat('D. MMMM'),
                     $member->birthday ? now()->format('Y') - $member->birthday->format('Y') : null,
                     $member->email,
-                    $member->phone
+                    $member->phone,
                 ]);
             }
 
@@ -51,8 +51,8 @@ class MemberList extends Controller
     {
         return Response::stream(function () {
             $file = fopen('php://output', 'w');
-            fwrite($file, 'sep=' . self::CSV_SEPARATOR . "\n");
-            fputcsv($file, [__('Name'), __('Birthday'), __('Age'), __("Email"), __("Phone")], self::CSV_SEPARATOR);
+            fwrite($file, 'sep='.self::CSV_SEPARATOR."\n");
+            fputcsv($file, [__('Name'), __('Birthday'), __('Age'), __('Email'), __('Phone')], self::CSV_SEPARATOR);
 
             foreach (\App\Models\Member::getAllFiltered(MemberFilter::getMemberFilterFromRequest())->get() as $member) {
                 /** @var Member $member */
@@ -61,7 +61,7 @@ class MemberList extends Controller
                     $member->birthday?->isoFormat('D. MMMM'),
                     $member->birthday ? now()->format('Y') - $member->birthday->format('Y') : null,
                     $member->email,
-                    $member->phone
+                    $member->phone,
                 ], self::CSV_SEPARATOR);
             }
             fclose($file);
@@ -86,11 +86,12 @@ class MemberList extends Controller
         $memberList = $this->getBirthdaySortedMembers($allMembers);
 
         return view('members.member-birthday-list-print', [
-                'missingBirthdayList' => $missingBirthdayList,
-                'members' => $memberList
-            ]
+            'missingBirthdayList' => $missingBirthdayList,
+            'members' => $memberList,
+        ]
         );
     }
+
     public function birthdayList(bool $allMembers = true)
     {
         $missingBirthdayList = Member::getAllFiltered(new MemberFilter($allMembers, $allMembers, $allMembers))->whereNull('birthday')
@@ -98,9 +99,9 @@ class MemberList extends Controller
         $memberList = $this->getBirthdaySortedMembers($allMembers);
 
         return view('members.member-birthday-list', [
-                'missingBirthdayList' => $missingBirthdayList,
-                'members' => $memberList
-            ]
+            'missingBirthdayList' => $missingBirthdayList,
+            'members' => $memberList,
+        ]
         );
     }
 }

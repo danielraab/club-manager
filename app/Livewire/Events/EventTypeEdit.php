@@ -10,6 +10,7 @@ use Livewire\Component;
 class EventTypeEdit extends Component
 {
     public EventTypeForm $eventTypeForm;
+
     public string $previousUrl;
 
     public function mount(EventType $eventType)
@@ -26,6 +27,7 @@ class EventTypeEdit extends Component
         $this->eventTypeForm->update();
 
         session()->put('message', __('The event type has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -34,7 +36,8 @@ class EventTypeEdit extends Component
         $this->eventTypeForm->delete();
 
         session()->put('message', __('The event type has been successfully deleted.'));
-        return redirect(route("event.type.index"));
+
+        return redirect(route('event.type.index'));
     }
 
     public function render()

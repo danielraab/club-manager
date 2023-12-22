@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $public_key
  * @property string|null $auth_token
  * @property string|null $content_encoding
+ *
  * @see /database/migrations/2023_07_31_183210_create_push_subscriptions_table.php
  */
 class WebPushSubscription extends Model
@@ -37,7 +38,6 @@ class WebPushSubscription extends Model
     /**
      * Create a new model instance.
      *
-     * @param  array  $attributes
      * @return void
      */
     public function __construct(array $attributes = [])

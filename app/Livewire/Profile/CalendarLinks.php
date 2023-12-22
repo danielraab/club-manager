@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class CalendarLinks extends Component
 {
-    public const CALENDAR_TOKEN_NAME = "calendarLink";
+    public const CALENDAR_TOKEN_NAME = 'calendarLink';
 
     public function deleteLink(int $id): void
     {
@@ -31,8 +31,7 @@ class CalendarLinks extends Component
         $user = auth()->user();
 
         return view('livewire.profile.calendar-links', [
-            "tokenLinks" => $user->tokens()->where("name", self::CALENDAR_TOKEN_NAME)->get()
+            'tokenLinks' => $user->tokens()->where('name', self::CALENDAR_TOKEN_NAME)->get(),
         ]);
     }
-
 }

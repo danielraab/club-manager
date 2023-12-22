@@ -2,8 +2,6 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use NotificationChannels\WebPush\Events\NotificationFailed;
 
@@ -22,6 +20,6 @@ class FailedWebPushNotification
      */
     public function handle(NotificationFailed $event): void
     {
-        Log::notice("failed push notification", ["event" => $event]);
+        Log::notice('failed push notification', ['event' => $event]);
     }
 }

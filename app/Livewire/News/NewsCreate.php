@@ -9,6 +9,7 @@ use Livewire\Component;
 class NewsCreate extends Component
 {
     public NewsForm $newsForm;
+
     public string $previousUrl;
 
     public function mount(): void

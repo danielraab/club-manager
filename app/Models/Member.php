@@ -18,7 +18,7 @@ use Illuminate\Support\Arr;
  * @property string lastname
  * @property string|null title_pre
  * @property string|null title_post
- * @property boolean paused
+ * @property bool paused
  * @property \DateTime|null birthday
  * @property string|null phone
  * @property string|null email
@@ -29,6 +29,7 @@ use Illuminate\Support\Arr;
  * @property \DateTime|null leaving_date
  * @property string|null external_id
  * @property \DateTime|null last_import_date
+ *
  * @see /database/migrations/2023_06_12_204229_create_member_base_table.php
  * @see /database/migrations/2023_06_23_235409_member_table_add_external_data.php
  */
@@ -71,26 +72,24 @@ class Member extends Model
     {
         $fullName = '';
         if ($this->title_pre) {
-            $fullName = $this->title_pre . ' ';
+            $fullName = $this->title_pre.' ';
         }
-        $fullName .= $this->lastname . ' ' . $this->firstname;
+        $fullName .= $this->lastname.' '.$this->firstname;
         if ($this->title_post) {
-            $fullName .= ' ' . $this->title_post;
+            $fullName .= ' '.$this->title_post;
         }
 
         return $fullName;
     }
 
     /**
-     * @param bool $includePaused
-     * @return Builder
      * @deprecated use getAllFiltered method instead
      * @see Member::getAllFiltered
      */
     public static function allActive(bool $includePaused = false): Builder
     {
         $selection = self::query()->where('entrance_date', '<', now());
-        if (!$includePaused) {
+        if (! $includePaused) {
             $selection->where('paused', false);
         }
         $selection->where(function (Builder $query) {
@@ -101,33 +100,33 @@ class Member extends Model
         return $selection;
     }
 
-    public function matchFilter(MemberFilter $memberFilter):bool {
+    public function matchFilter(MemberFilter $memberFilter): bool
+    {
         return ($memberFilter->inclBeforeEntrance || $this->entrance_date === null || $this->entrance_date <= now()) &&
             ($memberFilter->inclAfterRetired || $this->leaving_date === null || $this->leaving_date >= now()) &&
-            ($memberFilter->inclPaused || !$this->paused) &&
+            ($memberFilter->inclPaused || ! $this->paused) &&
             ($memberFilter->memberGroupList === null ||
-                count($this->memberGroups()->pluck("id")->intersect(
-                    Arr::pluck($memberFilter->memberGroupList, "id"))) > 0);
+                count($this->memberGroups()->pluck('id')->intersect(
+                    Arr::pluck($memberFilter->memberGroupList, 'id'))) > 0);
     }
 
     public static function addFilterToBuilder(Builder $builder, MemberFilter $filter): Builder
     {
 
-        if (!$filter->inclBeforeEntrance) {
+        if (! $filter->inclBeforeEntrance) {
             $builder->where('entrance_date', '<', now());
         }
 
-        if (!$filter->inclAfterRetired) {
+        if (! $filter->inclAfterRetired) {
             $builder->where(function (Builder $query) {
                 $query->whereNull('leaving_date')
                     ->orWhere('leaving_date', '>', now());
             });
         }
 
-        if (!$filter->inclPaused) {
+        if (! $filter->inclPaused) {
             $builder->where('paused', false);
         }
-
 
         if ($filter->memberGroupList) {
             $builder->whereHas('memberGroups', function ($query) use ($filter) {
@@ -140,7 +139,9 @@ class Member extends Model
 
     public static function getAllFiltered(MemberFilter $filter = null): Builder
     {
-        if ($filter === null) $filter = new MemberFilter();
+        if ($filter === null) {
+            $filter = new MemberFilter();
+        }
 
         $selection = self::addFilterToBuilder(self::query(), $filter);
 

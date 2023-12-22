@@ -23,6 +23,7 @@ class MemberCreate extends Component
         $this->memberForm->store();
 
         session()->put('message', __('The member has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 

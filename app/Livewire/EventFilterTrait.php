@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 trait EventFilterTrait
 {
-
     public bool $sortAsc = true;
+
     public bool $showPast = false;
+
     public bool $showDisabled = false;
+
     public bool $showLoggedInOnly = true;
 
     public function canFilterShowPast(): bool

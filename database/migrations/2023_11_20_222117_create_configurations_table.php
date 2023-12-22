@@ -15,14 +15,14 @@ return new class extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
 
-            $table->string("key");
-            $table->string("value");
-            $table->enum("datatype", ["string", "int", "bool"]);
+            $table->string('key');
+            $table->string('value');
+            $table->enum('datatype', ['string', 'int', 'bool']);
 
             $table->foreignIdFor(User::class)->nullable();
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("set null");
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->unique(["key", "user_id"]);
+            $table->unique(['key', 'user_id']);
 
             $table->timestamps();
         });

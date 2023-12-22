@@ -23,6 +23,7 @@ class PollEdit extends Component
         $this->pollForm->update();
 
         session()->put('message', __('The attendance poll has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

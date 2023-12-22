@@ -4,12 +4,12 @@ namespace App\Livewire\Members;
 
 use App\Livewire\Forms\MemberGroupForm;
 use App\Models\MemberGroup;
-use Illuminate\Support\Arr;
 use Livewire\Component;
 
 class MemberGroupEdit extends Component
 {
     public MemberGroupForm $memberGroupForm;
+
     public string $previousUrl;
 
     public function mount(MemberGroup $memberGroup): void
@@ -23,6 +23,7 @@ class MemberGroupEdit extends Component
         $this->memberGroupForm->update();
 
         session()->put('message', __('The member group has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -31,6 +32,7 @@ class MemberGroupEdit extends Component
         $this->memberGroupForm->delete();
 
         session()->put('message', __('The member group has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 

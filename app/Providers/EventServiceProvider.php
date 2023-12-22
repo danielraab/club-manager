@@ -19,8 +19,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         \NotificationChannels\WebPush\Events\NotificationFailed::class => [
-            FailedWebPushNotification::class
-        ]
+            FailedWebPushNotification::class,
+        ],
     ];
 
     /**

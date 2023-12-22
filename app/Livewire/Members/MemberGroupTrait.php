@@ -2,16 +2,9 @@
 
 namespace App\Livewire\Members;
 
-use App\Models\Member;
-use App\Models\MemberGroup;
-
 trait MemberGroupTrait
 {
-
     public string $previousUrl;
-
-
-
 
     public function propToModel()
     {

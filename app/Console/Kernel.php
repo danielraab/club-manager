@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\EventFilter;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Notification;
 use NotificationChannels\WebPush\PushSubscription;
@@ -36,11 +35,10 @@ class Kernel extends ConsoleKernel
                 }
             }
         })
-            ->name("event web push notifications (tomorrow events)")
+            ->name('event web push notifications (tomorrow events)')
             ->dailyAt('15:00'); // timezone UTC
 
-
-        $schedule->call(function() {
+        $schedule->call(function () {
             $events = Event::getAllFiltered(new EventFilter(true, false, false))
                 ->where('start', '>=', now()->addHours(2)->setMinute(0)->setSecond(0))
                 ->where('start', '<=', now()->addHours(2)->setMinute(59)->setSecond(59))
@@ -55,7 +53,7 @@ class Kernel extends ConsoleKernel
                 }
             }
         })
-            ->name("event web push notifications 2 hours before start")
+            ->name('event web push notifications 2 hours before start')
             ->hourly();
     }
 
@@ -64,7 +62,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__ . '/Commands');
+        $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
     }

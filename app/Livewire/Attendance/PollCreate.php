@@ -34,6 +34,7 @@ class PollCreate extends Component
         $this->pollForm->store();
 
         session()->put('message', __('The attendance poll has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 

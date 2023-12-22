@@ -5,13 +5,13 @@ namespace App\Livewire\Events;
 use App\Livewire\Forms\EventForm;
 use App\Models\Event;
 use App\Notifications\UpcomingEvent;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use NotificationChannels\WebPush\PushSubscription;
 
 class EventEdit extends Component
 {
     public EventForm $eventForm;
+
     public string $previousUrl;
 
     public function mount(Event $event): void
@@ -19,7 +19,7 @@ class EventEdit extends Component
         $this->eventForm->setEventModel($event);
         $this->previousUrl = url()->previous();
     }
-    
+
     public function updatingEventFormStart($updatedValue): void
     {
         $this->eventForm->updatingStart($updatedValue);
@@ -35,6 +35,7 @@ class EventEdit extends Component
         $this->eventForm->delete();
 
         session()->put('message', __('The event has been successfully deleted.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -43,6 +44,7 @@ class EventEdit extends Component
         $this->eventForm->store();
 
         session()->put('message', __('The event has been successfully created.'));
+
         return redirect(route('event.edit', ['event' => $this->eventForm->event->id]));
     }
 
@@ -51,6 +53,7 @@ class EventEdit extends Component
         $this->eventForm->update();
 
         session()->put('message', __('The event has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

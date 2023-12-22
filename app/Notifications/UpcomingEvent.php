@@ -35,15 +35,15 @@ class UpcomingEvent extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $body = __("Do not forget the event ':name' on :date", [
-            "name" => $this->event->title,
-            "date" => $this->event->getFormattedStart()
+            'name' => $this->event->title,
+            'date' => $this->event->getFormattedStart(),
         ]);
 
         return (new WebPushMessage())
-            ->title(__(":app - event", ["app" => config("app.name")]))
+            ->title(__(':app - event', ['app' => config('app.name')]))
             ->icon(url('/').'/logo.svg')
             ->body($body)
             ->action(__('View Events'), 'event-detail')
-            ->data(["id"=>$this->event->id]);
+            ->data(['id' => $this->event->id]);
     }
 }

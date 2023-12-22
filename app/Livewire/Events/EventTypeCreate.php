@@ -9,6 +9,7 @@ use Livewire\Component;
 class EventTypeCreate extends Component
 {
     public EventTypeForm $eventTypeForm;
+
     public string $previousUrl;
 
     public function mount()
@@ -24,6 +25,7 @@ class EventTypeCreate extends Component
         $this->eventTypeForm->store();
 
         session()->put('message', __('The event type has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 

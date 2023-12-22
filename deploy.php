@@ -27,16 +27,14 @@ task('config:cache:fix', function () {
     run("sed -i -- 's/\/intern.mv-kematen.at\/httpdocs\//\/var\/www\/vhosts\/hosting187061.a2ea9.netcup.net\/intern.mv-kematen.at\/httpdocs\//g' ./bootstrap/cache/*");
 });
 
-
 desc('Build all caches');
 task('artisan:caches:all', [
     'artisan:config:cache', // cli realpath is not the same like apache realpath
     'artisan:route:cache',
     'artisan:view:cache',
     'artisan:event:cache',
-    'config:cache:fix'
+    'config:cache:fix',
 ]);
-
 
 /**
  * Main deploy task.

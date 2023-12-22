@@ -1,7 +1,7 @@
 <?php
 
-use App\Livewire\Attendance\AttendanceRecord;
 use App\Livewire\Attendance\AttendanceDisplay;
+use App\Livewire\Attendance\AttendanceRecord;
 use App\Livewire\Attendance\PollCreate;
 use App\Livewire\Attendance\PollEdit;
 use App\Livewire\Attendance\PollPublic;

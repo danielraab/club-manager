@@ -13,7 +13,7 @@ class PollPublic extends Component
 
     public string $memberSelection = '';
 
-    public Member|null $selectedMember = null;
+    public ?Member $selectedMember = null;
 
     protected array $rules = [
         'selectedMember' => ['nullable', 'string'],

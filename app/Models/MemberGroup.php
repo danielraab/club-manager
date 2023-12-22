@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null description
  * @property int sort_order
  * @property int|null parent_id
+ *
  * @see /database/migrations/2023_06_12_204229_create_member_base_table.php
  */
 class MemberGroup extends Model
@@ -31,15 +32,15 @@ class MemberGroup extends Model
         'title',
         'description',
         'sort_order',
-        'parent_id'
+        'parent_id',
     ];
 
-    public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getTopLevelQuery(): Builder
     {
         return self::query()->whereNull('parent_id')->orderBy('sort_order')->orderBy('title');
     }
 
-    public static function getLeafQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getLeafQuery(): Builder
     {
         return self::query()->whereDoesntHave('children')->orderBy('sort_order')->orderBy('title');
     }
@@ -58,14 +59,16 @@ class MemberGroup extends Model
         return $selection;
     }
 
-    public function getRecursiveMembers(MemberFilter $filter): Collection {
+    public function getRecursiveMembers(MemberFilter $filter): Collection
+    {
         $collection = new Collection();
         $members = $this->filteredMembers($filter)->get();
         $collection = $collection->merge($members);
-        foreach($this->children()->get() as $child) {
+        foreach ($this->children()->get() as $child) {
             /** @var $child MemberGroup */
             $collection = $collection->merge($child->getRecursiveMembers($filter));
         }
+
         return $collection;
     }
 
@@ -80,8 +83,7 @@ class MemberGroup extends Model
     }
 
     /**
-     * @param MemberGroup[] $childList
-     * @param int $depth
+     * @param  MemberGroup[]  $childList
      * @return MemberGroup[]
      */
     public function getAllChildrenRecursive(array &$childList = [], int $depth = 0): array

@@ -4,9 +4,7 @@ namespace App\Livewire\News;
 
 use App\Livewire\Forms\NewsForm;
 use App\Models\News;
-use App\Notifications\UpcomingEvent;
 use App\Notifications\UpcomingNews;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use NotificationChannels\WebPush\PushSubscription;
@@ -14,6 +12,7 @@ use NotificationChannels\WebPush\PushSubscription;
 class NewsEdit extends Component
 {
     public NewsForm $newsForm;
+
     public string $previousUrl;
 
     public function mount(News $news): void
@@ -38,6 +37,7 @@ class NewsEdit extends Component
         $this->newsForm->store();
 
         session()->put('message', __('News successfully created.'));
+
         return redirect(route('news.edit', ['news' => $this->newsForm->news->id]));
     }
 
@@ -49,6 +49,7 @@ class NewsEdit extends Component
         $this->newsForm->update();
 
         session()->put('message', __('News successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

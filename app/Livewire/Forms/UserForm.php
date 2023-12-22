@@ -15,6 +15,7 @@ class UserForm extends Form
 
     #[Rule('required|min:5')]
     public string $name;
+
     public string $email;
 
     public function setUserModel(User $user): void
@@ -30,21 +31,19 @@ class UserForm extends Form
         $this->user->delete();
     }
 
-
     protected function rules(): array
     {
         $emailRule = ['required', 'string', 'email', 'unique:users,email'];
-        if($this->user)
-        {
+        if ($this->user) {
             $emailRule = [
                 'required', 'string', 'email',
-                \Illuminate\Validation\Rule::unique('users', 'email')->ignore($this->user->id)
+                \Illuminate\Validation\Rule::unique('users', 'email')->ignore($this->user->id),
             ];
         }
 
         return [
             'email' => $emailRule,
-            ...$this->permissionRules()
+            ...$this->permissionRules(),
         ];
     }
 
@@ -53,8 +52,8 @@ class UserForm extends Form
         $this->validate();
 
         $this->user = User::create([
-            "name" => $this->name,
-            "email" => $this->email
+            'name' => $this->name,
+            'email' => $this->email,
         ]);
 
         $this->user->register();
@@ -68,8 +67,8 @@ class UserForm extends Form
         $this->validate();
 
         $this->user->update([
-            "name" => $this->name,
-            "email" => $this->email
+            'name' => $this->name,
+            'email' => $this->email,
         ]);
 
         $this->user->userPermissions()->sync(

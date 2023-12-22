@@ -8,46 +8,46 @@ use Illuminate\Support\Facades\Request;
 
 class MemberFilter
 {
-    public const PARAM_INCL_PAUSED = "paused";
-    public const PARAM_INCL_BEFORE = "before";
-    public const PARAM_INCL_AFTER = "after";
-    public const PARAM_INCL_MEMBER_GROUP_LIST = "groupList";
+    public const PARAM_INCL_PAUSED = 'paused';
+
+    public const PARAM_INCL_BEFORE = 'before';
+
+    public const PARAM_INCL_AFTER = 'after';
+
+    public const PARAM_INCL_MEMBER_GROUP_LIST = 'groupList';
 
     public bool $inclBeforeEntrance;
+
     public bool $inclAfterRetired;
+
     public bool $inclPaused;
 
-    /** @var int[]|null  */
+    /** @var int[]|null */
     public ?array $memberGroupList;
 
-    /**
-     * @param bool $inclBeforeEntrance
-     * @param bool $inclAfterRetired
-     * @param bool $inclPaused
-     * @param MemberGroup|null $memberGroup
-     */
     public function __construct(
         bool $inclBeforeEntrance = false,
         bool $inclAfterRetired = false,
         bool $inclPaused = false,
-        ?MemberGroup $memberGroup = null)
+        MemberGroup $memberGroup = null)
     {
         $this->inclBeforeEntrance = $inclBeforeEntrance;
         $this->inclAfterRetired = $inclAfterRetired;
         $this->inclPaused = $inclPaused;
         $this->memberGroupList = null;
-        if($memberGroup) {
-            $this->memberGroupList = Arr::map($memberGroup->getAllChildrenRecursive(), fn($group) => $group->id);
+        if ($memberGroup) {
+            $this->memberGroupList = Arr::map($memberGroup->getAllChildrenRecursive(), fn ($group) => $group->id);
         }
     }
 
-    public function toParameterArray(): array {
+    public function toParameterArray(): array
+    {
         return [
             self::PARAM_INCL_PAUSED => $this->inclPaused,
             self::PARAM_INCL_BEFORE => $this->inclBeforeEntrance,
             self::PARAM_INCL_AFTER => $this->inclAfterRetired,
             self::PARAM_INCL_MEMBER_GROUP_LIST => $this->memberGroupList ?
-                implode(',', $this->memberGroupList) : null
+                implode(',', $this->memberGroupList) : null,
         ];
     }
 
@@ -59,8 +59,9 @@ class MemberFilter
             Request::get(self::PARAM_INCL_PAUSED));
 
         $memberGroupParameter = Request::get(self::PARAM_INCL_MEMBER_GROUP_LIST);
-        if($memberGroupParameter)
+        if ($memberGroupParameter) {
             $memberFilter->memberGroupList = explode(',', Request::get(self::PARAM_INCL_MEMBER_GROUP_LIST));
+        }
 
         return $memberFilter;
     }

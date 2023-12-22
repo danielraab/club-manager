@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class WebPush extends Controller
 {
-    public function vapidPublicKey() {
-        return response()->json(["public_key" => config("webpush.vapid")["public_key"]], 200);
+    public function vapidPublicKey()
+    {
+        return response()->json(['public_key' => config('webpush.vapid')['public_key']], 200);
     }
 
     public function hasEndpoint(Request $request)
@@ -29,7 +30,7 @@ class WebPush extends Controller
         ]);
 
         $subscription = WebPushSubscription::findByEndpoint($request->endpoint);
-        if($subscription === null) {
+        if ($subscription === null) {
             return response(null, 404);
         }
         $done = $subscription?->delete();
@@ -42,7 +43,7 @@ class WebPush extends Controller
         $this->validate($request, [
             'endpoint' => 'required',
             'keys.auth' => 'required',
-            'keys.p256dh' => 'required'
+            'keys.p256dh' => 'required',
         ]);
         $endpoint = $request->endpoint;
         $token = $request->keys['auth'];

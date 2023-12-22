@@ -4,14 +4,11 @@ namespace App\Livewire\Members;
 
 use App\Livewire\MemberFilterTrait;
 use App\Models\Member;
-use App\Models\MemberGroup;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class MemberOverview extends Component
 {
     use MemberFilterTrait;
-
 
     public function getMembersProperty()
     {

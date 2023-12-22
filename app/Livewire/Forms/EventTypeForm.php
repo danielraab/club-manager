@@ -13,6 +13,7 @@ class EventTypeForm extends Form
 
     #[Rule('max:255')]
     public string $title;
+
     public ?string $description = null;
 
     #[Rule('nullable|exists:event_types,id')]
@@ -26,8 +27,8 @@ class EventTypeForm extends Form
         $this->validate();
 
         $this->eventType = EventType::create([
-            "parent_id" => $this->getParentId(),
-            ...$this->except("eventType", "parent")
+            'parent_id' => $this->getParentId(),
+            ...$this->except('eventType', 'parent'),
         ]);
     }
 
@@ -37,6 +38,7 @@ class EventTypeForm extends Form
         if ($parent_id > 0 && $parent_id !== $this->eventType?->id) {
             return $parent_id;
         }
+
         return null;
     }
 
@@ -58,8 +60,8 @@ class EventTypeForm extends Form
         $this->validate();
 
         $this->eventType->update([
-            "parent_id" => $this->getParentId(),
-            ...$this->except("eventType", "parent")
+            'parent_id' => $this->getParentId(),
+            ...$this->except('eventType', 'parent'),
         ]);
     }
 }

@@ -5,26 +5,26 @@ namespace App\Livewire\Forms;
 use App\Models\AttendancePoll;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Rule;
 use Livewire\Form;
-use function Deployer\desc;
 
 class PollForm extends Form
 {
     public ?AttendancePoll $poll = null;
 
     public string $title;
+
     public ?string $description;
+
     public ?bool $allow_anonymous_vote;
 
     public ?string $memberGroup = null;
+
     /** @var int[] */
     public array $selectedEvents = [];
 
     public string $closing_at;
 
     public bool $showOnlyFutureEvents = true;
-
 
     protected array $rules = [
         'title' => ['required', 'string', 'max:255'],
@@ -42,18 +42,19 @@ class PollForm extends Form
         $this->description = $this->poll->description;
         $this->allow_anonymous_vote = $this->poll->allow_anonymous_vote;
         $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
-        $this->memberGroup = $this->poll->memberGroup()->first("id")?->id;
+        $this->memberGroup = $this->poll->memberGroup()->first('id')?->id;
         $this->selectedEvents = $this->poll->events()->pluck('id')->toArray();
     }
 
-    public function store(): void {
+    public function store(): void
+    {
 
         $this->validate();
 
         $this->poll = AttendancePoll::create([
-            ...$this->except(["poll", "memberGroup", "selectedEvents", "closing_at"]),
-            "member_group_id" => $this->getMemberGroupId(),
-            "closing_at" => Carbon::parseFromDatetimeLocalInput($this->closing_at)
+            ...$this->except(['poll', 'memberGroup', 'selectedEvents', 'closing_at']),
+            'member_group_id' => $this->getMemberGroupId(),
+            'closing_at' => Carbon::parseFromDatetimeLocalInput($this->closing_at),
         ]);
 
         $this->poll->creator()->associate(Auth::user());
@@ -67,9 +68,9 @@ class PollForm extends Form
         $this->validate();
 
         $this->poll->update([
-            ...$this->except(["poll", "memberGroup", "selectedEvents", "closing_at"]),
-            "member_group_id" => $this->getMemberGroupId(),
-            "closing_at" => Carbon::parseFromDatetimeLocalInput($this->closing_at)
+            ...$this->except(['poll', 'memberGroup', 'selectedEvents', 'closing_at']),
+            'member_group_id' => $this->getMemberGroupId(),
+            'closing_at' => Carbon::parseFromDatetimeLocalInput($this->closing_at),
         ]);
 
         $this->poll->lastUpdater()->associate(Auth::user());
@@ -93,8 +94,7 @@ class PollForm extends Form
         if ($memberGroupId > 0) {
             return $memberGroupId;
         }
+
         return null;
     }
-
-
 }

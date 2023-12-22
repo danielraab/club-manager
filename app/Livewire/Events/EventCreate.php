@@ -8,8 +8,8 @@ use Livewire\Component;
 class EventCreate extends Component
 {
     public EventForm $eventForm;
-    public string $previousUrl;
 
+    public string $previousUrl;
 
     public function mount(): void
     {
@@ -27,6 +27,7 @@ class EventCreate extends Component
         $this->eventForm->store();
 
         session()->put('message', __('The event has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 
