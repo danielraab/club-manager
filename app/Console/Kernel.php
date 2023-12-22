@@ -3,7 +3,7 @@
 namespace App\Console;
 
 use App\Models\Event;
-use App\Models\EventFilter;
+use App\Models\Filter\EventFilter;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -21,10 +21,9 @@ class Kernel extends ConsoleKernel
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
 
-            $events = Event::getAllFiltered(new EventFilter(true, false, false))
-                ->where('start', '>=', $tomorrowMorning)
-                ->where('start', '<=', $tomorrowNight)
-                ->get();
+            $events = Event::getAllFiltered(
+                new EventFilter($tomorrowMorning, $tomorrowNight, true, false, false)
+            )->get();
 
             if ($events->count() > 0) {
                 foreach ($events as $event) {
@@ -39,10 +38,13 @@ class Kernel extends ConsoleKernel
             ->dailyAt('15:00'); // timezone UTC
 
         $schedule->call(function () {
-            $events = Event::getAllFiltered(new EventFilter(true, false, false))
-                ->where('start', '>=', now()->addHours(2)->setMinute(0)->setSecond(0))
-                ->where('start', '<=', now()->addHours(2)->setMinute(59)->setSecond(59))
-                ->get();
+            $events = Event::getAllFiltered(new EventFilter(
+                now()->addHours(2)->setMinute(0)->setSecond(0),
+                now()->addHours(2)->setMinute(59)->setSecond(59),
+                true,
+                false,
+                false
+            ))->get();
 
             if ($events->count() > 0) {
                 foreach ($events as $event) {
@@ -62,7 +64,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

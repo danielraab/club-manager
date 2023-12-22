@@ -35,7 +35,7 @@
 
     <div class="flex flex-wrap justify-center items-center gap-3">
         <x-input-search wire:model.live.debounce.1000ms="search" wire:click="$refresh"/>
-        <x-livewire.event-filter/>
+        <x-livewire.filter.event-filter/>
     </div>
 
     <div class="flex justify-center my-3">

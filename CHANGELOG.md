@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - add member birthdays for last and next year to ical export
 - move member filter class in subfolder
+- change event filter (remove past flag, added start and end date picker)
 
 ## v0.5.5 - 2023-11-27
 ### Added

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Filter\EventFilter;
 use App\Models\Filter\MemberFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -121,8 +122,14 @@ class Event extends Model
 
     public static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
     {
-        if (! $filter->inclPast) {
-            $builder->where('end', '>', now());
+        if ($filter->start) {
+            //includes events which end after the specified start date
+            $builder->where('end', '>=', $filter->start);
+        }
+
+        if ($filter->end) {
+            //includes events which start before the specified end date
+            $builder->where('start', '<=', $filter->end);
         }
 
         if (! $filter->inclDisabled) {
