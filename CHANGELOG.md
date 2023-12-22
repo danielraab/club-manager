@@ -3,7 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Added
+- add rich text formatter for news content
+### Changed
+- add member birthdays for last and next year to ical export
 
 ## v0.5.5 - 2023-11-27
 ### Added
