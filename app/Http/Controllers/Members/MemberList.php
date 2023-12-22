@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
+use App\Models\Filter\MemberFilter;
 use App\Models\Member;
-use App\Models\MemberFilter;
 use Illuminate\Support\Facades\Response;
-use Vtiful\Kernel\Excel;
 
 class MemberList extends Controller
 {

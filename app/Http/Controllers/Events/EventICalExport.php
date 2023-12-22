@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
 use App\Livewire\Profile\CalendarLinks;
+use App\Models\Filter\MemberFilter;
 use App\Models\Member;
-use App\Models\MemberFilter;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;

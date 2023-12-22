@@ -24,20 +24,20 @@
                 @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Event $event */
-                        $statistic = $event->getAttendanceStatistics(new \App\Models\MemberFilter(true, true, true));
+                        $statistic = $event->getAttendanceStatistics(new \App\Models\Filter\MemberFilter(true, true, true));
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
-                            class="text-gray-500 text-center sm:table-cell">{{$event->getFormattedStart()}}</div>
+                                class="text-gray-500 text-center sm:table-cell">{{$event->getFormattedStart()}}</div>
                         <div class="text-gray-700 text-center sm:table-cell">{{$event->title}}</div>
                         <div class="flex justify-center sm:table-cell">
                             <div class="flex sm:grid grid-cols-4 place-items-center">
                                 <span class="text-white bg-green-700 rounded-full px-2 m-1">{{$statistic["in"]}}</span>
                                 <span
-                                    class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic["unsure"]}}</span>
+                                        class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic["unsure"]}}</span>
                                 <span class="text-white bg-red-700 rounded-full px-2 m-1">{{$statistic["out"]}}</span>
                                 <span class="text-white text-center bg-green-700 px-2 m-1"><i
-                                        class="fa-solid fa-check"></i> {{$statistic["attended"]}}
+                                            class="fa-solid fa-check"></i> {{$statistic["attended"]}}
                             </div>
                         </div>
                         <div class="px-2 sm:table-cell">

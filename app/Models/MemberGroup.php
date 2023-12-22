@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Filter\MemberFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

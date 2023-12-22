@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\MemberFilter;
+use App\Models\Filter\MemberFilter;
 use App\Models\MemberGroup;
 
 trait MemberFilterTrait

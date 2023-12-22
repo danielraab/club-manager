@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Filter;
 
+use App\Models\MemberGroup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 
