@@ -1,5 +1,6 @@
 @php
     /** @var \App\Models\AttendancePoll $attendancePoll */
+    /** @var array $memberStatistic */
     $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
@@ -19,7 +20,7 @@
             </div>
         </div>
 
-        <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
+        <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center mb-5">
             <div class="table min-w-full divide-y">
                 @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
@@ -28,16 +29,16 @@
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
-                                class="text-gray-500 text-center sm:table-cell">{{$event->getFormattedStart()}}</div>
+                            class="text-gray-500 text-center sm:table-cell">{{$event->getFormattedStart()}}</div>
                         <div class="text-gray-700 text-center sm:table-cell">{{$event->title}}</div>
                         <div class="flex justify-center sm:table-cell">
                             <div class="flex sm:grid grid-cols-4 place-items-center">
                                 <span class="text-white bg-green-700 rounded-full px-2 m-1">{{$statistic["in"]}}</span>
                                 <span
-                                        class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic["unsure"]}}</span>
+                                    class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic["unsure"]}}</span>
                                 <span class="text-white bg-red-700 rounded-full px-2 m-1">{{$statistic["out"]}}</span>
                                 <span class="text-white text-center bg-green-700 px-2 m-1"><i
-                                            class="fa-solid fa-check"></i> {{$statistic["attended"]}}
+                                        class="fa-solid fa-check"></i> {{$statistic["attended"]}}
                             </div>
                         </div>
                         <div class="px-2 sm:table-cell">
@@ -60,6 +61,19 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+            <div class="text-gray-700 text-xl mb-5">{{__("Member attendances")}}</div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-3 justify-center">
+                    @foreach($memberStatistic as $id => $attendanceCnt)
+                        <div>
+                            <span class="font-bold">{{$attendanceCnt}} x</span>
+                            <span>{{\App\Models\Member::query()->find($id)?->getFullname()}}</span>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

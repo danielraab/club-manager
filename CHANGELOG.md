@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - make sort direction of event overview persistent.
+- member statistic for attendance poll statistics.
 
 ## v0.5.6
 ### Added
