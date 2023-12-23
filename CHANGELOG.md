@@ -3,8 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
-
+### Added
+- make sort direction of event overview persistent.
 
 ## v0.5.6
 ### Added

@@ -3,7 +3,8 @@
     start: $persist(@entangle('start').live),
     end: $persist(@entangle('end').live),
     showDisabled: $persist(@entangle('showDisabled').live),
-    showLoggedInOnly: $persist(@entangle('showLoggedInOnly').live)
+    showLoggedInOnly: $persist(@entangle('showLoggedInOnly').live),
+    sortAsc: $persist(@entangle('sortAsc').live),
 }" class="relative text-left" @click.outside="open = false">
 
 
