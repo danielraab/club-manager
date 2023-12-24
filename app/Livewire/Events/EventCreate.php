@@ -22,6 +22,16 @@ class EventCreate extends Component
         $this->previousUrl = url()->previous();
     }
 
+    public function updatingEventFormStart($updatedValue): void
+    {
+        $this->eventForm->updatingStart($updatedValue);
+    }
+
+    public function updatingEventFormEnd($updatedValue): void
+    {
+        $this->eventForm->updatingEnd($updatedValue);
+    }
+
     public function saveEvent()
     {
         $this->eventForm->store();
