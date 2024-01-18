@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
-## v0.5.7
+## v0.5.7 - 2023-12-24
 ### Added
 - make sort direction of event overview persistent.
 - member statistic for attendance poll statistics.
 - added event start/end date update function from edit to create form too.
 
-## v0.5.6
+## v0.5.6 - 2023-12-22
 ### Added
 - add rich text formatter for news content
 ### Changed
