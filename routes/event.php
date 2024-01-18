@@ -7,6 +7,7 @@ use App\Http\Controllers\Events\EventICalExport;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
 use App\Livewire\Events\EventOverview;
+use App\Livewire\Events\EventStatistic;
 use App\Livewire\Events\EventTypeCreate;
 use App\Livewire\Events\EventTypeEdit;
 use App\Models\Event;
@@ -39,6 +40,8 @@ Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(f
         ->name('event.type.create');
     Route::get('/events/types/{eventType}', EventTypeEdit::class)
         ->name('event.type.edit');
+    Route::get('/events/statistic', EventStatistic::class)
+        ->name('event.statistic');
 });
 
 require __DIR__.'/attendance.php';
