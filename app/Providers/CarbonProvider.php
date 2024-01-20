@@ -28,8 +28,12 @@ class CarbonProvider extends ServiceProvider
             return Carbon::parse($dateTimeLocalInput)->shiftTimezone(config('app.displayed_timezone'))->setTimezone('UTC');
         });
 
-        Carbon::macro('formatDateOnly', function () {
-            return Carbon::this()->setTimezone(config('app.displayed_timezone'))->isoFormat('D. MMM YYYY');
+        Carbon::macro('formatDateOnly', function ($withDayName = false) {
+            $time = Carbon::this()->setTimezone(config('app.displayed_timezone'));
+            if($withDayName) {
+                return $time->isoFormat("dd D. MMM YYYY");
+            }
+            return $time->isoFormat("D. MMM YYYY");
         });
         Carbon::macro('formatDateTimeWithSec', function () {
             return Carbon::this()->setTimezone(config('app.displayed_timezone'))->isoFormat('D. MMM YYYY - HH:mm:ss');

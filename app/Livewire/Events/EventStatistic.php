@@ -17,34 +17,17 @@ class EventStatistic extends Component
         $minStart = (int)substr(Event::query()->min("start"), 0, 4);
         $maxStart = (int)substr(Event::query()->max("start"), 0, 4);
 
-        for ($i = $minStart; $i <= $maxStart; $i++) {
+        for ($i = $maxStart; $i >= $minStart; $i--) {
             $this->availableYears[] = $i;
+        }
+
+        if(count($this->availableYears) > 0) {
+            $this->selectedYear = $this->availableYears[0];
         }
     }
 
     public function render()
     {
-        $eventTypes = null;
-        if($this->selectedYear) {
-//            $events = Event::query()
-//                ->select("event_type_id", DB::raw("COUNT(id) as count"))
-//                ->where("events.start", ">=", "2024-01-01")
-//                ->where("events.start", "<=", "2024-12-31")
-//                ->groupBy("event_type_id");
-//
-//            dd($eventTypeCounted = EventType::query()->joinSub($events, "event_counts", function (JoinClause $join) {
-//                $join->on("event_types.id", "=", "event_counts.event_type_id");
-//            })->get());
-
-            $eventTypes = EventType::query()->with(["events" => function(Builder $query) {
-                $query
-                    ->where("start", ">=", "$this->selectedYear-01-01 00:00:00")
-                    ->where("start", "<=", "$this->selectedYear-12-31 23:59:59");
-            }]);
-        }
-
-        return view('livewire.events.event-statistic', [
-            "eventTypes" => $eventTypes
-        ])->layout('layouts.backend');
+        return view('livewire.events.event-statistic')->layout('layouts.backend');
     }
 }
