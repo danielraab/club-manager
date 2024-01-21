@@ -38,13 +38,12 @@ class Kernel extends ConsoleKernel
             ->dailyAt('15:00'); // timezone UTC
 
         $schedule->call(function () {
-            $events = Event::getAllFiltered(new EventFilter(
-                now()->addHours(2)->setMinute(0)->setSecond(0),
-                now()->addHours(2)->setMinute(59)->setSecond(59),
-                true,
-                false,
-                false
-            ))->get();
+            $events = Event::query()
+                ->where("start", ">=", now()->addHours(2)->setMinute(0)->setSecond(0))
+                ->where("start", "<=", now()->addHours(2)->setMinute(59)->setSecond(59))
+                ->where('enabled', true)
+                ->where('logged_in_only', false)
+                ->get();
 
             if ($events->count() > 0) {
                 foreach ($events as $event) {
@@ -64,7 +63,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

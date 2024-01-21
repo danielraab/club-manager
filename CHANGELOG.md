@@ -3,8 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.5.8 - 2024-01-21
 ### Added
 - Event statistic - page with year selector, shows how many events per type are in a specific year
+
+### Fixed
+- multiple web notification for same event (hourly)
 
 ## v0.5.7 - 2023-12-24
 ### Added
