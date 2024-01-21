@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- make events statistic year persistent in session
 
 ## v0.5.8 - 2024-01-21
 ### Added

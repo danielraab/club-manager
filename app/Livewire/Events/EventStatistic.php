@@ -3,14 +3,19 @@
 namespace App\Livewire\Events;
 
 use App\Models\Event;
-use App\Models\EventType;
-use Illuminate\Contracts\Database\Query\Builder;
 use Livewire\Component;
 
 class EventStatistic extends Component
 {
+    public const SESSION_KEY_SELECTED_YEAR = "eventStatSelectedYear";
+
     public ?int $selectedYear = null;
     public array $availableYears = [];
+
+    public function updatedSelectedYear($value)
+    {
+        session([self::SESSION_KEY_SELECTED_YEAR => $value]);
+    }
 
     public function mount()
     {
@@ -21,7 +26,9 @@ class EventStatistic extends Component
             $this->availableYears[] = $i;
         }
 
-        if(count($this->availableYears) > 0) {
+        if (session()->has(self::SESSION_KEY_SELECTED_YEAR)) {
+            $this->selectedYear = session(self::SESSION_KEY_SELECTED_YEAR);
+        } else if (count($this->availableYears) > 0) {
             $this->selectedYear = $this->availableYears[0];
         }
     }

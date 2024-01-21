@@ -41,7 +41,7 @@
                         @if($eventsWithNoType->count() > 0)
                             <li>
                                 <div class="flex justify-between text-red-800 font-bold">
-                                    <span>{{__("With no event type")}}</span>
+                                    <span>{{__("Events with no type")}}</span>
                                     <span>{{$eventsWithNoType->count()}}</span>
                                 </div>
                                 <x-events.event-type-statistic-event-list
