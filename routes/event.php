@@ -28,6 +28,11 @@ Route::get('/events/json', [EventExport::class, 'toJson'])
 Route::get('/events/next', [EventExport::class, 'next'])
     ->name('event.next');
 
+Route::middleware(["auth"])->group(function() {
+    Route::get('/events/statistic', EventStatistic::class)
+        ->name('event.statistic');
+});
+
 Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)
         ->name('event.create');
@@ -40,8 +45,6 @@ Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(f
         ->name('event.type.create');
     Route::get('/events/types/{eventType}', EventTypeEdit::class)
         ->name('event.type.edit');
-    Route::get('/events/statistic', EventStatistic::class)
-        ->name('event.statistic');
 });
 
 require __DIR__.'/attendance.php';

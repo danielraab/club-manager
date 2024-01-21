@@ -11,24 +11,31 @@
         </div>
     </x-slot>
     <div
-        class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 items-center">
-        <x-button-link href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
-            <i class="fa-solid fa-calendar-days mr-1"></i>
-            {{__("Calendar")}}
-        </x-button-link>
-        @if($hasEditPermission)
-            <div class="ml-auto flex flex-row flex-wrap gap-2 justify-center">
-                <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
-                               title="Show event type list">
-                    {{__("Event Type List")}}
+        class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 items-center justify-between">
+        <div class="flex flex-row flex-wrap gap-2 justify-center max-sm:grow">
+            @auth
+                <x-button-link href="{{route('event.statistic')}}" class="btn-primary" title="Calendar">
+                    <i class="fa-solid fa-chart-simple mr-1"></i>
+                    {{__("Statistic")}}
                 </x-button-link>
-                <x-button-link href="{{route('event.create')}}" class="btn-success"
-                               title="Create new event">
-                    {{__("Create new event")}}
-                </x-button-link>
-            </div>
-        @endif
-
+            @endauth
+            <x-button-link href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
+                <i class="fa-solid fa-calendar-days mr-1"></i>
+                {{__("Calendar")}}
+            </x-button-link>
+        </div>
+            @if($hasEditPermission)
+                <div class="flex flex-row flex-wrap gap-2 justify-center">
+                    <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
+                                   title="Show event type list">
+                        {{__("Event Type List")}}
+                    </x-button-link>
+                    <x-button-link href="{{route('event.create')}}" class="btn-success"
+                                   title="Create new event">
+                        {{__("Create new event")}}
+                    </x-button-link>
+                </div>
+            @endif
     </div>
 
     <x-livewire.loading/>

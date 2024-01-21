@@ -1,3 +1,6 @@
+@php
+    $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
+@endphp
 <div>
     <x-slot name="headline">
         <div class="flex items-center">
@@ -41,11 +44,14 @@
                                     <span>{{__("With no event type")}}</span>
                                     <span>{{$eventsWithNoType->count()}}</span>
                                 </div>
-                                <x-events.event-type-statistic-event-list :events="$eventsWithNoType"/>
+                                <x-events.event-type-statistic-event-list
+                                    :events="$eventsWithNoType"
+                                    :hasEventEditPermission="$hasEventEditPermission"/>
                             </li>
                         @endif
                         @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
-                            <x-events.event-type-statistic :eventType="$eventType"/>
+                            <x-events.event-type-statistic :eventType="$eventType"
+                                                           :hasEventEditPermission="$hasEventEditPermission"/>
                         @endforeach
                     </ul>
                 </div>

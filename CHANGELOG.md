@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Added
+- Event statistic - page with year selector, shows how many events per type are in a specific year
 
 ## v0.5.7 - 2023-12-24
 ### Added
