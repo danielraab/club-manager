@@ -58,7 +58,7 @@
         </div>
 
 
-        @if($memberForm->member?->external_id || $memberForm->member?->last_import_date))
+        @if($memberForm->member?->external_id || $memberForm->member?->last_import_date)
             <div class="text-gray-500 mt-2 ml-3">
                 <i class="fa-solid fa-up-right-from-square"></i>
                 <span title="{{__("External id")}}">{{$memberForm->member->external_id}}</span> -

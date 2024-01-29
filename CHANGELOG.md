@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 ### Changed
-- make events statistic year persistent in session
+- make events statistic year persistent via session
+### Fixed
+- remove misplaced character in member edit form
 
 ## v0.5.8 - 2024-01-21
 ### Added
