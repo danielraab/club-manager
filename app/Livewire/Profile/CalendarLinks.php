@@ -3,6 +3,7 @@
 namespace App\Livewire\Profile;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class CalendarLinks extends Component
@@ -15,6 +16,7 @@ class CalendarLinks extends Component
         $user = auth()->user();
 
         $user->tokens()->find($id)->delete();
+        Log::info("Calendar link deleted", [auth()->user()]);
     }
 
     public function createLink(): void
@@ -23,6 +25,8 @@ class CalendarLinks extends Component
         $user = auth()->user();
 
         $token = $user->createToken(self::CALENDAR_TOKEN_NAME)->accessToken;
+
+        Log::info("New user calendar link created", [auth()->user()]);
     }
 
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

@@ -3,6 +3,7 @@
 namespace App\Livewire\Attendance;
 
 use App\Livewire\Forms\PollForm;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class PollCreate extends Component
@@ -33,6 +34,7 @@ class PollCreate extends Component
     {
         $this->pollForm->store();
 
+        Log::info("Poll created", [auth()->user(), $this->pollForm->poll]);
         session()->put('message', __('The attendance poll has been successfully created.'));
 
         return redirect($this->previousUrl);

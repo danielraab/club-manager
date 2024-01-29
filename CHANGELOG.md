@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- more logging for creates updates and deletes
 ### Changed
 - make events statistic year persistent via session
 ### Fixed

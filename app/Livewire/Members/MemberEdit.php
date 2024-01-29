@@ -24,6 +24,7 @@ class MemberEdit extends Component
     {
         $this->memberForm->update();
 
+        Log::info("Member updated", [auth()->user(), $this->memberForm->member]);
         session()->put('message', __('The member has been successfully updated.'));
 
         return redirect($this->previousUrl);
@@ -34,6 +35,7 @@ class MemberEdit extends Component
 
         $this->memberForm->delete();
 
+        Log::info("Member deleted", [auth()->user(), $this->memberForm->member]);
         session()->put('message', __('The member has been successfully deleted.'));
 
         return redirect($this->previousUrl);
@@ -62,11 +64,11 @@ class MemberEdit extends Component
             'email' => $member->email,
         ]);
 
+        $user->register();
+
         Log::channel('userManagement')->info("User '".$user->getNameWithMail()."' has been created by '".auth()->user()?->getNameWithMail()."'");
         session()->flash('createUserStatus', 'success');
         session()->flash('createUserMessage', __("User '".$user->name."' created successfully."));
-
-        $user->register();
     }
 
     public function render()

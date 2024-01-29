@@ -36,9 +36,9 @@ class UserEdit extends Component
     public function deleteUser(): RedirectResponse|Redirector
     {
         $this->userForm->delete();
+
         Log::channel('userManagement')
             ->info("User '".$this->userForm->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
-
         session()->put('message', __("The user '".$this->userForm->user->getNameWithMail()."' has been deleted."));
 
         return redirect(route('userManagement.index'));

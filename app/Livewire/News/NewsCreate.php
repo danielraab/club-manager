@@ -3,6 +3,7 @@
 namespace App\Livewire\News;
 
 use App\Livewire\Forms\NewsForm;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -24,6 +25,8 @@ class NewsCreate extends Component
     public function saveNews()
     {
         $this->newsForm->store();
+
+        Log::info("News created", [auth()->user(), $this->newsForm->news]);
         session()->push('message', __('News successfully added.'));
 
         return redirect($this->previousUrl);

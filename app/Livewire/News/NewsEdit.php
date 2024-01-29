@@ -5,6 +5,7 @@ namespace App\Livewire\News;
 use App\Livewire\Forms\NewsForm;
 use App\Models\News;
 use App\Notifications\UpcomingNews;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use NotificationChannels\WebPush\PushSubscription;
@@ -24,6 +25,8 @@ class NewsEdit extends Component
     public function deleteNews()
     {
         $this->newsForm->delete();
+
+        Log::info("News deleted", [auth()->user(), $this->newsForm->news]);
         session()->put('message', __('The news has been successfully deleted.'));
 
         return redirect($this->previousUrl);
@@ -36,6 +39,7 @@ class NewsEdit extends Component
     {
         $this->newsForm->store();
 
+        Log::info("News copied", [auth()->user(), $this->newsForm->news]);
         session()->put('message', __('News successfully created.'));
 
         return redirect(route('news.edit', ['news' => $this->newsForm->news->id]));
@@ -48,6 +52,7 @@ class NewsEdit extends Component
     {
         $this->newsForm->update();
 
+        Log::info("News updated", [auth()->user(), $this->newsForm->news]);
         session()->put('message', __('News successfully updated.'));
 
         return redirect($this->previousUrl);
@@ -64,6 +69,8 @@ class NewsEdit extends Component
             PushSubscription::all(),
             new UpcomingNews($this->newsForm->news)
         );
+
+        Log::info("News web push forced", [auth()->user(), $this->newsForm->news]);
     }
 
     public function render()

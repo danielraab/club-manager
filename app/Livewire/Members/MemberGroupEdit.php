@@ -4,6 +4,7 @@ namespace App\Livewire\Members;
 
 use App\Livewire\Forms\MemberGroupForm;
 use App\Models\MemberGroup;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class MemberGroupEdit extends Component
@@ -22,6 +23,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroupForm->update();
 
+        Log::info("Member group updated", [auth()->user(), $this->memberGroupForm->memberGroup]);
         session()->put('message', __('The member group has been successfully updated.'));
 
         return redirect($this->previousUrl);
@@ -31,6 +33,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroupForm->delete();
 
+        Log::info("Member group deleted", [auth()->user(), $this->memberGroupForm->memberGroup]);
         session()->put('message', __('The member group has been successfully deleted.'));
 
         return redirect($this->previousUrl);

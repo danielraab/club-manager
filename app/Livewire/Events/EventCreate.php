@@ -3,6 +3,7 @@
 namespace App\Livewire\Events;
 
 use App\Livewire\Forms\EventForm;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class EventCreate extends Component
@@ -36,6 +37,7 @@ class EventCreate extends Component
     {
         $this->eventForm->store();
 
+        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
         session()->put('message', __('The event has been successfully created.'));
 
         return redirect($this->previousUrl);
@@ -45,6 +47,7 @@ class EventCreate extends Component
     {
         $this->eventForm->store();
 
+        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
         session()->flash('savedAndStayMessage', __('New event created.'));
     }
 

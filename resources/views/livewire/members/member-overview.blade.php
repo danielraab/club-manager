@@ -7,7 +7,7 @@
 
 <x-slot name="headline">
     <div class="flex items-center">
-        <span>{{ __('Member Overview') }}</span>
+        <span>{{ __('Member Overview') }}</span>[
     </div>
 </x-slot>
 
