@@ -3,10 +3,9 @@
 namespace App\Console;
 
 use App\Models\Event;
-use App\Models\EventFilter;
+use App\Models\Filter\EventFilter;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Notification;
 use NotificationChannels\WebPush\PushSubscription;
@@ -22,10 +21,9 @@ class Kernel extends ConsoleKernel
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
 
-            $events = Event::getAllFiltered(new EventFilter(true, false, false))
-                ->where('start', '>=', $tomorrowMorning)
-                ->where('start', '<=', $tomorrowNight)
-                ->get();
+            $events = Event::getAllFiltered(
+                new EventFilter($tomorrowMorning, $tomorrowNight, true, false, false)
+            )->get();
 
             if ($events->count() > 0) {
                 foreach ($events as $event) {
@@ -36,14 +34,15 @@ class Kernel extends ConsoleKernel
                 }
             }
         })
-            ->name("event web push notifications (tomorrow events)")
+            ->name('event web push notifications (tomorrow events)')
             ->dailyAt('15:00'); // timezone UTC
 
-
-        $schedule->call(function() {
-            $events = Event::getAllFiltered(new EventFilter(true, false, false))
-                ->where('start', '>=', now()->addHours(2)->setMinute(0)->setSecond(0))
-                ->where('start', '<=', now()->addHours(2)->setMinute(59)->setSecond(59))
+        $schedule->call(function () {
+            $events = Event::query()
+                ->where("start", ">=", now()->addHours(2)->setMinute(0)->setSecond(0))
+                ->where("start", "<=", now()->addHours(2)->setMinute(59)->setSecond(59))
+                ->where('enabled', true)
+                ->where('logged_in_only', false)
                 ->get();
 
             if ($events->count() > 0) {
@@ -55,7 +54,7 @@ class Kernel extends ConsoleKernel
                 }
             }
         })
-            ->name("event web push notifications 2 hours before start")
+            ->name('event web push notifications 2 hours before start')
             ->hourly();
     }
 

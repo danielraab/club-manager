@@ -5,6 +5,7 @@ namespace App\Livewire\Attendance;
 use App\Models\Attendance as AttendanceModel;
 use App\Models\Event;
 use App\Models\Member;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class SingleAttendance extends Component
@@ -31,6 +32,7 @@ class SingleAttendance extends Component
 
         $attendance->poll_status = $result;
         $attendance->save();
+        Log::info("Attendance record set", [auth()->user(), $attendance]);
     }
 
     public function recordAttend(?bool $attend)
@@ -45,6 +47,7 @@ class SingleAttendance extends Component
 
         $attendance->attended = $attend;
         $attendance->save();
+        Log::info("Attendance set", [auth()->user(), $attendance]);
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Livewire\Members;
 
 use App\Livewire\Forms\MemberForm;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class MemberCreate extends Component
@@ -22,13 +23,16 @@ class MemberCreate extends Component
     {
         $this->memberForm->store();
 
+        Log::info("Member created", [auth()->user(), $this->memberForm->member]);
         session()->put('message', __('The member has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 
     public function saveMemberAndStay(): void
     {
         $this->memberForm->store();
+        Log::info("Member created", [auth()->user(), $this->memberForm->member]);
         session()->flash('savedAndStayMessage', __('New member successfully created. You can create the next one now.'));
     }
 

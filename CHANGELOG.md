@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.5.9 - 2024-01-30
+### Added
+- more logging for creates updates and deletes
+### Changed
+- make events statistic year persistent via session
+### Fixed
+- remove misplaced character in member edit form
+
+## v0.5.8 - 2024-01-21
+### Added
+- Event statistic - page with year selector, shows how many events per type are in a specific year
+
+### Fixed
+- multiple web notification for same event (hourly)
+
+## v0.5.7 - 2023-12-24
+### Added
+- make sort direction of event overview persistent.
+- member statistic for attendance poll statistics.
+- added event start/end date update function from edit to create form too.
+
+## v0.5.6 - 2023-12-22
+### Added
+- add rich text formatter for news content
+### Changed
+- add member birthdays for last and next year to ical export
+- move member filter class in subfolder
+- change event filter (remove past flag, added start and end date picker)
+
 ## v0.5.5 - 2023-11-27
 ### Added
 - Print member birthday list

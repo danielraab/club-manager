@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 
 class EventOverview extends Component
 {
-    use WithPagination, EventFilterTrait;
+    use EventFilterTrait, WithPagination;
 
     public ?string $search = null;
 

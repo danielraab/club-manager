@@ -5,6 +5,7 @@ namespace App\Livewire\Attendance;
 use App\Models\AttendancePoll;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class PollPublic extends Component
@@ -13,7 +14,7 @@ class PollPublic extends Component
 
     public string $memberSelection = '';
 
-    public Member|null $selectedMember = null;
+    public ?Member $selectedMember = null;
 
     protected array $rules = [
         'selectedMember' => ['nullable', 'string'],
@@ -50,6 +51,7 @@ class PollPublic extends Component
             ]);
             $attendance->poll_status = $result;
             $attendance->save();
+            Log::info("Attendance set via public poll", [$attendance]);
         }
     }
 

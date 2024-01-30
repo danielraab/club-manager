@@ -18,11 +18,26 @@
             @error('newsForm.title')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
+        <div class="my-3" wire:ignore x-init="initNews()">
+            @vite(['resources/js/trix.umd.min.js', 'resources/css/trix.css'])
+            <script>
+                function initNews() {
+                    const trixEditor = document.getElementById("contentEditor")
+                    addEventListener("trix-before-initialize", function (event) {
+                        Trix.config.blockAttributes.heading1.tagName = "h2";
+                    });
+                    addEventListener("trix-blur", function (event) {
+                        console.log("trixEditor: ", trixEditor.value);
+                    @this.set('newsForm.content', trixEditor.value);
+                    });
+                }
+            </script>
 
-        <div class="my-3">
             <x-input-label for="content" :value="__('Content')"/>
-            <x-textarea id="content" name="content" class="mt-1 block w-full min-h-[200px]"
-                        wire:model="newsForm.content" required autocomplete="content"/>
+
+            <input id="contentInput" type="hidden" name="content" wire:model="newsForm.content">
+            <trix-editor id="contentEditor" input="contentInput" class="w-full min-h-[200px]"></trix-editor>
+
             @error('newsForm.content')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
 

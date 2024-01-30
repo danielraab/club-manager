@@ -15,14 +15,18 @@ class NewsForm extends Form
 
     #[Rule('max:255')]
     public ?string $title = null;
+
     public ?string $content = null;
+
     public bool $enabled = true;
+
     public bool $logged_in_only = false;
 
     #[Rule('required|date')]
     public string $display_until;
 
-    public function setNewsModel(News $news): void {
+    public function setNewsModel(News $news): void
+    {
         $this->news = $news;
         $this->title = $news->title;
         $this->content = $news->content;
@@ -40,8 +44,8 @@ class NewsForm extends Form
         $this->additionalContentValidation();
 
         $this->news = News::create([
-            "display_until" => Carbon::parseFromDatetimeLocalInput($this->display_until),
-            ...$this->except("news", "display_until")
+            'display_until' => Carbon::parseFromDatetimeLocalInput($this->display_until),
+            ...$this->except('news', 'display_until'),
         ]);
 
         $this->news->creator()->associate(Auth::user());
@@ -64,8 +68,8 @@ class NewsForm extends Form
         $this->additionalContentValidation();
 
         $this->news->update([
-            ...$this->except("news", "display_until"),
-            "display_until" => Carbon::parseFromDatetimeLocalInput($this->display_until)
+            ...$this->except('news', 'display_until'),
+            'display_until' => Carbon::parseFromDatetimeLocalInput($this->display_until),
         ]);
         $this->news->lastUpdater()->associate(Auth::user());
         $this->news->save();

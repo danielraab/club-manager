@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 /**
  * @property int id
  * @property string key
@@ -19,36 +18,39 @@ class Configuration extends Model
 {
     use HasFactory;
 
-    public const DATATYPE_STRING = "string";
-    public const DATATYPE_INT = "int";
-    public const DATATYPE_BOOL = "bool";
+    public const DATATYPE_STRING = 'string';
+
+    public const DATATYPE_INT = 'int';
+
+    public const DATATYPE_BOOL = 'bool';
 
     private static function getKeyQuery(string $key, ?User $user): Builder
     {
-        $query = self::query()->where("key", $key);
+        $query = self::query()->where('key', $key);
 
         if ($user) {
             return $query->where(function ($query) use ($user) {
-                $query->whereNull("user_id");
-                $query->orWhere("user_id", $user->id);
+                $query->whereNull('user_id');
+                $query->orWhere('user_id', $user->id);
             })
-                ->orderByDesc("user_id");
+                ->orderByDesc('user_id');
         }
 
-        return $query->whereNull("user_id");
+        return $query->whereNull('user_id');
     }
 
     private static function getSingleKeyQuery(string $key, ?User $user): Builder
     {
         $query = self::query()
-            ->where("key", $key);
+            ->where('key', $key);
         if ($user) {
-            return $query->where("user_id", $user->id);
+            return $query->where('user_id', $user->id);
         }
-        return $query->whereNull("user_id");
+
+        return $query->whereNull('user_id');
     }
 
-    public static function storeString(string $key, string $value, ?User $user = null): ?string
+    public static function storeString(string $key, string $value, User $user = null): ?string
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -63,68 +65,70 @@ class Configuration extends Model
         return $oldValue;
     }
 
-    public static function getString(string $key, ?User $user = null, ?string $default = null): ?string
+    public static function getString(string $key, User $user = null, string $default = null): ?string
     {
         /** @var Configuration $configValue */
-        $configValue = self::getKeyQuery($key, $user)->first("value");
+        $configValue = self::getKeyQuery($key, $user)->first('value');
 
         if ($configValue) {
             return $configValue->value;
         }
+
         return $default;
     }
 
-
-    public static function storeInt(string $key, int $value, ?User $user = null): ?int
+    public static function storeInt(string $key, int $value, User $user = null): ?int
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
         $oldValue = $config->value;
         $config->key = $key;
-        $config->value = (string)$value;
+        $config->value = (string) $value;
         $config->datatype = self::DATATYPE_INT;
         $config->user()->associate($user);
 
         $config->save();
 
-        return $oldValue ? (int)$oldValue : null;
+        return $oldValue ? (int) $oldValue : null;
     }
 
-    public static function getInt(string $key, ?User $user = null, ?int $default = null): ?int
+    public static function getInt(string $key, User $user = null, int $default = null): ?int
     {
         /** @var Configuration $configValue */
-        $configValue = self::getKeyQuery($key, $user)->first("value");
+        $configValue = self::getKeyQuery($key, $user)->first('value');
 
         if ($configValue) {
-            return (int)$configValue->value;
+            return (int) $configValue->value;
         }
+
         return $default;
     }
 
-    public static function storeBool(string $key, bool $value, ?User $user = null): ?bool
+    public static function storeBool(string $key, bool $value, User $user = null): ?bool
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
         $oldValue = $config->value;
         $config->key = $key;
-        $config->value = (string)$value;
+        $config->value = (string) $value;
         $config->datatype = self::DATATYPE_BOOL;
 
         $config->user()->associate($user);
 
         $config->save();
 
-        return $oldValue ? (bool)$oldValue : null;
+        return $oldValue ? (bool) $oldValue : null;
     }
 
-    public static function getBool(string $key, ?User $user = null, ?bool $default = null): ?bool
+    public static function getBool(string $key, User $user = null, bool $default = null): ?bool
     {
         /** @var Configuration $configValue */
-        $configValue = self::getKeyQuery($key, $user)->first("value");
+        $configValue = self::getKeyQuery($key, $user)->first('value');
 
         if ($configValue) {
-            return (bool)$configValue->value;
+            return (bool) $configValue->value;
         }
+
         return $default;
     }
 

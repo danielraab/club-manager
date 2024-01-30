@@ -4,7 +4,6 @@ namespace App\Livewire\Members;
 
 use App\Livewire\MemberFilterTrait;
 use App\Models\Member;
-use App\Models\MemberGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -12,8 +11,11 @@ class MemberOverview extends Component
 {
     use MemberFilterTrait;
 
-
-    public function getMembersProperty()
+    /**
+     * method to make a property available in template: $this->members
+     * @return Builder
+     */
+    public function getMembersProperty(): Builder
     {
         $memberList = Member::getAllFiltered($this->getMemberFilter());
 

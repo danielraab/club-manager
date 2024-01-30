@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Models\Event;
 use App\Models\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -14,7 +13,6 @@ class UpcomingNews extends Notification
     use Queueable;
 
     private News $news;
-
 
     /**
      * Create a new notification instance.
@@ -37,14 +35,14 @@ class UpcomingNews extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $body = __("Please be aware of the news ':name'", [
-            "name" => $this->news->title,
+            'name' => $this->news->title,
         ]);
 
         return (new WebPushMessage())
-            ->title(__(":app - news", ["app" => config("app.name")]))
-            ->icon(url('/') . '/logo.svg')
+            ->title(__(':app - news', ['app' => config('app.name')]))
+            ->icon(url('/').'/logo.svg')
             ->body($body)
             ->action(__('View News'), 'news-detail')
-            ->data(["id" => $this->news->id]);
+            ->data(['id' => $this->news->id]);
     }
 }

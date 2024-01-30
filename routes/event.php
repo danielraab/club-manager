@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\Events\EventCalendar;
-use App\Http\Controllers\Events\EventICalExport;
 use App\Http\Controllers\Events\EventDetail;
 use App\Http\Controllers\Events\EventExport;
+use App\Http\Controllers\Events\EventICalExport;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
 use App\Livewire\Events\EventOverview;
+use App\Livewire\Events\EventStatistic;
 use App\Livewire\Events\EventTypeCreate;
 use App\Livewire\Events\EventTypeEdit;
 use App\Models\Event;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/events', EventOverview::class)
     ->name('event.index');
 
-Route::get('/events/{event}/detail', [EventDetail::class, "index"])
+Route::get('/events/{event}/detail', [EventDetail::class, 'index'])
     ->name('event.detail');
 
 Route::get('/events/calendar', [EventCalendar::class, 'render'])
@@ -26,6 +27,11 @@ Route::get('/events/json', [EventExport::class, 'toJson'])
     ->name('event.json');
 Route::get('/events/next', [EventExport::class, 'next'])
     ->name('event.next');
+
+Route::middleware(["auth"])->group(function() {
+    Route::get('/events/statistic', EventStatistic::class)
+        ->name('event.statistic');
+});
 
 Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {
     Route::get('/events/event/create', EventCreate::class)

@@ -3,13 +3,14 @@
 namespace App\Livewire\Events;
 
 use App\Livewire\Forms\EventForm;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class EventCreate extends Component
 {
     public EventForm $eventForm;
-    public string $previousUrl;
 
+    public string $previousUrl;
 
     public function mount(): void
     {
@@ -22,11 +23,23 @@ class EventCreate extends Component
         $this->previousUrl = url()->previous();
     }
 
+    public function updatingEventFormStart($updatedValue): void
+    {
+        $this->eventForm->updatingStart($updatedValue);
+    }
+
+    public function updatingEventFormEnd($updatedValue): void
+    {
+        $this->eventForm->updatingEnd($updatedValue);
+    }
+
     public function saveEvent()
     {
         $this->eventForm->store();
 
+        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
         session()->put('message', __('The event has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 
@@ -34,6 +47,7 @@ class EventCreate extends Component
     {
         $this->eventForm->store();
 
+        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
         session()->flash('savedAndStayMessage', __('New event created.'));
     }
 

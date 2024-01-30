@@ -4,6 +4,7 @@ namespace App\Livewire\Attendance;
 
 use App\Livewire\Forms\PollForm;
 use App\Models\AttendancePoll;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class PollEdit extends Component
@@ -22,7 +23,9 @@ class PollEdit extends Component
     {
         $this->pollForm->update();
 
+        Log::info("Poll edited", [auth()->user(), $this->pollForm->poll]);
         session()->put('message', __('The attendance poll has been successfully updated.'));
+
         return redirect($this->previousUrl);
     }
 

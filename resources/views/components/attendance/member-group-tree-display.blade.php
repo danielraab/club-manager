@@ -1,9 +1,9 @@
 @php
     /** @var \App\Models\Event $event */
     /** @var \App\Models\MemberGroup $memberGroup */
-    /** @var \App\Models\MemberFilter $memberFilter */
+    /** @var \App\Models\Filter\MemberFilter $memberFilter */
 @endphp
-    <!-- Accordion Wrapper -->
+        <!-- Accordion Wrapper -->
 <div x-data="{show:{{$attributes->get('initialShow', 'false')}}}" class="transition mb-1">
     <!-- header -->
     <div x-on:click="show= !show" :class="show ? 'bg-indigo-100':''"

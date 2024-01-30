@@ -36,36 +36,40 @@ class UserEdit extends Component
     public function deleteUser(): RedirectResponse|Redirector
     {
         $this->userForm->delete();
+
         Log::channel('userManagement')
             ->info("User '".$this->userForm->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
-
         session()->put('message', __("The user '".$this->userForm->user->getNameWithMail()."' has been deleted."));
 
-        return redirect(route("userManagement.index"));
+        return redirect(route('userManagement.index'));
     }
 
-    public function sendResetLink() {
+    public function sendResetLink()
+    {
         $email = $this->userForm->user?->email;
 
         $status = Password::sendResetLink([
-            "email" => $email
+            'email' => $email,
         ]);
 
-        switch($status) {
+        switch ($status) {
             case Password::RESET_LINK_SENT:
-                session()->flash("sendResetLinkMessage", __("Password reset link successfully sent."));
+                session()->flash('sendResetLinkMessage', __('Password reset link successfully sent.'));
+
                 return;
 
             case Password::RESET_THROTTLED:
-                session()->flash("sendResetLinkMessage", __("The reset mail was throttled."));
+                session()->flash('sendResetLinkMessage', __('The reset mail was throttled.'));
+
                 return;
 
             case Password::INVALID_USER:
-                session()->flash("sendResetLinkMessage", __("User/Mail not found."));
+                session()->flash('sendResetLinkMessage', __('User/Mail not found.'));
+
                 return;
 
             default:
-                session()->flash("sendResetLinkMessage", __("Not able to send password reset link."));
+                session()->flash('sendResetLinkMessage', __('Not able to send password reset link.'));
         }
 
     }

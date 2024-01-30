@@ -10,11 +10,14 @@ use Livewire\Form;
 class MemberGroupForm extends Form
 {
     public ?MemberGroup $memberGroup = null;
-    public string $title;
-    public ?string $description;
-    public ?string $parent = null;
-    public array $memberSelection = [];
 
+    public string $title;
+
+    public ?string $description;
+
+    public ?string $parent = null;
+
+    public array $memberSelection = [];
 
     protected function rules(): array
     {
@@ -53,8 +56,8 @@ class MemberGroupForm extends Form
         $this->validate();
 
         $this->memberGroup = MemberGroup::create([
-            ...$this->except(["parent", "memberSelection"]),
-            "parent_id" => $this->getParentId()
+            ...$this->except(['parent', 'memberSelection']),
+            'parent_id' => $this->getParentId(),
         ]);
         $this->memberGroup->members()->sync(array_unique($this->memberSelection));
     }
@@ -64,8 +67,8 @@ class MemberGroupForm extends Form
         $this->validate();
 
         $this->memberGroup->update([
-            ...$this->except(["parent", "memberSelection"]),
-            "parent_id" => $this->getParentId()
+            ...$this->except(['parent', 'memberSelection']),
+            'parent_id' => $this->getParentId(),
         ]);
         $this->memberGroup->members()->sync(array_unique($this->memberSelection));
     }
@@ -73,13 +76,14 @@ class MemberGroupForm extends Form
     private function getParentId(): ?int
     {
         $parentId = intval($this->parent);
-        if($parentId > 0 && $parentId !== $this->memberGroup?->id) {
+        if ($parentId > 0 && $parentId !== $this->memberGroup?->id) {
             return $parentId;
         }
+
         return null;
     }
 
-    public function delete():void
+    public function delete(): void
     {
         $this->memberGroup->delete();
     }

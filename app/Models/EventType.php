@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 /**
  * @property int id
  * @property string title
@@ -15,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int sort_order
  * @property ?int parent_id
  * @property ?EventType parent
+ *
  * @see /database/migrations/2023_05_20_223845_create_events_table.php
  */
 class EventType extends Model

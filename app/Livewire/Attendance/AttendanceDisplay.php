@@ -4,7 +4,6 @@ namespace App\Livewire\Attendance;
 
 use App\Livewire\MemberFilterTrait;
 use App\Models\Event;
-use App\Models\Member;
 use Livewire\Component;
 
 class AttendanceDisplay extends Component
@@ -23,8 +22,8 @@ class AttendanceDisplay extends Component
         $attendanceStatistics = $this->event->getAttendanceStatistics($this->getMemberFilter());
 
         return view('livewire.attendance.attendance-display', [
-                'statistics' => $attendanceStatistics,
-            ]
+            'statistics' => $attendanceStatistics,
+        ]
         )->layout('layouts.backend');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Filter\EventFilter;
+use App\Models\Filter\MemberFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,12 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null dress_code
  * @property Carbon start
  * @property Carbon end
- * @property boolean whole_day
- * @property boolean enabled
- * @property boolean logged_in_only
+ * @property bool whole_day
+ * @property bool enabled
+ * @property bool logged_in_only
  * @property string|null link
  * @property ?int event_type_id
  * @property ?EventType eventType
+ *
  * @see /database/migrations/2023_05_20_223845_create_events_table.php
  */
 class Event extends Model
@@ -33,7 +36,6 @@ class Event extends Model
     use SoftDeletes;
 
     public const EVENT_EDIT_PERMISSION = 'eventEdit';
-
 
     protected $fillable = [
         'title',
@@ -81,21 +83,27 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getFormattedStart(): string {
-        $start = $this->start->setTimezone(config("app.displayed_timezone"));
+    public function getFormattedStart(): string
+    {
+        $start = $this->start->setTimezone(config('app.displayed_timezone'));
+
         return $this->formatDateTime($start);
     }
 
-    public function getFormattedEnd(): string {
-        $end = $this->end->setTimezone(config("app.displayed_timezone"));
+    public function getFormattedEnd(): string
+    {
+        $end = $this->end->setTimezone(config('app.displayed_timezone'));
+
         return $this->formatDateTime($end);
     }
 
-    private function formatDateTime($datetime): string {
-        if($this->whole_day) {
-            return $datetime->isoFormat("ddd D. MMM YYYY");
+    private function formatDateTime($datetime): string
+    {
+        if ($this->whole_day) {
+            return $datetime->isoFormat('ddd D. MMM YYYY');
         }
-        return $datetime->isoFormat("ddd D. MMM YYYY - HH:mm");
+
+        return $datetime->isoFormat('ddd D. MMM YYYY - HH:mm');
     }
 
     public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
@@ -105,7 +113,7 @@ class Event extends Model
         if ($onlyEnabled) {
             $eventList = $eventList->where('enabled', true);
         }
-        if (!$inclLoggedInOnly) {
+        if (! $inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
 
@@ -114,26 +122,34 @@ class Event extends Model
 
     public static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
     {
-        if (!$filter->inclPast) {
-            $builder->where('end', '>', now());
+        if ($filter->start) {
+            //includes events which end after the specified start date
+            $builder->where('end', '>=', $filter->start);
         }
 
-        if (!$filter->inclDisabled) {
+        if ($filter->end) {
+            //includes events which start before the specified end date
+            $builder->where('start', '<=', $filter->end);
+        }
+
+        if (! $filter->inclDisabled) {
             $builder->where('enabled', true);
         }
 
-        if (!$filter->inclLoggedInOnly) {
+        if (! $filter->inclLoggedInOnly) {
             $builder->where('logged_in_only', false);
         }
 
-        $builder->orderBy('start', $filter->sortAsc ? "asc" : "desc");
+        $builder->orderBy('start', $filter->sortAsc ? 'asc' : 'desc');
 
         return $builder;
     }
 
-
-    public static function getAllFiltered(EventFilter $filter = null): Builder {
-        if($filter === null) $filter = new EventFilter();
+    public static function getAllFiltered(EventFilter $filter = null): Builder
+    {
+        if ($filter === null) {
+            $filter = new EventFilter();
+        }
 
         return self::addFilterToBuilder(self::query(), $filter);
     }
@@ -163,7 +179,9 @@ class Event extends Model
 
         foreach ($attendances as $attendance) {
             /** @var Attendance $attendance */
-            if(!$attendance->member()->first()->matchFilter($memberFilter)) continue;
+            if (! $attendance->member()->first()->matchFilter($memberFilter)) {
+                continue;
+            }
 
             if ($attendance->poll_status === 'in') {
                 $cntIn++;
@@ -203,7 +221,7 @@ class Event extends Model
             'out' => $cntOut,
             'attended' => $cntAttended,
             'memberGroupStatistics' => $memberGroupCntList,
-            'unset' => $attendances->count() - ($cntIn + $cntUnsure + $cntOut)
+            'unset' => $attendances->count() - ($cntIn + $cntUnsure + $cntOut),
         ];
     }
 }

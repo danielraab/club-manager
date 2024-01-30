@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
 use App\Livewire\Profile\CalendarLinks;
+use App\Models\Filter\MemberFilter;
 use App\Models\Member;
-use App\Models\MemberFilter;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,17 +40,18 @@ class EventICalExport extends Controller
 
     private function getPersonalAccessToken(): ?PersonalAccessToken
     {
-        $token = request()->get("t");
+        $token = request()->get('t');
 
         if ($token) {
             /** @var PersonalAccessToken $pat */
             $pat = PersonalAccessToken::query()
-                ->where("token", $token)
-                ->where("name", CalendarLinks::CALENDAR_TOKEN_NAME)
+                ->where('token', $token)
+                ->where('name', CalendarLinks::CALENDAR_TOKEN_NAME)
                 ->first();
 
             return $pat;
         }
+
         return null;
     }
 
@@ -62,7 +63,6 @@ class EventICalExport extends Controller
         return $user?->hasPermission(Member::MEMBER_SHOW_PERMISSION, Member::MEMBER_EDIT_PERMISSION) ?: false;
     }
 
-
     private function addMembersToCalendar(Calendar $calendar): void
     {
         $currentYear = Carbon::now()->year;
@@ -71,19 +71,37 @@ class EventICalExport extends Controller
             /** @var $member Member */
 
             /** @var Carbon $birthday */
+            $birthdayLastYear = $member->birthday->clone();
+            $birthdayLastYear->setYear($currentYear - 1);
+
+            //last year birthday
+            $calEvent = Event::create($member->getFullName());
+            $calEvent->startsAt($birthdayLastYear);
+            $calEvent->description((string) ($currentYear - 1 - $member->birthday->year));
+            $calEvent->fullDay();
+            $calendar->event($calEvent);
+
+            //this year
             $birthday = $member->birthday->clone();
             $birthday->setYear($currentYear);
-
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthday);
-            $calEvent->description((string)($currentYear - $member->birthday->year));
+            $calEvent->description((string) ($currentYear - $member->birthday->year));
             $calEvent->fullDay();
+            $calendar->event($calEvent);
 
+            //next year
+            $birthdayNextYear = $member->birthday->clone();
+            $birthdayNextYear->setYear($currentYear + 1);
+            $calEvent = Event::create($member->getFullName());
+            $calEvent->startsAt($birthdayNextYear);
+            $calEvent->description((string) ($currentYear + 1 - $member->birthday->year));
+            $calEvent->fullDay();
             $calendar->event($calEvent);
         }
     }
 
-    private function getBirthdaySortedMembers(): \Illuminate\Database\Eloquent\Collection|array
+    private function getBirthdaySortedMembers(): Collection|array
     {
         return Member::getAllFiltered(new MemberFilter(true, true, true))
             ->whereNotNull('birthday')
@@ -118,7 +136,7 @@ class EventICalExport extends Controller
     private function getEventList($inclLoggedInOnly = false): Collection
     {
         $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
-        if (!$inclLoggedInOnly) {
+        if (! $inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
         $eventList = $eventList->where('enabled', true);

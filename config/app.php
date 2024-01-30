@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => 'v0.5.5',
+    'version' => 'v0.5.9',
 
     /*
      * works only if the configs are cached (strongly recommended for production)

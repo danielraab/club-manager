@@ -1,20 +1,20 @@
 @php
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Member::MEMBER_EDIT_PERMISSION);
     $hasImportPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
-    /** @var \App\Models\MemberFilter $memberFilter */
+    /** @var \App\Models\Filter\MemberFilter $memberFilter */
     $memberFilter = $this->getMemberFilter();
 @endphp
 
 <x-slot name="headline">
     <div class="flex items-center">
-        <span>{{ __('Member Overview') }}</span>
+        <span>{{ __('Member Overview') }}</span>[
     </div>
 </x-slot>
 
 <div class="flex flex-col gap-5">
     @if($hasEditPermission)
         <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
+                class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                            href="{{route('member.birthdayList')}}"
                            title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
@@ -110,12 +110,14 @@
                          class="absolute left-full transform -translate-x-1/2 -translate-y-[9rem] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div class="py-1">
                             <div class="px-4 py-1">
-                                <x-button-link class="w-full" href="{{route('member.list.csv', $memberFilter->toParameterArray())}}"
+                                <x-button-link class="w-full"
+                                               href="{{route('member.list.csv', $memberFilter->toParameterArray())}}"
                                                @click="open=false"
                                                title="Download birthday list as CSV file">{{ __('CSV List') }}</x-button-link>
                             </div>
                             <div class="px-4 py-1">
-                                <x-button-link class="w-full" href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
+                                <x-button-link class="w-full"
+                                               href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
                                                @click="open=false"
                                                title="Download birthday list as CSV file">{{ __('Excel File') }}</x-button-link>
                             </div>

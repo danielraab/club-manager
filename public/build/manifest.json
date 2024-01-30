@@ -32,9 +32,14 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-fe8660ca.css",
+    "file": "assets/app-551192f2.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/trix.css": {
+    "file": "assets/trix-3271296f.css",
+    "isEntry": true,
+    "src": "resources/css/trix.css"
   },
   "resources/fonts/nunito-latin-400-normal.woff2": {
     "file": "assets/nunito-latin-400-normal-5e2f97ea.woff2",
@@ -61,5 +66,10 @@
     "file": "assets/fullCalendar-f7bdde3b.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar.js"
+  },
+  "resources/js/trix.umd.min.js": {
+    "file": "assets/trix.umd.min-a9505c12.js",
+    "isEntry": true,
+    "src": "resources/js/trix.umd.min.js"
   }
 }

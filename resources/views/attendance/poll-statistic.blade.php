@@ -1,5 +1,6 @@
 @php
     /** @var \App\Models\AttendancePoll $attendancePoll */
+    /** @var array $memberStatistic */
     $hasAttendanceShowPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_SHOW_PERMISSION) ?? false;
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
@@ -19,12 +20,12 @@
             </div>
         </div>
 
-        <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
+        <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center mb-5">
             <div class="table min-w-full divide-y">
                 @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Event $event */
-                        $statistic = $event->getAttendanceStatistics(new \App\Models\MemberFilter(true, true, true));
+                        $statistic = $event->getAttendanceStatistics(new \App\Models\Filter\MemberFilter(true, true, true));
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
@@ -60,6 +61,19 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+            <div class="text-gray-700 text-xl mb-5">{{__("Member attendances")}}</div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-3 justify-center">
+                    @foreach($memberStatistic as $id => $attendanceCnt)
+                        <div>
+                            <span class="font-bold">{{$attendanceCnt}} x</span>
+                            <span>{{\App\Models\Member::query()->find($id)?->getFullname()}}</span>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

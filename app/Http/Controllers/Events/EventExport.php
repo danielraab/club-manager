@@ -13,13 +13,13 @@ class EventExport extends Controller
 {
     public function toJson(): string
     {
-        return $this->getEventList(!auth()->guest())->toJson();
+        return $this->getEventList(! auth()->guest())->toJson();
     }
 
     private function getEventList($inclLoggedInOnly = false): Collection
     {
         $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
-        if (!$inclLoggedInOnly) {
+        if (! $inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
         $eventList = $eventList->where('enabled', true);

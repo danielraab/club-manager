@@ -8,6 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/fullCalendar.js',
+                'resources/js/trix.umd.min.js',
+                'resources/css/trix.css'
             ],
             refresh: true,
         }),

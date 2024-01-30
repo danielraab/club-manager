@@ -3,11 +3,13 @@
 namespace App\Livewire\Members;
 
 use App\Livewire\Forms\MemberGroupForm;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class MemberGroupCreate extends Component
 {
     public MemberGroupForm $memberGroupForm;
+
     public string $previousUrl;
 
     public function mount(): void
@@ -19,7 +21,9 @@ class MemberGroupCreate extends Component
     {
         $this->memberGroupForm->store();
 
+        Log::info("Member group created", [auth()->user(), $this->memberGroupForm->memberGroup]);
         session()->put('message', __('The member group has been successfully created.'));
+
         return redirect($this->previousUrl);
     }
 

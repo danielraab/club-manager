@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string id
  * @property string title
  * @property string|null description
- * @property boolean allow_anonymous_vote
+ * @property bool allow_anonymous_vote
  * @property \DateTime|null closing_at
+ *
  * @see /database/migrations/2023_07_05_123614_attendance.php
  */
 class AttendancePoll extends Model
@@ -28,11 +29,11 @@ class AttendancePoll extends Model
     public const ATTENDANCE_POLL_EDIT_PERMISSION = 'attendancePollEdit';
 
     protected $fillable = [
-        "title",
-        "description",
-        "allow_anonymous_vote",
-        "closing_at",
-        "member_group_id"
+        'title',
+        'description',
+        'allow_anonymous_vote',
+        'closing_at',
+        'member_group_id',
     ];
 
     protected $casts = [

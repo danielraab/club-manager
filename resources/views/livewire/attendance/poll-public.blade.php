@@ -14,13 +14,13 @@
         <div>
             @if($hasPollShowPermission)
                 <x-button-link href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn btn-secondary"
-                   title="Show summary of attendance poll">
+                               title="Show summary of attendance poll">
                     {{__("Summary")}}
                 </x-button-link>
             @endif
             @if($hasPollEditPermission)
                 <x-button-link href="{{route('attendancePoll.edit', $poll->id)}}" class="btn btn-primary"
-                               title="Edit this attendance poll" >
+                               title="Edit this attendance poll">
                     {{__("Edit Poll")}}
                 </x-button-link>
             @endif
@@ -48,13 +48,13 @@
                             disabled:text-gray-500"
                             wire:model.lazy="memberSelection"
                             required autofocus autocomplete="memberSelection"
-                        @disabled($selectedMember !== null)>
+                            @disabled($selectedMember !== null)>
                         <option></option>
                         @php
                             $memberList = new \Illuminate\Database\Eloquent\Collection();
                             $memberGroup = $poll->memberGroup()->first();
                             /** @var \App\Models\MemberGroup $memberGroup */
-                            $filter = new \App\Models\MemberFilter();
+                            $filter = new \App\Models\Filter\MemberFilter();
                             if($memberGroup) {
                                 $memberList = $memberGroup->getRecursiveMembers($filter);
                             } else {
@@ -81,7 +81,7 @@
 
 
     <div
-        class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
+            class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
         @if($selectedMember !== null)
 
             <div class="flex flex-col sm:table divide-y divide-gray-500">
@@ -112,28 +112,28 @@
                                     </div>
                                 @else
                                     <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'in')"
-                                        @endif
-                                        title="{{__("In")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-green-700">
+                                            @if(!$isPast)
+                                                wire:click="setAttendance({{$event->id}}, 'in')"
+                                            @endif
+                                            title="{{__("In")}}"
+                                            class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-green-700">
                                         <i class="fa-solid fa-check"></i>
                                     </div>
                                 @endif
 
                                 @if($attendance?->poll_status === "unsure")
                                     <div
-                                        title="{{__("Unsure")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-yellow-700">
+                                            title="{{__("Unsure")}}"
+                                            class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-yellow-700">
                                         <i class="fa-solid fa-question"></i>
                                     </div>
                                 @else
                                     <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'unsure')"
-                                        @endif
-                                        title="{{__("Unsure")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-yellow-700">
+                                            @if(!$isPast)
+                                                wire:click="setAttendance({{$event->id}}, 'unsure')"
+                                            @endif
+                                            title="{{__("Unsure")}}"
+                                            class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-yellow-700">
                                         <i class="fa-solid fa-question"></i>
                                     </div>
                                 @endif
@@ -147,11 +147,11 @@
                                 @else
 
                                     <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'out')"
-                                        @endif
-                                        title="{{__("Out")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-red-700">
+                                            @if(!$isPast)
+                                                wire:click="setAttendance({{$event->id}}, 'out')"
+                                            @endif
+                                            title="{{__("Out")}}"
+                                            class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-red-700">
                                         <i class="fa-solid fa-xmark"></i>
                                     </div>
 
