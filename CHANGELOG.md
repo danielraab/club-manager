@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.5.9 - 2024-01-30
 ### Added
 - more logging for creates updates and deletes
 ### Changed
