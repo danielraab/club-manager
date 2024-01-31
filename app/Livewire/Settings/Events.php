@@ -10,30 +10,36 @@ use Livewire\Component;
 
 class Events extends Component
 {
+    public bool $eventStartToday = false;
     public string $eventStartDate;
     public string $eventEndDate;
 
-    public function mount()
+    public function mount(): void
     {
-        $this->eventStartDate = \App\Models\Configuration::getString(
-            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
-        $this->eventEndDate = \App\Models\Configuration::getString(
-            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
+        $this->eventStartToday = (bool)Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
+        $this->eventStartDate = Configuration::getString(
+            ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
+        $this->eventEndDate = Configuration::getString(
+            ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
     }
 
+    public function eventFilterDefaultStartToday(bool $value):void {
+        $this->eventStartToday = $value;
+        Configuration::storeBool(
+            ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY, $value);
+    }
 
     #[Renderless]
-    public function updatedEventStartDate(string $value)
+    public function updatedEventStartDate(string $value): void
     {
-        \App\Models\Configuration::storeString(
+        Configuration::storeString(
             ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE, $value);
-
     }
 
     #[Renderless]
-    public function updatedEventEndDate(string $value)
+    public function updatedEventEndDate(string $value): void
     {
-        \App\Models\Configuration::storeString(
+        Configuration::storeString(
             ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE, $value);
 
     }

@@ -9,6 +9,7 @@
         </p>
     </header>
 
+    <x-livewire.loading/>
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 mt-6">
         <div
             class="rounded-md bg-white p-4 text-[0.8125rem] leading-6 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
@@ -16,7 +17,14 @@
             <div class="mt-2 mb-4 leading-5 text-slate-500">{{__("Default settings for list filters.")}}</div>
             <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
                 <span>{{__("Start date")}}</span>
-                <x-input-date wire:model.live="eventStartDate"/>
+                <div class="flex flex-col justify-end gap-2 items-center">
+{{--                    <x-input-date wire:model.live="eventStartDate" :disabled="$eventStartToday"/>--}}
+{{--                    <div class="flex items-center gap-3">--}}
+{{--                        <span>{{__("Today")}}</span>--}}
+{{--                        <x-input-switch enabled="{{$eventStartToday ? 'true' : 'false'}}"--}}
+{{--                                        onChanged="$wire.eventFilterDefaultStartToday"/>--}}
+{{--                    </div>--}}
+                </div>
             </div>
             <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
                 <span>{{__("End date")}}</span>

@@ -7,6 +7,7 @@ enum ConfigurationKey: string
     /*
      * global settings
      */
+    case EVENT_FILTER_DEFAULT_START_TODAY = "eventFilter_defaultStartToday";
     case EVENT_FILTER_DEFAULT_START_DATE = "eventFilter_defaultStartDate";
     case EVENT_FILTER_DEFAULT_END_DATE = "eventFilter_defaultEndDate";
 
