@@ -14,6 +14,14 @@ class EventOverview extends Component
 
     public ?string $search = null;
 
+    public function mount(): void
+    {
+        $this->start = \App\Models\Configuration::getString(
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
+        $this->end = \App\Models\Configuration::getString(
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
