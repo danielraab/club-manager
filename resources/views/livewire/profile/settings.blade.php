@@ -21,7 +21,7 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
             @if($hasShowMemberPermission)
                 <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
                     <span>{{__("Birthday list")}}</span>
-                    @php($enabled = \App\Models\Configuration::getBool("dashboardButtons_birthdayList", auth()->user(), true) ? 'true':'false')
+                    @php($enabled = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, auth()->user(), true) ? 'true':'false')
                     <x-input-switch :enabled="$enabled"
                                     onChanged="$wire.dashboardButtonChangedBirthdayList"/>
                 </div>
@@ -29,7 +29,7 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
             @if($hasImportMemberPermission)
                 <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
                     <span>{{__("Import members")}}</span>
-                    @php($enabled = \App\Models\Configuration::getBool("dashboardButtons_importMembers", auth()->user(), false) ? 'true':'false')
+                    @php($enabled = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, auth()->user(), false) ? 'true':'false')
                     <x-input-switch :enabled="$enabled"
                                     onChanged="$wire.dashboardButtonChangedImportMembers"/>
                 </div>

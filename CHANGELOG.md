@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Added
+add settings section/page for global settings
+
+### Changed
+- use Enum for configuration keys
 
 ## v0.5.9 - 2024-01-30
 ### Added
