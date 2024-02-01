@@ -6,9 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 add settings section/page for global settings
-
 ### Changed
 - use Enum for configuration keys
+### Fixed
+- web push scheduler: do not notify disabled events (daily pushes)
 
 ## v0.5.9 - 2024-01-30
 ### Added
@@ -21,7 +22,6 @@ add settings section/page for global settings
 ## v0.5.8 - 2024-01-21
 ### Added
 - Event statistic - page with year selector, shows how many events per type are in a specific year
-
 ### Fixed
 - multiple web notification for same event (hourly)
 

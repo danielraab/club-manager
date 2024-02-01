@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Models\Event;
-use App\Models\Filter\EventFilter;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -21,17 +20,18 @@ class Kernel extends ConsoleKernel
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
 
-            $events = Event::getAllFiltered(
-                new EventFilter($tomorrowMorning, $tomorrowNight, true, false, false)
-            )->get();
+            $events = Event::query()
+                ->where("start", ">=", $tomorrowMorning)
+                ->where("start", "<=", $tomorrowNight)
+                ->where('enabled', true)
+                ->where('logged_in_only', false)
+                ->get();
 
-            if ($events->count() > 0) {
-                foreach ($events as $event) {
-                    Notification::send(
-                        PushSubscription::all(),
-                        new UpcomingEvent($event)
-                    );
-                }
+            foreach ($events as $event) {
+                Notification::send(
+                    PushSubscription::all(),
+                    new UpcomingEvent($event)
+                );
             }
         })
             ->name('event web push notifications (tomorrow events)')
@@ -45,13 +45,11 @@ class Kernel extends ConsoleKernel
                 ->where('logged_in_only', false)
                 ->get();
 
-            if ($events->count() > 0) {
-                foreach ($events as $event) {
-                    Notification::send(
-                        PushSubscription::all(),
-                        new UpcomingEvent($event)
-                    );
-                }
+            foreach ($events as $event) {
+                Notification::send(
+                    PushSubscription::all(),
+                    new UpcomingEvent($event)
+                );
             }
         })
             ->name('event web push notifications 2 hours before start')
