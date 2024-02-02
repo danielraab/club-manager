@@ -52,12 +52,12 @@
                     @php
                         $rowBg = "bg-lime-200";
                         if($member->entrance_date === null || $member->birthday === null) {
-                            $rowBg = "bg-red-200";
+                            $rowBg = "bg-lime-200 text-red-700";
                         } elseif($member->entrance_date > now() ||
                          ($member->leaving_date && $member->leaving_date < now())) {
-                            $rowBg = "bg-gray-300";
+                            $rowBg = "bg-gray-300 text-gray-600";
                         } elseif($member->paused) {
-                            $rowBg = "bg-sky-200";
+                            $rowBg = "bg-gray-300";
                         }
                     @endphp
                     <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
