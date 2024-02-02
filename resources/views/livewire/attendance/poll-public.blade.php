@@ -52,9 +52,13 @@
                         <option></option>
                         @php
                             $memberList = new \Illuminate\Database\Eloquent\Collection();
-                            $memberGroup = $poll->memberGroup()->first();
                             /** @var \App\Models\MemberGroup $memberGroup */
-                            $filter = new \App\Models\Filter\MemberFilter();
+                            $memberGroup = $poll->memberGroup()->first();
+
+                            $beforeEntrance = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_BEFORE_ENTRANCE);
+                            $afterRetired = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_AFTER_RETIRED);
+                            $showPaused = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_SHOW_PAUSED);
+                            $filter = new \App\Models\Filter\MemberFilter($beforeEntrance, $afterRetired, $showPaused);
                             if($memberGroup) {
                                 $memberList = $memberGroup->getRecursiveMembers($filter);
                             } else {

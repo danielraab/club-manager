@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 ### Added
-add settings section/page for global settings: default event start and end
+- add settings section/page for global settings:
+  * default event start and end
+  * member filter for public polls
 ### Changed
 - use Enum for configuration keys
 ### Fixed
