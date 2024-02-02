@@ -19,19 +19,29 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
             <div class="font-semibold leading-5">{{__("Dashboard Buttons")}}</div>
             <div class="mt-2 mb-4 leading-5 text-slate-500">{{__("Show or hide buttons on dashboard header.")}}</div>
             @if($hasShowMemberPermission)
-                <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
+                @php($birthdayList = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, auth()->user(), true))
+                <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
+                     x-init="enabled={{$birthdayList ? 'true':'false'}}"
+                     x-data="{enabled:false,
+                                    switchChanged(curState) {
+                                        this.enabled = curState;
+                                        $wire.dashboardButtonChangedBirthdayList(curState);
+                                    }}">
                     <span>{{__("Birthday list")}}</span>
-                    @php($enabled = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, auth()->user(), true) ? 'true':'false')
-                    <x-input-switch :enabled="$enabled"
-                                    onChanged="$wire.dashboardButtonChangedBirthdayList"/>
+                    <x-input-switch />
                 </div>
             @endif
             @if($hasImportMemberPermission)
-                <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
+                @php($importMembers = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, auth()->user(), false))
+                <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
+                     x-init="enabled={{$importMembers ? 'true':'false'}}"
+                     x-data="{enabled:false,
+                                    switchChanged(curState) {
+                                        this.enabled = curState;
+                                        $wire.dashboardButtonChangedImportMembers(curState);
+                                    }}">
                     <span>{{__("Import members")}}</span>
-                    @php($enabled = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, auth()->user(), false) ? 'true':'false')
-                    <x-input-switch :enabled="$enabled"
-                                    onChanged="$wire.dashboardButtonChangedImportMembers"/>
+                    <x-input-switch />
                 </div>
             @endif
         </div>

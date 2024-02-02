@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 ### Added
-add settings section/page for global settings
+add settings section/page for global settings: default event start and end
 ### Changed
 - use Enum for configuration keys
 ### Fixed
