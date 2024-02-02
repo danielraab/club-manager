@@ -23,8 +23,8 @@ class Events extends Component
             ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
     }
 
-    public function eventFilterDefaultStartToday(bool $value):void {
-        $this->eventStartToday = $value;
+    #[Renderless]
+    public function updatedEventStartToday(bool $value):void {
         Configuration::storeBool(
             ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY, $value);
     }

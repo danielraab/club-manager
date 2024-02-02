@@ -3,6 +3,8 @@
 namespace App\Livewire\Events;
 
 use App\Livewire\EventFilterTrait;
+use App\Models\Configuration;
+use App\Models\ConfigurationKey;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -16,10 +18,16 @@ class EventOverview extends Component
 
     public function mount(): void
     {
-        $this->start = \App\Models\Configuration::getString(
-            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
         $this->end = \App\Models\Configuration::getString(
             \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
+
+        $useTodayAsStart = (bool)Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
+        if($useTodayAsStart) {
+            $this->start = now()->setTime(0,0,0)->formatDateInput();
+            return;
+        }
+        $this->start = \App\Models\Configuration::getString(
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
     }
 
     public function updatingSearch()
