@@ -4,12 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+## v0.5.10 - 2024-02-02
 ### Added
 - add settings section/page for global settings:
   * default event start and end
   * member filter for public polls
 ### Changed
 - use Enum for configuration keys
+- colors for member overview (use text colors and less background colors)
 ### Fixed
 - web push scheduler: do not notify disabled events (daily pushes)
 
