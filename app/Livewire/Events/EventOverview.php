@@ -49,7 +49,9 @@ class EventOverview extends Component
     public function disableLastYearEvents()
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $cnt = Event::where('end', '<', now()->setMonth(0)->setDay(0)->setTime(0, 0, 0))
+            $cnt = Event::query()
+                ->where('end', '<', now()->setMonth(1)->setDay(1)->setTime(0, 0, 0))
+                ->where("enabled", true)
                 ->update(['enabled' => false]);
             session()->flash('eventDisableMessage', __('Done. :cnt Event(s) affected.', ['cnt' => $cnt]));
         } else {

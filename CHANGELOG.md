@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Fixed
+- correct working disableLastYearEvents functionality
 
 ## v0.5.10 - 2024-02-02
 ### Added
