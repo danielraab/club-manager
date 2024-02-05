@@ -119,7 +119,7 @@
                                 <x-button-link class="w-full"
                                                href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
                                                @click="open=false"
-                                               title="Download birthday list as CSV file">{{ __('Excel File') }}</x-button-link>
+                                               title="Download birthday list as Excel file">{{ __('Excel File') }}</x-button-link>
                             </div>
                         </div>
                     </div>

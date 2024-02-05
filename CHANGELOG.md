@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- event export with csv and Excel files
 ### Fixed
 - correct working disableLastYearEvents functionality
 
