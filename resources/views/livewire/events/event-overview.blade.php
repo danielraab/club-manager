@@ -144,11 +144,13 @@
         {!! $eventList->links('vendor.livewire.paginator') !!}
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-3 my-3 bg-white items-center shadow-sm sm:rounded-lg p-6 justify-between">
+    @auth
+        <div
+            class="flex flex-col sm:flex-row gap-3 my-3 bg-white items-center shadow-sm sm:rounded-lg p-5 justify-between">
 
-        @if($hasEditPermission)
+            @if($hasEditPermission)
 
-            <div x-data="{clickCnt: 0, onClick(btn) {
+                <div x-data="{clickCnt: 0, onClick(btn) {
                 if(this.clickCnt > 0) {
                     btn.disabled = true;
                     $wire.disableLastYearEvents();
@@ -157,18 +159,17 @@
                     btn.innerHTML = 'Are you sure?';
                 }
             }}"
-                 >
-                <x-default-button
-                    x-on:click="onClick($el)" title="Disable all events older than this year."
-                    class="btn-danger">{{ __('Disable last years events') }}</x-default-button>
-                @if(session()->has("eventDisableMessage"))
-                    <span class="text-gray-700">{{session()->pull("eventDisableMessage")}}</span>
-                @endif
-            </div>
-        @endif
+                >
+                    <x-default-button
+                        x-on:click="onClick($el)" title="Disable all events older than this year."
+                        class="btn-danger">{{ __('Disable last years events') }}</x-default-button>
+                    @if(session()->has("eventDisableMessage"))
+                        <span class="text-gray-700">{{session()->pull("eventDisableMessage")}}</span>
+                    @endif
+                </div>
+            @endif
 
 
-        @auth
             <div x-data="{
                         open:false,
                     }" class="relative inline-block text-left" @click.outside="open = false">
@@ -200,6 +201,6 @@
                     </div>
                 </div>
             </div>
-        @endauth
-    </div>
+        </div>
+    @endauth
 </div>
