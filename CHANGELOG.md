@@ -3,7 +3,21 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- event export with csv and Excel files
+### Fixed
+- correct working disableLastYearEvents functionality
 
+## v0.5.10 - 2024-02-02
+### Added
+- add settings section/page for global settings:
+  * default event start and end
+  * member filter for public polls
+### Changed
+- use Enum for configuration keys
+- colors for member overview (use text colors and less background colors)
+### Fixed
+- web push scheduler: do not notify disabled events (daily pushes)
 
 ## v0.5.9 - 2024-01-30
 ### Added
@@ -16,7 +30,6 @@ All notable changes to this project will be documented in this file.
 ## v0.5.8 - 2024-01-21
 ### Added
 - Event statistic - page with year selector, shows how many events per type are in a specific year
-
 ### Fixed
 - multiple web notification for same event (hourly)
 

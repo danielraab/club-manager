@@ -4,6 +4,7 @@ use App\Http\Controllers\Events\EventCalendar;
 use App\Http\Controllers\Events\EventDetail;
 use App\Http\Controllers\Events\EventExport;
 use App\Http\Controllers\Events\EventICalExport;
+use App\Http\Controllers\Events\EventListExport;
 use App\Livewire\Events\EventCreate;
 use App\Livewire\Events\EventEdit;
 use App\Livewire\Events\EventOverview;
@@ -31,6 +32,11 @@ Route::get('/events/next', [EventExport::class, 'next'])
 Route::middleware(["auth"])->group(function() {
     Route::get('/events/statistic', EventStatistic::class)
         ->name('event.statistic');
+
+    Route::get('/events/list/excel', [EventListExport::class, 'excel'])
+        ->name('event.list.excel');
+    Route::get('/events/list/csv', [EventListExport::class, 'csv'])
+        ->name('event.list.csv');
 });
 
 Route::middleware(['auth', 'permission:'.Event::EVENT_EDIT_PERMISSION])->group(function () {

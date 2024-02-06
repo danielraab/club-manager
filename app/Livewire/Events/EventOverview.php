@@ -3,6 +3,8 @@
 namespace App\Livewire\Events;
 
 use App\Livewire\EventFilterTrait;
+use App\Models\Configuration;
+use App\Models\ConfigurationKey;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -13,6 +15,20 @@ class EventOverview extends Component
     use EventFilterTrait, WithPagination;
 
     public ?string $search = null;
+
+    public function mount(): void
+    {
+        $this->end = \App\Models\Configuration::getString(
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
+
+        $useTodayAsStart = (bool)Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
+        if($useTodayAsStart) {
+            $this->start = now()->setTime(0,0,0)->formatDateInput();
+            return;
+        }
+        $this->start = \App\Models\Configuration::getString(
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
+    }
 
     public function updatingSearch()
     {
@@ -33,7 +49,9 @@ class EventOverview extends Component
     public function disableLastYearEvents()
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $cnt = Event::where('end', '<', now()->setMonth(0)->setDay(0)->setTime(0, 0, 0))
+            $cnt = Event::query()
+                ->where('end', '<', now()->setMonth(1)->setDay(1)->setTime(0, 0, 0))
+                ->where("enabled", true)
                 ->update(['enabled' => false]);
             session()->flash('eventDisableMessage', __('Done. :cnt Event(s) affected.', ['cnt' => $cnt]));
         } else {

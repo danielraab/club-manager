@@ -20,6 +20,9 @@ class CarbonProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::macro('formatDateInput', function () {
+            return Carbon::this()->setTimezone(config('app.displayed_timezone'))->format("Y-m-d");
+        });
         Carbon::macro('formatDatetimeLocalInput', function () {
             return Carbon::this()->setTimezone(config('app.displayed_timezone'))->format("Y-m-d\TH:i");
         });

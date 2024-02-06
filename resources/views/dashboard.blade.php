@@ -1,8 +1,8 @@
 @php
     $hasShowPermission = (bool) \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
-    $showBirthdayListConfig = \App\Models\Configuration::getBool("dashboardButtons_birthdayList", auth()->user(), true);
+    $showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, auth()->user(), true);
     $hasImportPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
-    $showMemberImportConfig = \App\Models\Configuration::getBool("dashboardButtons_importMembers", auth()->user(), false);
+    $showMemberImportConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, auth()->user(), false);
 @endphp
 <x-backend-layout>
     <x-slot name="headline">

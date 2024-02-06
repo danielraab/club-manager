@@ -24,7 +24,7 @@ class Configuration extends Model
 
     public const DATATYPE_BOOL = 'bool';
 
-    private static function getKeyQuery(string $key, ?User $user): Builder
+    private static function getKeyQuery(ConfigurationKey $key, ?User $user): Builder
     {
         $query = self::query()->where('key', $key);
 
@@ -39,7 +39,7 @@ class Configuration extends Model
         return $query->whereNull('user_id');
     }
 
-    private static function getSingleKeyQuery(string $key, ?User $user): Builder
+    private static function getSingleKeyQuery(ConfigurationKey $key, ?User $user): Builder
     {
         $query = self::query()
             ->where('key', $key);
@@ -50,7 +50,7 @@ class Configuration extends Model
         return $query->whereNull('user_id');
     }
 
-    public static function storeString(string $key, string $value, User $user = null): ?string
+    public static function storeString(ConfigurationKey $key, string $value, User $user = null): ?string
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -65,7 +65,7 @@ class Configuration extends Model
         return $oldValue;
     }
 
-    public static function getString(string $key, User $user = null, string $default = null): ?string
+    public static function getString(ConfigurationKey $key, User $user = null, string $default = null): ?string
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');
@@ -77,7 +77,7 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeInt(string $key, int $value, User $user = null): ?int
+    public static function storeInt(ConfigurationKey $key, int $value, User $user = null): ?int
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -92,7 +92,7 @@ class Configuration extends Model
         return $oldValue ? (int) $oldValue : null;
     }
 
-    public static function getInt(string $key, User $user = null, int $default = null): ?int
+    public static function getInt(ConfigurationKey $key, User $user = null, int $default = null): ?int
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');
@@ -104,7 +104,7 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeBool(string $key, bool $value, User $user = null): ?bool
+    public static function storeBool(ConfigurationKey $key, bool $value, User $user = null): ?bool
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -120,7 +120,7 @@ class Configuration extends Model
         return $oldValue ? (bool) $oldValue : null;
     }
 
-    public static function getBool(string $key, User $user = null, bool $default = null): ?bool
+    public static function getBool(ConfigurationKey $key, User $user = null, bool $default = null): ?bool
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');

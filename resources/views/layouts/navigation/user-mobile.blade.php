@@ -8,6 +8,11 @@
     </div>
 
     <div class="mt-3 space-y-1">
+        @if(Auth::user()->hasPermission(\App\Models\UserPermission::ADMIN_USER_PERMISSION))
+            <x-responsive-nav-link :href="route('settings')">
+                {{ __('Settings') }}
+            </x-responsive-nav-link>
+        @endif
         <x-responsive-nav-link :href="route('profile.edit')">
             {{ __('Profile') }}
         </x-responsive-nav-link>

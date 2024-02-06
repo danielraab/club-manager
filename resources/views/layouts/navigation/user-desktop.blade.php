@@ -20,6 +20,11 @@
             </x-slot>
 
             <x-slot name="content">
+                @if(Auth::user()->hasPermission(\App\Models\UserPermission::ADMIN_USER_PERMISSION))
+                    <x-dropdown-link :href="route('settings')" class="border-b">
+                        {{ __('Settings') }}
+                    </x-dropdown-link>
+                @endif
                 <x-dropdown-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-dropdown-link>
