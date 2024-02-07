@@ -25,8 +25,6 @@ class Backer extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public const SPONSORING_EDIT_PERMISSION = 'sponsoringEdit';
-
     protected $table = "sponsor_backers";
 
     protected $fillable = [

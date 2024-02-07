@@ -2,6 +2,7 @@
 
 use App\Models\Member;
 use App\Models\Sponsoring\Backer;
+use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Package;
 use App\Models\Sponsoring\Period;
 use Illuminate\Database\Migrations\Migration;
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->text('info')->nullable();
             $table->date('closed_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -34,6 +36,7 @@ return new class extends Migration
             $table->string("title");
             $table->text('description')->nullable();
             $table->float('price')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -43,6 +46,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('is_official')->default(false);
             $table->float('price');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -61,6 +65,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -95,12 +100,13 @@ return new class extends Migration
             $table->dateTime('contract_received')->nullable();
             $table->dateTime('ad_data_received')->nullable();
             $table->dateTime('paid')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 
 
         \App\Models\UserPermission::create([
-            'id' => Backer::SPONSORING_EDIT_PERMISSION,
+            'id' => Contract::SPONSORING_EDIT_PERMISSION,
             'label' => 'Edit sponsoring data',
             'is_default' => false,
         ]);
@@ -119,7 +125,7 @@ return new class extends Migration
         Schema::dropIfExists('sponsor_periods');
         Schema::dropIfExists('sponsor_contracts');
 
-        \App\Models\UserPermission::find(Backer::SPONSORING_EDIT_PERMISSION)?->delete();
+        \App\Models\UserPermission::find(Contract::SPONSORING_EDIT_PERMISSION)?->delete();
 
     }
 };

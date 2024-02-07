@@ -35,3 +35,4 @@ require __DIR__.'/userManagement.php';
 require __DIR__.'/news.php';
 require __DIR__.'/event.php';
 require __DIR__.'/member.php';
+require __DIR__.'/sponsoring.php';

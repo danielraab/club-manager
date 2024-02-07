@@ -23,6 +23,8 @@ class Contract extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public const SPONSORING_EDIT_PERMISSION = 'sponsoringEdit';
+
     protected $table = "sponsor_contracts";
 
     protected $fillable = [
