@@ -4,6 +4,7 @@ namespace App\Models\Sponsoring;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -33,4 +34,9 @@ class Period extends Model
         'start' => 'datetime',
         'end' => 'datetime',
     ];
+
+    public function packages(): BelongsToMany
+    {
+        return $this->belongsToMany(Package::class, "sponsor_period_sponsor_package");
+    }
 }

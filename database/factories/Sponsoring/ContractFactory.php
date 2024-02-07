@@ -16,12 +16,17 @@ class ContractFactory extends Factory
      */
     public function definition(): array
     {
+        $refused = fake()->boolean();
+        $successful = !$refused && fake()->boolean();
+        $contact = null;
         return [
             'info' => fake()->text(60),
-            'is_refused' => fake()->boolean(),
-            'is_contract_received' => fake()->boolean(),
-            'is_ad_data_received' => fake()->boolean(),
-            'is_paid' => fake()->boolean(),
+            'refused' => $refused ? fake()->dateTime() : null,
+            'contract_received' => $successful ? $contact = fake()->dateTime() : null,
+            'ad_data_received' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
+            'paid' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
+            'period_id' => 1,
+            'backer_id' => 1
         ];
     }
 }

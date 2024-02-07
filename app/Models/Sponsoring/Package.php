@@ -2,8 +2,10 @@
 
 namespace App\Models\Sponsoring;
 
+use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -33,4 +35,9 @@ class Package extends Model
         'is_official' => 'bool',
         'price' => 'float',
     ];
+
+    public function adOptions(): BelongsToMany
+    {
+        return $this->belongsToMany(AdOption::class, "sponsor_package_sponsor_ad_option");
+    }
 }

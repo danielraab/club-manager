@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Member;
 use App\Models\Sponsoring\Backer;
+use App\Models\Sponsoring\Package;
+use App\Models\Sponsoring\Period;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -43,8 +46,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // n:m table ad_option_sponsor_packages
-
+        Schema::create('sponsor_package_sponsor_ad_option', function (Blueprint $table) {
+            $table->foreignIdFor(Package::class, 'package_id');
+            $table->foreignIdFor(\App\Models\Sponsoring\AdOption::class, 'ad_option_id');
+            $table->foreign('package_id')->references('id')
+                ->on('sponsor_packages')->cascadeOnDelete();
+            $table->foreign('ad_option_id')->references('id')
+                ->on('sponsor_ad_options')->cascadeOnDelete();
+        });
 
         Schema::create('sponsor_periods', function (Blueprint $table) {
             $table->id();
@@ -55,8 +64,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // n:m table available Packages sponsor_period_sponsor_packages
-
+        Schema::create('sponsor_period_sponsor_package', function (Blueprint $table) {
+            $table->foreignIdFor(Period::class, 'period_id');
+            $table->foreignIdFor(Package::class, 'package_id');
+            $table->foreign('period_id')->references('id')
+                ->on('sponsor_periods')->cascadeOnDelete();
+            $table->foreign('package_id')->references('id')
+                ->on('sponsor_packages')->cascadeOnDelete();
+        });
 
         /*
          * sponsorPackage_id can be null
@@ -65,15 +80,21 @@ return new class extends Migration
          */
         Schema::create('sponsor_contracts', function (Blueprint $table) {
             $table->id();
-            //backer_id
-            //sponsor_period_id
-            //sponsor_package_id
-            //member_id
+
+            $table->foreignIdFor(Period::class, 'period_id');
+            $table->foreign('period_id')->references('id')->on('sponsor_periods')->cascadeOnDelete();
+            $table->foreignIdFor(Backer::class, 'backer_id');
+            $table->foreign('backer_id')->references('id')->on('sponsor_backers')->cascadeOnDelete();
+            $table->foreignIdFor(Member::class, 'member_id')->nullable();
+            $table->foreign('member_id')->references('id')->on('members')->cascadeOnDelete();
+            $table->foreignIdFor(Package::class, 'package_id')->nullable();
+            $table->foreign('package_id')->references('id')->on('sponsor_packages')->cascadeOnDelete();
+
             $table->text('info')->nullable();
-            $table->boolean('is_refused')->default(false);
-            $table->boolean('is_contract_received')->default(false);
-            $table->boolean('is_ad_data_received')->default(false);
-            $table->boolean('is_paid')->default(false);
+            $table->dateTime('refused')->nullable();
+            $table->dateTime('contract_received')->nullable();
+            $table->dateTime('ad_data_received')->nullable();
+            $table->dateTime('paid')->nullable();
             $table->timestamps();
         });
 
@@ -90,6 +111,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('sponsor_package_sponsor_ad_option');
+        Schema::dropIfExists('sponsor_period_sponsor_package');
         Schema::dropIfExists('backers');
         Schema::dropIfExists('sponsor_ad_options');
         Schema::dropIfExists('sponsor_packages');
