@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models\Sponsoring;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * @property int id
+ * @property string name
+ * @property string contact_person
+ * @property string phone
+ * @property string email
+ * @property string street
+ * @property string zip
+ * @property string city
+ * @property string info
+ * @property string closed_at
+ *
+ * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
+ */
+class Backer extends Model
+{
+    use HasFactory;
+    use SoftDeletes;
+
+    public const SPONSORING_EDIT_PERMISSION = 'sponsoringEdit';
+
+    protected $table = "sponsor_backers";
+
+    protected $fillable = [
+        'name',
+        'contact_person',
+        'phone',
+        'email',
+        'street',
+        'zip',
+        'city',
+        'info',
+        'closed_at',
+    ];
+
+    protected $casts = [
+        'closed_at' => 'datetime',
+    ];
+}
