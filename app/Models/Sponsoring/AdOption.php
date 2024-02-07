@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
-class AdOptions extends Model
+class AdOption extends Model
 {
     use HasFactory;
     use SoftDeletes;
