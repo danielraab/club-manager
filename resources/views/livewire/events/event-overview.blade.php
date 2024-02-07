@@ -57,7 +57,7 @@
         @else
             <x-always-responsive-table class="table-auto mx-auto text-center">
                 <thead class="font-bold">
-                <tr class="hidden md:table-row">
+                <tr class="max-md:hidden">
                     <td>{{__("Start")}}</td>
                     <td class="min-w-[150px]">{{__("Title")}}</td>
                     <td class="min-w-[150px]">{{__("Type")}}</td>
@@ -74,28 +74,28 @@
                         if(!$event->enabled) $rowBg = "bg-red-200";
                         elseif($event->end < now()) $rowBg = "bg-gray-300";
                     @endphp
-                    <tr class="[&:nth-child(2n)]:bg-opacity-50 block md:table-row max-md:py-2 {{$rowBg}}">
-                        <td class="md:border px-1 min-w-[150px] block md:table-cell">
+                    <tr class="[&:nth-child(2n)]:bg-opacity-50 max-md:block max-md:py-2 {{$rowBg}}">
+                        <td class="md:border px-1 min-w-[150px] max-md:block">
                             {{$event->getFormattedStart()}}
                         </td>
-                        <td class="md:border px-2 block md:table-cell">
-                        <span class="text-sm text-gray-600 mr-1">
-                        @if($event->link)
-                                <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
-                            @endif
-                            @if($hasEditPermission && $event->logged_in_only)
-                                <i class="fa-solid fa-arrow-right-to-bracket"
-                                   title="{{__("Visible only for logged in users")}}"></i>
-                            @endif
-                        </span>
+                        <td class="md:border px-2 max-md:block">
+                            <span class="text-sm text-gray-600 mr-1">
+                            @if($event->link)
+                                    <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                                @endif
+                                @if($hasEditPermission && $event->logged_in_only)
+                                    <i class="fa-solid fa-arrow-right-to-bracket"
+                                       title="{{__("Visible only for logged in users")}}"></i>
+                                @endif
+                            </span>
                             {{$event->title}}
                             @if($event->location && strlen(trim($event->location)) > 0)
                                 <p class="text-gray-500">{{$event->location}}</p>
                             @endif
                         </td>
-                        <td class="md:border px-2 hidden md:table-cell">{{$event->eventType?->title}}</td>
+                        <td class="md:border px-2 max-md:hidden">{{$event->eventType?->title}}</td>
                         @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
-                            <td class="md:border px-2 min-w-[70px] block md:table-cell">
+                            <td class="md:border px-2 min-w-[70px] max-md:block">
                                 <div class="flex gap-2 justify-center">
                                     @if($hasAttendanceShowPermission)
                                         <a href="{{route('event.attendance.show', $event->id)}}"

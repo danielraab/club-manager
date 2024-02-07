@@ -39,7 +39,7 @@
 
             <x-always-responsive-table class="table-auto mx-auto text-center">
                 <thead class="font-bold">
-                <tr>
+                <tr class="max-md:hidden">
                     <td class="px-4 py-2">Name</td>
                     <td class="px-4 py-2">{{__("Birthday")}}</td>
                     <td class="px-4 py-2">eMail</td>
@@ -60,12 +60,12 @@
                             $rowBg = "bg-gray-300";
                         }
                     @endphp
-                    <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
-                        <td class="border px-4 py-2">{{ $member->getFullName() }}</td>
-                        <td class="border px-4 py-2">{{ $member->birthday?->format("Y-m-d") }}</td>
-                        <td class="border px-4 py-2">{{ $member->email }}</td>
-                        <td class="border px-4 py-2">{{ $member->phone }}</td>
-                        <td class="border px-4 py-2">
+                    <tr class="[&:nth-child(2n)]:bg-opacity-50 max-md:block max-md:py-2 {{$rowBg}}">
+                        <td class="max-md:block md:border px-4">{{ $member->getFullName() }}</td>
+                        <td class="max-md:hidden border px-4">{{ $member->birthday?->format("Y-m-d") }}</td>
+                        <td class="max-md:block max-md:text-sm max-md:text-gray-500 md:border px-4">{{ $member->email }}</td>
+                        <td class="max-md:block max-md:text-sm max-md:text-gray-500 md:border px-4">{{ $member->phone }}</td>
+                        <td class="max-md:hidden border px-4">
                             <ul class="list-disc text-left pl-3">
                                 @foreach($member->memberGroups()->get() as $memberGroup)
                                     <li title="{{$memberGroup->title}}">{{$memberGroup->title}}</li>
@@ -73,7 +73,7 @@
                             </ul>
                         </td>
                         @if($hasEditPermission)
-                            <td class="border">
+                            <td class="max-md:block md:border">
                                 <x-button-link href="{{route('member.edit', $member->id)}}" title="Edit member"
                                                class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                     <i class="fa-regular fa-pen-to-square"></i>
