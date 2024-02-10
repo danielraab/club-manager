@@ -4,13 +4,13 @@ namespace App\Livewire\Forms;
 
 use App\Models\Sponsoring\Backer;
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
 
 class BackerForm extends Form
 {
     public ?Backer $backer = null;
+
+    public bool $enabled = true;
 
     public string $name;
 
@@ -22,108 +22,73 @@ class BackerForm extends Form
 
     public ?string $street;
 
-    public ?int $zip;
+    public int $zip;
 
-    public ?string $city;
+    public string $city;
 
     public ?string $info;
 
     public ?string $closed_at = null;
 
-    public array $memberGroupList;
-
     protected function rules(): array
     {
         return [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'title_pre' => ['nullable', 'string', 'max:255'],
-            'title_post' => ['nullable', 'string', 'max:255'],
-            'paused' => ['nullable', 'boolean'],
+            'enabled' => ['required', 'boolean'],
+            'name' => ['required', 'string', 'max:255'],
+            'contact_person' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
             'street' => ['nullable', 'string', 'max:255'],
-            'zip' => ['nullable', 'integer'],
-            'city' => ['nullable', 'string', 'max:255'],
-
-            'entrance_date' => ['required', 'date'],
-            'leaving_date' => ['nullable', 'date', 'after_or_equal:memberForm.entrance_date'],
-            'birthday' => ['nullable', 'date'],
-
-            'memberGroupList' => ['nullable', 'array',
-                function (string $attribute, mixed $value, \Closure $fail) {
-                    self::memberGroupSelectionCheck($attribute, $value, $fail);
-                }],
+            'zip' => ['required', 'integer'],
+            'city' => ['required', 'string', 'max:255'],
+            'info' => ['nullable', 'string'],
+            'closed_at' => ['nullable', 'date'],
         ];
     }
 
-    public function setMemberModal(Member $member): void
+    public function setBackerModel(Backer $backer): void
     {
-        $this->member = $member;
+        $this->backer = $backer;
 
-        $this->firstname = $member->firstname;
-        $this->lastname = $member->lastname;
-        $this->title_pre = $member->title_pre;
-        $this->title_post = $member->title_post;
-        $this->paused = $member->paused;
-        $this->phone = $member->phone;
-        $this->email = $member->email;
-        $this->street = $member->street;
-        $this->zip = $member->zip;
-        $this->city = $member->city;
+        $this->enabled = $backer->enabled;
+        $this->name = $backer->name;
+        $this->contact_person = $backer->contact_person;
+        $this->phone = $backer->phone;
+        $this->email = $backer->email;
+        $this->street = $backer->street;
+        $this->zip = $backer->zip;
+        $this->city = $backer->city;
+        $this->info = $backer->info;
 
-        $this->birthday = $member->birthday?->format('Y-m-d');
-        $this->entrance_date = $member->entrance_date->format('Y-m-d');
-        $this->leaving_date = $member->leaving_date?->format('Y-m-d');
-        $this->memberGroupList = Arr::pluck($member->memberGroups()->getResults(), 'id');
-    }
-
-    private static function memberGroupSelectionCheck(string $attribute, mixed $value, \Closure $fail): void
-    {
-        if (is_array($value)) {
-            $possibleMemberGroups = MemberGroup::getLeafQuery()->pluck('id')->toArray();
-            if (count(array_diff($value, $possibleMemberGroups)) > 0) {
-                $fail('Some selected member groups are not valid. Please refresh the page and try again.');
-            }
-        }
+        $this->closed_at = $backer->closed_at?->format('Y-m-d');
     }
 
     public function store(): void
     {
         $this->validate();
 
-        $this->member = Member::create([
-            ...$this->except(['member', 'birthday', 'entrance_date', 'leaving_date', 'memberGroupList']),
-            'birthday' => $this->birthday ? new Carbon($this->birthday) : null,
-            'entrance_date' => $this->entrance_date ? new Carbon($this->entrance_date) : null,
-            'leaving_date' => $this->leaving_date ? new Carbon($this->leaving_date) : null,
+        $this->backer = Backer::create([
+            ...$this->except(['backer', 'closed_at']),
+            'closed_at' => $this->closed_at ? new Carbon($this->closed_at) : null,
         ]);
 
-        $this->member->creator()->associate(Auth::user());
-        $this->member->lastUpdater()->associate(Auth::user());
-        $this->member->save();
-
-        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
+        $this->backer->save();
     }
 
     public function update(): void
     {
         $this->validate();
 
-        $this->member->update([
-            ...$this->except(['member', 'birthday', 'entrance_date', 'leaving_date', 'memberGroupList']),
-            'birthday' => $this->birthday ? new Carbon($this->birthday) : null,
-            'entrance_date' => $this->entrance_date ? new Carbon($this->entrance_date) : null,
-            'leaving_date' => $this->leaving_date ? new Carbon($this->leaving_date) : null,
+        $this->backer->update([
+            ...$this->except(['backer', 'closed_at']),
+            'closed_at' => $this->closed_at ? new Carbon($this->closed_at) : null,
         ]);
 
-        $this->member->lastUpdater()->associate(Auth::user());
-        $this->member->memberGroups()->sync(array_unique($this->memberGroupList));
-        $this->member->save();
+        $this->backer->save();
     }
 
     public function delete(): void
     {
-        $this->member?->delete();
+        $this->backer?->delete();
     }
 }

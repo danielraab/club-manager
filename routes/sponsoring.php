@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Livewire\Sponsoring\BackerCreate;
+use App\Livewire\Sponsoring\BackerEdit;
 use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,8 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
         ->name('sponsoring.backer.index');
     Route::get('/sponsoring/backer/create', BackerCreate::class)
         ->name('sponsoring.backer.create');
+    Route::get('/sponsoring/backer/{backer}', BackerEdit::class)
+        ->name('sponsoring.backer.edit');
 //    Route::get('/sponsoring/list/csv', [MemberList::class, 'csv'])
 //        ->name('sponsoring.list.csv');
 //    Route::get('/sponsoring/list/excel', [MemberList::class, 'excel'])

@@ -7,8 +7,8 @@
     <div class="flex justify-between cursor-pointer items-center"
          wire:click="$toggle('showDetails')">
         <div>
-            <span class="font-semibold">{{$backer->name}}</span>
-            <span class="text-gray-500"> - {{$backer->zip}} {{$backer->city}}</span>
+            <span class="font-semibold max-sm:block">{{$backer->name}}</span>
+            <span class="text-gray-500">&nbsp;-&nbsp;{{$backer->zip}} {{$backer->city}}</span>
         </div>
         @if($showDetails)
             <i class="fa-solid fa-minus"></i>
@@ -26,6 +26,11 @@
             @if($backer->closed_at)
                 <div><span class="font-bold">{{__("closed")}}: </span>{{$backer->closed_at}}</div>
             @endif
+        </div>
+        <div class="text-right">
+            <a href="{{route('sponsoring.backer.edit', $backer->id)}}" title="Edit this backer">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
         </div>
     @endif
 </div>

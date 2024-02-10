@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string zip
  * @property string city
  * @property string info
- * @property string closed_at
+ * @property \DateTime closed_at
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
@@ -43,7 +43,7 @@ class Backer extends Model
     ];
 
     protected $casts = [
-        'enabled' => 'bool',
+        'enabled' => 'boolean',
         'closed_at' => 'datetime',
     ];
 
