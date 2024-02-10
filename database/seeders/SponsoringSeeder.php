@@ -42,7 +42,7 @@ class SponsoringSeeder extends Seeder
             'password' => Hash::make('sponsoringEdit'),
         ]);
         $this->sponsoringEdit->userPermissions()
-            ->attach(Backer::SPONSORING_EDIT_PERMISSION);
+            ->attach(Contract::SPONSORING_EDIT_PERMISSION);
     }
 
     private function addBackers(): void

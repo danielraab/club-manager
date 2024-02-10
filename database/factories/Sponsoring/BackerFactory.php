@@ -17,6 +17,7 @@ class BackerFactory extends Factory
     public function definition(): array
     {
         return [
+            'enabled' => fake()->boolean(95),
             'name' => fake()->company(),
             'contact_person' => fake()->name(),
             'phone' => fake()->phoneNumber(),
@@ -24,7 +25,8 @@ class BackerFactory extends Factory
             'street' => fake()->streetAddress(),
             'zip' => fake()->numberBetween(1000, 99999),
             'city' => fake()->city(),
-            'info' => fake()->text()
+            'info' => fake()->text(),
+            'closed_at' => fake()->boolean(3) ? fake()->dateTime() : null
         ];
     }
 }

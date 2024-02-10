@@ -3,7 +3,7 @@
     /** @var $showDetails bool */
 @endphp
 <div class="border py-3 px-5 [&:nth-child(2n)]:bg-opacity-50
- {{$backer->closed_at ? 'bg-gray-300 text-gray-500' : 'bg-purple-300'}}">
+ {{!$backer->enabled || $backer->closed_at ? 'bg-gray-300 text-gray-500' : 'bg-purple-300'}}">
     <div class="flex justify-between cursor-pointer items-center"
          wire:click="$toggle('showDetails')">
         <div>

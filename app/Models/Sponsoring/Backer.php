@@ -2,12 +2,14 @@
 
 namespace App\Models\Sponsoring;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int id
+ * @property bool enabled
  * @property string name
  * @property string contact_person
  * @property string phone
@@ -28,6 +30,7 @@ class Backer extends Model
     protected $table = "sponsor_backers";
 
     protected $fillable = [
+        'enabled',
         'name',
         'contact_person',
         'phone',
@@ -40,6 +43,16 @@ class Backer extends Model
     ];
 
     protected $casts = [
+        'enabled' => 'bool',
         'closed_at' => 'datetime',
     ];
+
+
+    public static function allActive(): Builder
+    {
+        return self::query()
+            ->whereNull('closed_at')
+            ->where('enabled', true)
+            ->orderBy('name');
+    }
 }

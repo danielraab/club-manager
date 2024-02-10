@@ -18,6 +18,7 @@ return new class extends Migration
     {
         Schema::create('sponsor_backers', function (Blueprint $table) {
             $table->id();
+            $table->boolean("enabled")->default(true);
             $table->string("name");
             $table->string('contact_person')->nullable();
             $table->string('phone')->nullable();
