@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms;
+namespace App\Livewire\Forms\Sponsoring;
 
 use App\Models\Sponsoring\Backer;
 use Carbon\Carbon;

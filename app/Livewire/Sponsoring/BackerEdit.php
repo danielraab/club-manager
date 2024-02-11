@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Sponsoring;
 
-use App\Livewire\Forms\BackerForm;
+use App\Livewire\Forms\Sponsoring\BackerForm;
 use App\Models\Sponsoring\Backer;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
