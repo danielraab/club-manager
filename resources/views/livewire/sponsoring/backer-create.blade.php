@@ -1,5 +1,8 @@
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex items-center gap-2">
+        <a href="{{route("sponsoring.backer.index")}}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </a>
         {{ __("Add new backer") }}
     </div>
 </x-slot>

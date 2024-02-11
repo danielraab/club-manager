@@ -1,16 +1,20 @@
 <?php
 
 use App\Http\Controllers\Sponsoring\BackerOverview;
+use App\Http\Controllers\Sponsoring\Overview;
 use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
 use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
-//    Route::get('/sponsoring', MemberOverview::class)
-//        ->name('sponsoring.index');
+Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|'.Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
+    Route::get('/sponsoring', [Overview::class, "index"])
+        ->name('sponsoring.index');
     Route::get('/sponsoring/backer', [BackerOverview::class, "index"])
         ->name('sponsoring.backer.index');
+});
+
+Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
     Route::get('/sponsoring/backer/create', BackerCreate::class)
         ->name('sponsoring.backer.create');
     Route::get('/sponsoring/backer/{backer}', BackerEdit::class)

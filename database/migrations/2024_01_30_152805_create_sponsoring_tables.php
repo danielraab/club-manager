@@ -107,6 +107,12 @@ return new class extends Migration
 
 
         \App\Models\UserPermission::create([
+            'id' => Contract::SPONSORING_SHOW_PERMISSION,
+            'label' => 'Show sponsoring data',
+            'is_default' => false,
+        ]);
+
+        \App\Models\UserPermission::create([
             'id' => Contract::SPONSORING_EDIT_PERMISSION,
             'label' => 'Edit sponsoring data',
             'is_default' => false,
@@ -126,6 +132,7 @@ return new class extends Migration
         Schema::dropIfExists('sponsor_periods');
         Schema::dropIfExists('sponsor_contracts');
 
+        \App\Models\UserPermission::find(Contract::SPONSORING_SHOW_PERMISSION)?->delete();
         \App\Models\UserPermission::find(Contract::SPONSORING_EDIT_PERMISSION)?->delete();
 
     }

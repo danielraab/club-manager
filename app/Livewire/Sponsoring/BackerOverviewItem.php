@@ -11,6 +11,8 @@ class BackerOverviewItem extends Component
     public Backer $backer;
     public bool $showDetails;
 
+    public bool $hasEditPermission;
+
     public function mount(Backer $backer): void
     {
         $this->backer = $backer;
@@ -18,7 +20,7 @@ class BackerOverviewItem extends Component
 
     public function render()
     {
-        return view('components.livewire.sponsoring.overview-item', [
+        return view('components.livewire.sponsoring.backer-overview-item', [
         ]);
     }
 }

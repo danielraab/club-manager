@@ -19,6 +19,7 @@ class SponsoringSeeder extends Seeder
     private const PERIOD_CNT = 5;
     private const CONTRACT_CNT = 200;
 
+    private User $sponsoringShow;
     private User $sponsoringEdit;
 
     /**
@@ -36,6 +37,14 @@ class SponsoringSeeder extends Seeder
 
     private function addUsers(): void
     {
+        $this->sponsoringShow = User::factory()->create([
+            'name' => 'Sponsoring Show',
+            'email' => 'sponsoringShow@draab.at',
+            'password' => Hash::make('sponsoringShow'),
+        ]);
+        $this->sponsoringShow->userPermissions()
+            ->attach(Contract::SPONSORING_SHOW_PERMISSION);
+
         $this->sponsoringEdit = User::factory()->create([
             'name' => 'Sponsoring Edit',
             'email' => 'sponsoringEdit@draab.at',
