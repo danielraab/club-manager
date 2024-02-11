@@ -22,6 +22,11 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
         ->name('sponsoring.backer.create');
     Route::get('/sponsoring/backer/{backer}', BackerEdit::class)
         ->name('sponsoring.backer.edit');
+    Route::get('/sponsoring/adOption/{adOption}', null)
+        ->name('sponsoring.ad-option.edit');
+
+
+
 //    Route::get('/sponsoring/list/csv', [MemberList::class, 'csv'])
 //        ->name('sponsoring.list.csv');
 //    Route::get('/sponsoring/list/excel', [MemberList::class, 'excel'])
