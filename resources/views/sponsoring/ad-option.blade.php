@@ -13,9 +13,9 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    {{--                    <x-button-link class="btn-success"--}}
-                    {{--                                   href="{{route('sponsoring.backer.create')}}"--}}
-                    {{--                                   title="Create a new backer">{{__("New backer")}}</x-button-link>--}}
+                    <x-button-link class="btn-success"
+                                   href="{{route('sponsoring.ad-option.create')}}"
+                                   title="Create a new ad option">{{__("New ad option")}}</x-button-link>
                 </div>
             @endif
         </div>
