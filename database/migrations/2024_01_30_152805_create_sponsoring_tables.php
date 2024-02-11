@@ -34,6 +34,7 @@ return new class extends Migration
 
         Schema::create('sponsor_ad_options', function (Blueprint $table) {
             $table->id();
+            $table->boolean("enabled")->default(true);
             $table->string("title");
             $table->text('description')->nullable();
             $table->float('price')->nullable();

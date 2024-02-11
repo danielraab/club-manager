@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int id
+ * @property bool enabled
  * @property string title
  * @property string description
  * @property float price
@@ -22,12 +23,20 @@ class AdOption extends Model
     protected $table = "sponsor_ad_options";
 
     protected $fillable = [
+        'enabled',
         'title',
         'description',
         'price',
     ];
 
     protected $casts = [
+        'enabled' => 'boolean',
         'price' => 'float',
     ];
+
+    public static function allActive(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()
+            ->where("enabled", true);
+    }
 }

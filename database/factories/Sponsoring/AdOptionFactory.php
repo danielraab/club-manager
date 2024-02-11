@@ -17,8 +17,9 @@ class AdOptionFactory extends Factory
     public function definition(): array
     {
         return [
+            'enabled' => fake()->boolean(95),
             'title' => fake()->text(30),
-            'description' => fake()->text(),
+            'description' => fake()->text(50),
             'price' => fake()->randomFloat(2, 10,100),
         ];
     }

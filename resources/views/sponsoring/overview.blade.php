@@ -23,7 +23,7 @@
                        class="text-gray-700 block px-4 py-2 text-sm"
                        role="menuitem" tabindex="-1"
                        id="menu-item-0">{{__("backers")}}</a>
-                    <a href="#"
+                    <a href="{{route("sponsoring.ad-option.index")}}"
                        class="text-gray-700 block px-4 py-2 text-sm"
                        role="menuitem" tabindex="-1"
                        id="menu-item-1">{{__("ad options")}}</a>

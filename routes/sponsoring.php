@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sponsoring\AdOptionOverview;
 use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\Overview;
 use App\Livewire\Sponsoring\BackerCreate;
@@ -12,6 +13,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.index');
     Route::get('/sponsoring/backer', [BackerOverview::class, "index"])
         ->name('sponsoring.backer.index');
+    Route::get('/sponsoring/adOption', [AdOptionOverview::class, "index"])
+        ->name('sponsoring.ad-option.index');
 });
 
 Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
