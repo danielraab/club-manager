@@ -37,6 +37,7 @@ class AdOption extends Model
     public static function allActive(): \Illuminate\Database\Eloquent\Builder
     {
         return self::query()
-            ->where("enabled", true);
+            ->where("enabled", true)
+            ->orderBy("title");
     }
 }

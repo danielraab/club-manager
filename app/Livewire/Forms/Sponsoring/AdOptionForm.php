@@ -15,7 +15,7 @@ class AdOptionForm extends Form
 
     public ?string $description;
 
-    public float $price;
+    public ?float $price;
 
     protected function rules(): array
     {

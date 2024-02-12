@@ -3,8 +3,6 @@
 namespace App\Livewire\Sponsoring;
 
 use App\Livewire\Forms\Sponsoring\AdOptionForm;
-use App\Livewire\Forms\Sponsoring\BackerForm;
-use App\Models\Sponsoring\AdOption;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -38,6 +36,6 @@ class AdOptionCreate extends Component
 
     public function render()
     {
-        return view('livewire.sponsoring.ad-option-create')->layout('layouts.backend');
+        return view('livewire.sponsoring.ad-option-create-edit', ["editMode" => false])->layout('layouts.backend');
     }
 }

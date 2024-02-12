@@ -4,6 +4,7 @@ use App\Http\Controllers\Sponsoring\AdOptionOverview;
 use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\Overview;
 use App\Livewire\Sponsoring\AdOptionCreate;
+use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
 use App\Models\Sponsoring\Contract;
@@ -26,7 +27,7 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
 
     Route::get('/sponsoring/adOption/create', AdOptionCreate::class)
         ->name('sponsoring.ad-option.create');
-    Route::get('/sponsoring/adOption/{adOption}', null)
+    Route::get('/sponsoring/adOption/{adOption}', AdOptionEdit::class)
         ->name('sponsoring.ad-option.edit');
 
 
