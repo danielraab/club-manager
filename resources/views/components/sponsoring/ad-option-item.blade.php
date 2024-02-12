@@ -4,7 +4,7 @@
         <p>{{$adOption->description}}</p>
     @endif
     @if($adOption->price)
-        <p>{{$adOption->price}}</p>
+        <p>{{\App\Facade\Currency::formatPrice($adOption->price)}}</p>
     @endif
     @if($hasEditPermission)
         <div class="absolute right-2 bottom-1">

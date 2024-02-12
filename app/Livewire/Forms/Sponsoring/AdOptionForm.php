@@ -23,7 +23,7 @@ class AdOptionForm extends Form
             'enabled' => ['required', 'boolean'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'price' => ['nullable', 'float'],
+            'price' => ['nullable', 'numeric'],
         ];
     }
 

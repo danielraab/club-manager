@@ -48,7 +48,12 @@
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
 
-            todo price
+            <div class="mt-3">
+                <x-input-label for="price" :value="__('Price')"/>
+                <x-input-currency id="price" name="price" class="mt-1 block w-full"
+                                  wire:model="adOptionForm.price"
+                                  autofocus autocomplete="price" />
+            </div>
         </div>
     </div>
 
