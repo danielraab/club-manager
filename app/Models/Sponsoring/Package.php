@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int id
+ * @property bool enabled
  * @property string title
  * @property string description
  * @property bool is_official
@@ -32,12 +33,19 @@ class Package extends Model
     ];
 
     protected $casts = [
-        'is_official' => 'bool',
+        'enabled' => 'boolean',
+        'is_official' => 'boolean',
         'price' => 'float',
     ];
 
     public function adOptions(): BelongsToMany
     {
         return $this->belongsToMany(AdOption::class, "sponsor_package_sponsor_ad_option");
+    }
+
+    public static function allActive(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()->where("enabled", true)
+            ->orderBy("title");
     }
 }

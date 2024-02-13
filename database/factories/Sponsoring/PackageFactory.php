@@ -17,6 +17,7 @@ class PackageFactory extends Factory
     public function definition(): array
     {
         return [
+            'enabled' => fake()->boolean(90),
             'title' => fake()->text(30),
             'description' => fake()->text(),
             'is_official' => fake()->boolean(),

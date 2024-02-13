@@ -44,6 +44,7 @@ return new class extends Migration
 
         Schema::create('sponsor_packages', function (Blueprint $table) {
             $table->id();
+            $table->boolean("enabled")->default(true);
             $table->string("title");
             $table->text('description')->nullable();
             $table->boolean('is_official')->default(false);

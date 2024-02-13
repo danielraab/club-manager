@@ -67,7 +67,12 @@ class SponsoringSeeder extends Seeder
     private function addPackages(): void
     {
         $collection = Package::factory(self::PACKAGE_CNT)->create();
+        $first = true;
         foreach ($collection as $package) {
+            if($first) {
+                $first = false;
+                continue;
+            }
             /** @var $package Package */
             for ($i = 0; $i < 5; $i++) {
                 $package->adOptions()->attach(rand(1, self::AD_OPTION_CNT));

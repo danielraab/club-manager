@@ -3,6 +3,7 @@
 use App\Http\Controllers\Sponsoring\AdOptionOverview;
 use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\Overview;
+use App\Http\Controllers\Sponsoring\PackageOverview;
 use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
@@ -17,6 +18,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.backer.index');
     Route::get('/sponsoring/adOption', [AdOptionOverview::class, "index"])
         ->name('sponsoring.ad-option.index');
+    Route::get('/sponsoring/package', [PackageOverview::class, "index"])
+        ->name('sponsoring.package.index');
 });
 
 Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
@@ -29,6 +32,12 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
         ->name('sponsoring.ad-option.create');
     Route::get('/sponsoring/adOption/{adOption}', AdOptionEdit::class)
         ->name('sponsoring.ad-option.edit');
+
+
+    Route::get('/sponsoring/package/create', null)
+        ->name('sponsoring.package.create');
+    Route::get('/sponsoring/package/{package}', null)
+        ->name('sponsoring.package.edit');
 
 
 

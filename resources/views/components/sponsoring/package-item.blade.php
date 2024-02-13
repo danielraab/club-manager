@@ -1,0 +1,30 @@
+@php
+    /** @var $package \App\Models\Sponsoring\Package */
+    /** @var $option \App\Models\Sponsoring\AdOption */
+@endphp
+<div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-700 @endif">
+    <h2 class="font-bold">{{$package->title}}</h2>
+    @if($package->description)
+        <p>{{$package->description}}</p>
+    @endif
+    @if(($options = $package->adOptions()->get())->isNotEmpty())
+        <h3 class="font-semibold mt-3">{{__("Options:")}}</h3>
+        <ul class="list-disc ml-5">
+             @foreach($options as $option)
+                 <li>{{$option->title}}</li>
+             @endforeach
+        </ul>
+    @else
+        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No options")}}</div>
+    @endif
+    @if($package->price)
+        <p class="mt-3">{{\App\Facade\Currency::formatPrice($package->price)}}</p>
+    @endif
+    @if($hasEditPermission)
+        <div class="absolute right-2 bottom-1">
+            <a href="{{route('sponsoring.package.edit', $package->id)}}" title="Edit this package">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+        </div>
+    @endif
+</div>
