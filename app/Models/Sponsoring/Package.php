@@ -43,6 +43,11 @@ class Package extends Model
         return $this->belongsToMany(AdOption::class, "sponsor_package_sponsor_ad_option");
     }
 
+    public function periods(): BelongsToMany
+    {
+        return $this->belongsToMany(Period::class, "sponsor_period_sponsor_package");
+    }
+
     public static function allActive(): \Illuminate\Database\Eloquent\Builder
     {
         return self::query()->where("enabled", true)

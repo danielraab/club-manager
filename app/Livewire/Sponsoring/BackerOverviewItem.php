@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Sponsoring;
 
-use App\Models\Import\ImportedMember;
 use App\Models\Sponsoring\Backer;
 use Livewire\Component;
 

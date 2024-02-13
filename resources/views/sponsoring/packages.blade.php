@@ -23,7 +23,7 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-            @foreach(\App\Models\Sponsoring\Package::allActive()->with("adOptions")->get() as $package)
+            @foreach(\App\Models\Sponsoring\Package::allActive()->with(["adOptions", "periods"])->get() as $package)
                 <x-sponsoring.package-item :package="$package" :hasEditPermission="$hasEditPermission"/>
             @endforeach
         </div>

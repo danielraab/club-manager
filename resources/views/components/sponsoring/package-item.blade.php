@@ -1,8 +1,9 @@
 @php
     /** @var $package \App\Models\Sponsoring\Package */
     /** @var $option \App\Models\Sponsoring\AdOption */
+    /** @var $period \App\Models\Sponsoring\Period */
 @endphp
-<div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-700 @endif">
+<div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-500 @endif">
     <h2 class="font-bold">{{$package->title}}</h2>
     @if($package->description)
         <p>{{$package->description}}</p>
@@ -16,6 +17,16 @@
         </ul>
     @else
         <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No options")}}</div>
+    @endif
+    @if(($periods = $package->periods()->get())->isNotEmpty())
+        <h3 class="font-semibold mt-3">{{__("Periods:")}}</h3>
+        <ul class="list-disc ml-5">
+             @foreach($periods as $period)
+                 <li>{{$period->title}}</li>
+             @endforeach
+        </ul>
+    @else
+        <div class="bg-orange-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No period use this package")}}</div>
     @endif
     @if($package->price)
         <p class="mt-3">{{\App\Facade\Currency::formatPrice($package->price)}}</p>
