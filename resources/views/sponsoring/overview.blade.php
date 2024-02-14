@@ -31,7 +31,7 @@
                        class="text-gray-700 block px-4 py-2 text-sm"
                        role="menuitem" tabindex="-1"
                        id="menu-item-2">{{__("packages")}}</a>
-                    <a href="#"
+                    <a href="{{route("sponsoring.period.index")}}"
                        class="text-gray-700 block px-4 py-2 text-sm"
                        role="menuitem" tabindex="-1"
                        id="menu-item-2">{{__("periods")}}</a>

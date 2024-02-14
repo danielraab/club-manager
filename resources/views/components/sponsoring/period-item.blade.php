@@ -1,0 +1,35 @@
+@php
+    /** @var $period \App\Models\Sponsoring\Period */
+    /** @var $package \App\Models\Sponsoring\Package */
+@endphp
+<div class="relative border bg-blue-300 py-2 px-4 rounded-md"
+    x-data="{showPackages:true}">
+    <div class="flex justify-between items-center">
+        <h2 class="font-bold">{{$period->title}}</h2>
+    </div>
+    @if($period->description)
+        <p>{{$period->description}}</p>
+    @endif
+    @if(($packages = $period->packages()->get())->isNotEmpty())
+        <h3 @click="showPackages=!showPackages" class="font-semibold mt-3">{{__("Packages")}}
+            <i class="fa-solid"
+               :class="showPackages ? 'fa-caret-down' : 'fa-caret-right'"></i>
+        </h3>
+        <ul class="list-disc pl-5" x-cloak x-show="showPackages" x-collapse>
+             @foreach($packages as $package)
+                 <li>{{$package->title}}</li>
+             @endforeach
+        </ul>
+    @else
+        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No packages")}}</div>
+    @endif
+        <p class="mt-3"><span class="font-semibold inline-block min-w-[60px]">{{__("Start")}}:</span>{{$period->start->formatDateOnly()}}</p>
+        <p class="mt-3"><span class="font-semibold inline-block min-w-[60px]">{{__("End")}}:</span>{{$period->end->formatDateOnly()}}</p>
+    @if($hasEditPermission)
+        <div class="absolute right-2 bottom-1">
+            <a href="{{route('sponsoring.package.edit', $package->id)}}" title="Edit this package">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+        </div>
+    @endif
+</div>

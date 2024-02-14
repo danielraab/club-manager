@@ -19,7 +19,7 @@
             <i class="fa-solid"
                :class="showOptions ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>
-        <ul class="list-disc ml-5" x-cloak x-show="showOptions" x-collapse>
+        <ul class="list-disc pl-5" x-cloak x-show="showOptions" x-collapse>
              @foreach($options as $option)
                  <li>{{$option->title}}</li>
              @endforeach
@@ -32,7 +32,7 @@
             <i class="fa-solid"
                :class="showPeriods ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>
-        <ul class="list-disc ml-5" x-cloak x-show="showPeriods" x-collapse>
+        <ul class="list-disc pl-5" x-cloak x-show="showPeriods" x-collapse>
              @foreach($periods as $period)
                  <li>{{$period->title}}</li>
              @endforeach
