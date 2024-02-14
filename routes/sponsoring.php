@@ -11,6 +11,8 @@ use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
 use App\Livewire\Sponsoring\PackageCreate;
 use App\Livewire\Sponsoring\PackageEdit;
+use App\Livewire\Sponsoring\PeriodCreate;
+use App\Livewire\Sponsoring\PeriodEdit;
 use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
@@ -38,25 +40,13 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
     Route::get('/sponsoring/adOption/{adOption}', AdOptionEdit::class)
         ->name('sponsoring.ad-option.edit');
 
-
     Route::get('/sponsoring/package/create', PackageCreate::class)
         ->name('sponsoring.package.create');
     Route::get('/sponsoring/package/{package}', PackageEdit::class)
         ->name('sponsoring.package.edit');
 
-    Route::get('/sponsoring/period/create', null)
+    Route::get('/sponsoring/period/create', PeriodCreate::class)
         ->name('sponsoring.period.create');
-    Route::get('/sponsoring/period/{period}', null)
+    Route::get('/sponsoring/period/{period}', PeriodEdit::class)
         ->name('sponsoring.period.edit');
-
-
-
-//    Route::get('/sponsoring/list/csv', [MemberList::class, 'csv'])
-//        ->name('sponsoring.list.csv');
-//    Route::get('/sponsoring/list/excel', [MemberList::class, 'excel'])
-//        ->name('sponsoring.list.excel');
-//    Route::get('/sponsoring/birthdayList/print', [MemberList::class, 'birthdayListPrint'])
-//        ->name('sponsoring.birthdayList.print');
-//    Route::get('/sponsoring/birthdayList', [MemberList::class, 'birthdayList'])
-//        ->name('sponsoring.birthdayList');
 });

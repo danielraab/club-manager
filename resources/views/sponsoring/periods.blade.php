@@ -23,7 +23,7 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-            @foreach(\App\Models\Sponsoring\Period::query()->get() as $period)
+            @foreach(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
                 <x-sponsoring.period-item :period="$period" :hasEditPermission="$hasEditPermission"/>
             @endforeach
         </div>

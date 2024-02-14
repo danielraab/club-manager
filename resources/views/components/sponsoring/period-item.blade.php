@@ -2,7 +2,7 @@
     /** @var $period \App\Models\Sponsoring\Period */
     /** @var $package \App\Models\Sponsoring\Package */
 @endphp
-<div class="relative border bg-blue-300 py-2 px-4 rounded-md"
+<div class="relative border py-2 px-4 rounded-md @if($period->start > now()) bg-blue-600 @elseif($period->end < now()) bg-gray-300 @else bg-green-500 @endif"
     x-data="{showPackages:true}">
     <div class="flex justify-between items-center">
         <h2 class="font-bold">{{$period->title}}</h2>
@@ -24,10 +24,10 @@
         <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No packages")}}</div>
     @endif
         <p class="mt-3"><span class="font-semibold inline-block min-w-[60px]">{{__("Start")}}:</span>{{$period->start->formatDateOnly()}}</p>
-        <p class="mt-3"><span class="font-semibold inline-block min-w-[60px]">{{__("End")}}:</span>{{$period->end->formatDateOnly()}}</p>
+        <p><span class="font-semibold inline-block min-w-[60px]">{{__("End")}}:</span>{{$period->end->formatDateOnly()}}</p>
     @if($hasEditPermission)
         <div class="absolute right-2 bottom-1">
-            <a href="{{route('sponsoring.package.edit', $package->id)}}" title="Edit this package">
+            <a href="{{route('sponsoring.period.edit', $period->id)}}" title="Edit this period">
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
         </div>
