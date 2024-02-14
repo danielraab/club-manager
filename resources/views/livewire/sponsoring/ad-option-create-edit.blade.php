@@ -73,6 +73,8 @@
                 <x-input-currency id="price" name="price" class="mt-1 block w-full"
                                   wire:model="adOptionForm.price"
                                   autofocus autocomplete="price" />
+                @error('adOptionForm.price')
+                <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
         </div>
     </div>

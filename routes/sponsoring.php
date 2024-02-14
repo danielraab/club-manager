@@ -8,6 +8,8 @@ use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
+use App\Livewire\Sponsoring\PackageCreate;
+use App\Livewire\Sponsoring\PackageEdit;
 use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +36,9 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
         ->name('sponsoring.ad-option.edit');
 
 
-    Route::get('/sponsoring/package/create', null)
+    Route::get('/sponsoring/package/create', PackageCreate::class)
         ->name('sponsoring.package.create');
-    Route::get('/sponsoring/package/{package}', null)
+    Route::get('/sponsoring/package/{package}', PackageEdit::class)
         ->name('sponsoring.package.edit');
 
 

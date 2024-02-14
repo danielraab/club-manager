@@ -26,6 +26,7 @@ class Package extends Model
     protected $table = "sponsor_packages";
 
     protected $fillable = [
+        'enabled',
         'title',
         'description',
         'is_official',

@@ -32,7 +32,7 @@
         @if($disabledList->isNotEmpty())
             <h3 class="font-bold py-5">{{__("Disabled")}}</h3>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
                 @foreach($disabledList as $package)
                     <x-sponsoring.package-item :package="$package" :hasEditPermission="$hasEditPermission"/>
                 @endforeach

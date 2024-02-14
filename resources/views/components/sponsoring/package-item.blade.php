@@ -5,7 +5,12 @@
 @endphp
 <div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-500 @endif"
     x-data="{showOptions:true, showPeriods:false}">
-    <h2 class="font-bold">{{$package->title}}</h2>
+    <div class="flex justify-between items-center">
+        <h2 class="font-bold">{{$package->title}}</h2>
+        @if(!$package->is_official)
+            <div class="bg-red-700 text-white px-2 rounded-full text-sm">{{__("not official")}}</div>
+        @endif
+    </div>
     @if($package->description)
         <p>{{$package->description}}</p>
     @endif
@@ -14,7 +19,7 @@
             <i class="fa-solid"
                :class="showOptions ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>
-        <ul class="list-disc ml-5" x-cloak x-show="showOptions">
+        <ul class="list-disc ml-5" x-cloak x-show="showOptions" x-collapse>
              @foreach($options as $option)
                  <li>{{$option->title}}</li>
              @endforeach
@@ -27,7 +32,7 @@
             <i class="fa-solid"
                :class="showPeriods ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>
-        <ul class="list-disc ml-5" x-cloak x-show="showPeriods">
+        <ul class="list-disc ml-5" x-cloak x-show="showPeriods" x-collapse>
              @foreach($periods as $period)
                  <li>{{$period->title}}</li>
              @endforeach

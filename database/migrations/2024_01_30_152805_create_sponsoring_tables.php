@@ -48,7 +48,7 @@ return new class extends Migration
             $table->string("title");
             $table->text('description')->nullable();
             $table->boolean('is_official')->default(false);
-            $table->float('price');
+            $table->float('price')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
