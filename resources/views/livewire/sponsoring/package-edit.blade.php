@@ -30,7 +30,7 @@
             <x-livewire.sponsoring.package-content/>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            todo
+            <x-livewire.sponsoring.package-ad-option-selection/>
         </div>
     </div>
 

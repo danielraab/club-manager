@@ -15,7 +15,7 @@
         <p>{{$package->description}}</p>
     @endif
     @if(($options = $package->adOptions()->get())->isNotEmpty())
-        <h3 @click="showOptions=!showOptions" class="font-semibold mt-3">{{__("Options")}}
+        <h3 @click="showOptions=!showOptions" class="font-semibold mt-3">{{__("Ad options")}}
             <i class="fa-solid"
                :class="showOptions ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>
@@ -25,7 +25,7 @@
              @endforeach
         </ul>
     @else
-        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No options")}}</div>
+        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No ad options")}}</div>
     @endif
     @if(($periods = $package->periods()->get())->isNotEmpty())
         <h3 @click="showPeriods=!showPeriods" class="font-semibold mt-3 cursor-pointer">{{__("Periods")}}

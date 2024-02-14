@@ -9,12 +9,16 @@ use Livewire\Component;
 
 class PackageEdit extends Component
 {
+    use AdOptionSelectionTrait;
+
     public PackageForm $packageForm;
 
     public string $previousUrl;
 
     public function mount(Package $package): void
     {
+        $this->availableAdOptionArr = $this->getAdOptionArr();
+        $this->selectedAdOptionArr = $package->adOptions()->get(["id"])->pluck("id")->toArray();
 
         $this->packageForm->setPackageModel($package);
         $this->previousUrl = url()->previous();
@@ -23,6 +27,7 @@ class PackageEdit extends Component
     public function savePackage(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $this->packageForm->update();
+        $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
         Log::info("Package updated", [auth()->user(), $this->packageForm->package]);
         session()->put('message', __('The package has been successfully updated.'));
