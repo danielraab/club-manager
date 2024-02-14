@@ -22,7 +22,7 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
             @foreach(\App\Models\Sponsoring\Package::allActive()->with(["adOptions", "periods"])->get() as $package)
                 <x-sponsoring.package-item :package="$package" :hasEditPermission="$hasEditPermission"/>
             @endforeach

@@ -3,14 +3,18 @@
     /** @var $option \App\Models\Sponsoring\AdOption */
     /** @var $period \App\Models\Sponsoring\Period */
 @endphp
-<div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-500 @endif">
+<div class="relative border bg-blue-300 py-2 px-4 rounded-md @if(!$package->enabled) text-gray-500 @endif"
+    x-data="{showOptions:true, showPeriods:false}">
     <h2 class="font-bold">{{$package->title}}</h2>
     @if($package->description)
         <p>{{$package->description}}</p>
     @endif
     @if(($options = $package->adOptions()->get())->isNotEmpty())
-        <h3 class="font-semibold mt-3">{{__("Options:")}}</h3>
-        <ul class="list-disc ml-5">
+        <h3 @click="showOptions=!showOptions" class="font-semibold mt-3">{{__("Options")}}
+            <i class="fa-solid"
+               :class="showOptions ? 'fa-caret-down' : 'fa-caret-right'"></i>
+        </h3>
+        <ul class="list-disc ml-5" x-cloak x-show="showOptions">
              @foreach($options as $option)
                  <li>{{$option->title}}</li>
              @endforeach
@@ -19,8 +23,11 @@
         <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No options")}}</div>
     @endif
     @if(($periods = $package->periods()->get())->isNotEmpty())
-        <h3 class="font-semibold mt-3">{{__("Periods:")}}</h3>
-        <ul class="list-disc ml-5">
+        <h3 @click="showPeriods=!showPeriods" class="font-semibold mt-3 cursor-pointer">{{__("Periods")}}
+            <i class="fa-solid"
+               :class="showPeriods ? 'fa-caret-down' : 'fa-caret-right'"></i>
+        </h3>
+        <ul class="list-disc ml-5" x-cloak x-show="showPeriods">
              @foreach($periods as $period)
                  <li>{{$period->title}}</li>
              @endforeach
