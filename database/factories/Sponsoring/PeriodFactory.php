@@ -19,8 +19,8 @@ class PeriodFactory extends Factory
         return [
             'title' => fake()->text(30),
             'description' => fake()->text(),
-            'start' => $start = fake()->dateTimeBetween(),
-            'end' => fake()->dateTimeBetween($start),
+            'start' => $start = fake()->dateTimeBetween('-2 years', '2 years'),
+            'end' => fake()->dateTimeBetween($start, '3 years'),
         ];
     }
 }
