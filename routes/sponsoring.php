@@ -25,8 +25,6 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.ad-option.index');
     Route::get('/sponsoring/package', [PackageOverview::class, "index"])
         ->name('sponsoring.package.index');
-    Route::get('/sponsoring/period', [PeriodOverview::class, "index"])
-        ->name('sponsoring.period.index');
 });
 
 Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {

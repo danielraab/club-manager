@@ -1,6 +1,6 @@
 <x-slot name="headline">
     <div class="flex items-center gap-2">
-        <a href="{{route("sponsoring.period.index")}}">
+        <a href="{{route("sponsoring.index")}}">
             <i class="fa-solid fa-arrow-left-long"></i>
         </a>
         {{ __("Edit period") }}
