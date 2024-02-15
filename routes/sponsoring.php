@@ -4,13 +4,13 @@ use App\Http\Controllers\Sponsoring\AdOptionOverview;
 use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\Overview;
 use App\Http\Controllers\Sponsoring\PackageOverview;
-use App\Http\Controllers\Sponsoring\PeriodOverview;
 use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
 use App\Livewire\Sponsoring\PackageCreate;
 use App\Livewire\Sponsoring\PackageEdit;
+use App\Livewire\Sponsoring\PeriodBackerOverview;
 use App\Livewire\Sponsoring\PeriodCreate;
 use App\Livewire\Sponsoring\PeriodEdit;
 use App\Models\Sponsoring\Contract;
@@ -25,6 +25,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.ad-option.index');
     Route::get('/sponsoring/package', [PackageOverview::class, "index"])
         ->name('sponsoring.package.index');
+    Route::get('/sponsoring/period/backer/{period}', PeriodBackerOverview::class)
+        ->name('sponsoring.period.backer.overview');
 });
 
 Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {

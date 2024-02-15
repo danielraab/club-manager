@@ -1,4 +1,5 @@
 @php
+    $hasShowPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_SHOW_PERMISSION);
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION);
     /** @var $period \App\Models\Sponsoring\Period */
 @endphp
@@ -42,7 +43,7 @@
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
             @foreach(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
-                <x-sponsoring.period-item :period="$period" :hasEditPermission="$hasEditPermission"/>
+                <x-sponsoring.period-item :period="$period" :hasShowPermission="$hasShowPermission" :hasEditPermission="$hasEditPermission"/>
             @endforeach
         </div>
     </div>
