@@ -10,13 +10,14 @@ use App\Models\Sponsoring\Period;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use function Sodium\compare;
 
 class SponsoringSeeder extends Seeder
 {
     private const AD_OPTION_CNT = 10;
-    private const BACKER_CNT = 100;
+    public const BACKER_CNT = 100;
     private const PACKAGE_CNT = 10;
-    private const PERIOD_CNT = 5;
+    public const PERIOD_CNT = 5;
     private const CONTRACT_CNT = 200;
 
     private User $sponsoringShow;
@@ -91,14 +92,14 @@ class SponsoringSeeder extends Seeder
         }
     }
 
+
+
     private function addContracts(): void
     {
         $collection = Contract::factory(self::CONTRACT_CNT)->create();
         foreach ($collection as $contract) {
             /** @var $contract Contract */
-            $contract->period()->associate(rand(1, self::PERIOD_CNT))->save();
-            $contract->backer()->associate(rand(1, self::BACKER_CNT))->save();
-            if (fake()->boolean(95)) {
+            if (fake()->boolean(75)) {
                 $contract->member()->associate(rand(1, MemberSeeder::$memberCnt))->save();
             } else {
                 // member receded contract, must be assigned to new member

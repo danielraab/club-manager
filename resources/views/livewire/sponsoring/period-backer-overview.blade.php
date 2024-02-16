@@ -12,27 +12,34 @@
 </x-slot>
 
 <div>
+    <x-livewire.loading />
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
         @if($period->end > now())
-            <x-default-button
-                x-data="{ clickCnt: 0, onClick() {
+            {{--            TODO check if generating is necessary/possible (every backer already has a contract--}}
+            <div class="flex items-center gap-3 flex-wrap">
+                <x-default-button
+                    x-data="{ clickCnt: 0, onClick() {
                 if(this.clickCnt > 0) {
-                    $wire.generateContracts();
+                    $wire.generateAllContracts();
                 } else {
                     this.clickCnt++;
                     $el.innerHTML = 'Are you sure?';
                 }
             }}"
-                x-on:click="onClick()" title="Generate a contract for every backer."
-                class="btn-secondary">{{ __('Generate contracts') }}</x-default-button>
+                    x-on:click="onClick()" title="Generate a contract for every backer."
+                    class="btn-secondary">{{ __('Generate contracts') }}</x-default-button>
+                @if(session()->has("createdMessage"))
+                    <p class="text-gray-700"
+                       x-init="setTimeout(()=> {$el.remove()}, 5000);">{{session()->pull("createdMessage")}}</p>
+                @endif
+            </div>
         @endif
     </div>
 
-    <div class="bg-white shadow-sm sm:rounded-lg p-5">
+    <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
+        {{--   TODO sort reject at the end--}}
         @foreach(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
-            <div>
-                {{$backer->name}}
-            </div>
+            <x-livewire.sponsoring.period-backer-item :backer="$backer" wire:key="{{$backer->id}}"/>
         @endforeach
     </div>
 </div>

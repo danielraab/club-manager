@@ -93,6 +93,8 @@ return new class extends Migration
             $table->foreign('period_id')->references('id')->on('sponsor_periods')->cascadeOnDelete();
             $table->foreignIdFor(Backer::class, 'backer_id');
             $table->foreign('backer_id')->references('id')->on('sponsor_backers')->cascadeOnDelete();
+            $table->unique(['period_id', 'backer_id']);
+
             $table->foreignIdFor(Member::class, 'member_id')->nullable();
             $table->foreign('member_id')->references('id')->on('members')->cascadeOnDelete();
             $table->foreignIdFor(Package::class, 'package_id')->nullable();

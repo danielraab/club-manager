@@ -5,6 +5,7 @@ namespace App\Models\Sponsoring;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -54,5 +55,11 @@ class Backer extends Model
             ->whereNull('closed_at')
             ->where('enabled', true)
             ->orderBy('name');
+    }
+
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
     }
 }
