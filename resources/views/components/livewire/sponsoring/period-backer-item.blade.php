@@ -15,32 +15,32 @@
         <div class="flex items-center gap-3">
             @if($contract !== null)
                 @if($contract->member_id)
-                    <i class="fa-solid fa-user {{$green}}"></i>
+                    <i class="fa-solid fa-user {{$green}}" title="{{$contract->member()->first()->getFullName()}}"></i>
                 @else
                     <i class="fa-solid fa-user {{$red}}"></i>
                 @endif
                 @if($contract->refused)
-                    <i class="fa-solid fa-ban {{$red}}"></i>
+                    <i class="fa-solid fa-ban {{$red}}" title="{{$contract->refused->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-ban {{$gray}}"></i>
                 @endif
                 @if($contract->package_id)
-                    <i class="fa-solid fa-cube {{$green}}"></i>
+                    <i class="fa-solid fa-cube {{$green}}" title="{{$contract->package()->first()->title}}"></i>
                 @else
                     <i class="fa-solid fa-cube {{$gray}}"></i>
                 @endif
                 @if($contract->contract_received)
-                    <i class="fa-solid fa-file-contract {{$green}}"></i>
+                    <i class="fa-solid fa-file-contract {{$green}}" title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-file-contract {{$gray}}"></i>
                 @endif
                 @if($contract->ad_data_received)
-                    <i class="fa-regular fa-image {{$green}}"></i>
+                    <i class="fa-regular fa-image {{$green}}" title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-regular fa-image {{$gray}}"></i>
                 @endif
-                @if($contract->ad_data_received)
-                    <i class="fa-solid fa-money-bill-wave {{$green}}"></i>
+                @if($contract->paid)
+                    <i class="fa-solid fa-money-bill-wave {{$green}}" title="{{$contract->paid->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @endif
