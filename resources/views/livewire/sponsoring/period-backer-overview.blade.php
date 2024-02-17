@@ -12,10 +12,9 @@
 </x-slot>
 
 <div>
-    <x-livewire.loading />
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        @if($period->end > now())
-            {{--            TODO check if generating is necessary/possible (every backer already has a contract--}}
+    <x-livewire.loading/>
+    @if($hasEditPermission && $period->end > now())
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
             <div class="flex items-center gap-3 flex-wrap">
                 <x-default-button
                     x-data="{ clickCnt: 0, onClick() {
@@ -33,13 +32,20 @@
                        x-init="setTimeout(()=> {$el.remove()}, 5000);">{{session()->pull("createdMessage")}}</p>
                 @endif
             </div>
-        @endif
-    </div>
+
+            <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary" title="Edit this period">
+                {{__("Edit period")}}
+            </x-button-link>
+        </div>
+    @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
         {{--   TODO sort reject at the end--}}
         @foreach(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
-            <x-livewire.sponsoring.period-backer-item :backer="$backer" wire:key="{{$backer->id}}"/>
+            <x-livewire.sponsoring.period-backer-item
+                :backer="$backer"
+                wire:key="{{$backer->id}}"
+                :hasEditPermission="$hasEditPermission"/>
         @endforeach
     </div>
 </div>

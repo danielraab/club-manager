@@ -8,6 +8,7 @@ use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
 use App\Livewire\Sponsoring\BackerEdit;
+use App\Livewire\Sponsoring\ContractEdit;
 use App\Livewire\Sponsoring\PackageCreate;
 use App\Livewire\Sponsoring\PackageEdit;
 use App\Livewire\Sponsoring\PeriodBackerOverview;
@@ -49,4 +50,7 @@ Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])
         ->name('sponsoring.period.create');
     Route::get('/sponsoring/period/{period}', PeriodEdit::class)
         ->name('sponsoring.period.edit');
+
+    Route::get('/sponsoring/contract/{contract}', ContractEdit::class)
+        ->name('sponsoring.contract.edit');
 });

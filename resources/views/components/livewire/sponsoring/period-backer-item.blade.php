@@ -12,7 +12,7 @@
 <div class="flex flex-col sm:flex-row gap-3 items-center sm:justify-between px-5 py-2">
     <div>{{$backer->name}} <span class="text-gray-700">- {{$backer->zip}} {{$backer->city}}</span></div>
     <div class="flex">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
             @if($contract !== null)
                 @if($contract->member_id)
                     <i class="fa-solid fa-user {{$green}}"></i>
@@ -44,9 +44,12 @@
                 @else
                     <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @endif
-                    <x-button-link class="btn-primary w-8 justify-center">
+                @if($hasEditPermission)
+                    <x-button-link class="btn-primary w-8 justify-center"
+                                   href="{{route('sponsoring.contract.edit', $contract->id)}}">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </x-button-link>
+                @endif
             @else
                 <i class="fa-solid fa-user {{$gray}}"></i>
                 <i class="fa-solid fa-ban {{$gray}}"></i>
@@ -54,14 +57,13 @@
                 <i class="fa-solid fa-file-contract {{$gray}}"></i>
                 <i class="fa-regular fa-image {{$gray}}"></i>
                 <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
-                <x-default-button class="btn-danger w-8 justify-center" wire:click="createContract({{$backer->id}})">
-                    <i class="fa-solid fa-file-contract"></i>
-                </x-default-button>
+                @if($hasEditPermission)
+                    <x-default-button class="btn-danger w-8 justify-center"
+                                      wire:click="createContract({{$backer->id}})">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </x-default-button>
+                @endif
             @endif
         </div>
-        {{--                <a href="{{route('sponsoring.period.backer.overview', $period->id)}}"--}}
-        {{--                   title="Show contract details.">--}}
-        {{--                    <i class="fa-solid fa-file-contract"></i>--}}
-        {{--                </a>--}}
     </div>
 </div>
