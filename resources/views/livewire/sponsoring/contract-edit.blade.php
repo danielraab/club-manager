@@ -1,6 +1,17 @@
+@php
+    /** @var $contractForm \App\Livewire\Forms\Sponsoring\ContractForm */
+    /** @var $period \App\Models\Sponsoring\Period */
+    $period = $contractForm->contract->period()->first();
+
+    /** @var $backer \App\Models\Sponsoring\Backer */
+    $backer = $contractForm->contract->backer()->first();
+
+    /** @var $member \App\Models\Member */
+    /** @var $package \App\Models\Sponsoring\Package */
+@endphp
 <x-slot name="headline">
     <div class="flex items-center gap-2">
-        <a href="{{route("sponsoring.period.backer.overview",$contractForm->contract->period_id)}}">
+        <a href="{{route("sponsoring.period.backer.overview",$period->id)}}">
             <i class="fa-solid fa-arrow-left-long"></i>
         </a>
         {{ __("Edit contract") }}
@@ -29,11 +40,11 @@
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <div>
                 <span class="font-bold">{{__("Period")}}:</span>
-                <span>{{$contractForm->contract->period()->first()->title}}</span>
+                <span>{{$period->title}}</span>
             </div>
             <div>
                 <span class="font-bold">{{__("Backer")}}:</span>
-                <span>{{($backer = $contractForm->contract->backer()->first())->name}}</span>
+                <span>{{$backer->name}}</span>
                 <span class="text-gray-700"> - {{$backer->zip}} {{$backer->city}}</span>
             </div>
             <div class="mt-3">
@@ -45,12 +56,40 @@
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
-                {{--                todo select--}}
-                member
+                <x-input-label for="member">
+                    <i class="fa-solid fa-user"></i>
+                    {{__('Member')}}
+                </x-input-label>
+                <select name="member" id="member"
+                        wire:model="contractForm.member_id"
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                >
+                    <option>{{__("-- choose a member --")}}</option>
+                    @foreach(App\Models\Member::getAllFiltered(new \App\Models\Filter\MemberFilter(true, true, true))->get() as $member)
+                        <option value="{{$member->id}}">{{$member->getFullName()}}</option>
+                    @endforeach
+                </select>
+                @if(($member = $contractForm->contract->member()->first()))
+                    <span class="text-sm text-gray-500">{{__("currently selected: ")}} {{$member->getFullName()}}</span>
+                @endif
             </div>
             <div class="mt-3">
-{{--                todo select--}}
-                package
+                <x-input-label for="package">
+                    <i class="fa-solid fa-cube"></i>
+                    {{__('Package')}}
+                </x-input-label>
+                <select name="package" id="package"
+                        wire:model="contractForm.package_id"
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                >
+                    <option>{{__("-- choose a package --")}}</option>
+                    @foreach($period->packages()->get() as $package)
+                        <option value="{{$package->id}}">{{$package->title}}</option>
+                    @endforeach
+                </select>
+                @if(($package = $contractForm->contract->package()->first()))
+                    <span class="text-sm text-gray-500">{{__("currently selected: ")}} {{$package->title}}</span>
+                @endif
             </div>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4"
@@ -61,19 +100,25 @@
              paid:@entangle('contractForm.paid'),
              }">
             <div class="mt-3">
-                <x-input-label for="refused" :value="__('Refused')"/>
+                <x-input-label for="refused">
+                    <i class="fa-solid fa-ban"></i>
+                    {{__('Refused')}}
+                </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="refused" name="refused" class="grow"
                                   x-model="refused"
                                   autofocus autocomplete="refused"/>
                     <x-default-button class="btn-secondary"
-                    x-on:click="refused = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
+                                      x-on:click="refused = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
                 </div>
                 @error('contactForm.refused')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
-                <x-input-label for="contract_received" :value="__('Contract received')"/>
+                <x-input-label for="contract_received">
+                    <i class="fa-solid fa-file-contract"></i>
+                   {{__('Contract received')}}
+                </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="contract_received" name="contract_received" class="block w-full"
                                   wire:model="contractForm.contract_received"
@@ -87,7 +132,10 @@
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
-                <x-input-label for="ad_data_received" :value="__('Ad data received')"/>
+                <x-input-label for="ad_data_received">
+                    <i class="fa-regular fa-image"></i>
+                    {{__('Ad data received')}}
+                </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="ad_data_received" name="ad_data_received" class="block w-full"
                                   wire:model="contractForm.ad_data_received"
@@ -101,7 +149,10 @@
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
-                <x-input-label for="paid" :value="__('Paid')"/>
+                <x-input-label for="paid" >
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    {{__('Paid')}}
+                </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="paid" name="paid" class="block w-full"
                                   wire:model="contractForm.paid"

@@ -15,10 +15,10 @@ class ContractForm extends Form
     public ?string $info;
 
     #[Rule('nullable|numeric')]
-    public ?int $member_id;
+    public ?int $member_id = null;
 
     #[Rule('nullable|numeric')]
-    public ?int $package_id;
+    public ?int $package_id = null;
 
     #[Rule('nullable|date')]
     public ?string $refused = null;
@@ -52,6 +52,8 @@ class ContractForm extends Form
 
         $this->contract->update([
             ...$this->except([
+                'member_id',
+                'package_id',
                 'contract',
                 'refused',
                 'contract_received',
@@ -65,6 +67,9 @@ class ContractForm extends Form
                 Carbon::parseFromDatetimeLocalInput($this->ad_data_received) : null,
             'paid' => $this->paid ? Carbon::parseFromDatetimeLocalInput($this->paid) : null,
         ]);
+
+        $this->contract->member()->associate($this->member_id <= 0 ? null : $this->member_id);
+        $this->contract->package()->associate($this->package_id <= 0 ? null : $this->package_id);
 
         $this->contract->save();
     }
