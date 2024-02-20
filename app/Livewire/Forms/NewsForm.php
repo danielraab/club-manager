@@ -6,14 +6,14 @@ use App\Models\News;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class NewsForm extends Form
 {
     public ?News $news;
 
-    #[Rule('max:255')]
+    #[Validate('max:255')]
     public ?string $title = null;
 
     public ?string $content = null;
@@ -22,7 +22,7 @@ class NewsForm extends Form
 
     public bool $logged_in_only = false;
 
-    #[Rule('required|date')]
+    #[Validate('required|date')]
     public string $display_until;
 
     public function setNewsModel(News $news): void

@@ -4,32 +4,32 @@ namespace App\Livewire\Forms\Sponsoring;
 
 use App\Models\Sponsoring\Contract;
 use Carbon\Carbon;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class ContractForm extends Form
 {
     public ?Contract $contract = null;
 
-    #[Rule('nullable|max:255')]
+    #[Validate('nullable|max:255')]
     public ?string $info;
 
-    #[Rule('nullable|numeric')]
+    #[Validate('nullable|numeric')]
     public ?int $member_id = null;
 
-    #[Rule('nullable|numeric')]
+    #[Validate('nullable|numeric')]
     public ?int $package_id = null;
 
-    #[Rule('nullable|date')]
+    #[Validate('nullable|date')]
     public ?string $refused = null;
 
-    #[Rule('nullable|date')]
+    #[Validate('nullable|date')]
     public ?string $contract_received = null;
 
-    #[Rule('nullable|date')]
+    #[Validate('nullable|date')]
     public ?string $ad_data_received = null;
 
-    #[Rule('nullable|date')]
+    #[Validate('nullable|date')]
     public ?string $paid = null;
 
 

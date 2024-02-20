@@ -4,7 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Livewire\UserManagement\UserPermissionComponentTrait;
 use App\Models\User;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class UserForm extends Form
@@ -13,7 +13,7 @@ class UserForm extends Form
 
     public ?User $user = null;
 
-    #[Rule('required|min:5')]
+    #[Validate('required|min:5')]
     public string $name;
 
     public string $email;

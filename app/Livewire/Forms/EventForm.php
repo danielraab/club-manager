@@ -5,22 +5,22 @@ namespace App\Livewire\Forms;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventForm extends Form
 {
     public ?Event $event;
 
-    #[Rule('required|max:255')]
+    #[Validate('required|max:255')]
     public string $title;
 
     public ?string $description;
 
-    #[Rule('max:255')]
+    #[Validate('max:255')]
     public ?string $location;
 
-    #[Rule('max:255')]
+    #[Validate('max:255')]
     public ?string $dress_code;
 
     public ?string $link;
@@ -31,13 +31,13 @@ class EventForm extends Form
 
     public ?bool $logged_in_only;
 
-    #[Rule('required|date')]
+    #[Validate('required|date')]
     public string $start;
 
-    #[Rule('required|date|after_or_equal:start')]
+    #[Validate('required|date|after_or_equal:start')]
     public string $end;
 
-    #[Rule('int|exists:event_types,id')]
+    #[Validate('int|exists:event_types,id')]
     public ?string $type = null;
 
     public function updatingStart($updatedValue): void

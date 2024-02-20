@@ -4,22 +4,22 @@ namespace App\Livewire\Forms\Sponsoring;
 
 use App\Models\Sponsoring\Period;
 use Carbon\Carbon;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PeriodForm extends Form
 {
     public ?Period $period = null;
 
-    #[Rule('required|max:255')]
+    #[Validate('required|max:255')]
     public string $title;
 
     public ?string $description;
 
-    #[Rule('required|date')]
+    #[Validate('required|date')]
     public string $start;
 
-    #[Rule('required|date|after_or_equal:periodForm.start')]
+    #[Validate('required|date|after_or_equal:periodForm.start')]
     public string $end;
 
     public function setPeriodModel(Period $period): void
