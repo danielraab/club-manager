@@ -20,8 +20,25 @@
         </div>
 
         <div class="mt-3">
+            <x-input-label for="adData" :value="__('File(s)')"/>
+            @foreach($this->adDataArr as $adData)
+                @php
+                /** @var $adData \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
+                @endphp
+            @dump($adData)
+                <div>{{$adData->getFileInfo()->getFilename()}}</div>
+            @endforeach
+            <x-input-file-area id="adData" name="adData" type="file" class="mt-1 block w-full"
+                          wire:model="adDataArr"
+                               subTitle="PNG, JPG, GIF up to 10MB" multiple
+                          autofocus autocomplete="adData"/>
+            @error('adDataArr.*')<x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
+
+        <div class="mt-3">
             <x-input-label for="closedAt" :value="__('Closed at')"/>
-            <x-input-date id="closedAt" name="closedAt" type="text" class="mt-1 block w-full"
+            <x-input-date id="closedAt" name="closedAt" class="mt-1 block w-full"
                           wire:model="backerForm.closed_at"
                           autofocus autocomplete="closedAt"/>
             @error('backerForm.closed_at')
@@ -30,7 +47,7 @@
 
         <div class="mt-3">
             <x-input-label for="info" :value="__('Info')"/>
-            <x-textarea id="info" name="info" type="text" class="mt-1 block w-full"
+            <x-textarea id="info" name="info" class="mt-1 block w-full"
                           wire:model="backerForm.info"
                           autofocus autocomplete="info"/>
             @error('backerForm.info')
