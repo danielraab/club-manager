@@ -19,8 +19,9 @@ return new class extends Migration
         Schema::create('uploaded_files', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string('type');
+            $table->string('mimeType');
             $table->string('path');
+            $table->morphs("storer");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +33,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('uploaded_files');
-
     }
 };

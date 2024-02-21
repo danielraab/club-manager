@@ -2,10 +2,12 @@
 
 namespace App\Models\Sponsoring;
 
+use App\Models\UploadedFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -61,5 +63,10 @@ class Backer extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
+    }
+
+    public function uploadedFiles(): MorphMany
+    {
+        return $this->morphMany(UploadedFile::class, 'storer');
     }
 }
