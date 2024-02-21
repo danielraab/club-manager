@@ -18,7 +18,8 @@
         </div>
         @if($subTitle)
             <p class="text-xs leading-5 text-gray-600">{{__($subTitle)}}</p>
-        @elseif($slot)
+        @endif
+        @if($slot)
             {{$slot}}
         @endif
     </div>

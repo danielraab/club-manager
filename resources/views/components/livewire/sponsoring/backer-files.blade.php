@@ -21,18 +21,25 @@
 
         <div class="mt-3">
             <x-input-label for="adData" :value="__('File(s)')"/>
-            @foreach($this->adDataArr as $adData)
-                @php
-                /** @var $adData \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
-                @endphp
-            @dump($adData)
-                <div>{{$adData->getFileInfo()->getFilename()}}</div>
-            @endforeach
+
             <x-input-file-area id="adData" name="adData" type="file" class="mt-1 block w-full"
-                          wire:model="adDataArr"
+                               wire:model="adDataArr"
                                subTitle="PNG, JPG, GIF up to 10MB" multiple
-                          autofocus autocomplete="adData"/>
-            @error('adDataArr.*')<x-input-error class="mt-2" :messages="$message"/>@enderror
+                               autofocus autocomplete="adData">
+                @if(!empty($this->adDataArr))
+                    <div class="mt-2">{{__("Selected files:")}}</div>
+                    <ul class="list-disc inline-block text-gray-600 text-sm">
+                        @foreach($this->adDataArr as $adData)
+                            @php
+                                /** @var $adData \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
+                            @endphp
+                            <li>{{$adData->getClientOriginalName()}}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </x-input-file-area>
+            @error('adDataArr.*')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
 
@@ -48,8 +55,8 @@
         <div class="mt-3">
             <x-input-label for="info" :value="__('Info')"/>
             <x-textarea id="info" name="info" class="mt-1 block w-full"
-                          wire:model="backerForm.info"
-                          autofocus autocomplete="info"/>
+                        wire:model="backerForm.info"
+                        autofocus autocomplete="info"/>
             @error('backerForm.info')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

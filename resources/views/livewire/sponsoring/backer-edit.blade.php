@@ -8,6 +8,7 @@
 </x-slot>
 
 <div>
+    <x-livewire.loading />
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
         <x-default-button
             x-data="{ clickCnt: 0, onClick() {

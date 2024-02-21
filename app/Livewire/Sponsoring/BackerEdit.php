@@ -21,7 +21,7 @@ class BackerEdit extends Component
     /**
      * @var TemporaryUploadedFile[]
      */
-    #[Validate(["adDataArr.*" => 'file|mimes:png,jpg,pdf|max:1024'])]
+    #[Validate(['adDataArr.*' => 'file|mimes:png,jpg,pdf|max:1024'])]
     public array $adDataArr = [];
 
     public function mount(Backer $backer): void
@@ -33,7 +33,10 @@ class BackerEdit extends Component
 
     public function saveBacker(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
-        dd($this->adData);
+        $this->validate();
+        foreach($this->adDataArr as $adData) {
+            $adData->store("path"); //TODO
+        }
 
         $this->backerForm->update();
 
