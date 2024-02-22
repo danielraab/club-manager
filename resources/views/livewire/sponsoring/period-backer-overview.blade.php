@@ -34,21 +34,23 @@
                 @endif
             </div>
 
-            <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary" title="Edit this period">
+            <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
+                           title="Edit this period">
                 {{__("Edit period")}}
             </x-button-link>
         </div>
     @endif
 
     @if(($periodFiles = $period->uploadedFiles()->get())->isNotEmpty())
-    <div class="flex flex-wrap mb-5 p-5">
-        <span>{{__("Period files:")}}</span>
-        <ul class="list-disc flex flex-wrap mx-2">
-            @foreach($periodFiles as $periodFile)
-                <li class="mx-3"><a href="{{$periodFile->getUrl()}}" target="_blank" class="underline mr-2">{{$periodFile->name}}</a>
-            @endforeach
-        </ul>
-    </div>
+        <div class="flex flex-wrap mb-5 mx-2">
+            <span>{{__("Period files:")}}</span>
+            <ul class="list-disc flex flex-wrap mx-2">
+                @foreach($periodFiles as $periodFile)
+                    <li class="mx-3"><a href="{{$periodFile->getUrl()}}" target="_blank"
+                                        class="underline mr-2">{{$periodFile->name}}</a>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
