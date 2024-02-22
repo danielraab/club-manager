@@ -38,12 +38,14 @@ class UploadedFile extends Model
         /** @var User $user */
         $user = auth()->user();
         return match ($this->storer()->first()->getMorphClass()) {
-            Backer::class => !!$user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
+            Backer::class, Contract::class =>
+            !!$user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
             default => false
         };
     }
 
-    public function getUrl(): string {
+    public function getUrl(): string
+    {
         if (str_starts_with($this->path, "public")) {
             return Storage::url($this->path);
         }

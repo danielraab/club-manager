@@ -4,8 +4,10 @@
     /** @var $adData \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
 @endphp
 <div>
+    <x-message/>
+
     @if(($adDataFiles = $backer->uploadedFiles()->get())->isNotEmpty())
-        <x-input-label class="mt-3" for="adData" :value="__('Uploaded file(s)')"/>
+        <h3 class="mt-3 text-gray-600">{{__('Uploaded file(s)')}}</h3>
 
         <ul class="list-disc ml-5 text-sm break-all">
             @foreach($adDataFiles as $adDataFile)
@@ -22,9 +24,7 @@
         <div class="text-center py-3 text-red-800">-- {{__("no files to show")}} --</div>
     @endif
 
-    <x-message />
-
-    <x-input-label class="mt-3" for="adData" :value="__('Select new File(s)')"/>
+    <h3 class="mt-3 text-gray-600">{{__('Select new File(s)')}}</h3>
     <x-input-file-area id="adData" name="adData" type="file" class="mt-1 block w-full"
                        wire:model="adDataArr"
                        subTitle="PNG, JPG, GIF up to 10MB" multiple
