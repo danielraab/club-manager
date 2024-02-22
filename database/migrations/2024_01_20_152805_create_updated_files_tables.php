@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('mimeType');
             $table->string('path');
             $table->morphs("storer");
+
+            $table->foreignIdFor(\App\Models\User::class, 'uploader_id')->nullable();
+            $table->foreign('uploader_id')->references('id')->on('users')->onDelete('set null');
+
             $table->softDeletes();
             $table->timestamps();
         });

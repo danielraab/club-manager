@@ -31,6 +31,7 @@ class BackerFiles extends Component
     {
         $this->validate();
 
+        $user = auth()->user();
         $uploadedFiles = [];
         foreach($this->adDataArr as $adData) {
             $path = $adData->store("backerData");
@@ -40,6 +41,7 @@ class BackerFiles extends Component
             $uploadedFile->mimeType = $adData->getMimeType();
 
             $uploadedFile->storer()->associate($this->backer);
+            $uploadedFile->uploader()->associate($user);
             $uploadedFile->save();
 
             $uploadedFiles[] = $uploadedFile->name;
