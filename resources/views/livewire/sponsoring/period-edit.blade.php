@@ -35,6 +35,23 @@
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <x-livewire.sponsoring.period-package-selection/>
         </div>
+
+
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+            <section>
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{__("Period files")}}
+                    </h2>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __("Manage files according to this period. e.g. forms, description, etc.") }}
+                    </p>
+                </header>
+
+                <livewire:sponsoring.period-files :period="$periodForm->period"/>
+            </section>
+        </div>
     </div>
 
 </div>

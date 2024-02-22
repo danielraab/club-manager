@@ -1,6 +1,7 @@
 @php
     /** @var $period \App\Models\Sponsoring\Period */
     /** @var $backer \App\Models\Sponsoring\Backer */
+    /** @var $periodFile \App\Models\UploadedFile */
 @endphp
 <x-slot name="headline">
     <div class="flex items-center gap-2">
@@ -37,6 +38,17 @@
                 {{__("Edit period")}}
             </x-button-link>
         </div>
+    @endif
+
+    @if(($periodFiles = $period->uploadedFiles()->get())->isNotEmpty())
+    <div class="flex flex-wrap mb-5 p-5">
+        <span>{{__("Period files:")}}</span>
+        <ul class="list-disc flex flex-wrap mx-2">
+            @foreach($periodFiles as $periodFile)
+                <li class="mx-3"><a href="{{$periodFile->getUrl()}}" target="_blank" class="underline mr-2">{{$periodFile->name}}</a>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">

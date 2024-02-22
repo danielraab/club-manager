@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
+use App\Models\Sponsoring\Period;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -38,7 +39,7 @@ class UploadedFile extends Model
         /** @var User $user */
         $user = auth()->user();
         return match ($this->storer()->first()->getMorphClass()) {
-            Backer::class, Contract::class =>
+            Backer::class, Contract::class, Period::class =>
             !!$user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
             default => false
         };
