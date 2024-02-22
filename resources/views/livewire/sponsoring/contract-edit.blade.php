@@ -19,6 +19,7 @@
 </x-slot>
 
 <div>
+    <x-livewire.loading />
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
         <x-default-button
             x-data="{ clickCnt: 0, onClick() {
@@ -92,13 +93,7 @@
                 @endif
             </div>
         </div>
-        <div class="bg-white shadow-sm sm:rounded-lg p-4"
-             x-data="{
-             refused:@entangle('contractForm.refused'),
-             contract_received:@entangle('contractForm.contract_received'),
-             ad_data_received:@entangle('contractForm.ad_data_received'),
-             paid:@entangle('contractForm.paid'),
-             }">
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <div class="mt-3">
                 <x-input-label for="refused">
                     <i class="fa-solid fa-ban"></i>
@@ -106,29 +101,30 @@
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="refused" name="refused" class="grow"
-                                  x-model="refused"
+                                  wire:model.live="contractForm.refused"
                                   autofocus autocomplete="refused"/>
                     <x-default-button class="btn-secondary"
-                                      x-on:click="refused = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
+                                      :disabled="!empty($contractForm->refused)"
+                                      wire:click="$set('contractForm.refused', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
                 </div>
-                @error('contactForm.refused')
+                @error('contractForm.refused')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
                 <x-input-label for="contract_received">
                     <i class="fa-solid fa-file-contract"></i>
-                   {{__('Contract received')}}
+                    {{__('Contract received')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="contract_received" name="contract_received" class="block w-full"
-                                  wire:model="contractForm.contract_received"
-                                  x-bind:disabled="refused"
+                                  wire:model.live="contractForm.contract_received"
+                                  :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="contract_received"/>
                     <x-default-button class="btn-secondary"
-                                      x-bind:disabled="refused || contract_received"
-                                      x-on:click="contract_received = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
+                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->contract_received)"
+                                      wire:click="$set('contractForm.contract_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
                 </div>
-                @error('contactForm.contract_received')
+                @error('contractForm.contract_received')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
@@ -138,33 +134,50 @@
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="ad_data_received" name="ad_data_received" class="block w-full"
-                                  wire:model="contractForm.ad_data_received"
-                                  x-bind:disabled="refused"
+                                  wire:model.live="contractForm.ad_data_received"
+                                  :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="ad_data_received"/>
                     <x-default-button class="btn-secondary"
-                                      x-bind:disabled="refused || ad_data_received"
-                                      x-on:click="ad_data_received = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
+                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->ad_data_received)"
+                                      wire:click="$set('contractForm.ad_data_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
                 </div>
-                @error('contactForm.ad_data_received')
+                @error('contractForm.ad_data_received')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="mt-3">
-                <x-input-label for="paid" >
+                <x-input-label for="paid">
                     <i class="fa-solid fa-money-bill-wave"></i>
                     {{__('Paid')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
                     <x-input-date id="paid" name="paid" class="block w-full"
-                                  wire:model="contractForm.paid"
-                                  x-bind:disabled="refused"
+                                  wire:model.live="contractForm.paid"
+                                  :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="paid"/>
                     <x-default-button class="btn-secondary"
-                                      x-bind:disabled="refused || paid"
-                                      x-on:click="paid = new Date().toJSON().slice(0, 10)">{{__("Today")}}</x-default-button>
+                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->paid)"
+                                      wire:click="$set('contractForm.paid', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
                 </div>
                 @error('contactForm.paid')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
+        </div>
+
+
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+            <section>
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{__("Ad data files")}}
+                    </h2>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __("Manage files for ad options of backer.") }}
+                    </p>
+                </header>
+
+                <livewire:sponsoring.backer-files :backer="$backer"/>
+            </section>
         </div>
     </div>
 
