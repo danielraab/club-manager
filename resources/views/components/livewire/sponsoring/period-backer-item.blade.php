@@ -15,6 +15,9 @@
     <div class="flex">
         <div class="flex items-center gap-3">
             @if($contract !== null)
+                <a class="flex items-center" href="{{route('sponsoring.contract.detail', $contract->id)}}">
+                    <i class="fa-solid fa-circle-info text-cyan-900"></i>
+                </a>
                 @if($contract->member_id)
                     <i class="fa-solid fa-user {{$green}}" title="{{$contract->member()->first()->getFullName()}}"></i>
                 @else
