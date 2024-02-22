@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Sponsoring\Backer;
+use App\Models\Sponsoring\Contract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int id
@@ -23,5 +24,23 @@ class UploadedFile extends Model
     public function storer(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function hasAccess(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return match ($this->storer()->first()->getMorphClass()) {
+            Backer::class => !!$user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
+            default => false
+        };
+    }
+
+    public function getUrl(): string {
+        if (str_starts_with($this->path, "public")) {
+            return Storage::url($this->path);
+        }
+
+        return route("file", $this->id);
     }
 }

@@ -9,7 +9,7 @@
 
         <ul class="list-disc ml-5 text-sm break-all">
             @foreach($adDataFiles as $adDataFile)
-                <li>{{$adDataFile->name}}
+                <li><a href="{{$adDataFile->getUrl()}}" target="_blank" class="underline">{{$adDataFile->name}}</a>
                     <x-default-button class="btn-danger" wire:click="deleteFile({{$adDataFile->id}})">
                         <i class="fa-solid fa-trash"></i>
                     </x-default-button>

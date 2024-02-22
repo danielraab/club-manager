@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings;
+use App\Http\Controllers\UploadedFileController;
 use App\Models\UserPermission;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Dashboard::class, 'index'])->name('home');
-Route::get('/dashboard', [\App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
+Route::get('/', [Dashboard::class, 'index'])->name('home');
+Route::get('/file/{file}', [UploadedFileController::class, 'response'])->name('file');
+Route::get('/file/{file}/download', [UploadedFileController::class, 'download'])->name('file.download');
+Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -58,7 +58,6 @@ class BackerFiles extends Component
         session()->flash('message', __('File(s) deleted.'));
     }
 
-
     public function render()
     {
         return view('livewire.sponsoring.backer-files')->layout('layouts.backend');
