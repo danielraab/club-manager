@@ -5,6 +5,7 @@
      * @var $contract \App\Models\Sponsoring\Contract|null
      */
     $green = "text-green-700";
+    $yellow = "text-yellow-600";
     $red = "text-red-600";
     $gray = "text-gray-400";
     $contract = $backer->contracts()->where("period_id", $this->period->id)->first();
@@ -30,12 +31,14 @@
                     <i class="fa-solid fa-cube {{$gray}}"></i>
                 @endif
                 @if($contract->contract_received)
-                    <i class="fa-solid fa-file-contract {{$green}}" title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
+                    @php($hasContractFileCss = $contract->uploadedFile()->count() > 0)
+                    <i class="fa-solid fa-file-contract {{$hasContractFileCss ? $green : $yellow}}" title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-file-contract {{$gray}}"></i>
                 @endif
                 @if($contract->ad_data_received)
-                    <i class="fa-regular fa-image {{$green}}" title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
+                        @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
+                    <i class="fa-regular fa-image {{$hasAdDataFilesCss ? $green : $yellow}}" title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-regular fa-image {{$gray}}"></i>
                 @endif

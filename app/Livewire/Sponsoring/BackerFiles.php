@@ -19,8 +19,8 @@ class BackerFiles extends Component
     /**
      * @var TemporaryUploadedFile[]
      */
-    #[Validate(['adDataArr.*' => 'file|mimes:png,jpg,pdf|max:10240'])]
-    public array $adDataArr = [];
+    #[Validate(['adDataFiles.*' => 'file|mimes:png,jpg,pdf|max:10240'])]
+    public array $adDataFiles = [];
 
     public function mount(Backer $backer): void
     {
@@ -33,7 +33,7 @@ class BackerFiles extends Component
 
         $user = auth()->user();
         $uploadedFiles = [];
-        foreach($this->adDataArr as $adData) {
+        foreach($this->adDataFiles as $adData) {
             $path = $adData->store("backerData");
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
@@ -46,7 +46,7 @@ class BackerFiles extends Component
 
             $uploadedFiles[] = $uploadedFile->name;
         }
-        $this->adDataArr = [];
+        $this->adDataFiles = [];
 
         Log::info("Backer Ad Data uploaded", [auth()->user(), $uploadedFiles]);
         session()->flash('message', __('Files uploaded.'));

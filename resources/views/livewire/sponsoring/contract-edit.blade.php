@@ -89,7 +89,12 @@
                     @endforeach
                 </select>
                 @if(($package = $contractForm->contract->package()->first()))
-                    <span class="text-sm text-gray-500">{{__("currently selected: ")}} {{$package->title}}</span>
+                    <div>
+                    <span class="text-sm text-gray-500">{{__("currently selected: ")}}
+                        {{$package->title}} - {{\App\Facade\Currency::formatPrice($package->price)}}
+                    </span>
+
+                    </div>
                 @endif
             </div>
         </div>
@@ -163,6 +168,21 @@
             </div>
         </div>
 
+        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+            <section>
+                <header>
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{__("Contract file")}}
+                    </h2>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __("Manage signed contract file.") }}
+                    </p>
+                </header>
+
+                <livewire:sponsoring.contract-file :contract="$contractForm->contract"/>
+            </section>
+        </div>
 
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <section>
@@ -177,22 +197,6 @@
                 </header>
 
                 <livewire:sponsoring.backer-files :backer="$backer"/>
-            </section>
-        </div>
-
-        <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <section>
-                <header>
-                    <h2 class="text-lg font-medium text-gray-900">
-                        {{__("Contract file")}}
-                    </h2>
-
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __("Manage signed contract file.") }}
-                    </p>
-                </header>
-
-                <livewire:sponsoring.contract-file :contract="$contractForm->contract"/>
             </section>
         </div>
     </div>
