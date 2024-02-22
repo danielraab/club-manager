@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string name
  * @property string mimeType
  * @property string path
+ * @property bool forcePublic
  * @property int uploader_id
  *
  * @see /database/migrations/2024_01_20_152805_create_updated_files_tables.php
@@ -23,6 +24,10 @@ use Illuminate\Support\Facades\Storage;
 class UploadedFile extends Model
 {
     use SoftDeletes;
+
+    protected $casts = [
+        'forcePublic' => 'boolean',
+    ];
 
     public function storer(): MorphTo
     {
@@ -36,6 +41,8 @@ class UploadedFile extends Model
 
     public function hasAccess(): bool
     {
+        if ($this->forcePublic) return true;
+
         /** @var User $user */
         $user = auth()->user();
         return match ($this->storer()->first()->getMorphClass()) {

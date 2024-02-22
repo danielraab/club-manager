@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("name");
             $table->string('mimeType');
             $table->string('path');
+            $table->boolean('forcePublic')->default(false);
             $table->morphs("storer");
 
             $table->foreignIdFor(\App\Models\User::class, 'uploader_id')->nullable();
