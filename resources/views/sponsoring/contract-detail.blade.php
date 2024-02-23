@@ -1,6 +1,12 @@
 @php
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION);
     /** @var $contract \App\Models\Sponsoring\Contract */
+    /** @var $period \App\Models\Sponsoring\Period */
+    /** @var $package \App\Models\Sponsoring\Package */
+    /** @var $backer \App\Models\Sponsoring\Backer */
+    /** @var $file \App\Models\UploadedFile */
+    $period = $contract->period()->first();
+    $backer = $contract->backer()->first();
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
@@ -9,8 +15,7 @@
                 <a href="{{url()->previous()}}">
                     <i class="fa-solid fa-arrow-left-long"></i>
                 </a>
-                <span class="text-gray-500">{{ __('Period details') }}:</span>
-                <span>{{$contract->period()->first()->title}}</span>
+                {{ __('Contract details') }}
             </div>
             @if($hasEditPermission)
                 <div>
@@ -22,10 +27,147 @@
         </div>
     </x-slot>
 
-    <div class="flex justify-center">
+    <div class="flex flex-wrap gap-3 justify-center">
 
-        <div class="bg-white shadow-sm sm:rounded-lg p-4 w-full max-w-screen-sm">
-            todo
-        </div>
+        <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
+                 x-data="{showPeriodDetail:$persist(true), showDescription:false, showPackages:false}">
+            <h2 class="w-full bg-blue-600 text-center p-2 font-bold cursor-pointer hover:opacity-75"
+                x-on:click="showPeriodDetail=!showPeriodDetail">{{__("Period")}}</h2>
+            <div class="p-3 flex flex-col gap-2" x-show="showPeriodDetail" x-collapse x-cloak>
+                <div>
+                    <h3 class="font-semibold">{{__("Title")}}</h3>
+                    <p class="p-2">{{$period->title}}</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold cursor-pointer" x-on:click="showDescription=!showDescription">
+                    <span>
+                        <i class="fa-solid fa-circle-info"></i>
+                    {{__("Description")}}
+                    </span>
+                        <i class="fa-solid" :class="showDescription ? 'fa-minus' : 'fa-plus' "></i>
+                    </h3>
+                    <p class="p-2" x-show="showDescription" x-cloak x-collapse>{{$period->description}}</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold">{{__("Start")}}</h3>
+                    <span class="p-2">{{$period->start}}</span>
+                </div>
+                <div>
+                    <h3 class="font-semibold">{{__("End")}}</h3>
+                    <span class="p-2">{{$period->end}}</span>
+                </div>
+                <div>
+                    <h3 class="font-semibold cursor-pointer" x-on:click="showPackages=!showPackages">
+                    <span>
+                        <i class="fa-solid fa-cubes"></i>
+                    {{__("Packages")}}
+                    </span>
+                        <i class="fa-solid" :class="showPackages ? 'fa-minus' : 'fa-plus' "></i>
+                    </h3>
+                    <ul class="list-disc ml-5 pl-5" x-cloak x-show="showPackages" x-collapse>
+                        @foreach($period->packages()->get() as $package)
+                            <li>{{$package->title}} - {{\App\Facade\Currency::formatPrice($package->price)}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold"><i class="fa-solid fa-file"></i> {{__("Period files")}}</h3>
+                    @if(($periodFiles = $period->uploadedFiles()->get())->isNotEmpty())
+                        <ul class="list-disc ml-5 pl-5">
+                            @foreach($periodFiles as $file)
+                                <li><a href="{{$file->getUrl()}}" target="_blank"
+                                       class="underline mr-2">{{$file->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    @else
+                        -- {{__("no files uploaded")}} --
+                    @endif
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
+                 x-data="{showBackerDetail:$persist(true), showDescription:false, showPackages:false}">
+            <h2 class="w-full bg-purple-300 text-center p-2 font-bold cursor-pointer hover:opacity-75 relative"
+                x-on:click="showBackerDetail=!showBackerDetail">
+                {{__("Backer")}}
+            @if($backer->enabled || $backer->closed_at)
+                <div class="absolute right-0 top-0 bottom-0 flex flex-col justify-center mx-2 gap-1 text-xs">
+                    @if(!$backer->enabled)
+                        <div class="bg-red-700 text-white px-3 rounded">{{__("disabled")}}</div>
+                    @endif
+                    @if($backer->closed_at)
+                        <div class="bg-red-700 text-white px-3 rounded">{{__("closed")}}</div>
+                    @endif
+                </div>
+            @endif
+            </h2>
+            <div class="p-3 flex flex-col gap-2" x-show="showBackerDetail" x-collapse x-cloak>
+                <div>
+                    <h3 class="font-semibold"><i class="fa-solid fa-building"></i> {{__("Company name")}}</h3>
+                    <p class="p-2">{{$backer->name}}</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold"><i class="fa-solid fa-map-location"></i> {{__("Address")}}</h3>
+                    <p class="p-2">{{$backer->street}}, {{$backer->zip}} {{$backer->city}}</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold"><i class="fa-solid fa-address-book"></i> {{__("Contact")}}</h3>
+                    <ul class="list-disc ml-5 pl-5">
+                        <li>{{$backer->contact_person}}</li>
+                        <li>{{$backer->phone}}</li>
+                        <li>{{$backer->email}}</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold cursor-pointer" x-on:click="showInfo=!showInfo">
+                    <span>
+                        <i class="fa-solid fa-circle-info"></i>
+                    {{__("Info")}}
+                    </span>
+                        <i class="fa-solid" :class="showInfo ? 'fa-minus' : 'fa-plus' "></i>
+                    </h3>
+                    <p class="p-2" x-show="showInfo" x-cloak x-collapse>{{$backer->info}}</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold"><i class="fa-solid fa-file"></i> {{__("Ad data files")}}</h3>
+                    @if(($adDataFiles = $backer->uploadedFiles()->get())->isNotEmpty())
+                        <ul class="list-disc ml-5 pl-5">
+                            @foreach($adDataFiles as $file)
+                                <li><a href="{{$file->getUrl()}}" target="_blank"
+                                       class="underline mr-2">{{$file->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    @else
+                        -- {{__("no files uploaded")}} --
+                    @endif
+                </div>
+
+                @if($backer->closed_at)
+                    <div>
+                        <h3 class="font-semibold"><i class="fa-solid fa-circle-xmark"></i> {{__("Closing date")}}</h3>
+                        <span class="p-2">{{$backer->closed_at}}</span>
+                    </div>
+                @endif
+            </div>
+        </section>
+        <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
+                 x-data="{showMemberDetail:$persist(true)}">
+            <h2 class="w-full bg-green-500 text-center p-2 font-bold cursor-pointer hover:opacity-75"
+                x-on:click="showMemberDetail=!showMemberDetail">{{__("Selected Member")}}</h2>
+
+            <div class="p-3 flex flex-col gap-2 relative" x-show="showMemberDetail" x-collapse x-cloak>
+                todo
+            </div>
+        </section>
+        <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
+                 x-data="{showPackageDetail:$persist(true)}">
+            <h2 class="w-full bg-yellow-600 text-center p-2 font-bold cursor-pointer hover:opacity-75"
+                x-on:click="showPackageDetail=!showPackageDetail">{{__("Selected Package")}}</h2>
+
+            <div class="p-3 flex flex-col gap-2 relative" x-show="showPackageDetail" x-collapse x-cloak>
+                todo
+            </div>
+        </section>
     </div>
 </x-backend-layout>
