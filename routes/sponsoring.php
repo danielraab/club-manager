@@ -5,6 +5,7 @@ use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\ContractDetail;
 use App\Http\Controllers\Sponsoring\Overview;
 use App\Http\Controllers\Sponsoring\PackageOverview;
+use App\Http\Controllers\Sponsoring\PeriodAdOptionOverview;
 use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.package.index');
     Route::get('/sponsoring/period/backer/{period}', PeriodBackerOverview::class)
         ->name('sponsoring.period.backer.overview');
+    Route::get('/sponsoring/period/adOption/{period}', [PeriodAdOptionOverview::class, "index"])
+        ->name('sponsoring.period.adOption.overview');
     Route::get('/sponsoring/contract/{contract}', [ContractDetail::class, 'index'])
         ->name('sponsoring.contract.detail');
 });
