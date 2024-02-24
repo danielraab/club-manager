@@ -62,4 +62,33 @@
                 :hasEditPermission="$hasEditPermission"/>
         @endforeach
     </div>
+
+    <div class="flex flex-wrap gap-3 justify-around bg-white shadow-sm sm:rounded-lg mt-5 p-5">
+        <div>
+            <span>{{__("Created contracts")}}:</span>
+            <span>{{$period->contracts()->count()}}</span>
+        </div>
+        <div>
+            <span>{{__("With member")}}:</span>
+            <span>{{$period->contracts()->has("member")->count()}}</span>
+        </div>
+        <div>
+            <span>{{__("Has Refused")}}:</span>
+            <span>{{$period->contracts()->whereNotNull("refused")->count()}}</span>
+        </div>
+        <div>
+            <span>{{__("Package selected")}}:</span>
+            <span>{{$period->contracts()->has("package")->count()}}</span>
+            <span>({{\App\Facade\Currency::formatPrice(
+    $period->contracts()->join("sponsor_packages",
+    "sponsor_packages.id", "=", "sponsor_contracts.package_id")->sum("price"))}})</span>
+        </div>
+        <div>
+            <span>{{__("Has paid")}}:</span>
+            <span>{{$period->contracts()->whereNotNull("paid")->count()}}</span>
+            <span>({{\App\Facade\Currency::formatPrice(
+    $period->contracts()->whereNotNull("paid")->join("sponsor_packages",
+    "sponsor_packages.id", "=", "sponsor_contracts.package_id")->sum("price"))}})</span>
+        </div>
+    </div>
 </div>
