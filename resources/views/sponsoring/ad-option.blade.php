@@ -9,7 +9,7 @@
                 <a href="{{route("sponsoring.index")}}">
                     <i class="fa-solid fa-arrow-left-long"></i>
                 </a>
-                <span>{{ __('Ad Option') }}</span>
+                <span>{{ __('Ad Options') }}</span>
             </div>
             @if($hasEditPermission)
                 <div>

@@ -15,7 +15,7 @@
         <p>{{$package->description}}</p>
     @endif
     @if(($options = $package->adOptions()->get())->isNotEmpty())
-        <h3 @click="showOptions=!showOptions" class="font-semibold mt-3">{{__("Ad options")}}
+        <h3 @click="showOptions=!showOptions" class="font-semibold mt-3">{{__("Ad Options")}}
             <i class="fa-solid"
                :class="showOptions ? 'fa-caret-down' : 'fa-caret-right'"></i>
         </h3>

@@ -20,7 +20,7 @@
                         }
                     }}"
             x-on:click="onClick()" title="Delete this backer"
-            class="btn-danger">{{ __('Delete backer') }}</x-default-button>
+            class="btn-danger">{{ __('delete backer') }}</x-default-button>
         <x-default-button class="btn-primary" wire:click="saveBacker"
                           title="Update backer">{{ __('Save') }}</x-default-button>
     </div>
@@ -34,11 +34,11 @@
             <section>
                 <header>
                     <h2 class="text-lg font-medium text-gray-900">
-                        {{ __('Backer') }}
+                        {{ __('Additional info') }}
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-600">
-                        {{ __("Enter basic information of the backer.") }}
+                        {{ __("Enter additional information for the backer.") }}
                     </p>
                 </header>
 

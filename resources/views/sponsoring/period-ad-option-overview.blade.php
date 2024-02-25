@@ -8,6 +8,9 @@
 <x-backend-layout>
     <x-slot name="headline">
         <div class="flex flex-wrap items-center gap-2">
+            <a href="{{route("sponsoring.index")}}">
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </a>
             <span class="text-gray-500">{{ __('Ad options for period overview') }}:</span>
             <span>{{$period->title}}</span>
         </div>

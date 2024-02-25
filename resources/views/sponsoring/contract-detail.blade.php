@@ -232,7 +232,7 @@
                         <p class="p-2">{{\App\Facade\Currency::formatPrice($package->price)}}</p>
                     </div>
                     <div>
-                        <h3 class="font-semibold"><i class="fa-solid fa-rectangle-ad"></i> {{__("Ad options")}}</h3>
+                        <h3 class="font-semibold"><i class="fa-solid fa-rectangle-ad"></i> {{__("Ad Options")}}</h3>
                         @if(($adOptions = $package->adOptions()->get())->isNotEmpty())
                             <ul class="list-disc ml-5 pl-5">
                                 @foreach($adOptions as $optionLoop)

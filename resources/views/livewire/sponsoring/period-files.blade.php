@@ -24,7 +24,7 @@
         <div class="text-center py-3 text-red-800">-- {{__("no files to show")}} --</div>
     @endif
 
-    <h3 class="mt-3 text-gray-600">{{__('Select new File(s)')}}</h3>
+    <h3 class="mt-3 text-gray-600">{{__('Select new file(s)')}}</h3>
     <x-input-file-area id="periodFiles" name="periodFiles" type="file" class="mt-1 block w-full"
                        wire:model="periodFiles"
                        subTitle="PNG, JPG, GIF up to 10MB" multiple

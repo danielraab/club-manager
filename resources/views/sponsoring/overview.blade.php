@@ -12,7 +12,7 @@
                     <x-slot name="trigger">
                         <x-default-button class="btn-secondary flex gap-2"
                                           type="button" aria-expanded="true" aria-haspopup="true">
-                            {{__("Elements")}}
+                            {{__("Basic data")}}
                             <i class="fa-solid fa-caret-down"></i>
                         </x-default-button>
                     </x-slot>
