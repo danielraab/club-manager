@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.5.11 - 2024-02-25
 ### Added
 - event export with csv and Excel files
 ### Updated
