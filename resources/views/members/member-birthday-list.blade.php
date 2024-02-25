@@ -20,7 +20,7 @@
                         <div class="text-center font-bold bg-gray-300 px-3 py-1">{{$lastMonth}}</div>
                     @endif
                     @php($current = $member->birthday->format("m-d"))
-                    @if(!$todayDisplayed && strcmp($today, $current) <= 0)
+                    @if(!$todayDisplayed && strcmp($today, $current) < 0)
                         <div class="relative py-4">
                             <div class="absolute inset-0 flex items-center">
                                 <div class="w-full border-b border-black"></div>

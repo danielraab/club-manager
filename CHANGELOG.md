@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - member overview table is now (more) responsive
 ### Fixed
 - correct working disableLastYearEvents functionality
+- current day marker in birthday list is now after members with birthday on this day
 
 ## v0.5.10 - 2024-02-02
 ### Added
