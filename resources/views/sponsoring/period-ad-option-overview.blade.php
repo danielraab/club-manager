@@ -11,7 +11,7 @@
             <a href="{{route("sponsoring.index")}}">
                 <i class="fa-solid fa-arrow-left-long"></i>
             </a>
-            <span class="text-gray-500">{{ __('Ad options for period overview') }}:</span>
+            <span class="text-gray-500">{{ __('Ad positions of period') }}:</span>
             <span>{{$period->title}}</span>
         </div>
     </x-slot>

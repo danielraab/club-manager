@@ -192,7 +192,7 @@
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-600">
-                        {{ __("Manage files for ad options of backer.") }}
+                        {{ __("Manage files for ads of backer. Files are stored with the backer.") }}
                     </p>
                 </header>
 

@@ -30,14 +30,14 @@
     <p><span class="font-semibold inline-block min-w-[60px]">{{__("End")}}:</span>{{$period->end->formatDateOnly()}}</p>
     @if($hasShowPermission || $hasEditPermission)
         <div class="absolute right-2 bottom-1 flex items-center gap-3 m-1">
-            <a href="{{route('sponsoring.period.adOption.overview', $period->id)}}" title="Show ad options overview for this periods.">
+            <a href="{{route('sponsoring.period.adOption.overview', $period->id)}}" title="{{__("Show ad options overview for this periods")}}">
                 <i class="fa-solid fa-images"></i>
             </a>
-            <a href="{{route('sponsoring.period.backer.overview', $period->id)}}" title="Show period backer overview.">
+            <a href="{{route('sponsoring.period.backer.overview', $period->id)}}" title="{{__("Show period backer overview")}}">
                 <i class="fa-solid fa-table-list"></i>
             </a>
             @if($hasEditPermission)
-                <a href="{{route('sponsoring.period.edit', $period->id)}}" title="Edit this period">
+                <a href="{{route('sponsoring.period.edit', $period->id)}}" title="{{__("Edit this period")}}">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             @endif

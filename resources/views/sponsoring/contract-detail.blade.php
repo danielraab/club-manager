@@ -176,7 +176,7 @@
             <div class="p-3 flex flex-col gap-2 relative" x-show="showMemberDetail" x-collapse x-cloak>
                 @if($member)
                     <div>
-                        <h3 class="font-semibold">{{__("Member mame")}}</h3>
+                        <h3 class="font-semibold">{{__("Member name")}}</h3>
                         <p class="p-2">{{$member->getFullName()}}</p>
                     </div>
                     <div>
@@ -214,7 +214,7 @@
             <div class="p-3 flex flex-col gap-2 relative" x-show="showPackageDetail" x-collapse x-cloak>
                 @if($package)
                     <div>
-                        <h3 class="font-semibold">{{__("Package mame")}}</h3>
+                        <h3 class="font-semibold">{{__("Package name")}}</h3>
                         <p class="p-2">{{$package->title}}</p>
                     </div>
                     <div>
