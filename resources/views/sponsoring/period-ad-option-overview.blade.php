@@ -3,6 +3,7 @@
     /** @var $package \App\Models\Sponsoring\Package */
     /** @var $contract \App\Models\Sponsoring\Contract */
     /** @var $backer \App\Models\Sponsoring\Backer */
+    /** @var $adOption \App\Models\Sponsoring\AdOption */
     /** @var $file \App\Models\UploadedFile */
 @endphp
 <x-backend-layout>
@@ -17,22 +18,28 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-col gap-3">
-        @forelse($period->packages()->get() as $package)
-            <div class="rounded overflow-hidden">
+        @forelse($adOptionList as $adOptionListItem)
+            @php
+                $adOption = $adOptionListItem["adOption"];
+                $backerList = $adOptionListItem["backerList"];
+            @endphp
+            <div class="rounded border overflow-hidden">
                 <div class="bg-gray-300 p-3">
-                    {{$package->title}}
+                    {{$adOption->title}}
                 </div>
-                <div class="border p-3">
-                    @php($contracts = $period->contracts()->where("sponsor_contracts.package_id", $package->id)->get())
-                    @if($contracts->isNotEmpty())
+                <div class="p-3">
+                    @if(!empty($backerList))
                         <ul class="list-disc ml-5">
-                            @foreach($contracts as $contract)
-                                @php($backer = $contract->backer()->first())
-                                @php($adDataFiles = $backer->uploadedFiles()->get())
+                            @foreach($backerList as $backerItem)
+                                @php
+                                    $backer = $backerItem["backer"];
+                                    $package = $backerItem["package"];
+                                    $adDataFiles = $backer->uploadedFiles()->get()
+                                @endphp
                                 <li>
                                     <div x-data="{showFiles:false}">
                                         <div class="cursor-pointer"
-                                             x-on:click="showFiles=!showFiles">{{$backer->name}}
+                                             x-on:click="showFiles=!showFiles">{{$backer->name}} ({{$package->title}})
                                             <i class="fa-solid"
                                                :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
                                         </div>
@@ -53,12 +60,12 @@
                             @endforeach
                         </ul>
                     @else
-                        {{__(("no contracts"))}}
+                        {{__(("no backers"))}}
                     @endif
                 </div>
             </div>
         @empty
-            <span class="text-gray-600 text-center">-- {{__("no packages")}} --</span>
+            <span class="text-gray-600 text-center">-- {{__("no ad options")}} --</span>
         @endforelse
     </div>
 </x-backend-layout>
