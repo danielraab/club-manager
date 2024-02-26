@@ -71,11 +71,11 @@
             <span>{{$period->contracts()->count()}}</span>
         </div>
         <div>
-            <span>{{__("With member")}}:</span>
+            <span>{{__("member assigned")}}:</span>
             <span>{{$period->contracts()->has("member")->count()}}</span>
         </div>
         <div>
-            <span>{{__("Has Refused")}}:</span>
+            <span>{{__("Refused")}}:</span>
             <span>{{$period->contracts()->whereNotNull("refused")->count()}}</span>
         </div>
         <div>
@@ -86,7 +86,7 @@
     "sponsor_packages.id", "=", "sponsor_contracts.package_id")->sum("price"))}})</span>
         </div>
         <div>
-            <span>{{__("Has paid")}}:</span>
+            <span>{{__("Paid")}}:</span>
             <span>{{$period->contracts()->whereNotNull("paid")->count()}}</span>
             <span>({{\App\Facade\Currency::formatPrice(
     $period->contracts()->whereNotNull("paid")->join("sponsor_packages",

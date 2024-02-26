@@ -45,7 +45,7 @@
             @forelse(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
                 <x-sponsoring.period-item :period="$period" :hasShowPermission="$hasShowPermission" :hasEditPermission="$hasEditPermission"/>
             @empty
-                <span class="text-gray-600 text-center">-- {{__("no periods")}} --</span>
+                <div class="text-gray-600 text-center col-span-full">-- {{__("no periods")}} --</div>
             @endforelse
         </div>
     </div>

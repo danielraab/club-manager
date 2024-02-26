@@ -302,6 +302,7 @@
     "New backer": "Neuer Sponsor",
     "New ad option": "Neue Werbemöglichkeit",
     "New package": "Neues Paket",
+    "Add new backer": "Neuen Sponsor anlegen",
     "Contract infos": "Vertraginfos",
     "Selected Package": "Ausgewähltes Paket",
     "Package name": "Paketname",
@@ -345,5 +346,8 @@
     "Show period backer overview": "Periode-Sponsor-Übersicht anzeigen",
     "Manage files for ads of backer. Files are stored with the backer.": "Dateien für die Werbung verwalten. Dateien werden beim Sponsor gespeichert.",
     "Manage files according to this period. e.g. forms, description, etc.": "Dateien für die Periode verwalten. z.B. Formulare, Beschreibung, ...",
-    "Show ad options overview for this periods": "Übersicht für Werbemöglichkeiten der Periode anzeigen"
+    "Show ad options overview for this periods": "Übersicht für Werbemöglichkeiten der Periode anzeigen",
+    "Created contracts": "Erstellte Verträge",
+    "member assigned": "Mitglied zugewiesen",
+    "Package selected": "Paket ausgewählt"
 }
