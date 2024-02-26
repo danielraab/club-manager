@@ -49,9 +49,14 @@ class Package extends Model
         return $this->belongsToMany(Period::class, "sponsor_period_sponsor_package");
     }
 
-    public static function allActive(): \Illuminate\Database\Eloquent\Builder
+    public static function allActive(bool $inclNonOfficial = true): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->where("enabled", true)
-            ->orderBy("title");
+        $query = self::query()->where("enabled", true);
+
+        if(!$inclNonOfficial) {
+            $query->where("is_official", true);
+        }
+
+        return $query->orderBy("title");
     }
 }

@@ -19,7 +19,7 @@
 </x-slot>
 
 <div>
-    <x-livewire.loading />
+    <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
         <x-default-button
             x-data="{ clickCnt: 0, onClick() {
@@ -84,8 +84,12 @@
                         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
                 >
                     <option>{{__("-- choose a package --")}}</option>
-                    @foreach($period->packages()->get() as $package)
-                        <option value="{{$package->id}}">{{$package->title}}</option>
+                    @foreach($period->packages()->where("enabled", true)->get() as $package)
+                        @if($package->is_official)
+                            <option value="{{$package->id}}">{{$package->title}}</option>
+                        @else
+                            <option value="{{$package->id}}">({{$package->title}})</option>
+                        @endif
                     @endforeach
                 </select>
                 @if(($package = $contractForm->contract->package()->first()))

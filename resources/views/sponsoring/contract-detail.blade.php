@@ -197,9 +197,9 @@
 
         <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
                  x-data="{showPackageDetail:$persist(true), showDescription:false}">
-            <h2 class="w-full bg-yellow-600 text-center p-2 font-bold cursor-pointer hover:opacity-75"
+            <h2 class="w-full bg-yellow-600 text-center p-2 font-bold cursor-pointer hover:opacity-75 relative"
                 x-on:click="showPackageDetail=!showPackageDetail">{{__("Selected Package")}}
-                @if($package && (!$package->enabled || $package->is_official))
+                @if($package && (!$package->enabled || !$package->is_official))
                     <div class="absolute right-0 top-0 bottom-0 flex flex-col justify-center mx-2 gap-1 text-xs">
                         @if(!$package->enabled)
                             <div class="bg-red-700 text-white px-3 rounded">{{__("disabled")}}</div>

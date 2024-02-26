@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Fixed
+- small language fixes for sponsorign
+- show only available packages, inofficial packages are only in contract available
 
 ## v0.6.0 - 2024-02-26
 ### Added
