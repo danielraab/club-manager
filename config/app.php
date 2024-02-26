@@ -106,6 +106,8 @@ return [
 
     'fallback_locale' => 'en',
 
+    'currency' => env('APP_CURRENCY', 'eur'),
+
     /*
     |--------------------------------------------------------------------------
     | Faker Locale
@@ -117,7 +119,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'de_AT',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CarbonProvider::class,
+        \App\Providers\CurrencyServiceProvider::class
     ])->toArray(),
 
     /*

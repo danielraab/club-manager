@@ -1,6 +1,6 @@
 
 <!-- Settings Dropdown -->
-<div class="hidden md:flex gap-1 items-center ml-6">
+<div class="hidden lg:flex gap-1 items-center ml-6">
     <x-web-push-notification-icon />
     @auth
         <x-dropdown align="right" width="48">

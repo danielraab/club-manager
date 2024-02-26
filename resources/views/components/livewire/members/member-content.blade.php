@@ -82,7 +82,7 @@
         </div>
         <div class="flex gap-2 mt-3">
             <div class="basis-1/3">
-                <x-input-label for="zip" :value="__('Zip')"/>
+                <x-input-label for="zip" :value="__('ZIP')"/>
                 <x-text-input id="zip" name="zip" type="number" class="mt-1 block w-full"
                               wire:model="memberForm.zip"
                               required autofocus autocomplete="zip"/>

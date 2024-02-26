@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100" @click.outside.stop="open = false">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-4 sm:-my-px sm:ml-10 md:flex">
+                <div class="hidden space-x-4 lg:-my-px lg:ml-10 lg:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -24,7 +24,7 @@
             @include("layouts.navigation.user-desktop")
 
             <!-- Hamburger -->
-            <div class="-mr-2 flex items-center md:hidden gap-2">
+            <div class="-mr-2 flex items-center lg:hidden gap-2">
                 <x-web-push-notification-icon/>
                 <button @click="open = ! open"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden" >
+    <div x-show="open" x-cloak>
         <div class="pt-1 pb-2 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}

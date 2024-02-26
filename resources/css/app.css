@@ -14,7 +14,7 @@
         @apply bg-blue-500 text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700;
     }
 
-    .btn-primary {
+    .btn-primary, .btn-edit {
         @apply bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500;
     }
 
@@ -26,7 +26,7 @@
         @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 focus:ring-red-500 uppercase;
     }
 
-    .btn-success {
+    .btn-success, .btn-create {
         @apply bg-green-800 text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:ring-indigo-500;
     }
 }

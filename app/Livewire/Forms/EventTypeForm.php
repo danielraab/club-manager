@@ -4,19 +4,19 @@ namespace App\Livewire\Forms;
 
 use App\Models\EventType;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventTypeForm extends Form
 {
     public ?EventType $eventType = null;
 
-    #[Rule('max:255')]
+    #[Validate('max:255')]
     public string $title;
 
     public ?string $description = null;
 
-    #[Rule('nullable|exists:event_types,id')]
+    #[Validate('nullable|exists:event_types,id')]
     public ?int $parent = null;
 
     /**

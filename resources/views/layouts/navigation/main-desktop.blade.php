@@ -28,6 +28,14 @@
         </x-nav-link>
     @endif
 
+    <!-- Sponsoring -->
+    @if(Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_SHOW_PERMISSION, \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION))
+        <x-nav-link :href="route('sponsoring.index')"
+                    :active="request()->routeIs('sponsoring.index')">
+            {{ __('Sponsoring') }}
+        </x-nav-link>
+    @endif
+
     <!-- User Management -->
     @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW_PERMISSION, \App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION))
         <x-nav-link :href="route('userManagement.index')"
