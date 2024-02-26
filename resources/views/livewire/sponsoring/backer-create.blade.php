@@ -27,7 +27,7 @@
             <x-livewire.sponsoring.backer-content/>
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.sponsoring.backer-files/>
+            <livewire:sponsoring.backer-files/>
         </div>
     </div>
 

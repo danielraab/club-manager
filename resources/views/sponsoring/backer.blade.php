@@ -22,10 +22,12 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
-        @foreach(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
+        @forelse(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
             <livewire:sponsoring.backer-overview-item :backer="$backer" wire:key="{{$backer->id}}"
                                                       :hasEditPermission="$hasEditPermission"/>
-        @endforeach
+        @empty
+            <div class="text-gray-600 text-center">-- {{__("no backers")}} --</div>
+        @endforelse
 
         @php($disabledList = \App\Models\Sponsoring\Backer::query()->where("enabled", false)->get())
         @if($disabledList->isNotEmpty())

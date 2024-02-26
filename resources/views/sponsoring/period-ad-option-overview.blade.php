@@ -17,7 +17,7 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-col gap-3">
-        @foreach($period->packages()->get() as $package)
+        @forelse($period->packages()->get() as $package)
             <div class="rounded overflow-hidden">
                 <div class="bg-gray-300 p-3">
                     {{$package->title}}
@@ -57,6 +57,8 @@
                     @endif
                 </div>
             </div>
-        @endforeach
+        @empty
+            <span class="text-gray-600 text-center">-- {{__("no packages")}} --</span>
+        @endforelse
     </div>
 </x-backend-layout>

@@ -23,9 +23,11 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-            @foreach(\App\Models\Sponsoring\AdOption::allActive()->get() as $adOption)
+            @forelse(\App\Models\Sponsoring\AdOption::allActive()->get() as $adOption)
                 <x-sponsoring.ad-option-item :adOption="$adOption" :hasEditPermission="$hasEditPermission"/>
-            @endforeach
+            @empty
+                <div class="text-gray-600 text-center col-span-full">-- {{__("no backers")}} --</div>
+            @endforelse
         </div>
         @php($disabledList = \App\Models\Sponsoring\AdOption::query()->where("enabled", false)->get())
         @if($disabledList->isNotEmpty())

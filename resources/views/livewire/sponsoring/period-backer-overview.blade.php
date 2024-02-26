@@ -55,12 +55,14 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
         {{--   TODO sort reject at the end--}}
-        @foreach(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
+        @forelse(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
             <x-livewire.sponsoring.period-backer-item
                 :backer="$backer"
                 wire:key="{{$backer->id}}"
                 :hasEditPermission="$hasEditPermission"/>
-        @endforeach
+        @empty
+            <div class="text-gray-600 text-center">-- {{__("no backers")}} --</div>
+        @endforelse
     </div>
 
     <div class="flex flex-wrap gap-3 justify-around bg-white shadow-sm sm:rounded-lg mt-5 p-5">

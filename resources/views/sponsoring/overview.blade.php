@@ -42,9 +42,11 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-            @foreach(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
+            @forelse(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
                 <x-sponsoring.period-item :period="$period" :hasShowPermission="$hasShowPermission" :hasEditPermission="$hasEditPermission"/>
-            @endforeach
+            @empty
+                <span class="text-gray-600 text-center">-- {{__("no periods")}} --</span>
+            @endforelse
         </div>
     </div>
 </x-backend-layout>
