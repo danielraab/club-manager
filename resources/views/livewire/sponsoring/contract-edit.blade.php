@@ -86,9 +86,9 @@
                     <option>{{__("-- choose a package --")}}</option>
                     @foreach($period->packages()->where("enabled", true)->get() as $package)
                         @if($package->is_official)
-                            <option value="{{$package->id}}">{{$package->title}}</option>
+                            <option value="{{$package->id}}">{{$package->title}} ({{\App\Facade\Currency::formatPrice($package->price)}})</option>
                         @else
-                            <option value="{{$package->id}}">({{$package->title}})</option>
+                            <option value="{{$package->id}}">({{$package->title}} ({{\App\Facade\Currency::formatPrice($package->price)}}))</option>
                         @endif
                     @endforeach
                 </select>

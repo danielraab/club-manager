@@ -3,10 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+all changes made for sponsoring feature
 ### Fixed
-- small language fixes for sponsorign
+- small language fixes for sponsoring
 - show only available packages, inofficial packages are only in contract available
-
+### Changed
+- show package price in contract edit dropdown
 ## v0.6.0 - 2024-02-26
 ### Added
 - Sponsoring feature - Manage your Sponsors
