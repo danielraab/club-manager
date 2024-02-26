@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.6.1 - 2024-02-26
 all changes made for sponsoring feature
 ### Fixed
 - small language fixes for sponsoring
