@@ -11,6 +11,7 @@ all changes made for sponsoring feature
 - show package price in contract edit dropdown
 ### Added
 - add history of backer contracts on contract edit
+- period and backer edit links on contract edit form
 
 ## v0.6.0 - 2024-02-26
 ### Added

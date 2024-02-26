@@ -42,12 +42,16 @@
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <div>
                 <span class="font-bold">{{__("Period")}}:</span>
-                <span>{{$period->title}}</span>
+                <a href="{{route("sponsoring.period.edit", $period->id)}}" class="underline">
+                    <span>{{$period->title}}</span>
+                </a>
             </div>
             <div class="mt-3">
                 <span class="font-bold">{{__("Backer")}}:</span>
-                <span>{{$backer->name}}</span>
-                <span class="text-gray-700"> - {{$backer->zip}} {{$backer->city}}</span>
+                <a href="{{route("sponsoring.backer.edit", $backer->id)}}" class="underline">
+                    <span>{{$backer->name}}</span>
+                    <span class="text-gray-700"> - {{$backer->zip}} {{$backer->city}}</span>
+                </a>
             </div>
             @php($contractHistory = $backer->contracts()->with(["period", "member", "package"])->get())
             @if($contractHistory->isNotEmpty())
