@@ -8,6 +8,7 @@
 
     /** @var $member \App\Models\Member */
     /** @var $package \App\Models\Sponsoring\Package */
+    /** @var $contract \App\Models\Sponsoring\Contract */
 @endphp
 <x-slot name="headline">
     <div class="flex items-center gap-2">
@@ -43,11 +44,33 @@
                 <span class="font-bold">{{__("Period")}}:</span>
                 <span>{{$period->title}}</span>
             </div>
-            <div>
+            <div class="mt-3">
                 <span class="font-bold">{{__("Backer")}}:</span>
                 <span>{{$backer->name}}</span>
                 <span class="text-gray-700"> - {{$backer->zip}} {{$backer->city}}</span>
             </div>
+            @php($contractHistory = $backer->contracts()->with(["period", "member", "package"])->get())
+            @if($contractHistory->isNotEmpty())
+                <div class="mt-3" x-data="{open:false}">
+                    <span class="font-bold cursor-pointer" x-on:click="open = !open">{{__("History")}}             <i
+                            class="fa-solid"
+                            :class="open ? 'fa-caret-down' : 'fa-caret-right'"></i></span>
+                    <div class="p-2" x-cloak x-show="open">
+
+                        @foreach($contractHistory as $contract)
+                            <div class="text-xs">
+                                <span class="font-bold">{{$contract->period()->first()->title}}:</span>
+                                <span>{{$contract->member()->first()?->getFullName() ?: __("no member assigned")}}</span>
+                                @if(($p = $contract->package()->first()))
+                                    <span> - {{$p->title}} ({{App\Facade\Currency::formatPrice($p->price)}})</span>
+                                @else
+                                    <span> - {{__("no package assigned")}}</span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="mt-3">
                 <x-input-label for="info" :value="__('Info')"/>
                 <x-textarea id="info" name="info" type="text" class="mt-1 block w-full"
@@ -86,9 +109,13 @@
                     <option>{{__("-- choose a package --")}}</option>
                     @foreach($period->packages()->where("enabled", true)->get() as $package)
                         @if($package->is_official)
-                            <option value="{{$package->id}}">{{$package->title}} ({{\App\Facade\Currency::formatPrice($package->price)}})</option>
+                            <option value="{{$package->id}}">{{$package->title}}
+                                ({{\App\Facade\Currency::formatPrice($package->price)}})
+                            </option>
                         @else
-                            <option value="{{$package->id}}">({{$package->title}} ({{\App\Facade\Currency::formatPrice($package->price)}}))</option>
+                            <option value="{{$package->id}}">({{$package->title}}
+                                ({{\App\Facade\Currency::formatPrice($package->price)}}))
+                            </option>
                         @endif
                     @endforeach
                 </select>

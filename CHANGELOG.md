@@ -9,6 +9,9 @@ all changes made for sponsoring feature
 - show only available packages, inofficial packages are only in contract available
 ### Changed
 - show package price in contract edit dropdown
+### Added
+- add history of backer contracts on contract edit
+
 ## v0.6.0 - 2024-02-26
 ### Added
 - Sponsoring feature - Manage your Sponsors
