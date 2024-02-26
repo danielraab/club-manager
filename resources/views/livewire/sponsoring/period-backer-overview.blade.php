@@ -55,14 +55,35 @@
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
         {{--   TODO sort reject at the end--}}
-        @forelse(\App\Models\Sponsoring\Backer::allActive()->get() as $backer)
+        @forelse($backerList["enabled"] as $backer)
             <x-livewire.sponsoring.period-backer-item
-                :backer="$backer"
-                wire:key="{{$backer->id}}"
+                :backer="$backer['backer']"
+                :contract="$backer['contract']"
+                wire:key="{{$backer['backer']->id}}"
                 :hasEditPermission="$hasEditPermission"/>
         @empty
             <div class="text-gray-600 text-center">-- {{__("no backers")}} --</div>
         @endforelse
+        @if(!empty($backerList["disabled"]))
+            <div>{{__("disabled")}}</div>
+            @foreach($backerList["disabled"] as $backer)
+                <x-livewire.sponsoring.period-backer-item
+                    :backer="$backer['backer']"
+                    :contract="$backer['contract']"
+                    wire:key="{{$backer['backer']->id}}"
+                    :hasEditPermission="$hasEditPermission"/>
+            @endforeach
+        @endif
+        @if(!empty($backerList["closed"]))
+            <div>{{__("closed")}}</div>
+            @foreach($backerList["closed"] as $backer)
+                <x-livewire.sponsoring.period-backer-item
+                    :backer="$backer['backer']"
+                    :contract="$backer['contract']"
+                    wire:key="{{$backer['backer']->id}}"
+                    :hasEditPermission="$hasEditPermission"/>
+            @endforeach
+        @endif
     </div>
 
     <div class="flex flex-wrap gap-3 justify-around bg-white shadow-sm sm:rounded-lg mt-5 p-5">

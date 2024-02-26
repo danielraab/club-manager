@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Added
+- backer count on backer overview
+- show disabled or closed sponsors at the end of the backer period overview
 
 ## v0.6.1 - 2024-02-26
 all changes made for sponsoring feature

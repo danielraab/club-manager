@@ -9,7 +9,6 @@
     $yellow = "text-yellow-600";
     $red = "text-red-600";
     $gray = "text-gray-400";
-    $contract = $backer->contracts()->where("period_id", $this->period->id)->first();
 @endphp
 <div class="flex flex-col sm:flex-row gap-3 items-center sm:justify-between px-5 py-2">
     <div>{{$backer->name}} <span class="text-gray-700">- {{$backer->zip}} {{$backer->city}}</span></div>

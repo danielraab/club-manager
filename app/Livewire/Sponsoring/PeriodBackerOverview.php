@@ -57,8 +57,28 @@ class PeriodBackerOverview extends Component
         $contract->save();
     }
 
+    private function getContractsOfPeriod(Backer $backer): null|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $backer->contracts()->where("period_id", $this->period->id)->first();
+    }
+
     public function render()
     {
-        return view('livewire.sponsoring.period-backer-overview')->layout('layouts.backend');
+        $backerList = [];
+        /** @var Backer $backer */
+        foreach (Backer::query()->with("contracts")->orderBy("name")->get() as $backer) {
+            /** @var Contract $contract */
+            $contract = $this->getContractsOfPeriod($backer);
+            if (!$backer->enabled) {
+                if ($contract) $backerList["disabled"][] = ["backer" => $backer, "contract" => $contract];
+            } else if ($backer->closed_at) {
+                if ($contract) $backerList["closed"][] = ["backer" => $backer, "contract" => $contract];
+            } else {
+                $backerList["enabled"][] = ["backer" => $backer, "contract" => $contract];
+            }
+        }
+        return view('livewire.sponsoring.period-backer-overview', [
+            "backerList" => $backerList
+        ])->layout('layouts.backend');
     }
 }
