@@ -53,36 +53,42 @@
         </div>
     @endif
 
-    <div class="bg-white shadow-sm sm:rounded-lg p-5 divide-y divide-black">
+    <div class="bg-white shadow-sm sm:rounded-lg p-5">
         {{--   TODO sort reject at the end--}}
-        @forelse($backerList["enabled"] as $backer)
-            <x-livewire.sponsoring.period-backer-item
-                :backer="$backer['backer']"
-                :contract="$backer['contract']"
-                wire:key="{{$backer['backer']->id}}"
-                :hasEditPermission="$hasEditPermission"/>
-        @empty
-            <div class="text-gray-600 text-center">-- {{__("no backers")}} --</div>
-        @endforelse
-        @if(!empty($backerList["disabled"]))
-            <div>{{__("disabled")}}</div>
-            @foreach($backerList["disabled"] as $backer)
+        <div class="divide-y divide-black">
+            @forelse($backerList["enabled"] as $backer)
                 <x-livewire.sponsoring.period-backer-item
                     :backer="$backer['backer']"
                     :contract="$backer['contract']"
                     wire:key="{{$backer['backer']->id}}"
                     :hasEditPermission="$hasEditPermission"/>
-            @endforeach
+            @empty
+                <div class="text-gray-600 text-center">-- {{__("no backers")}} --</div>
+            @endforelse
+        </div>
+        @if(!empty($backerList["disabled"]))
+            <div class="font-bold bg-gray-700 text-white py-2 px-4 mt-2">{{__("disabled")}}</div>
+            <div class="divide-y divide-black border border-gray-700">
+                @foreach($backerList["disabled"] as $backer)
+                    <x-livewire.sponsoring.period-backer-item
+                        :backer="$backer['backer']"
+                        :contract="$backer['contract']"
+                        wire:key="{{$backer['backer']->id}}"
+                        :hasEditPermission="$hasEditPermission"/>
+                @endforeach
+            </div>
         @endif
         @if(!empty($backerList["closed"]))
-            <div>{{__("closed")}}</div>
-            @foreach($backerList["closed"] as $backer)
-                <x-livewire.sponsoring.period-backer-item
-                    :backer="$backer['backer']"
-                    :contract="$backer['contract']"
-                    wire:key="{{$backer['backer']->id}}"
-                    :hasEditPermission="$hasEditPermission"/>
-            @endforeach
+            <div class="font-bold bg-gray-700 text-white py-2 px-4 mt-2">{{__("closed")}}</div>
+            <div class="divide-y divide-black border border-gray-700">
+                @foreach($backerList["closed"] as $backer)
+                    <x-livewire.sponsoring.period-backer-item
+                        :backer="$backer['backer']"
+                        :contract="$backer['contract']"
+                        wire:key="{{$backer['backer']->id}}"
+                        :hasEditPermission="$hasEditPermission"/>
+                @endforeach
+            </div>
         @endif
     </div>
 
