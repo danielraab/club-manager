@@ -1,7 +1,7 @@
 <div x-data="{
     open:false,
-    start: $persist(@entangle('start').live),
-    end: $persist(@entangle('end').live),
+    start: $persist(@entangle('start').live).using(cookieStorage),
+    end: $persist(@entangle('end').live).using(cookieStorage),
     showDisabled: $persist(@entangle('showDisabled').live),
     showLoggedInOnly: $persist(@entangle('showLoggedInOnly').live),
     sortAsc: $persist(@entangle('sortAsc').live),

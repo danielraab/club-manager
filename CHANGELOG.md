@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Changed
+- change event filter date persistence to cookieStorage
 
 ## v0.6.2 - 2024-03-07
 ### Added
