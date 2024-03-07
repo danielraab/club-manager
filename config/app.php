@@ -179,7 +179,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CarbonProvider::class,
-        \App\Providers\CurrencyServiceProvider::class
+        \App\Providers\CurrencyServiceProvider::class,
+        \App\Providers\NotificationMessageServiceProvider::class
     ])->toArray(),
 
     /*
