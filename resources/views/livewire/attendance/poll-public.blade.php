@@ -55,9 +55,9 @@
                             /** @var \App\Models\MemberGroup $memberGroup */
                             $memberGroup = $poll->memberGroup()->first();
 
-                            $beforeEntrance = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_BEFORE_ENTRANCE);
-                            $afterRetired = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_AFTER_RETIRED);
-                            $showPaused = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_SHOW_PAUSED);
+                            $beforeEntrance = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_BEFORE_ENTRANCE, null, false);
+                            $afterRetired = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_AFTER_RETIRED, null, false);
+                            $showPaused = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_SHOW_PAUSED, null, false);
                             $filter = new \App\Models\Filter\MemberFilter($beforeEntrance, $afterRetired, $showPaused);
                             if($memberGroup) {
                                 $memberList = $memberGroup->getRecursiveMembers($filter);

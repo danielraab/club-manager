@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - backer count on backer overview
 - show disabled or closed sponsors at the end of the backer period overview
+- x-anchor for member and event filter and exports
+### Fixed
+- public poll error - missing default for dropdown member filter
 
 ## v0.6.1 - 2024-02-26
 all changes made for sponsoring feature
