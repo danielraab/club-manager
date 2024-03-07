@@ -26,7 +26,7 @@
             open:false,
         }" class="relative inline-block text-left" @click.outside="open = false">
         <div>
-            <button type="button"
+            <button type="button" x-ref="filterButton"
                     class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     @click.stop="open = !open">
                 <i class="fa-solid fa-filter"></i> Filter
@@ -35,8 +35,8 @@
             </button>
         </div>
 
-        <div x-cloak x-show="open"
-             class="absolute left-1/2 transform -translate-x-1/2 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div x-cloak x-show="open" x-anchor="$refs.filterButton"
+             class="z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div class="py-1">
                 <div class="px-4 py-1">
                     <x-input-checkbox id="filter_before_entrance" name="filter_before_entrance"
