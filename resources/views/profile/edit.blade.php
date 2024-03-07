@@ -1,8 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+<x-backend-layout>
+    <x-slot name="headline">
             {{ __('Profile') }}
-        </h2>
     </x-slot>
 
     <div class="py-12">
@@ -34,4 +32,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-backend-layout>
