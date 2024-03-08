@@ -52,6 +52,6 @@ class SingleAttendance extends Component
 
     public function render()
     {
-        return view('components.livewire.attendance.single-attendance');
+        return view('livewire.attendance.single-attendance');
     }
 }

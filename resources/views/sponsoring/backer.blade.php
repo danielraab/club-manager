@@ -25,7 +25,7 @@
         @php($backerList = \App\Models\Sponsoring\Backer::allActive()->get())
         @if($backerList->isNotEmpty())
             @foreach($backerList as $backer)
-                <livewire:sponsoring.backer-overview-item :backer="$backer" wire:key="{{$backer->id}}"
+                <x-sponsoring.backer-overview-item :backer="$backer"
                                                           :hasEditPermission="$hasEditPermission"/>
             @endforeach
             <div class="p-3">{{$backerList->count()}} {{__("backers")}}</div>
@@ -38,7 +38,7 @@
             <h3 class="font-bold py-5">{{__("Disabled")}}</h3>
 
             @foreach($disabledList as $backer)
-                <livewire:sponsoring.backer-overview-item :backer="$backer" wire:key="{{$backer->id}}"
+                <x-sponsoring.backer-overview-item :backer="$backer"
                                                           :hasEditPermission="$hasEditPermission"/>
             @endforeach
         @endif
@@ -48,10 +48,9 @@
             <h3 class="font-bold py-5">{{__("Closed")}}</h3>
 
             @foreach($closedList as $backer)
-                <livewire:sponsoring.backer-overview-item :backer="$backer" wire:key="{{$backer->id}}"
+                <x-sponsoring.backer-overview-item :backer="$backer"
                                                           :hasEditPermission="$hasEditPermission"/>
             @endforeach
         @endif
-
     </div>
 </x-backend-layout>
