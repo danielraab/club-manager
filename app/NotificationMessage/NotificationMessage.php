@@ -2,24 +2,19 @@
 
 namespace App\NotificationMessage;
 
+use function Symfony\Component\String\s;
+
 class NotificationMessage
 {
-    /**
-     * @var Item[]
-     */
-    private array $notificationMessages = [];
-
     public function addNotificationMessage(\App\NotificationMessage\Item $messageItem): self
     {
-        $this->notificationMessages[] = $messageItem;
+        session()->push("notificationMessages", $messageItem);
 
         return $this;
     }
 
     public function popNotificationMessagesJson(): string
     {
-        $json = json_encode($this->notificationMessages);
-        $this->notificationMessages = [];
-        return $json;
+        return json_encode(session()->pull("notificationMessages", []));
     }
 }

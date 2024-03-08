@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Attendance;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\PollForm;
 use App\Models\AttendancePoll;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -24,7 +27,8 @@ class PollEdit extends Component
         $this->pollForm->update();
 
         Log::info("Poll edited", [auth()->user(), $this->pollForm->poll]);
-        session()->put('message', __('The attendance poll has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item( __('The attendance poll has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

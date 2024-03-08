@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Attendance;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\PollForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -35,7 +38,8 @@ class PollCreate extends Component
         $this->pollForm->store();
 
         Log::info("Poll created", [auth()->user(), $this->pollForm->poll]);
-        session()->put('message', __('The attendance poll has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The attendance poll has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

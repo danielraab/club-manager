@@ -4,7 +4,10 @@
     /** @var $adData \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
 @endphp
 <div>
-    <x-message/>
+    <script>
+        Alpine.store('notificationMessages').addNotificationMessages(
+            JSON.parse('<?= \App\Facade\NotificationMessage::popNotificationMessagesJson() ?>'));
+    </script>
 
     @if(($uploadedAdDataFiles = $backer->uploadedFiles()->get())->isNotEmpty())
         <h3 class="mt-3 text-gray-600">{{__('Uploaded file(s)')}}</h3>
