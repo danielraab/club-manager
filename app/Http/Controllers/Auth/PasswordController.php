@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facade\NotificationMessage;
 use App\Http\Controllers\Controller;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +27,8 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        NotificationMessage::addNotificationMessage(new Item( __('Password saved'), ItemType::SUCCESS));
+
+        return back();
     }
 }

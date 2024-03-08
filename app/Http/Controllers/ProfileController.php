@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Facade\NotificationMessage;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +37,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        NotificationMessage::addNotificationMessage(new Item(__("Profile saved"), ItemType::SUCCESS));
+
+        return Redirect::route('profile.edit');
     }
 
     /**
