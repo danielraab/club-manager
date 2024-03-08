@@ -2,8 +2,11 @@
 
 namespace App\Livewire\UserManagement;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
@@ -27,8 +30,9 @@ class UserEdit extends Component
         $this->userForm->update();
 
         Log::channel('userManagement')
-            ->info("User '".$this->userForm->user->getNameWithMail()."' has been edited by '".auth()->user()->getNameWithMail()."'");
-        session()->put('message', __("User '".$this->userForm->user->name."' saved successfully."));
+            ->info("User '" . $this->userForm->user->getNameWithMail() . "' has been edited by '" . auth()->user()->getNameWithMail() . "'");
+        NotificationMessage::addNotificationMessage(
+            new Item(__("User '" . $this->userForm->user->name . "' saved successfully."), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -38,8 +42,12 @@ class UserEdit extends Component
         $this->userForm->delete();
 
         Log::channel('userManagement')
-            ->info("User '".$this->userForm->user->getNameWithMail()."' has been DELETED by '".auth()->user()->getNameWithMail()."'");
-        session()->put('message', __("The user '".$this->userForm->user->getNameWithMail()."' has been deleted."));
+            ->info("User '" . $this->userForm->user->getNameWithMail() . "' has been DELETED by '" . auth()->user()->getNameWithMail() . "'");
+        NotificationMessage::addNotificationMessage(
+            new Item(
+                __("The user '" . $this->userForm->user->getNameWithMail() . "' has been deleted."),
+                ItemType::WARNING
+            ));
 
         return redirect(route('userManagement.index'));
     }

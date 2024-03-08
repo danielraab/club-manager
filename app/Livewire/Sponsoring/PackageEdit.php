@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\PackageForm;
 use App\Models\Sponsoring\Package;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -30,7 +33,8 @@ class PackageEdit extends Component
         $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
         Log::info("Package updated", [auth()->user(), $this->packageForm->package]);
-        session()->put('message', __('The package has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The package has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -40,7 +44,8 @@ class PackageEdit extends Component
         $this->packageForm->delete();
 
         Log::info("Package deleted", [auth()->user(), $this->packageForm->package]);
-        session()->put('message', __('The package has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The package has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }

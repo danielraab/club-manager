@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Models\Sponsoring\Period;
 use App\Models\UploadedFile;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -33,7 +36,7 @@ class PeriodFiles extends Component
 
         $user = auth()->user();
         $uploadedFiles = [];
-        foreach($this->periodFiles as $periodFile) {
+        foreach ($this->periodFiles as $periodFile) {
             $path = $periodFile->store("public/period");
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
@@ -49,7 +52,8 @@ class PeriodFiles extends Component
         $this->periodFiles = [];
 
         Log::info("Period files uploaded", [auth()->user(), $uploadedFiles]);
-        session()->flash('message', __('Files uploaded.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('Files uploaded.'), ItemType::SUCCESS));
     }
 
     public function deleteFile(UploadedFile $uploadedFile): void
@@ -57,7 +61,8 @@ class PeriodFiles extends Component
         $uploadedFile->delete();
 
         Log::info("Period file deleted.", [auth()->user(), $uploadedFile]);
-        session()->flash('message', __('File(s) deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('File(s) deleted.'), ItemType::WARNING));
     }
 
     public function render()

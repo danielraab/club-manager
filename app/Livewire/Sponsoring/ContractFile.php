@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Models\Sponsoring\Contract;
 use App\Models\UploadedFile;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -39,8 +42,9 @@ class ContractFile extends Component
         $uploadedFile->uploader()->associate($user);
         $uploadedFile->save();
 
-        Log::info("Contract uploaded", [$user, $uploadedFile]);
-        session()->flash('message', __('File uploaded.'));
+        Log::info("Contract file uploaded", [$user, $uploadedFile]);
+        NotificationMessage::addNotificationMessage(
+            new Item(__('File uploaded.'), ItemType::SUCCESS));
     }
 
     public function deleteFile(UploadedFile $uploadedFile): void
@@ -48,7 +52,8 @@ class ContractFile extends Component
         $uploadedFile->delete();
 
         Log::info("Contract deleted.", [auth()->user(), $uploadedFile]);
-        session()->flash('message', __('File(s) deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('File(s) deleted.'), ItemType::WARNING));
     }
 
     public function render()

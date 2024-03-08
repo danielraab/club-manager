@@ -2,8 +2,11 @@
 
 namespace App\Livewire\News;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\NewsForm;
 use App\Models\News;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use App\Notifications\UpcomingNews;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -27,7 +30,8 @@ class NewsEdit extends Component
         $this->newsForm->delete();
 
         Log::info("News deleted", [auth()->user(), $this->newsForm->news]);
-        session()->put('message', __('The news has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The news has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
@@ -40,7 +44,8 @@ class NewsEdit extends Component
         $this->newsForm->store();
 
         Log::info("News copied", [auth()->user(), $this->newsForm->news]);
-        session()->put('message', __('News successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('News successfully created.'), ItemType::SUCCESS));
 
         return redirect(route('news.edit', ['news' => $this->newsForm->news->id]));
     }
@@ -53,7 +58,8 @@ class NewsEdit extends Component
         $this->newsForm->update();
 
         Log::info("News updated", [auth()->user(), $this->newsForm->news]);
-        session()->put('message', __('News successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('News successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

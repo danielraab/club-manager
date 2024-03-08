@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Models\Sponsoring\Backer;
 use App\Models\UploadedFile;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -33,7 +36,7 @@ class BackerFiles extends Component
 
         $user = auth()->user();
         $uploadedFiles = [];
-        foreach($this->adDataFiles as $adData) {
+        foreach ($this->adDataFiles as $adData) {
             $path = $adData->store("backerData");
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
@@ -49,7 +52,8 @@ class BackerFiles extends Component
         $this->adDataFiles = [];
 
         Log::info("Backer Ad Data uploaded", [auth()->user(), $uploadedFiles]);
-        session()->flash('message', __('Files uploaded.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('Files uploaded.'), ItemType::SUCCESS));
     }
 
     public function deleteFile(UploadedFile $uploadedFile): void
@@ -57,7 +61,8 @@ class BackerFiles extends Component
         $uploadedFile->delete();
 
         Log::info("Backer Ad Data deleted.", [auth()->user(), $uploadedFile]);
-        session()->flash('message', __('File(s) deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('File(s) deleted.'), ItemType::WARNING));
     }
 
     public function render()

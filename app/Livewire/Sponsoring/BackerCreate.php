@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\BackerForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -22,7 +25,8 @@ class BackerCreate extends Component
         $this->backerForm->store();
 
         Log::info("Backer created", [auth()->user(), $this->backerForm->backer]);
-        session()->put('message', __('The backer has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The backer has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

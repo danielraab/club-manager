@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Events;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\EventForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -38,7 +41,8 @@ class EventCreate extends Component
         $this->eventForm->store();
 
         Log::info("Event created", [auth()->user(), $this->eventForm->event]);
-        session()->put('message', __('The event has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item( __('The event has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

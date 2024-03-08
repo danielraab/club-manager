@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\ContractForm;
 use App\Models\Sponsoring\Contract;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -24,7 +27,8 @@ class ContractEdit extends Component
         $this->contractForm->update();
 
         Log::info("Contract updated", [auth()->user(), $this->contractForm->contract]);
-        session()->put('message', __('The contract has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The contract has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -34,7 +38,8 @@ class ContractEdit extends Component
         $this->contractForm->delete();
 
         Log::info("Contract deleted", [auth()->user(), $this->contractForm->contract]);
-        session()->put('message', __('The contract has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The contract has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }

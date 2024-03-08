@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\AdOptionForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -22,7 +25,8 @@ class AdOptionCreate extends Component
         $this->adOptionForm->store();
 
         Log::info("Ad option created", [auth()->user(), $this->adOptionForm->adOption]);
-        session()->put('message', __('The ad option has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The ad option has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

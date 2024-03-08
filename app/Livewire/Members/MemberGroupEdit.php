@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Members;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\MemberGroupForm;
 use App\Models\MemberGroup;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -24,7 +27,8 @@ class MemberGroupEdit extends Component
         $this->memberGroupForm->update();
 
         Log::info("Member group updated", [auth()->user(), $this->memberGroupForm->memberGroup]);
-        session()->put('message', __('The member group has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The member group has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -34,7 +38,8 @@ class MemberGroupEdit extends Component
         $this->memberGroupForm->delete();
 
         Log::info("Member group deleted", [auth()->user(), $this->memberGroupForm->memberGroup]);
-        session()->put('message', __('The member group has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The member group has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }

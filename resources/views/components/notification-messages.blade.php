@@ -12,7 +12,7 @@
             }
         });
         Alpine.store('notificationMessages').addNotificationMessages(
-            JSON.parse('<?= \App\Facade\NotificationMessage::popNotificationMessagesJson() ?>'));
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'));
     });
 </script>
 

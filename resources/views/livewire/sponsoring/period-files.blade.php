@@ -3,11 +3,9 @@
     /** @var $uploadedPeriodFile \App\Models\UploadedFile */
     /** @var $periodFile \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
 @endphp
-<div>
-    <script>
-        Alpine.store('notificationMessages').addNotificationMessages(
-            JSON.parse('<?= \App\Facade\NotificationMessage::popNotificationMessagesJson() ?>'));
-    </script>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     @if(($uploadedPeriodFiles = $period->uploadedFiles()->get())->isNotEmpty())
         <h3 class="mt-3 text-gray-600">{{__('Uploaded file(s)')}}</h3>
 

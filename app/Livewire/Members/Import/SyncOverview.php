@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Members\Import;
 
+use App\Facade\NotificationMessage;
 use App\Models\Import\ImportedMember;
 use App\Models\Import\MemberChangesWrapper;
 use App\Models\Member;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +68,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param  Collection<int, Member>  $currentMemberList
+     * @param Collection<int, Member> $currentMemberList
      */
     private function findMatchingMember(Collection $currentMemberList, ImportedMember $importedMember): Member
     {
@@ -87,7 +90,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param  Collection<int, Member>  $currentMemberList
+     * @param Collection<int, Member> $currentMemberList
      *
      * @throws ItemNotFoundException
      */
@@ -97,15 +100,15 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param  Collection<int, Member>  $currentMemberList
+     * @param Collection<int, Member> $currentMemberList
      *
      * @throws ItemNotFoundException
      */
     private function findNameAndBirthdayInMemberList(
         Collection $currentMemberList,
-        string $lastname,
-        string $firstname,
-        Carbon $birthday): Member
+        string     $lastname,
+        string     $firstname,
+        Carbon     $birthday): Member
     {
         return $currentMemberList->firstOrFail(function (Member $member) use ($lastname, $firstname, $birthday) {
             return $member->lastname === $lastname &&
@@ -116,7 +119,7 @@ class SyncOverview extends Component
 
     public function hydrate()
     {
-        $this->newMembers = array_map(fn (array $e) => new ImportedMember($e), $this->newMembers);
+        $this->newMembers = array_map(fn(array $e) => new ImportedMember($e), $this->newMembers);
         $this->changedMembers = array_map(function (array $wrapper) {
             $originalMember = new Member($wrapper['original']);
             $originalMember->id = $wrapper['original']['id'];
@@ -138,7 +141,7 @@ class SyncOverview extends Component
             foreach ($this->newMembers as $importedMember) {
                 $newMember = $importedMember->toMember();
                 $newMember->last_import_date = now();
-                if (! $newMember->entrance_date) {
+                if (!$newMember->entrance_date) {
                     $newMember->entrance_date = $newMember->last_import_date;
                 }
 
@@ -162,16 +165,21 @@ class SyncOverview extends Component
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('exception occurred while syncing imported members.', [$e]);
-            session()->push('message', __('An error occurred while syncing the imported members. Check your import file and try again.'));
+            NotificationMessage::addNotificationMessage(
+                new Item(
+                    __('An error occurred while syncing the imported members. Check your import file and try again.'),
+                    ItemType::ERROR));
 
             return redirect();
         }
 
         if ($addedCnt > 0) {
-            session()->push('message', __(':count new members created during import.', ['count' => $addedCnt]));
+            NotificationMessage::addNotificationMessage(
+                new Item(__(':count new members created during import.', ['count' => $addedCnt]), ItemType::SUCCESS));
         }
         if ($updatedCnt > 0) {
-            session()->push('message', __(':count members updated during import.', ['count' => $updatedCnt]));
+            NotificationMessage::addNotificationMessage(
+                new Item(__(':count members updated during import.', ['count' => $updatedCnt]), ItemType::SUCCESS));
         }
 
         return redirect(route('member.index'));

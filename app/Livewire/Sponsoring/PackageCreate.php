@@ -2,13 +2,17 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\PackageForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class PackageCreate extends Component
 {
     use AdOptionSelectionTrait;
+
     public PackageForm $packageForm;
 
     public string $previousUrl;
@@ -25,7 +29,8 @@ class PackageCreate extends Component
         $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
         Log::info("Package created", [auth()->user(), $this->packageForm->package]);
-        session()->put('message', __('The package has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The package has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

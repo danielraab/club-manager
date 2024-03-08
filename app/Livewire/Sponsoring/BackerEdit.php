@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\BackerForm;
 use App\Models\Sponsoring\Backer;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -25,7 +28,8 @@ class BackerEdit extends Component
         $this->backerForm->update();
 
         Log::info("Backer updated", [auth()->user(), $this->backerForm->backer]);
-        session()->put('message', __('The backer has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The backer has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -35,7 +39,8 @@ class BackerEdit extends Component
         $this->backerForm->delete();
 
         Log::info("Backer deleted", [auth()->user(), $this->backerForm->backer]);
-        session()->put('message', __('The backer has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The backer has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }

@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\PeriodForm;
 use App\Models\Sponsoring\Period;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -30,7 +33,8 @@ class PeriodEdit extends Component
         $this->periodForm->period->packages()->sync($this->selectedPackageArr);
 
         Log::info("Period updated", [auth()->user(), $this->periodForm->period]);
-        session()->put('message', __('The period has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The period has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -40,7 +44,8 @@ class PeriodEdit extends Component
         $this->periodForm->delete();
 
         Log::info("Period deleted", [auth()->user(), $this->periodForm->period]);
-        session()->put('message', __('The period has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The period has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }

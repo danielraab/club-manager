@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Members;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\MemberForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -24,7 +27,8 @@ class MemberCreate extends Component
         $this->memberForm->store();
 
         Log::info("Member created", [auth()->user(), $this->memberForm->member]);
-        session()->put('message', __('The member has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The member has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

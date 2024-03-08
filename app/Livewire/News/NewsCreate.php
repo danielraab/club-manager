@@ -2,7 +2,10 @@
 
 namespace App\Livewire\News;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\NewsForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -27,7 +30,8 @@ class NewsCreate extends Component
         $this->newsForm->store();
 
         Log::info("News created", [auth()->user(), $this->newsForm->news]);
-        session()->push('message', __('News successfully added.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('News successfully added.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

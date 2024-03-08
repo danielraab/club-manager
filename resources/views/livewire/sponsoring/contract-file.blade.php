@@ -3,11 +3,9 @@
     /** @var $savedContractFile \App\Models\UploadedFile */
     /** @var $contractFile \Livewire\Features\SupportFileUploads\TemporaryUploadedFile */
 @endphp
-<div>
-    <script>
-        Alpine.store('notificationMessages').addNotificationMessages(
-            JSON.parse('<?= \App\Facade\NotificationMessage::popNotificationMessagesJson() ?>'));
-    </script>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
 
     @if($savedContractFile = $contract->uploadedFile()->first())
         <h3 class="mt-3 text-gray-600">{{__('Uploaded file')}}</h3>

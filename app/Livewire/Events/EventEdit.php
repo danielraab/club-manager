@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Events;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\EventForm;
 use App\Models\Event;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use App\Notifications\UpcomingEvent;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -36,7 +39,8 @@ class EventEdit extends Component
         $this->eventForm->delete();
 
         Log::info("Event deleted", [auth()->user(), $this->eventForm->event]);
-        session()->put('message', __('The event has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The event has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
@@ -46,7 +50,8 @@ class EventEdit extends Component
         $this->eventForm->store();
 
         Log::info("Event copied", [auth()->user(), $this->eventForm->event]);
-        session()->put('message', __('The event has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
 
         return redirect(route('event.edit', ['event' => $this->eventForm->event->id]));
     }
@@ -56,7 +61,8 @@ class EventEdit extends Component
         $this->eventForm->update();
 
         Log::info("Event updated", [auth()->user(), $this->eventForm->event]);
-        session()->put('message', __('The event has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

@@ -2,7 +2,10 @@
 
 namespace App\Livewire\UserManagement;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\UserForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -21,8 +24,9 @@ class UserCreate extends Component
     {
         $this->userForm->store();
 
-        Log::channel('userManagement')->info("User '".$this->userForm->user->getNameWithMail()."' has been created by '".auth()->user()->getNameWithMail()."'");
-        session()->put('message', __("User '".$this->userForm->user->name."' created successfully."));
+        Log::channel('userManagement')->info("User '" . $this->userForm->user->getNameWithMail() . "' has been created by '" . auth()->user()->getNameWithMail() . "'");
+        NotificationMessage::addNotificationMessage(
+            new Item(__("User '" . $this->userForm->user->name . "' created successfully."), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

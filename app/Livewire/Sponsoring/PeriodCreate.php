@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\PeriodForm;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -26,7 +29,8 @@ class PeriodCreate extends Component
         $this->periodForm->period->packages()->sync($this->selectedPackageArr);
 
         Log::info("Period created", [auth()->user(), $this->periodForm->period]);
-        session()->put('message', __('The period has been successfully created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The period has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }

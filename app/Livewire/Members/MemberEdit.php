@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Members;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\MemberForm;
 use App\Models\Member;
 use App\Models\User;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -25,7 +28,8 @@ class MemberEdit extends Component
         $this->memberForm->update();
 
         Log::info("Member updated", [auth()->user(), $this->memberForm->member]);
-        session()->put('message', __('The member has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The member has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -36,7 +40,8 @@ class MemberEdit extends Component
         $this->memberForm->delete();
 
         Log::info("Member deleted", [auth()->user(), $this->memberForm->member]);
-        session()->put('message', __('The member has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The member has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
@@ -44,7 +49,7 @@ class MemberEdit extends Component
     public function createUser()
     {
         $member = $this->memberForm->member;
-        if (! $member) {
+        if (!$member) {
             session()->flash('createUserStatus', 'error');
             session()->flash('createUserMessage', __('Not able to create a user for this memeber.'));
 
@@ -66,9 +71,9 @@ class MemberEdit extends Component
 
         $user->register();
 
-        Log::channel('userManagement')->info("User '".$user->getNameWithMail()."' has been created by '".auth()->user()?->getNameWithMail()."'");
+        Log::channel('userManagement')->info("User '" . $user->getNameWithMail() . "' has been created by '" . auth()->user()?->getNameWithMail() . "'");
         session()->flash('createUserStatus', 'success');
-        session()->flash('createUserMessage', __("User '".$user->name."' created successfully."));
+        session()->flash('createUserMessage', __("User '" . $user->name . "' created successfully."));
     }
 
     public function render()

@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\Forms\Sponsoring\AdOptionForm;
 use App\Models\Sponsoring\AdOption;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -24,7 +27,8 @@ class AdOptionEdit extends Component
         $this->adOptionForm->update();
 
         Log::info("Ad option updated", [auth()->user(), $this->adOptionForm->adOption]);
-        session()->put('message', __('The ad option has been successfully updated.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The ad option has been successfully updated.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -34,10 +38,12 @@ class AdOptionEdit extends Component
         $this->adOptionForm->delete();
 
         Log::info("Ad option deleted", [auth()->user(), $this->adOptionForm->adOption]);
-        session()->put('message', __('The ad option has been successfully deleted.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The ad option has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
+
     public function render()
     {
         return view('livewire.sponsoring.ad-option-create-edit', ["editMode" => true])->layout('layouts.backend');
