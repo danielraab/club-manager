@@ -7,7 +7,7 @@
 
 <x-slot name="headline">
     <div class="flex items-center">
-        <span>{{ __('Member Overview') }}</span>[
+        <span>{{ __('Member Overview') }}</span>
     </div>
 </x-slot>
 
@@ -15,9 +15,6 @@
     @if($hasEditPermission)
         <div
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
-            <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
-                           href="{{route('member.birthdayList')}}"
-                           title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
                 <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
@@ -124,6 +121,9 @@
                         </div>
                     </div>
                 </div>
+                <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+                               href="{{route('member.birthdayList')}}"
+                               title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
                 @if($hasImportPermission)
                     <x-button-link href="{{route('member.import')}}" class="btn-info ml-auto"
                                    title="Import member list">
