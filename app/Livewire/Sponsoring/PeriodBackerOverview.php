@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -39,7 +42,9 @@ class PeriodBackerOverview extends Component
         if ($cnt) {
             Log::info("$cnt contracts created", [auth()->user()]);
         }
-        session()->flash('createdMessage', __(':cnt contracts created.', ["cnt" => $cnt]));
+        NotificationMessage::addNotificationMessage(
+            new Item(__(':cnt contracts created.', ["cnt" => $cnt]), ItemType::SUCCESS)
+        );
     }
 
     public function getContractBackerIdList(): array

@@ -12,7 +12,9 @@
     </div>
 </x-slot>
 
-<div>
+<div x-init="$store.notificationMessages
+        .addNotificationMessages(
+        JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-livewire.loading/>
     @if($hasEditPermission && $period->end > now())
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
@@ -28,10 +30,6 @@
             }}"
                     x-on:click="onClick()" title="Generate a contract for every backer."
                     class="btn-secondary">{{ __('Generate contracts') }}</x-default-button>
-                @if(session()->has("createdMessage"))
-                    <p class="text-gray-700"
-                       x-init="setTimeout(()=> {$el.remove()}, 5000);">{{session()->pull("createdMessage")}}</p>
-                @endif
             </div>
 
             <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
