@@ -33,6 +33,17 @@ class PollEdit extends Component
         return redirect($this->previousUrl);
     }
 
+    public function deletePoll()
+    {
+        $this->pollForm->delete();
+
+        Log::info("Poll deleted", [auth()->user(), $this->pollForm->poll]);
+        NotificationMessage::addNotificationMessage(
+            new Item( __('The event has been successfully deleted.'), ItemType::WARNING));
+
+        return redirect($this->previousUrl);
+    }
+
     public function addEventsToSelection($additionalEventIdList): void
     {
         $this->pollForm->addEventsToSelection($additionalEventIdList);

@@ -78,6 +78,11 @@ class PollForm extends Form
         $this->poll->events()->sync($this->selectedEvents);
     }
 
+    public function delete(): void
+    {
+        $this->poll?->delete();
+    }
+
     public function addEventsToSelection($additionalEventIdList): void
     {
         $this->selectedEvents = array_unique(array_merge($this->selectedEvents, $additionalEventIdList));
