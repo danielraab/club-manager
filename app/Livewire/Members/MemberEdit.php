@@ -50,16 +50,20 @@ class MemberEdit extends Component
     {
         $member = $this->memberForm->member;
         if (!$member) {
-            session()->flash('createUserStatus', 'error');
-            session()->flash('createUserMessage', __('Not able to create a user for this memeber.'));
+            NotificationMessage::addNotificationMessage(
+                new Item(__('Not able to create a user for this member.'), ItemType::ERROR));
+            return;
+        }
 
+        if (!$member->email) {
+            NotificationMessage::addNotificationMessage(
+                new Item(__('Member has no email address.'), ItemType::ERROR));
             return;
         }
 
         if (User::query()->where('email', $member->email)->exists()) {
-            session()->flash('createUserStatus', 'error');
-            session()->flash('createUserMessage', __('A user with the member email already exists.'));
-
+            NotificationMessage::addNotificationMessage(
+                new Item(__('A user with the member email already exists.'), ItemType::ERROR));
             return;
         }
 
@@ -72,8 +76,8 @@ class MemberEdit extends Component
         $user->register();
 
         Log::channel('userManagement')->info("User '" . $user->getNameWithMail() . "' has been created by '" . auth()->user()?->getNameWithMail() . "'");
-        session()->flash('createUserStatus', 'success');
-        session()->flash('createUserMessage', __("User '" . $user->name . "' created successfully."));
+        NotificationMessage::addNotificationMessage(
+            new Item( __("User '" . $user->name . "' created successfully."), ItemType::SUCCESS));
     }
 
     public function render()
