@@ -55,7 +55,7 @@ class RegisterAdminUser extends Command
         $user->register();
         $user->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
 
-        Log::channel('userManagement')->info("User '".$user->getNameWithMail().">' has been created via CLI'");
+        Log::channel('userManagement')->info("User ".$user->getNameWithMail()." has been created via CLI");
 
         $this->info("User $email was created successfully. A welcome message with a set password link has been sent.");
     }

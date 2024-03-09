@@ -30,9 +30,9 @@ class UserEdit extends Component
         $this->userForm->update();
 
         Log::channel('userManagement')
-            ->info("User '" . $this->userForm->user->getNameWithMail() . "' has been edited by '" . auth()->user()->getNameWithMail() . "'");
+            ->info("User " . $this->userForm->user->getNameWithMail() . " has been edited by " . auth()->user()->getNameWithMail());
         NotificationMessage::addNotificationMessage(
-            new Item(__("User '" . $this->userForm->user->name . "' saved successfully."), ItemType::SUCCESS));
+            new Item(__("User " . $this->userForm->user->name . " saved successfully."), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -42,10 +42,10 @@ class UserEdit extends Component
         $this->userForm->delete();
 
         Log::channel('userManagement')
-            ->info("User '" . $this->userForm->user->getNameWithMail() . "' has been DELETED by '" . auth()->user()->getNameWithMail() . "'");
+            ->info("User " . $this->userForm->user->getNameWithMail() . " has been DELETED by " . auth()->user()->getNameWithMail());
         NotificationMessage::addNotificationMessage(
             new Item(
-                __("The user '" . $this->userForm->user->getNameWithMail() . "' has been deleted."),
+                __("The user " . $this->userForm->user->getNameWithMail() . " has been deleted."),
                 ItemType::WARNING
             ));
 
@@ -60,26 +60,22 @@ class UserEdit extends Component
             'email' => $email,
         ]);
 
+        $message = new Item(__('Not able to send password reset link.'), ItemType::ERROR);
+
         switch ($status) {
             case Password::RESET_LINK_SENT:
-                session()->flash('sendResetLinkMessage', __('Password reset link successfully sent.'));
-
-                return;
+                $message = new Item(__('Password reset link successfully sent.'), ItemType::SUCCESS);
+                break;
 
             case Password::RESET_THROTTLED:
-                session()->flash('sendResetLinkMessage', __('The reset mail was throttled.'));
-
-                return;
+                $message = new Item(__('The reset mail was throttled.'), ItemType::WARNING);
+                break;
 
             case Password::INVALID_USER:
-                session()->flash('sendResetLinkMessage', __('User/Mail not found.'));
-
-                return;
-
-            default:
-                session()->flash('sendResetLinkMessage', __('Not able to send password reset link.'));
+                $message = new Item(__('User/Mail not found.'), ItemType::ERROR);
+                break;
         }
-
+        NotificationMessage::addNotificationMessage($message);
     }
 
     public function render()

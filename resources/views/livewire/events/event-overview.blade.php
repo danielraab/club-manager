@@ -6,7 +6,9 @@
     $eventFilter = $this->getEventFilter();
 @endphp
 
-<div>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-slot name="headline">
         <div class="flex items-center">
             <span>{{ __('Event Overview') }}</span>
@@ -163,9 +165,6 @@
                     <x-default-button
                         x-on:click="onClick($el)" title="Disable all events older than this year."
                         class="btn-danger">{{ __('Disable last years events') }}</x-default-button>
-                    @if(session()->has("eventDisableMessage"))
-                        <span class="text-gray-700">{{session()->pull("eventDisableMessage")}}</span>
-                    @endif
                 </div>
             @endif
 

@@ -52,7 +52,8 @@ class EventCreate extends Component
         $this->eventForm->store();
 
         Log::info("Event created", [auth()->user(), $this->eventForm->event]);
-        session()->flash('savedAndStayMessage', __('New event created.'));
+        NotificationMessage::addNotificationMessage(
+            new Item( __('New event successfully created.'), ItemType::SUCCESS));
     }
 
     public function render()

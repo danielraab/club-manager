@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 - update message adding
 ### Added
 - Delete button in poll edit form
+### Fixed
+- only show create user button on member edit if userEditPermission and email
+- show member Birthday button on member show permission
 
 ## v0.6.2 - 2024-03-07
 ### Added

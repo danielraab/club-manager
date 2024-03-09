@@ -34,7 +34,7 @@ class UpcomingNews extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-        $body = __("Please be aware of the news ':name'", [
+        $body = __("Please be aware of the news :name", [
             'name' => $this->news->title,
         ]);
 

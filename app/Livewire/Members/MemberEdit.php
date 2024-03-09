@@ -75,9 +75,9 @@ class MemberEdit extends Component
 
         $user->register();
 
-        Log::channel('userManagement')->info("User '" . $user->getNameWithMail() . "' has been created by '" . auth()->user()?->getNameWithMail() . "'");
+        Log::channel('userManagement')->info("User " . $user->getNameWithMail() . " has been created by " . auth()->user()?->getNameWithMail());
         NotificationMessage::addNotificationMessage(
-            new Item( __("User '" . $user->name . "' created successfully."), ItemType::SUCCESS));
+            new Item( __('User ' . $user->name . ' created successfully.'), ItemType::SUCCESS));
     }
 
     public function render()

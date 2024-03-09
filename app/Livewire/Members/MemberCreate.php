@@ -37,7 +37,8 @@ class MemberCreate extends Component
     {
         $this->memberForm->store();
         Log::info("Member created", [auth()->user(), $this->memberForm->member]);
-        session()->flash('savedAndStayMessage', __('New member successfully created. You can create the next one now.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('New member successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }
 
     public function render()

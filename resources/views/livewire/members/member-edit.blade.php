@@ -31,19 +31,7 @@
             </div>
             <x-default-button class="btn-primary" wire:click="saveMember"
                               title="Create new member">{{ __('Save') }}</x-default-button>
-
         </div>
-        @if(session()->has("createUserMessage"))
-            @php
-                $textColor = match (session()->pull("createUserStatus")){
-                    'success' => 'text-green-600',
-                    'error' => 'text-red-600',
-                    default => ''
-                };
-            @endphp
-            <p class="text-gray-700 mt-3 {{$textColor}}"
-               x-init="setTimeout(()=> {$el.remove()}, 7000);">{{session()->pull("createUserMessage")}}</p>
-        @endif
     </div>
 
 

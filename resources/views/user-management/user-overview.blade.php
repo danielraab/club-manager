@@ -32,7 +32,7 @@
                     <td class="border px-4 py-2">{{ $user->email }}</td>
                     <td class="border px-4 py-2">
                         <ul class="list-disc text-left pl-3">
-                            @foreach($user->userPermissions()->get() as $permission)
+                            @foreach($user->userPermissions()->orderBy('id')->get() as $permission)
                                 <li title="{{$permission->label}}">{{$permission->id}}</li>
                             @endforeach
                         </ul>

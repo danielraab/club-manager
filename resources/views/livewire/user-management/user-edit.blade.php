@@ -4,7 +4,10 @@
     </div>
 </x-slot>
 
-<div class="space-y-4">
+<div class="space-y-4"
+     x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-col sm:flex-row gap-2 items-center sm:justify-between">
             <div class="flex flex-wrap gap-2 justify-center items-center">
@@ -34,9 +37,6 @@
                     x-on:click="onClick()" title="Send password reset link."
                     x-bind:disabled="clickCnt > 1"
                     class="btn-secondary">{{ __('Send reset link') }}</x-default-button>
-                @if(session()->has("sendResetLinkMessage"))
-                    <span class="text-gray-700">{{session()->pull("sendResetLinkMessage")}}</span>
-                @endif
             </div>
             <x-default-button class="btn-primary" wire:click="saveUser"
                               title="Save the current changes">{{ __('Save') }}</x-default-button>

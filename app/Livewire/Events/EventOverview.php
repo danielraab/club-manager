@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Events;
 
+use App\Facade\NotificationMessage;
 use App\Livewire\EventFilterTrait;
 use App\Models\Configuration;
 use App\Models\ConfigurationKey;
 use App\Models\Event;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -53,7 +56,9 @@ class EventOverview extends Component
                 ->where('end', '<', now()->setMonth(1)->setDay(1)->setTime(0, 0, 0))
                 ->where("enabled", true)
                 ->update(['enabled' => false]);
-            session()->flash('eventDisableMessage', __('Done. :cnt Event(s) affected.', ['cnt' => $cnt]));
+
+            NotificationMessage::addNotificationMessage(
+                new Item(__('Done. :cnt Event(s) affected.', ['cnt' => $cnt])));
         } else {
             abort(403);
         }
