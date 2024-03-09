@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.6.3 - 2024-03-09
 ### Changed
 - change event filter date persistence to cookieStorage
 - redesigned notification messages
