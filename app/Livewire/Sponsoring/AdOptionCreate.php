@@ -35,7 +35,8 @@ class AdOptionCreate extends Component
     {
         $this->adOptionForm->store();
         Log::info("Ad option created", [auth()->user(), $this->adOptionForm->adOption]);
-        session()->flash('savedAndStayMessage', __('New ad option successfully created. You can create the next one now.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('New ad option successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }
 
     public function render()

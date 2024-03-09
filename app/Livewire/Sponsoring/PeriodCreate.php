@@ -41,7 +41,8 @@ class PeriodCreate extends Component
         $this->periodForm->period->packages()->sync($this->selectedPackageArr);
 
         Log::info("Period created", [auth()->user(), $this->periodForm->period]);
-        session()->flash('savedAndStayMessage', __('New period successfully created. You can create the next one now.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('New period successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }
 
     public function render()

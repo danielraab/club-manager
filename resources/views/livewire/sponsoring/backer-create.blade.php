@@ -7,12 +7,10 @@
     </div>
 </x-slot>
 
-<div>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
-        @if(session()->has("savedAndStayMessage"))
-            <p class="text-gray-700"
-            x-init="setTimeout(()=> {$el.remove()}, 5000);">{{session()->pull("savedAndStayMessage")}}</p>
-        @endif
         <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                           wire:click="saveBackerAndStay"
                           title="Create new backer and stay on this site">{{ __('Save and stay') }}</x-default-button>

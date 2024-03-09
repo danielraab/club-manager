@@ -10,7 +10,7 @@ class Item implements \Serializable, \JsonSerializable
     public string $message;
     public int $displayedSeconds;
 
-    public function __construct(string $message, ItemType $type = ItemType::INFORMATION, $title = null, int $displayedSeconds = 10)
+    public function __construct(string $message, ItemType $type = ItemType::INFORMATION, $title = null, int $displayedSeconds = 8)
     {
         $this->timestamp = hrtime(true);
         $this->message = $message;

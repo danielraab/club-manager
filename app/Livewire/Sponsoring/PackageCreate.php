@@ -41,7 +41,8 @@ class PackageCreate extends Component
         $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
         Log::info("Package created", [auth()->user(), $this->packageForm->package]);
-        session()->flash('savedAndStayMessage', __('New package successfully created. You can create the next one now.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('New package successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }
 
     public function render()

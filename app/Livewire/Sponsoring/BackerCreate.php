@@ -35,7 +35,8 @@ class BackerCreate extends Component
     {
         $this->backerForm->store();
         Log::info("Backer created", [auth()->user(), $this->backerForm->backer]);
-        session()->flash('savedAndStayMessage', __('New backer successfully created. You can create the next one now.'));
+        NotificationMessage::addNotificationMessage(
+            new Item(__('New backer successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }
 
     public function render()
