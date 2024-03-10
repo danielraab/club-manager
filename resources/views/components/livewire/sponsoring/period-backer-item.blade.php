@@ -36,17 +36,23 @@
                 @else
                     <i class="fa-solid fa-cube {{$gray}}"></i>
                 @endif
-                @if($contract->contract_received)
-                    @php($hasContractFileCss = $contract->uploadedFile()->count() > 0)
-                    <i class="fa-solid fa-file-contract {{$hasContractFileCss ? $green : $yellow}}"
+                @php($hasContractFileCss = $contract->uploadedFile()->count() > 0)
+                @if($hasContractFileCss)
+                    <i class="fa-solid fa-file-contract {{$green}}"
+                       title="{{__('Contract already uploaded')}}"></i>
+                @elseif($contract->contract_received)
+                    <i class="fa-solid fa-file-contract {{$yellow}}"
                        title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-file-contract {{$gray}}"></i>
                 @endif
+                @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
                 @if($contract->ad_data_received)
-                    @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
                     <i class="fa-regular fa-image {{$hasAdDataFilesCss ? $green : $yellow}}"
                        title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
+                @elseif($hasAdDataFilesCss)
+                    <i class="fa-regular fa-image text-blue-700"
+                       title="{{__('No ad data files received, but old data is available.')}}"></i>
                 @else
                     <i class="fa-regular fa-image {{$gray}}"></i>
                 @endif

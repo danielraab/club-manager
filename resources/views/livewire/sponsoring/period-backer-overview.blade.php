@@ -52,7 +52,6 @@
     @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-5">
-        {{--   TODO sort reject at the end--}}
         <div class="divide-y divide-black">
             @forelse($backerList["enabled"] as $backer)
                 <x-livewire.sponsoring.period-backer-item
