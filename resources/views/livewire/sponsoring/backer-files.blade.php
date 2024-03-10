@@ -27,7 +27,7 @@
     <h3 class="mt-3 text-gray-600">{{__('Select new file(s)')}}</h3>
     <x-input-file-area id="adData" name="adData" type="file" class="mt-1 block w-full"
                        wire:model="adDataFiles"
-                       subTitle="PNG, JPG, GIF up to 10MB" multiple
+                       subTitle="PNG, JPG, GIF, BMP, WEBP up to 10MB" multiple
                        autofocus autocomplete="adData">
         @if(!empty($this->adDataFiles))
             <div class="text-center">

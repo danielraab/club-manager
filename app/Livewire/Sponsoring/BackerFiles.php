@@ -22,7 +22,7 @@ class BackerFiles extends Component
     /**
      * @var TemporaryUploadedFile[]
      */
-    #[Validate(['adDataFiles.*' => 'file|mimes:png,jpg,pdf|max:10240'])]
+    #[Validate(['adDataFiles.*' => 'file|mimes:png,jpg,pdf,bmp,webp|max:10240'])]
     public array $adDataFiles = [];
 
     public function mount(Backer $backer): void

@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Changed
+- allow bmp and webp for backer file upload
 
 ## v0.6.3 - 2024-03-09
 ### Changed
