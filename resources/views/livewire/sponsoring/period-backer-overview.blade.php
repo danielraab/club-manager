@@ -2,6 +2,12 @@
     /** @var $period \App\Models\Sponsoring\Period */
     /** @var $backer \App\Models\Sponsoring\Backer */
     /** @var $periodFile \App\Models\UploadedFile */
+
+    $green = "text-green-700";
+    $yellow = "text-yellow-600";
+    $red = "text-red-600";
+    $gray = "text-gray-400";
+
 @endphp
 <x-slot name="headline">
     <div class="flex items-center gap-2">
@@ -32,10 +38,60 @@
                     class="btn-secondary">{{ __('Generate contracts') }}</x-default-button>
             </div>
 
+            <div class="flex items-center gap-2" x-data="{showLegend:false}">
+                <x-default-button x-ref="legendBtn" class="btn-secondary" x-on:click="showLegend= !showLegend">
+                    <i class="fa-solid fa-circle-info mr-2"></i>
+                    Icon Legend
+                </x-default-button>
+                <div x-anchor="$refs.legendBtn" x-show="showLegend" x-cloak x-on:click.outside="showLegend = false"
+                class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl divide-y">
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-circle-info text-cyan-900"></i>
+                        <span>{{__("show contract details")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-user {{$green}}"></i>
+                        <i class="fa-solid fa-user {{$red}}"></i>
+                        <span>{{__("contract has/has no member")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-ban {{$red}}"></i>
+                        <i class="fa-solid fa-ban {{$gray}}"></i>
+                        <span>{{__("contract is/is no declined")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-cube {{$green}}"></i>
+                        <i class="fa-solid fa-cube {{$gray}}"></i>
+                        <span>{{__("package is/is no selected")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-file-contract {{$green}}"></i>
+                        <i class="fa-solid fa-file-contract {{$yellow}}"></i>
+                        <i class="fa-solid fa-file-contract {{$gray}}"></i>
+                        <span>{{__("contract is uploaded/received/or neither")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-regular fa-image {{$green}}"></i>
+                        <i class="fa-regular fa-image text-blue-700"></i>
+                        <span>{{__("ad data is available and up to date/not up to date")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-regular fa-image {{$yellow}}"></i>
+                        <i class="fa-regular fa-image {{$gray}}"></i>
+                        <span>{{__("ad data is transmitted/not transmitted")}}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="fa-solid fa-money-bill-wave {{$green}}"></i>
+                        <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
+                        <span>{{__("backer has/has not paid")}}</span>
+                    </div>
+                </div>
+
             <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
                            title="Edit this period">
                 {{__("Edit period")}}
             </x-button-link>
+            </div>
         </div>
     @endif
 

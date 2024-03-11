@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- icon legend on backer period overview
 ### Changed
 - allow bmp and webp for backer file upload
 - period contract overview
