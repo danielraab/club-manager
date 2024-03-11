@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - period contract overview
   - show green contract icon even without timestamp
   - show blue ad data icon if files are available
+- make file area droppable, add progress bar and cancel button
 
 ## v0.6.3 - 2024-03-09
 ### Changed
