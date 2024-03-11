@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.6.4 - 2024-02-11
 ### Added
 - icon legend on backer period overview
 ### Changed
