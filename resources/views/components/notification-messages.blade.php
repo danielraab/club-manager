@@ -39,21 +39,21 @@
         }"
              x-init="startShrinkProgress()"
              x-show="show" x-collapse>
-            <div class="flex gap-4 items-center px-4 bg-white border border-t-4 shadow-xl opacity-90"
+            <div class="flex gap-4 items-center px-4 shadow-xl opacity-90 text-white"
                  role="alert"
                  :class="{
-                    'border-t-green-700': message.type === 'SUCCESS',
-                    'border-t-yellow-500': message.type === 'WARNING',
-                    'border-t-red-700': message.type === 'ERROR',
-                    'border-t-blue-700': message.type === 'INFORMATION'
+                    'bg-green-700': message.type === 'SUCCESS',
+                    'bg-yellow-500': message.type === 'WARNING',
+                    'bg-red-700': message.type === 'ERROR',
+                    'bg-blue-700': message.type === 'INFORMATION'
                     }"
             >
                 <i class="fa-solid"
                    :class="{
-                'fa-circle-check text-green-700': message.type === 'SUCCESS',
-                'fa-triangle-exclamation text-yellow-500': message.type === 'WARNING',
-                'fa-circle-xmark text-red-700': message.type === 'ERROR',
-                'fa-info-circle text-blue-700': message.type === 'INFORMATION'
+                'fa-circle-check': message.type === 'SUCCESS',
+                'fa-triangle-exclamation': message.type === 'WARNING',
+                'fa-circle-xmark': message.type === 'ERROR',
+                'fa-info-circle': message.type === 'INFORMATION'
                 }"></i>
                 <div class="py-2">
                     <template x-if="message.title">
@@ -62,7 +62,7 @@
 
                     <p x-text="message.message"></p>
                 </div>
-                <button class="ml-auto" x-on:click="hideAndRemove()"><i class="fa-solid fa-xmark text-gray-500"></i>
+                <button class="ml-auto" x-on:click="hideAndRemove()"><i class="fa-solid fa-xmark opacity-50"></i>
                 </button>
             </div>
             <div class="h-[3px] mx-auto"

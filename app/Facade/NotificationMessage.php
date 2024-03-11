@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static popNotificationMessagesJson(): string
  * @method static addNotificationMessage(\App\NotificationMessage\Item $messageItem): self
+ * @method static addSuccessNotificationMessage(string $message): self
+ * @method static addWarningNotificationMessage(string $message): self
+ * @method static addErrorNotificationMessage(string $message): self
+ * @method static addInfoNotificationMessage(string $message): self
  *
  * @see \App\NotificationMessage\NotificationMessage
  */

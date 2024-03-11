@@ -17,4 +17,21 @@ class NotificationMessage
     {
         return json_encode(session()->pull("notificationMessages", []));
     }
+
+    public function addSuccessNotificationMessage(string $message): self
+    {
+        return $this->addNotificationMessage(new Item($message, ItemType::SUCCESS));
+    }
+    public function addWarningNotificationMessage(string $message): self
+    {
+        return $this->addNotificationMessage(new Item($message, ItemType::WARNING));
+    }
+    public function addErrorNotificationMessage(string $message): self
+    {
+        return $this->addNotificationMessage(new Item($message, ItemType::ERROR));
+    }
+    public function addInfoNotificationMessage(string $message): self
+    {
+        return $this->addNotificationMessage(new Item($message, ItemType::INFORMATION));
+    }
 }

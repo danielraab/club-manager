@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
   - show green contract icon even without timestamp
   - show blue ad data icon if files are available
 - make file area droppable, add progress bar and cancel button
+- notification messages, update to colored background
+- add standard notification message functions to facade
 
 ## v0.6.3 - 2024-03-09
 ### Changed
