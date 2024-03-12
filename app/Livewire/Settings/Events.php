@@ -11,12 +11,14 @@ use Livewire\Component;
 class Events extends Component
 {
     public bool $eventStartToday = false;
+    public bool $birthdaysInPublicICS = false;
     public string $eventStartDate;
     public string $eventEndDate;
 
     public function mount(): void
     {
         $this->eventStartToday = (bool)Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
+        $this->birthdaysInPublicICS = (bool)Configuration::getBool(ConfigurationKey::EVENT_BIRTHDAYS_IN_ICS_EXPORT);
         $this->eventStartDate = Configuration::getString(
             ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
         $this->eventEndDate = Configuration::getString(
@@ -27,6 +29,11 @@ class Events extends Component
     public function updatedEventStartToday(bool $value):void {
         Configuration::storeBool(
             ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY, $value);
+    }
+
+    #[Renderless]
+    public function setBirthdayInIcsExport(bool $value):void {
+        Configuration::storeBool(ConfigurationKey::EVENT_BIRTHDAYS_IN_ICS_EXPORT, $value);
     }
 
     #[Renderless]

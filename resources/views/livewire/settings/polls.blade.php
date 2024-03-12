@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Event-Settings') }}
+            {{ __('Event-Poll-Settings') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Show and edit user global event settings.') }}
+            {{ __('Show and edit global poll settings.') }}
         </p>
     </header>
 

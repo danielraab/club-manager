@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- add setting for include member birthdays into public ics export
 
 ## v0.6.4 - 2024-02-11
 ### Added
