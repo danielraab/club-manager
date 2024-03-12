@@ -4,6 +4,9 @@
             messages: Alpine.$persist({}),
             addNotificationMessages(newMessages) {
                 for(let message of newMessages) {
+                    if(!message.timestamp) message.timestamp = Date.now();
+                    if(!message.type) message.type = "INFORMATION";
+                    if(!message.displayedSeconds) message.displayedSeconds = 5;
                     this.messages[message.timestamp] = message;
                 }
             },

@@ -37,13 +37,13 @@
                          showMessage:false,
                          copyToClipboard() {
                             navigator.clipboard.writeText('{{route("event.iCalendar")}}');
-                            this.showMessage=true;
-                            setTimeout(()=>this.showMessage=false, 5000);
+                            $store.notificationMessages.addNotificationMessages([{
+                                message: '{{__("Calender link is now in your clipboard. Paste it wherever you want")}}'
+                            }]);
                          }}"
                      @click="copyToClipboard()">
                     <i class="fa-solid fa-calendar"></i>
                     <span>{{route("event.iCalendar")}}</span>
-                    <p x-cloak x-show="showMessage" class="text-gray-700">Copied</p>
                 </div>
             </div>
         </div>
