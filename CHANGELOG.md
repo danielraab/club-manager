@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - add setting for include member birthdays into public ics export
 ### Changed
 - use standard notification message for click on calendar link on dashboard
+- store member filter selection in database instead of browser
 
 ## v0.6.4 - 2024-02-11
 ### Added

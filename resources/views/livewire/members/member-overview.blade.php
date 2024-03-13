@@ -14,7 +14,7 @@
 <div class="flex flex-col gap-5">
     @if($hasEditPermission)
         <div
-                class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
+            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
                 <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
@@ -27,7 +27,7 @@
         </div>
     @endif
 
-    <x-livewire.member-filter useMemberGroupFilter/>
+    <x-livewire.member-filter/>
 
     @if($this->members->exists())
 

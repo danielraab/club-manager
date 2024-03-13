@@ -11,6 +11,11 @@ class MemberOverview extends Component
 {
     use MemberFilterTrait;
 
+    public function mount()
+    {
+        $this->initFilter();
+    }
+
     /**
      * method to make a property available in template: $this->members
      * @return Builder

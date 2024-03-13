@@ -14,6 +14,8 @@ class AttendanceDisplay extends Component
 
     public function mount(Event $event)
     {
+        $this->initFilter();
+        $this->useMemberGroupFilter = false;
         $this->event = $event;
     }
 

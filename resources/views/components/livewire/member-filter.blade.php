@@ -1,14 +1,13 @@
-@props(["useMemberGroupFilter" => false])
 <div class="flex flex-wrap gap-5 justify-center text-sm"
     x-data="{
-    @if($useMemberGroupFilter === true)
-        filterMemberGroup: $persist(@entangle('filterMemberGroup').live).using(sessionStorage),
+    @if($this->useMemberGroupFilter === true)
+        filterMemberGroup: @entangle('filterMemberGroup').live,
     @endif
-        showBeforeEntrance: $persist(@entangle('filterShowBeforeEntrance').live),
-        showAfterRetired: $persist(@entangle('filterShowAfterRetired').live),
-        showPaused: $persist(@entangle('filterShowPaused').live)
+        showBeforeEntrance: @entangle('filterShowBeforeEntrance').live,
+        showAfterRetired: @entangle('filterShowAfterRetired').live,
+        showPaused: @entangle('filterShowPaused').live
     }">
-    @if($useMemberGroupFilter === true)
+    @if($this->useMemberGroupFilter === true)
     <div class="flex items-center flex-wrap justify-center">
         <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
         <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"

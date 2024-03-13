@@ -17,6 +17,8 @@ class AttendanceRecord extends Component
 
     public function mount($event)
     {
+        $this->initFilter();
+        $this->useMemberGroupFilter = false;
         $this->event = $event;
         $this->previousUrl = url()->previous();
     }

@@ -23,4 +23,8 @@ enum ConfigurationKey: string
     case DASHBOARD_BTN_BIRTHDAY_LIST = "dashboardButtons_birthdayList";
     case DASHBOARD_BTN_IMPORT_MEMBERS = "dashboardButtons_importMembers";
 
+    case MEMBER_FILTER_SHOW_BEFORE_ENTRANCE = "memberFilterShowBeforeEntrance";
+    case MEMBER_FILTER_SHOW_AFTER_RETIRED = "memberFilterShowAfterRetired";
+    case MEMBER_FILTER_SHOW_PAUSED = "memberFilterShowPaused";
+    case MEMBER_FILTER_GROUP_ID = "memberFilterGroupId";
 }
