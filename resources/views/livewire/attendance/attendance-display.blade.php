@@ -11,7 +11,7 @@
     </div>
 </x-slot>
 
-<div x-data="{displayMemberGroups:true}">
+<div x-data="{displayMemberGroups:$persist(true)}">
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">

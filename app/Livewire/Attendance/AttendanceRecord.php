@@ -13,8 +13,6 @@ class AttendanceRecord extends Component
 
     public Event $event;
 
-    public bool $displayMemberGroups = false;
-
     public function mount($event)
     {
         $this->initFilter();

@@ -15,7 +15,7 @@
         <div class="space-y-1 divide-y divide-gray-500">
             @foreach($memberGroup->filteredMembers($memberFilter)->get() as $member)
                 <livewire:attendance.single-attendance :event="$event" :member="$member"
-                                                       wire:key="memberGroup-{{$memberGroup->id}}-att-{{$event->id.'-'.$member->id}}"/>
+                                                       wire:key="att-{{$event->id.'-'.$member->id}}"/>
             @endforeach
         </div>
 
