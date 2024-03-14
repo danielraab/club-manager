@@ -6,6 +6,7 @@ use App\Models\Attendance as AttendanceModel;
 use App\Models\Event;
 use App\Models\Member;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SingleAttendance extends Component
@@ -13,6 +14,12 @@ class SingleAttendance extends Component
     public Event $event;
 
     public Member $member;
+
+    #[On('attendance-updated.{event.id}.{member.id}')]
+    public function refreshAttendance()
+    {
+        Log::info("refresh Event Triggered");
+    }
 
     public function mount($event, $member)
     {
@@ -32,7 +39,8 @@ class SingleAttendance extends Component
 
         $attendance->poll_status = $result;
         $attendance->save();
-        Log::info("Attendance record set", [auth()->user(), $attendance]);
+        Log::info('Attendance record set', [auth()->user(), $attendance]);
+        $this->dispatch("attendance-updated.{$this->event->id}.{$this->member->id}");
     }
 
     public function recordAttend(?bool $attend)
@@ -47,7 +55,8 @@ class SingleAttendance extends Component
 
         $attendance->attended = $attend;
         $attendance->save();
-        Log::info("Attendance set", [auth()->user(), $attendance]);
+        Log::info('Attendance set', [auth()->user(), $attendance]);
+        $this->dispatch("attendance-updated.{$this->event->id}.{$this->member->id}");
     }
 
     public function render()
