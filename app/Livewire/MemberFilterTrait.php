@@ -19,7 +19,6 @@ trait MemberFilterTrait
 
     public bool $useMemberGroupFilter = true;
 
-
     public function initFilter(): void
     {
         $this->filterShowPaused = Configuration::getBool(
@@ -29,7 +28,7 @@ trait MemberFilterTrait
         $this->filterShowBeforeEntrance = Configuration::getBool(
             ConfigurationKey::MEMBER_FILTER_SHOW_BEFORE_ENTRANCE, auth()->user(), false);
         if ($this->useMemberGroupFilter) {
-            $this->filterMemberGroup = (string)Configuration::getInt(
+            $this->filterMemberGroup = (string) Configuration::getInt(
                 ConfigurationKey::MEMBER_FILTER_GROUP_ID, auth()->user()) ?: '';
         }
     }
