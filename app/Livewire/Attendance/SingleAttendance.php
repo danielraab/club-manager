@@ -18,7 +18,6 @@ class SingleAttendance extends Component
     #[On('attendance-updated.{event.id}.{member.id}')]
     public function refreshAttendance()
     {
-        Log::info("refresh Event Triggered");
     }
 
     public function mount($event, $member)
