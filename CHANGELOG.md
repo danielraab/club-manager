@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - navigation fix of login button underline/active
 - Event Type title is required in form
+- navigation active state is now shown for subpages too
 
 ## v0.6.4 - 2024-02-11
 ### Added
