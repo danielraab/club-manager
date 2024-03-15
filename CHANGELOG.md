@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - use member filter config also for birthday list (incl print)
 - birthday list is now livewire page with member filter
 - remove button-link blade template and use css class instead
+- remove default-button blade template and use css class instead
 ### Fixed
 - navigation fix of login button underline/active
 - Event Type title is required in form
