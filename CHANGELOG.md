@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - store member filter selection in database instead of browser
 - if members are in multiple groups the other components get now update if one changes in attendance record
 - use member filter config also for birthday list (incl print)
+- birthday list is now livewire page with member filter
 
 ## v0.6.4 - 2024-02-11
 ### Added

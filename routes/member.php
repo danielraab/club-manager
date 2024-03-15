@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Members\MemberList;
+use App\Livewire\Members\BirthdayList;
 use App\Livewire\Members\Import\MemberImport;
 use App\Livewire\Members\MemberCreate;
 use App\Livewire\Members\MemberEdit;
@@ -20,7 +21,7 @@ Route::middleware(['auth', 'permission:'.Member::MEMBER_SHOW_PERMISSION.'|'.Memb
         ->name('member.list.excel');
     Route::get('/members/birthdayList/print', [MemberList::class, 'birthdayListPrint'])
         ->name('member.birthdayList.print');
-    Route::get('/members/birthdayList', [MemberList::class, 'birthdayList'])
+    Route::get('/members/birthdayList', BirthdayList::class)
         ->name('member.birthdayList');
 });
 

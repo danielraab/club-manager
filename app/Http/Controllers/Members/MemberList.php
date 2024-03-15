@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
-use App\Models\Configuration;
-use App\Models\ConfigurationKey;
 use App\Models\Filter\MemberFilter;
 use App\Models\Member;
-use App\Models\MemberGroup;
 use Illuminate\Support\Facades\Response;
 
 class MemberList extends Controller
@@ -74,55 +71,22 @@ class MemberList extends Controller
         ]);
     }
 
-    private function getBirthdaySortedMembers(MemberFilter $filer = null): \Illuminate\Database\Eloquent\Collection|array
+    public function birthdayListPrint(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return Member::getAllFiltered($filer)->whereNotNull('birthday')->get()
+        $printMissing = request()->has('printMissing');
+        $missingBirthdayList = [];
+
+        $filter = MemberFilter::getMemberFilterFromConfig();
+        if ($printMissing) {
+            $missingBirthdayList = Member::getAllFiltered($filter)->whereNull('birthday')
+                ->orderBy('lastname')->get();
+        }
+        $memberList = Member::getAllFiltered($filter)->whereNotNull('birthday')->get()
             ->sort(function ($memberA, $memberB) {
                 return strcmp($memberA->birthday->isoFormat('MM-DD'), $memberB->birthday->isoFormat('MM-DD'));
             });
-    }
-
-    public function birthdayListPrint(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $filer = $this->getFilterFromConfig();
-        $missingBirthdayList = Member::getAllFiltered($filer)->whereNull('birthday')
-            ->orderBy('lastname')->get();
-        $memberList = $this->getBirthdaySortedMembers($filer);
 
         return view('members.member-birthday-list-print', [
-            'missingBirthdayList' => $missingBirthdayList,
-            'members' => $memberList,
-        ]);
-    }
-
-    private function getFilterFromConfig(): MemberFilter
-    {
-        $filterMemberGroup = null;
-        $filterShowPaused = Configuration::getBool(
-            ConfigurationKey::MEMBER_FILTER_SHOW_PAUSED, auth()->user(), false);
-        $filterShowAfterRetired = Configuration::getBool(
-            ConfigurationKey::MEMBER_FILTER_SHOW_AFTER_RETIRED, auth()->user(), false);
-        $filterShowBeforeEntrance = Configuration::getBool(
-            ConfigurationKey::MEMBER_FILTER_SHOW_BEFORE_ENTRANCE, auth()->user(), false);
-
-        $filterMemberGroupId = Configuration::getInt(
-            ConfigurationKey::MEMBER_FILTER_GROUP_ID, auth()->user());
-        if ($filterMemberGroupId) {
-            $filterMemberGroup = MemberGroup::query()->find($filterMemberGroupId)->first();
-        }
-
-        return new MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused, $filterMemberGroup);
-    }
-
-    public function birthdayList(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $filter = $this->getFilterFromConfig();
-        $missingBirthdayList = Member::getAllFiltered($filter)
-            ->whereNull('birthday')
-            ->orderBy('lastname')->get();
-        $memberList = $this->getBirthdaySortedMembers($filter);
-
-        return view('members.member-birthday-list', [
             'missingBirthdayList' => $missingBirthdayList,
             'members' => $memberList,
         ]);

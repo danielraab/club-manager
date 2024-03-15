@@ -2,6 +2,8 @@
 
 namespace App\Models\Filter;
 
+use App\Models\Configuration;
+use App\Models\ConfigurationKey;
 use App\Models\MemberGroup;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
@@ -64,5 +66,23 @@ class MemberFilter
         }
 
         return $memberFilter;
+    }
+    public static function getMemberFilterFromConfig(): MemberFilter
+    {
+        $filterMemberGroup = null;
+        $filterShowPaused = Configuration::getBool(
+            ConfigurationKey::MEMBER_FILTER_SHOW_PAUSED, auth()->user(), false);
+        $filterShowAfterRetired = Configuration::getBool(
+            ConfigurationKey::MEMBER_FILTER_SHOW_AFTER_RETIRED, auth()->user(), false);
+        $filterShowBeforeEntrance = Configuration::getBool(
+            ConfigurationKey::MEMBER_FILTER_SHOW_BEFORE_ENTRANCE, auth()->user(), false);
+
+        $filterMemberGroupId = Configuration::getInt(
+            ConfigurationKey::MEMBER_FILTER_GROUP_ID, auth()->user());
+        if ($filterMemberGroupId) {
+            $filterMemberGroup = MemberGroup::query()->find($filterMemberGroupId);
+        }
+
+        return new MemberFilter($filterShowBeforeEntrance, $filterShowAfterRetired, $filterShowPaused, $filterMemberGroup);
     }
 }

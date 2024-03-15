@@ -1,14 +1,15 @@
-<x-backend-layout>
-    <x-slot name="headline">
-        <div class="flex justify-between items-center">
-            <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
-            <x-button-link href='{{route("member.birthdayList.print")}}' class="btn-secondary">
-                <i class="fa-solid fa-print mr-2"></i>Print
-            </x-button-link>
-        </div>
-    </x-slot>
+<x-slot name="headline">
+    <div class="flex justify-between items-center">
+        <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
+        <x-button-link href='{{route("member.birthdayList.print")}}' class="btn-secondary">
+            <i class="fa-solid fa-print mr-2"></i>Print
+        </x-button-link>
+    </div>
+</x-slot>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg lg:p-6 text-gray-900">
+<div>
+    <x-livewire.member-filter/>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg lg:p-6 text-gray-900 my-5">
         @if($members && $members->isNotEmpty())
             <div class="flex flex-col divide-y">
                 @php($today = now()->format("m-d"))
@@ -44,8 +45,7 @@
         @endif
     </div>
     @if($missingBirthdayList && $missingBirthdayList->isNotEmpty())
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 mt-5">
-
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
             <header>
                 <h2 class="text-lg font-medium text-gray-900">
                     {{ __('Missing birthdays') }}
@@ -56,7 +56,6 @@
                 </p>
             </header>
             <div class="m-5">
-
                 <ul class="list-disc">
                     @foreach($missingBirthdayList as $member)
                         <li>{{$member->lastname}} {{$member->firstname}}</li>
@@ -65,4 +64,4 @@
             </div>
         </div>
     @endif
-</x-backend-layout>
+</div>
