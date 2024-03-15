@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - add setting for include member birthdays into public ics export
 - add button-dropdown menu at member birthday lists
+- notification for login and logoff
 ### Changed
 - use standard notification message for click on calendar link on dashboard
 - store member filter selection in database instead of browser
@@ -14,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - birthday list is now livewire page with member filter
 - remove button-link blade template and use css class instead
 - remove default-button blade template and use css class instead
+- dont use blade template for user nav dropdown, use x-anchor instead
 ### Fixed
 - navigation fix of login button underline/active
 - Event Type title is required in form

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facade\NotificationMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -33,6 +34,8 @@ class AuthenticatedSessionController extends Controller
             'last_login_at' => now(),
         ]);
 
+        NotificationMessage::addSuccessNotificationMessage(__('Your login was successful.'));
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -46,6 +49,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        NotificationMessage::addInfoNotificationMessage(__('You are logged off now.'));
 
         return redirect('/');
     }

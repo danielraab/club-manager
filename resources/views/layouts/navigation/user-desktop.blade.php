@@ -3,44 +3,43 @@
 <div class="hidden lg:flex gap-2 ml-6">
     <x-web-push-notification-icon />
     @auth
-        <x-dropdown align="right" width="48" class="inline-flex items-center">
-            <x-slot name="trigger">
-                <button
-                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                    <div>{{ Auth::user()->name }}</div>
 
-                    <div class="ml-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                </button>
-            </x-slot>
+        <div x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false" class="inline-flex items-center">
+            <div @click="open = !open" x-ref="userNavBtn"
+                 class="btn inline-flex items-center px-3 py-2 text-sm leading-4 font-medium text-gray-500 hover:text-gray-700 hover:cursor-pointer focus:outline-none">
+                <div>{{ Auth::user()->name }}</div>
 
-            <x-slot name="content">
+                <div class="ml-1">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div x-show="open" x-cloak class="bg-white py-1 rounded-md border-gray-900 shadow-md ring-1 text-gray-700 ring-black ring-opacity-5"
+                 x-anchor.bottom-end="$refs.userNavBtn" x-collapse>
                 @if(Auth::user()->hasPermission(\App\Models\UserPermission::ADMIN_USER_PERMISSION))
-                    <x-dropdown-link :href="route('settings')" class="border-b">
+                    <a href="{{route('settings')}}" class="block w-full px-4 py-1 my-1 hover:bg-gray-100">
                         {{ __('Settings') }}
-                    </x-dropdown-link>
+                    </a>
+                    <hr>
                 @endif
-                <x-dropdown-link :href="route('profile.edit')">
+                <a href="{{route('profile.edit')}}" class="block w-full px-4 py-1 my-1 hover:bg-gray-100">
                     {{ __('Profile') }}
-                </x-dropdown-link>
+                </a>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-dropdown-link :href="route('logout')"
-                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                    <button class="text-left w-full px-4 py-1 my-1 hover:bg-gray-100">
                         {{ __('Log Out') }}
-                    </x-dropdown-link>
+                    </button>
                 </form>
-            </x-slot>
-        </x-dropdown>
+            </div>
+        </div>
     @endauth
     @guest
         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
