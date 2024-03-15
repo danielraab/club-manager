@@ -9,7 +9,7 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <x-default-button
+        <button type="button"
             x-data="{ clickCnt: 0, onClick() {
                         if(this.clickCnt > 0) {
                             $wire.deletePackage();
@@ -19,9 +19,9 @@
                         }
                     }}"
             x-on:click="onClick()" title="Delete this package"
-            class="btn-danger">{{ __('Delete package') }}</x-default-button>
-        <x-default-button class="btn-primary" wire:click="savePackage"
-                          title="Update package">{{ __('Save') }}</x-default-button>
+            class="btn-danger">{{ __('Delete package') }}</button>
+        <button type="button" class="btn-primary" wire:click="savePackage"
+                          title="Update package">{{ __('Save') }}</button>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

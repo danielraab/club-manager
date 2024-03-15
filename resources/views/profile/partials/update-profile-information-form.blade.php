@@ -42,7 +42,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-default-button class="btn-primary">{{ __('Save') }}</x-default-button>
+            <button type="button" class="btn-primary">{{ __('Save') }}</button>
         </div>
     </form>
 </section>

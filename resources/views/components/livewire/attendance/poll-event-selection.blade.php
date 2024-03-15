@@ -39,11 +39,11 @@
                                 <i class="fa-solid fa-square-poll-horizontal"></i>
                             </a>
                         @endif
-                        <x-default-button type="button" title="Remove event selection"
-                                          class="btn btn-danger"
+                        <button type="button" title="Remove event selection"
+                                          class="btn-danger"
                                           wire:click="removeEventFromSelection({{$event->id}})">
                             <i class="fa-solid fa-minus"></i>
-                        </x-default-button>
+                        </button>
                     </td>
                 </tr>
             @empty
@@ -86,10 +86,10 @@
                                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                     {{ __('only future events') }}
                 </x-input-checkbox>
-                <x-default-button type="button" class="btn btn-primary"
+                <button type="button" class="btn-primary"
                                   x-bind:disabled="additionalEventList.length === 0"
                                   x-on:click="addEvents">{{__("Add events to poll")}}
-                </x-default-button>
+                </button>
             </div>
     </div>
 

@@ -10,11 +10,11 @@
             <div class="flex gap-2 items-center">
                 <x-dropdown>
                     <x-slot name="trigger">
-                        <x-default-button class="btn-secondary flex gap-2"
-                                          type="button" aria-expanded="true" aria-haspopup="true">
+                        <button class="btn-secondary flex gap-2"
+                                type="button" aria-expanded="true" aria-haspopup="true">
                             {{__("Basic data")}}
                             <i class="fa-solid fa-caret-down"></i>
-                        </x-default-button>
+                        </button>
                     </x-slot>
                     <x-slot name="content">
                         <a href="{{route("sponsoring.backer.index")}}"
@@ -32,9 +32,9 @@
                     </x-slot>
                 </x-dropdown>
                 @if($hasEditPermission)
-                        <a class="btn-create"
-                                       href="{{route('sponsoring.period.create')}}"
-                                       title="Create a new period">{{__("New period")}}</a>
+                    <a class="btn-create"
+                       href="{{route('sponsoring.period.create')}}"
+                       title="Create a new period">{{__("New period")}}</a>
                 @endif
             </div>
         </div>
@@ -43,7 +43,8 @@
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
             @forelse(\App\Models\Sponsoring\Period::query()->orderBy("start", 'desc')->get() as $period)
-                <x-sponsoring.period-item :period="$period" :hasShowPermission="$hasShowPermission" :hasEditPermission="$hasEditPermission"/>
+                <x-sponsoring.period-item :period="$period" :hasShowPermission="$hasShowPermission"
+                                          :hasEditPermission="$hasEditPermission"/>
             @empty
                 <div class="text-gray-600 text-center col-span-full">-- {{__("no periods")}} --</div>
             @endforelse

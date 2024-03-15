@@ -11,8 +11,8 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
             <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
-                <x-default-button
-                    x-data="{ clickCnt: 0, onClick() {
+                <button type="button"
+                        x-data="{ clickCnt: 0, onClick() {
                         if(this.clickCnt > 0) {
                             $wire.deleteEvent();
                         } else {
@@ -20,12 +20,12 @@
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-                    x-on:click="onClick()" title="Delete this event"
-                    class="btn-danger">{{ __('Delete event') }}</x-default-button>
+                        x-on:click="onClick()" title="Delete this event"
+                        class="btn-danger">{{ __('Delete event') }}</button>
 
                 @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
-                    <x-default-button
-                        x-data="{ clickCnt: 0, disabled: false, onClick() {
+                    <button type="button"
+                            x-data="{ clickCnt: 0, disabled: false, onClick() {
                             if(this.clickCnt == 1) {
                                 $wire.forceWebPush();
                                 this.disabled = true;
@@ -34,17 +34,17 @@
                                 $el.innerHTML = 'Are you sure?';
                             }
                         }}"
-                        x-on:click="onClick()" title="Force a web push to all subscribes (with the updated data)."
-                        x-bind:disabled="disabled"
-                        class="btn-secondary">{{ __('Force web push') }}</x-default-button>
+                            x-on:click="onClick()" title="Force a web push to all subscribes (with the updated data)."
+                            x-bind:disabled="disabled"
+                            class="btn-secondary">{{ __('Force web push') }}</button>
                 @endif
             </div>
             <div class="flex flex-wrap gap-2 justify-end w-full sm:w-auto">
-                <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
-                                  wire:click="saveEventCopy"
-                                  title="Save copy of the event">{{ __('Save copy') }}</x-default-button>
-                <x-default-button class="btn-primary" wire:click="saveEvent"
-                                  title="Update event">{{ __('Save') }}</x-default-button>
+                <button type="button" class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+                        wire:click="saveEventCopy"
+                        title="Save copy of the event">{{ __('Save copy') }}</button>
+                <button type="button" class="btn-primary" wire:click="saveEvent"
+                        title="Update event">{{ __('Save') }}</button>
             </div>
         </div>
     </div>

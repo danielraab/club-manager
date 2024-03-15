@@ -64,14 +64,14 @@
             </label>
         </div>
         <div class="py-1 px-3">
-            <x-default-button class="btn-secondary px-3" wire:click="$toggle('sortAsc')">
+            <button type="button" class="btn-secondary px-3" wire:click="$toggle('sortAsc')">
                 @if($this->sortAsc)
                     <i class="fa-solid fa-arrow-down"></i>
                 @else
                     <i class="fa-solid fa-arrow-up"></i>
                 @endif
                 <span class="pl-2">{{$this->sortAsc ? __("sorted ascending") : __("sorted descending")}}</span>
-            </x-default-button>
+            </button>
         </div>
     </div>
 </div>

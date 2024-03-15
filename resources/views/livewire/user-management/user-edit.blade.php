@@ -11,35 +11,35 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-col sm:flex-row gap-2 items-center sm:justify-between">
             <div class="flex flex-wrap gap-2 justify-center items-center">
-                <x-default-button
-                    x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt === 1) {
-                            this.clickCnt++;
-                            $wire.deleteUser();
-                        } else {
-                            this.clickCnt++;
-                            $el.innerHTML = 'Are you sure?';
-                        }
-                    }}"
-                    x-on:click="onClick()" title="Delete this user"
-                    x-bind:disabled="clickCnt > 1"
-                    class="btn-danger">{{ __('Delete user') }}</x-default-button>
-                <x-default-button
-                    x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt === 1) {
-                            this.clickCnt++;
-                            $wire.sendResetLink();
-                        } else {
-                            this.clickCnt++;
-                            $el.innerHTML = 'Are you sure?';
-                        }
-                    }}"
-                    x-on:click="onClick()" title="Send password reset link."
-                    x-bind:disabled="clickCnt > 1"
-                    class="btn-secondary">{{ __('Send reset link') }}</x-default-button>
+                <button type="button"
+                        x-data="{ clickCnt: 0, onClick() {
+                            if(this.clickCnt === 1) {
+                                this.clickCnt++;
+                                $wire.deleteUser();
+                            } else {
+                                this.clickCnt++;
+                                $el.innerHTML = 'Are you sure?';
+                            }
+                        }}"
+                        x-on:click="onClick()" title="Delete this user"
+                        x-bind:disabled="clickCnt > 1"
+                        class="btn-danger">{{ __('Delete user') }}</button>
+                <button type="button"
+                        x-data="{ clickCnt: 0, onClick() {
+                            if(this.clickCnt === 1) {
+                                this.clickCnt++;
+                                $wire.sendResetLink();
+                            } else {
+                                this.clickCnt++;
+                                $el.innerHTML = 'Are you sure?';
+                            }
+                        }}"
+                        x-on:click="onClick()" title="Send password reset link."
+                        x-bind:disabled="clickCnt > 1"
+                        class="btn-secondary">{{ __('Send reset link') }}</button>
             </div>
-            <x-default-button class="btn-primary" wire:click="saveUser"
-                              title="Save the current changes">{{ __('Save') }}</x-default-button>
+            <button type="button" class="btn-primary" wire:click="saveUser"
+                    title="Save the current changes">{{ __('Save') }}</button>
         </div>
     </div>
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

@@ -95,9 +95,9 @@
         @if(!empty($newMembers) || !empty($changedMembers))
             <div class="w-full text-right mt-5">
                 <div wire:loading class="fa fa-spinner fa-spin mr-3"></div>
-                <x-default-button class="btn-danger" wire:click="syncMembers" wire:loading.attr="disabled"
-                                  wire:target="syncMembers"
-                                  title="Import members">{{ __('Import members') }}</x-default-button>
+                <button type="button" class="btn-danger" wire:click="syncMembers" wire:loading.attr="disabled"
+                        wire:target="syncMembers"
+                        title="Import members">{{ __('Import members') }}</button>
             </div>
         @else
             <div class="flex justify-center mt-5">

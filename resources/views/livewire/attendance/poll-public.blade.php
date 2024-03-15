@@ -69,10 +69,10 @@
                             <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                         @endforeach
                     </select>
-                    <x-default-button type="button" class="btn btn-primary px-3 rounded" title="Clear selected member"
+                    <button type="button" class="btn-primary px-3 rounded" title="Clear selected member"
                                       x-on:click="resetSelected"
                                       :disabled="$selectedMember === null">x
-                    </x-default-button>
+                    </button>
                 </div>
                 @if($selectedMember === null)
                     <span class="text-xs text-gray-600">Start type in your name until you find it in the list.</span>

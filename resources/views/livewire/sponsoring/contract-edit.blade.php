@@ -22,8 +22,8 @@
 <div>
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <x-default-button
-            x-data="{ clickCnt: 0, onClick() {
+        <button type="button"
+                x-data="{ clickCnt: 0, onClick() {
                         if(this.clickCnt > 0) {
                             $wire.deleteContract();
                         } else {
@@ -31,10 +31,10 @@
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-            x-on:click="onClick()" title="Delete this contract"
-            class="btn-danger">{{ __('Delete contract') }}</x-default-button>
-        <x-default-button class="btn-primary" wire:click="saveContract"
-                          title="Update contract">{{ __('Save') }}</x-default-button>
+                x-on:click="onClick()" title="Delete this contract"
+                class="btn-danger">{{ __('Delete contract') }}</button>
+        <button type="button" class="btn-primary" wire:click="saveContract"
+                title="Update contract">{{ __('Save') }}</button>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
@@ -143,9 +143,9 @@
                     <x-input-date id="refused" name="refused" class="grow"
                                   wire:model.live="contractForm.refused"
                                   autofocus autocomplete="refused"/>
-                    <x-default-button class="btn-secondary"
-                                      :disabled="!empty($contractForm->refused)"
-                                      wire:click="$set('contractForm.refused', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
+                    <button class="btn-secondary" type="button"
+                            :disabled="!empty($contractForm->refused)"
+                            wire:click="$set('contractForm.refused', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
                 @error('contractForm.refused')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -160,9 +160,9 @@
                                   wire:model.live="contractForm.contract_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="contract_received"/>
-                    <x-default-button class="btn-secondary"
-                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->contract_received)"
-                                      wire:click="$set('contractForm.contract_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
+                    <button type="button" class="btn-secondary"
+                            :disabled="!empty($contractForm->refused) || !empty($contractForm->contract_received)"
+                            wire:click="$set('contractForm.contract_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
                 @error('contractForm.contract_received')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -177,9 +177,9 @@
                                   wire:model.live="contractForm.ad_data_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="ad_data_received"/>
-                    <x-default-button class="btn-secondary"
-                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->ad_data_received)"
-                                      wire:click="$set('contractForm.ad_data_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
+                    <button type="button" class="btn-secondary"
+                            :disabled="!empty($contractForm->refused) || !empty($contractForm->ad_data_received)"
+                            wire:click="$set('contractForm.ad_data_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
                 @error('contractForm.ad_data_received')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -194,9 +194,9 @@
                                   wire:model.live="contractForm.paid"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="paid"/>
-                    <x-default-button class="btn-secondary"
-                                      :disabled="!empty($contractForm->refused) || !empty($contractForm->paid)"
-                                      wire:click="$set('contractForm.paid', new Date().toJSON().slice(0, 10))">{{__("Today")}}</x-default-button>
+                    <button type="button" class="btn-secondary"
+                            :disabled="!empty($contractForm->refused) || !empty($contractForm->paid)"
+                            wire:click="$set('contractForm.paid', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
                 @error('contactForm.paid')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror

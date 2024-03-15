@@ -11,11 +11,11 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
-        <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+        <button type="button" class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                           wire:click="savePeriodAndStay"
-                          title="Create new period and stay on this site">{{ __('Save and stay') }}</x-default-button>
-        <x-default-button class="btn-primary" wire:click="savePeriod"
-                          title="Create new period">{{ __('Save') }}</x-default-button>
+                          title="Create new period and stay on this site">{{ __('Save and stay') }}</button>
+        <button type="button" class="btn-primary" wire:click="savePeriod"
+                          title="Create new period">{{ __('Save') }}</button>
     </div>
 
 

@@ -25,7 +25,7 @@
     @if($hasEditPermission && $period->end > now())
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
             <div class="flex items-center gap-3 flex-wrap">
-                <x-default-button
+                <button type="button"
                     x-data="{ clickCnt: 0, onClick() {
                 if(this.clickCnt > 0) {
                     $wire.generateAllContracts();
@@ -35,14 +35,14 @@
                 }
             }}"
                     x-on:click="onClick()" title="Generate a contract for every backer."
-                    class="btn-secondary">{{ __('Generate contracts') }}</x-default-button>
+                    class="btn-secondary">{{ __('Generate contracts') }}</button>
             </div>
 
             <div class="flex items-center gap-2" x-data="{showLegend:false}">
-                <x-default-button x-ref="legendBtn" class="btn-secondary" x-on:click="showLegend= !showLegend">
+                <button type="button" x-ref="legendBtn" class="btn-secondary" x-on:click="showLegend= !showLegend">
                     <i class="fa-solid fa-circle-info mr-2"></i>
                     Icon Legend
-                </x-default-button>
+                </button>
                 <div x-anchor="$refs.legendBtn" x-show="showLegend" x-cloak x-on:click.outside="showLegend = false"
                 class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl divide-y">
                     <div class="flex items-center gap-1">

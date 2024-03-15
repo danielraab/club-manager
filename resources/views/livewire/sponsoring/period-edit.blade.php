@@ -9,8 +9,8 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <x-default-button
-            x-data="{ clickCnt: 0, onClick() {
+        <button type="button"
+                x-data="{ clickCnt: 0, onClick() {
                         if(this.clickCnt > 0) {
                             $wire.deletePeriod();
                         } else {
@@ -18,13 +18,14 @@
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-            x-on:click="onClick()" title="Delete this period"
-            class="btn-danger">{{ __('Delete period') }}</x-default-button>
-        <a href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}" class="btn-info" title="Show period backer overview">
+                x-on:click="onClick()" title="Delete this period"
+                class="btn-danger">{{ __('Delete period') }}</button>
+        <a href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}" class="btn-info"
+           title="Show period backer overview">
             {{__("Show backer overview")}}
         </a>
-        <x-default-button class="btn-primary" wire:click="savePeriod"
-                          title="Update period">{{ __('Save') }}</x-default-button>
+        <button type="button" class="btn-primary" wire:click="savePeriod"
+                title="Update period">{{ __('Save') }}</button>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

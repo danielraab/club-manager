@@ -31,11 +31,11 @@
         @if($hasEditPermission)
             <div class="flex flex-row flex-wrap gap-2 justify-center">
                 <a href="{{route('event.type.index')}}" class="btn-secondary"
-                               title="Show event type list">
+                   title="Show event type list">
                     {{__("Event Type List")}}
                 </a>
                 <a href="{{route('event.create')}}" class="btn-success"
-                               title="Create new event">
+                   title="Create new event">
                     {{__("Create new event")}}
                 </a>
             </div>
@@ -128,8 +128,8 @@
                                             </button>
                                         @endif
                                         <a href="{{route('event.edit', $event->id)}}"
-                                                       title="Edit this event"
-                                                       class="btn-primary">
+                                           title="Edit this event"
+                                           class="btn-primary">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @endif
@@ -162,9 +162,9 @@
                 }
             }}"
                 >
-                    <x-default-button
-                        x-on:click="onClick($el)" title="Disable all events older than this year."
-                        class="btn-danger">{{ __('Disable last years events') }}</x-default-button>
+                    <button type="button"
+                            x-on:click="onClick($el)" title="Disable all events older than this year."
+                            class="btn-danger">{{ __('Disable last years events') }}</button>
                 </div>
             @endif
 
@@ -187,15 +187,15 @@
                     <div class="py-1">
                         <div class="px-4 py-1">
                             <a class="btn w-full"
-                                           href="{{route('event.list.csv', $eventFilter->toParameterArray())}}"
-                                           @click="open=false"
-                                           title="Download event list as CSV file">{{ __('CSV List') }}</a>
+                               href="{{route('event.list.csv', $eventFilter->toParameterArray())}}"
+                               @click="open=false"
+                               title="Download event list as CSV file">{{ __('CSV List') }}</a>
                         </div>
                         <div class="px-4 py-1">
                             <a class="btn w-full"
-                                           href="{{route('event.list.excel', $eventFilter->toParameterArray())}}"
-                                           @click="open=false"
-                                           title="Download event list as Excel file">{{ __('Excel File') }}</a>
+                               href="{{route('event.list.excel', $eventFilter->toParameterArray())}}"
+                               @click="open=false"
+                               title="Download event list as Excel file">{{ __('Excel File') }}</a>
                         </div>
                     </div>
                 </div>

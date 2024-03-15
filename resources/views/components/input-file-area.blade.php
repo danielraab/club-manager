@@ -32,7 +32,7 @@
     </div>
     <div class="flex flex-col justify-center items-center gap-2 w-full" x-show="uploading" x-cloak>
         <progress class="rounded-full w-full h-2" max="100" x-bind:value="progress"></progress>
-        <x-default-button type="button" class="btn-danger text-sm" wire:click="$cancelUpload('{{$attributes->get('wire:model')}}')">Cancel Upload</x-default-button>
+        <button type="button" class="btn-danger text-sm" wire:click="$cancelUpload('{{$attributes->get('wire:model')}}')">Cancel Upload</button>
     </div>
     @if($slot)
         {{$slot}}

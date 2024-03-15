@@ -14,9 +14,9 @@ addEvents() {
             <span x-cloak class="text-gray-500 text-xs mt-1"
                   x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
             <div class="ml-auto">
-                <x-default-button class="btn btn-primary inline-flex" wire:click="savePoll"
+                <button type="button" class="btn-primary inline-flex" wire:click="savePoll"
                                   x-bind:disabled="additionalEventList.length > 0"
-                                  title="Create new attendance poll">{{ __('Save') }}</x-default-button>
+                                  title="Create new attendance poll">{{ __('Save') }}</button>
             </div>
         </div>
     </div>

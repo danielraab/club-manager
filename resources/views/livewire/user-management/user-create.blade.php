@@ -6,8 +6,8 @@
 
 <div class="space-y-5">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-row-reverse">
-        <x-default-button class="btn-primary" wire:click="saveUser"
-                          title="Create new user">{{ __('Save') }}</x-default-button>
+        <button type="button" class="btn-primary" wire:click="saveUser"
+                title="Create new user">{{ __('Save') }}</button>
     </div>
     <div class="md:flex justify-center">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

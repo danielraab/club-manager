@@ -77,10 +77,10 @@
                 <i class="fa-regular fa-image {{$gray}}"></i>
                 <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @if($hasEditPermission)
-                    <x-default-button class="btn-danger w-8 justify-center"
+                    <button type="button" class="btn-danger w-8 justify-center"
                                       wire:click="createContract({{$backer->id}})">
                         <i class="fa-solid fa-file-contract"></i>
-                    </x-default-button>
+                    </button>
                 @endif
             @endif
         </div>

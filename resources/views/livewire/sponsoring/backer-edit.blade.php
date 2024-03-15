@@ -10,8 +10,8 @@
 <div>
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <x-default-button
-            x-data="{ clickCnt: 0, onClick() {
+        <button type="button"
+                x-data="{ clickCnt: 0, onClick() {
                         if(this.clickCnt > 0) {
                             $wire.deleteBacker();
                         } else {
@@ -19,10 +19,10 @@
                             $el.innerHTML = 'Are you sure?';
                         }
                     }}"
-            x-on:click="onClick()" title="Delete this backer"
-            class="btn-danger">{{ __('delete backer') }}</x-default-button>
-        <x-default-button class="btn-primary" wire:click="saveBacker"
-                          title="Update backer">{{ __('Save') }}</x-default-button>
+                x-on:click="onClick()" title="Delete this backer"
+                class="btn-danger">{{ __('delete backer') }}</button>
+        <button type="button" class="btn-primary" wire:click="saveBacker"
+                title="Update backer">{{ __('Save') }}</button>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

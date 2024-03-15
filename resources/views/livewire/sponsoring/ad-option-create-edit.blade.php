@@ -16,7 +16,7 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex gap-2 items-center
     {{$editMode ? "justify-between" : "justify-end"}}">
         @if($editMode)
-            <x-default-button
+            <button type="button"
                 x-data="{ clickCnt: 0, onClick() {
                     if(this.clickCnt > 0) {
                         $wire.deleteAdOption();
@@ -26,15 +26,15 @@
                     }
                 }}"
                 x-on:click="onClick()" title="Delete this ad option"
-                class="btn-danger">{{ __('Delete ad option') }}</x-default-button>
-            <x-default-button class="btn-primary" wire:click="saveAdOption"
-                              title="Save changes of ad option">{{ __('Save') }}</x-default-button>
+                class="btn-danger">{{ __('Delete ad option') }}</button>
+            <button type="button" class="btn-primary" wire:click="saveAdOption"
+                              title="Save changes of ad option">{{ __('Save') }}</button>
         @else
-            <x-default-button class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+            <button type="button" class="btn-info"
                           wire:click="saveAdOptionAndStay"
-                          title="Create new ad option and stay on this site">{{ __('Save and stay') }}</x-default-button>
-            <x-default-button class="btn-primary" wire:click="saveAdOption"
-                          title="Create new ad option">{{ __('Save') }}</x-default-button>
+                          title="Create new ad option and stay on this site">{{ __('Save and stay') }}</button>
+            <button type="button" class="btn-primary" wire:click="saveAdOption"
+                          title="Create new ad option">{{ __('Save') }}</button>
         @endif
     </div>
 
