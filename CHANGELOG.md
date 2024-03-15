@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.6.5 - 2024-03-15
 ### Added
 - add setting for include member birthdays into public ics export
 - add button-dropdown menu at member birthday lists
@@ -21,7 +24,7 @@ All notable changes to this project will be documented in this file.
 - Event Type title is required in form
 - navigation active state is now shown for subpages too
 
-## v0.6.4 - 2024-02-11
+## v0.6.4 - 2024-03-11
 ### Added
 - icon legend on backer period overview
 ### Changed
