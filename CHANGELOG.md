@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+## v0.6.6 - 2024-03-15
+- remove button dropdown item blade template, use dedicated css instead
 
 ## v0.6.5 - 2024-03-15
 ### Added

@@ -3,13 +3,15 @@
         <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
         <x-button-dropdown class="">
             <x-slot name="mainButton">
-                <x-button-dropdown-item href='{{route("member.birthdayList.print")}}' >
+                <a href='{{route("member.birthdayList.print")}}'
+                   class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
                     <i class="fa-solid fa-print mr-2"></i>{{__("Print")}}
-                </x-button-dropdown-item>
+                </a>
             </x-slot>
-            <x-button-dropdown-item href='{{route("member.birthdayList.print", ["printMissing"=>true])}}' >
+            <a href='{{route("member.birthdayList.print", ["printMissing"=>true])}}'
+               class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
                 <i class="fa-solid fa-print mr-2"></i>{{__("Print with missing")}}
-            </x-button-dropdown-item>
+            </a>
         </x-button-dropdown>
     </div>
 </x-slot>
