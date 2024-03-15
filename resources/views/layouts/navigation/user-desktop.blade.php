@@ -1,6 +1,6 @@
 
 <!-- Settings Dropdown -->
-<div class="hidden lg:flex gap-1 items-center ml-6">
+<div class="hidden lg:flex gap-2 ml-6">
     <x-web-push-notification-icon />
     @auth
         <x-dropdown align="right" width="48">
@@ -43,7 +43,7 @@
         </x-dropdown>
     @endauth
     @guest
-        <x-nav-link class="ml-2" :href="route('login')" :active="request()->routeIs('login')">
+        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
             {{ __('Login') }}
         </x-nav-link>
     @endguest

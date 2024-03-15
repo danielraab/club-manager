@@ -48,9 +48,11 @@
         }
     }
 </script>
+<div class="flex items-center">
 <i x-data="initNotificationIconFunctions()"
    x-bind:class="addClasses"
    x-bind:title="title.join(' \n')"
    x-on:click="clickAction"
    x-on:webpush-setup-finished.window="updateData()"
    class="fa-regular fa-bell"></i>
+</div>
