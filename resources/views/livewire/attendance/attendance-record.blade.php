@@ -24,8 +24,8 @@
 
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
-            <x-button-link class="btn-primary"
-                           href="{{route('event.attendance.show', $event->id)}}">{{__("Show Overview")}}</x-button-link>
+            <a class="btn-primary"
+                           href="{{route('event.attendance.show', $event->id)}}">{{__("Show Overview")}}</a>
             <div class="flex items-center flex-wrap justify-center">
                 <button type="button" x-on:click="displayMemberGroup=false"
                         class="py-2 px-4 rounded-l-lg"

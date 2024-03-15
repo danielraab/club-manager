@@ -18,26 +18,26 @@
         class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 items-center justify-between">
         <div class="flex flex-row flex-wrap gap-2 justify-center max-sm:grow">
             @auth
-                <x-button-link href="{{route('event.statistic')}}" class="btn-primary" title="Calendar">
+                <a href="{{route('event.statistic')}}" class="btn-primary" title="Calendar">
                     <i class="fa-solid fa-chart-simple mr-1"></i>
                     {{__("Statistic")}}
-                </x-button-link>
+                </a>
             @endauth
-            <x-button-link href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
+            <a href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
                 <i class="fa-solid fa-calendar-days mr-1"></i>
                 {{__("Calendar")}}
-            </x-button-link>
+            </a>
         </div>
         @if($hasEditPermission)
             <div class="flex flex-row flex-wrap gap-2 justify-center">
-                <x-button-link href="{{route('event.type.index')}}" class="btn-secondary"
+                <a href="{{route('event.type.index')}}" class="btn-secondary"
                                title="Show event type list">
                     {{__("Event Type List")}}
-                </x-button-link>
-                <x-button-link href="{{route('event.create')}}" class="btn-success"
+                </a>
+                <a href="{{route('event.create')}}" class="btn-success"
                                title="Create new event">
                     {{__("Create new event")}}
-                </x-button-link>
+                </a>
             </div>
         @endif
     </div>
@@ -127,11 +127,11 @@
                                                 <i class="fa-solid fa-toggle-off text-base"></i>
                                             </button>
                                         @endif
-                                        <x-button-link href="{{route('event.edit', $event->id)}}"
+                                        <a href="{{route('event.edit', $event->id)}}"
                                                        title="Edit this event"
-                                                       class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                       class="btn-primary">
                                             <i class="fa-regular fa-pen-to-square"></i>
-                                        </x-button-link>
+                                        </a>
                                     @endif
                                 </div>
                             </td>
@@ -186,16 +186,16 @@
                      class="z-10 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div class="py-1">
                         <div class="px-4 py-1">
-                            <x-button-link class="w-full"
+                            <a class="btn w-full"
                                            href="{{route('event.list.csv', $eventFilter->toParameterArray())}}"
                                            @click="open=false"
-                                           title="Download event list as CSV file">{{ __('CSV List') }}</x-button-link>
+                                           title="Download event list as CSV file">{{ __('CSV List') }}</a>
                         </div>
                         <div class="px-4 py-1">
-                            <x-button-link class="w-full"
+                            <a class="btn w-full"
                                            href="{{route('event.list.excel', $eventFilter->toParameterArray())}}"
                                            @click="open=false"
-                                           title="Download event list as Excel file">{{ __('Excel File') }}</x-button-link>
+                                           title="Download event list as Excel file">{{ __('Excel File') }}</a>
                         </div>
                     </div>
                 </div>

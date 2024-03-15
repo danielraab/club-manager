@@ -16,10 +16,10 @@
 
         <div class="mx-2 flex gap-2 items-center">
             <span class="text-gray-500" title="{{__("Member count")}}">{{$memberGroup->members()->whereNull("leaving_date")->count()}}</span>
-            <x-button-link href="{{route('member.group.edit', $memberGroup->id)}}" title="Edit this member group"
-                           class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <a href="{{route('member.group.edit', $memberGroup->id)}}" title="Edit this member group"
+                           class="btn-primary">
                 <i class="fa-regular fa-pen-to-square"></i>
-            </x-button-link>
+            </a>
         </div>
     </div>
     @php($children = $memberGroup->children()->get())

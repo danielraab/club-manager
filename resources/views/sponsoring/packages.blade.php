@@ -13,9 +13,9 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <x-button-link class="btn-success"
+                    <a class="btn-create"
                                    href="{{route('sponsoring.package.create')}}"
-                                   title="Create a new package">{{__("New package")}}</x-button-link>
+                                   title="Create a new package">{{__("New package")}}</a>
                 </div>
             @endif
         </div>

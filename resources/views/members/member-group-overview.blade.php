@@ -3,9 +3,9 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('Member Group Overview') }}</span>
-            <x-button-link href="{{route('member.group.create')}}" class="btn-success" title="Create new member group">
+            <a href="{{route('member.group.create')}}" class="btn-create" title="Create new member group">
                 {{__("Add member group")}}
-            </x-button-link>
+            </a>
         </div>
     </x-slot>
 

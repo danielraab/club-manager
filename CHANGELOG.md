@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - if members are in multiple groups the other components get now update if one changes in attendance record
 - use member filter config also for birthday list (incl print)
 - birthday list is now livewire page with member filter
+- remove button-link blade template and use css class instead
 
 ## v0.6.4 - 2024-02-11
 ### Added

@@ -63,11 +63,11 @@
                     <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @endif
                 @if($hasEditPermission)
-                    <x-button-link class="btn-primary w-8 justify-center"
+                    <a class="btn-primary w-8 justify-center"
                                    href="{{route('sponsoring.contract.edit', $contract->id)}}"
                                    title="edit contract">
                         <i class="fa-solid fa-pen-to-square"></i>
-                    </x-button-link>
+                    </a>
                 @endif
             @else
                 <i class="fa-solid fa-user {{$gray}}"></i>

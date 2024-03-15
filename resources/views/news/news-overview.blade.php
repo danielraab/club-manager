@@ -6,10 +6,10 @@
         <div class="flex justify-between items-center">
             <span>{{ __('News Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('news.create')}}" class="btn-success"
+                <a href="{{route('news.create')}}" class="btn-create"
                                title="Create new news">
                     {{__("Create new news")}}
-                </x-button-link>
+                </a>
             @endif
         </div>
     </x-slot>
@@ -62,10 +62,10 @@
                         </p>
                     </div>
                     @if($hasEditPermission)
-                        <x-button-link href="{{route('news.edit', $news->id)}}" title="Edit this news"
-                                       class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <a href="{{route('news.edit', $news->id)}}" title="Edit this news"
+                                       class="btn-edit">
                             <i class="fa-regular fa-pen-to-square"></i>
-                        </x-button-link>
+                        </a>
                     @endif
                 </div>
             </div>

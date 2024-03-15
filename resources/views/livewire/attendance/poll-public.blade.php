@@ -13,16 +13,16 @@
         <span>{{ __('Attend poll') }}</span>
         <div>
             @if($hasPollShowPermission)
-                <x-button-link href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn btn-secondary"
+                <a href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn-secondary"
                                title="Show summary of attendance poll">
                     {{__("Summary")}}
-                </x-button-link>
+                </a>
             @endif
             @if($hasPollEditPermission)
-                <x-button-link href="{{route('attendancePoll.edit', $poll->id)}}" class="btn btn-primary"
+                <a href="{{route('attendancePoll.edit', $poll->id)}}" class="btn-primary"
                                title="Edit this attendance poll">
                     {{__("Edit Poll")}}
-                </x-button-link>
+                </a>
             @endif
         </div>
     </div>

@@ -87,10 +87,10 @@
                     </div>
                 </div>
 
-            <x-button-link href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
+            <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
                            title="Edit this period">
                 {{__("Edit period")}}
-            </x-button-link>
+            </a>
             </div>
         </div>
     @endif

@@ -32,9 +32,9 @@
                     </x-slot>
                 </x-dropdown>
                 @if($hasEditPermission)
-                        <x-button-link class="btn-success"
+                        <a class="btn-create"
                                        href="{{route('sponsoring.period.create')}}"
-                                       title="Create a new period">{{__("New period")}}</x-button-link>
+                                       title="Create a new period">{{__("New period")}}</a>
                 @endif
             </div>
         </div>

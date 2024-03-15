@@ -13,9 +13,9 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <x-button-link class="btn-success"
+                    <a class="btn-create"
                                    href="{{route('sponsoring.backer.create')}}"
-                                   title="Create a new backer">{{__("New backer")}}</x-button-link>
+                                   title="Create a new backer">{{__("New backer")}}</a>
                 </div>
             @endif
         </div>

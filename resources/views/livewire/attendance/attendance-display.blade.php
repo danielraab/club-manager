@@ -65,9 +65,9 @@
         <div class="flex items-center flex-wrap justify-center gap-5">
 
             @if($hasAttendanceEditPermission)
-                <x-button-link class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
+                <a class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
                     {{__("Edit Attendance")}}
-                </x-button-link>
+                </a>
             @endif
             <div x-show="displayMemberGroups" class="flex items-center flex-wrap justify-center">
                 <div class="py-2 px-4 rounded-l-lg bg-sky-600">

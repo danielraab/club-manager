@@ -6,9 +6,9 @@
         <div class="flex justify-between items-center">
             <span>{{ __('User Overview') }}</span>
             @if($hasEditPermission)
-                <x-button-link href="{{route('userManagement.create')}}" class="btn-success" title="Create new user">
+                <a href="{{route('userManagement.create')}}" class="btn-success" title="Create new user">
                     {{__("Add new user")}}
-                </x-button-link>
+                </a>
             @endif
         </div>
     </x-slot>
@@ -40,10 +40,10 @@
                     <td class="border px-4 py-2">{{$user->last_login_at?->formatDateTimeWithSec()}}</td>
                     @if($hasEditPermission)
                         <td class="border">
-                            <x-button-link href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
-                                           class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <a href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
+                                           class="btn-edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
-                            </x-button-link>
+                            </a>
                         </td>
                     @endif
                 </tr>

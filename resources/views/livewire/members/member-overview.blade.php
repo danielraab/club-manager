@@ -16,13 +16,13 @@
         <div
             class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
-                <x-button-link href="{{route('member.group.index')}}" class="btn-secondary"
+                <a href="{{route('member.group.index')}}" class="btn-secondary"
                                title="Show member group list">
                     {{__("Member Groups")}}
-                </x-button-link>
-                <x-button-link href="{{route('member.create')}}" class="btn-success" title="Create new member">
+                </a>
+                <a href="{{route('member.create')}}" class="btn-create" title="Create new member">
                     {{__("Add new member")}}
-                </x-button-link>
+                </a>
             </div>
         </div>
     @endif
@@ -71,10 +71,10 @@
                         </td>
                         @if($hasEditPermission)
                             <td class="max-md:block md:border">
-                                <x-button-link href="{{route('member.edit', $member->id)}}" title="Edit member"
-                                               class="mx-2 bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                <a href="{{route('member.edit', $member->id)}}" title="Edit member"
+                                               class="btn-primary">
                                     <i class="fa-regular fa-pen-to-square"></i>
-                                </x-button-link>
+                                </a>
                             </td>
                         @endif
                     </tr>
@@ -95,7 +95,7 @@
                     }" class="relative inline-block text-left" @click.outside="open = false">
                     <div>
                         <button type="button" x-ref="exportDropdownButton"
-                                class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                class="btn-secondary"
                                 @click.stop="open = !open">
                             <i class="fa-solid fa-file-export"></i> Export
                             <i class="fa-solid fa-chevron-down text-gray-400 transition"
@@ -107,28 +107,28 @@
                          class="z-10 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div class="py-1">
                             <div class="px-4 py-1">
-                                <x-button-link class="w-full"
+                                <a class="btn w-full"
                                                href="{{route('member.list.csv', $memberFilter->toParameterArray())}}"
                                                @click="open=false"
-                                               title="Download birthday list as CSV file">{{ __('CSV List') }}</x-button-link>
+                                               title="Download birthday list as CSV file">{{ __('CSV List') }}</a>
                             </div>
                             <div class="px-4 py-1">
-                                <x-button-link class="w-full"
+                                <a class="btn w-full"
                                                href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
                                                @click="open=false"
-                                               title="Download birthday list as Excel file">{{ __('Excel File') }}</x-button-link>
+                                               title="Download birthday list as Excel file">{{ __('Excel File') }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <x-button-link class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
+                <a class="btn bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                                href="{{route('member.birthdayList')}}"
-                               title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
+                               title="Show list of member birthdays">{{ __('Birthday list') }}</a>
                 @if($hasImportPermission)
-                    <x-button-link href="{{route('member.import')}}" class="btn-info ml-auto"
+                    <a href="{{route('member.import')}}" class="btn-info ml-auto"
                                    title="Import member list">
                         {{__("Import members")}}
-                    </x-button-link>
+                    </a>
                 @endif
             </div>
         </div>

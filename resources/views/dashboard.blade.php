@@ -10,14 +10,14 @@
             <span>{{ __('Dashboard') }}</span>
             <div>
                 @if($hasShowPermission && $showBirthdayListConfig)
-                    <x-button-link class="btn-secondary"
+                    <a class="btn-secondary"
                                    href="{{route('member.birthdayList')}}"
-                                   title="Show list of member birthdays">{{ __('Birthday list') }}</x-button-link>
+                                   title="Show list of member birthdays">{{ __('Birthday list') }}</a>
                 @endif
                 @if($hasImportPermission && $showMemberImportConfig)
-                    <x-button-link class="btn-info"
+                    <a class="btn-info"
                                    href="{{route('member.import')}}"
-                                   title="Import member list">{{__("Import members")}}</x-button-link>
+                                   title="Import member list">{{__("Import members")}}</a>
                 @endif
             </div>
         </div>
@@ -27,10 +27,10 @@
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <x-dashboard.eventList :eventList="$eventList"/>
             <div class="flex flex-row items-center justify-around mt-3">
-                <x-button-link href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
+                <a href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
                     <i class="fa-solid fa-calendar-days mr-1"></i>
                     {{__("Calendar")}}
-                </x-button-link>
+                </a>
                 <div class="cursor-pointer text-center my-2"
                      title="{{__("Link for calendar abo. Click to copy to clipboard.")}}"
                      x-data="{

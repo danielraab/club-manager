@@ -7,10 +7,10 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Attendance Poll overview') }}</span>
             @if($hasAttendancePollEditPermission)
-                <x-button-link href="{{route('attendancePoll.create')}}" class="btn-success"
+                <a href="{{route('attendancePoll.create')}}" class="btn-success"
                                title="Create new attendance poll">
                     {{__("New poll")}}
-                </x-button-link>
+                </a>
             @endif
         </div>
     </x-slot>
@@ -56,11 +56,11 @@
                                         <i class="fa-solid fa-circle-info text-sky-700"></i>
                                     </a>
                                     @if($hasAttendancePollEditPermission)
-                                        <x-button-link href="{{route('attendancePoll.edit', $attendancePoll->id)}}"
+                                        <a href="{{route('attendancePoll.edit', $attendancePoll->id)}}"
                                                        title="Edit this attendance poll"
-                                                       class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                       class="btn-primary">
                                             <i class="fa-regular fa-pen-to-square"></i>
-                                        </x-button-link>
+                                        </a>
                                     @endif
                                 </div>
                             </td>
