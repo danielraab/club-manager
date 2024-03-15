@@ -11,7 +11,7 @@ class EventTypeForm extends Form
 {
     public ?EventType $eventType = null;
 
-    #[Validate('max:255')]
+    #[Validate('required|max:255')]
     public string $title;
 
     public ?string $description = null;

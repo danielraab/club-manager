@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - remove button-link blade template and use css class instead
 ### Fixed
 - navigation fix of login button underline/active
+- Event Type title is required in form
 
 ## v0.6.4 - 2024-02-11
 ### Added
