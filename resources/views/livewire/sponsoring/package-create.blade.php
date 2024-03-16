@@ -14,7 +14,7 @@
         <button type="button" class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                           wire:click="savePackageAndStay"
                           title="Create new package and stay on this site">{{ __('Save and stay') }}</button>
-        <button type="button" class="btn-primary" wire:click="savePackage"
+        <button type="button" class="btn btn-primary" wire:click="savePackage"
                           title="Create new package">{{ __('Save') }}</button>
     </div>
 

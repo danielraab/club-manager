@@ -13,13 +13,13 @@
         <span>{{ __('Attend poll') }}</span>
         <div>
             @if($hasPollShowPermission)
-                <a href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn-secondary"
+                <a href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn btn-secondary"
                                title="Show summary of attendance poll">
                     {{__("Summary")}}
                 </a>
             @endif
             @if($hasPollEditPermission)
-                <a href="{{route('attendancePoll.edit', $poll->id)}}" class="btn-primary"
+                <a href="{{route('attendancePoll.edit', $poll->id)}}" class="btn btn-primary"
                                title="Edit this attendance poll">
                     {{__("Edit Poll")}}
                 </a>
@@ -69,7 +69,7 @@
                             <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                         @endforeach
                     </select>
-                    <button type="button" class="btn-primary px-3 rounded" title="Clear selected member"
+                    <button type="button" class="btn btn-primary px-3 rounded" title="Clear selected member"
                                       x-on:click="resetSelected"
                                       :disabled="$selectedMember === null">x
                     </button>

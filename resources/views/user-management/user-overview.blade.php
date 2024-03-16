@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('User Overview') }}</span>
             @if($hasEditPermission)
-                <a href="{{route('userManagement.create')}}" class="btn-success" title="Create new user">
+                <a href="{{route('userManagement.create')}}" class="btn btn-success" title="Create new user">
                     {{__("Add new user")}}
                 </a>
             @endif
@@ -41,7 +41,7 @@
                     @if($hasEditPermission)
                         <td class="border">
                             <a href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
-                                           class="btn-edit">
+                                           class="btn btn-edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         </td>

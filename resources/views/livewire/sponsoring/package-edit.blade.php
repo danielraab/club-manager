@@ -19,8 +19,8 @@
                         }
                     }}"
             x-on:click="onClick()" title="Delete this package"
-            class="btn-danger">{{ __('Delete package') }}</button>
-        <button type="button" class="btn-primary" wire:click="savePackage"
+            class="btn btn-danger">{{ __('Delete package') }}</button>
+        <button type="button" class="btn btn-primary" wire:click="savePackage"
                           title="Update package">{{ __('Save') }}</button>
     </div>
 

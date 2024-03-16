@@ -10,12 +10,12 @@
             <span>{{ __('Dashboard') }}</span>
             <div>
                 @if($hasShowPermission && $showBirthdayListConfig)
-                    <a class="btn-secondary"
+                    <a class="btn btn-secondary"
                                    href="{{route('member.birthdayList')}}"
                                    title="Show list of member birthdays">{{ __('Birthday list') }}</a>
                 @endif
                 @if($hasImportPermission && $showMemberImportConfig)
-                    <a class="btn-info"
+                    <a class="btn btn-info"
                                    href="{{route('member.import')}}"
                                    title="Import member list">{{__("Import members")}}</a>
                 @endif
@@ -27,7 +27,7 @@
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <x-dashboard.eventList :eventList="$eventList"/>
             <div class="flex flex-row items-center justify-around mt-3">
-                <a href="{{route('event.calendar')}}" class="btn-success max-md:hidden" title="Calendar">
+                <a href="{{route('event.calendar')}}" class="btn btn-success max-md:hidden" title="Calendar">
                     <i class="fa-solid fa-calendar-days mr-1"></i>
                     {{__("Calendar")}}
                 </a>

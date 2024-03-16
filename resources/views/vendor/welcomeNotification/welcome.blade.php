@@ -23,7 +23,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <button class="btn-primary" type="submit">
+            <button class="btn btn-primary" type="submit">
                 {{ __('Save password and login') }}
             </button>
         </div>

@@ -11,10 +11,10 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
-        <button type="button" class="btn-info"
+        <button type="button" class="btn btn-info"
                 wire:click="saveEventAndStay"
                 title="Create new event and stay on this site">{{ __('Save and stay') }}</button>
-        <button type="button" class="btn-primary" wire:click="saveEvent"
+        <button type="button" class="btn btn-primary" wire:click="saveEvent"
                 title="Create new event">{{ __('Save') }}</button>
     </div>
 

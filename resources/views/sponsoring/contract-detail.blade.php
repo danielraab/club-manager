@@ -23,7 +23,7 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <a class="btn-edit"
+                    <a class="btn btn-edit"
                                    href="{{route('sponsoring.contract.edit', $contract->id)}}"
                                    title="Edit this contract">{{__("Edit contract")}}</a>
                 </div>

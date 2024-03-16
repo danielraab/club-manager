@@ -32,8 +32,8 @@
                         }
                     }}"
                 x-on:click="onClick()" title="Delete this contract"
-                class="btn-danger">{{ __('Delete contract') }}</button>
-        <button type="button" class="btn-primary" wire:click="saveContract"
+                class="btn btn-danger">{{ __('Delete contract') }}</button>
+        <button type="button" class="btn btn-primary" wire:click="saveContract"
                 title="Update contract">{{ __('Save') }}</button>
     </div>
 
@@ -143,7 +143,7 @@
                     <x-input-date id="refused" name="refused" class="grow"
                                   wire:model.live="contractForm.refused"
                                   autofocus autocomplete="refused"/>
-                    <button class="btn-secondary" type="button"
+                    <button class="btn btn-secondary" type="button"
                             :disabled="!empty($contractForm->refused)"
                             wire:click="$set('contractForm.refused', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
@@ -160,7 +160,7 @@
                                   wire:model.live="contractForm.contract_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="contract_received"/>
-                    <button type="button" class="btn-secondary"
+                    <button type="button" class="btn btn-secondary"
                             :disabled="!empty($contractForm->refused) || !empty($contractForm->contract_received)"
                             wire:click="$set('contractForm.contract_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
@@ -177,7 +177,7 @@
                                   wire:model.live="contractForm.ad_data_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="ad_data_received"/>
-                    <button type="button" class="btn-secondary"
+                    <button type="button" class="btn btn-secondary"
                             :disabled="!empty($contractForm->refused) || !empty($contractForm->ad_data_received)"
                             wire:click="$set('contractForm.ad_data_received', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>
@@ -194,7 +194,7 @@
                                   wire:model.live="contractForm.paid"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="paid"/>
-                    <button type="button" class="btn-secondary"
+                    <button type="button" class="btn btn-secondary"
                             :disabled="!empty($contractForm->refused) || !empty($contractForm->paid)"
                             wire:click="$set('contractForm.paid', new Date().toJSON().slice(0, 10))">{{__("Today")}}</button>
                 </div>

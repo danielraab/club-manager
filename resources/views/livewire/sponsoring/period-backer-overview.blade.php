@@ -35,11 +35,11 @@
                 }
             }}"
                     x-on:click="onClick()" title="Generate a contract for every backer."
-                    class="btn-secondary">{{ __('Generate contracts') }}</button>
+                    class="btn btn-secondary">{{ __('Generate contracts') }}</button>
             </div>
 
             <div class="flex items-center gap-2" x-data="{showLegend:false}">
-                <button type="button" x-ref="legendBtn" class="btn-secondary" x-on:click="showLegend= !showLegend">
+                <button type="button" x-ref="legendBtn" class="btn btn-secondary" x-on:click="showLegend= !showLegend">
                     <i class="fa-solid fa-circle-info mr-2"></i>
                     Icon Legend
                 </button>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
 
-            <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary"
+            <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn btn-primary"
                            title="Edit this period">
                 {{__("Edit period")}}
             </a>

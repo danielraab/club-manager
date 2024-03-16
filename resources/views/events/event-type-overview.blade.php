@@ -3,7 +3,7 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('Event Type Overview') }}</span>
-            <a href="{{route('event.type.create')}}" class="btn-success" title="Create new event type">
+            <a href="{{route('event.type.create')}}" class="btn btn-success" title="Create new event type">
                 {{__("Create new event type")}}
             </a>
         </div>

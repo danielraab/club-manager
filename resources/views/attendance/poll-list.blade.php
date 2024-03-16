@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('Attendance Poll overview') }}</span>
             @if($hasAttendancePollEditPermission)
-                <a href="{{route('attendancePoll.create')}}" class="btn-success"
+                <a href="{{route('attendancePoll.create')}}" class="btn btn-success"
                                title="Create new attendance poll">
                     {{__("New poll")}}
                 </a>
@@ -58,7 +58,7 @@
                                     @if($hasAttendancePollEditPermission)
                                         <a href="{{route('attendancePoll.edit', $attendancePoll->id)}}"
                                                        title="Edit this attendance poll"
-                                                       class="btn-primary">
+                                                       class="btn btn-primary">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @endif

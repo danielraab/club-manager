@@ -20,8 +20,8 @@
                 }
             }}"
                     x-on:click="onClick()" title="Delete this event type"
-                    class="btn-danger">{{ __('Delete event type') }}</button>
-            <button type="button" class="btn-primary" wire:click="saveEventType"
+                    class="btn btn-danger">{{ __('Delete event type') }}</button>
+            <button type="button" class="btn btn-primary" wire:click="saveEventType"
                     title="Create new event type">{{ __('Save') }}</button>
         </div>
     </div>

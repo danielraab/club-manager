@@ -12,7 +12,7 @@
         <ul class="list-disc ml-5 text-sm break-all">
             @foreach($uploadedAdDataFiles as $uploadedAdDataFile)
                 <li><a href="{{$uploadedAdDataFile->getUrl()}}" target="_blank" class="underline mr-2">{{$uploadedAdDataFile->name}}</a>
-                    <button type="button" class="btn-danger"
+                    <button type="button" class="btn btn-danger"
                                       wire:click="deleteFile({{$uploadedAdDataFile->id}})"
                                       wire:confirm="{{__('Are you sure you want to delete the file?')}}">
                         <i class="fa-solid fa-trash"></i>
@@ -39,7 +39,7 @@
                     @endforeach
                 </ul>
             </div>
-            <button type="button" class="btn-primary" wire:click="uploadFiles">Upload files</button>
+            <button type="button" class="btn btn-primary" wire:click="uploadFiles">Upload files</button>
         @endif
     </x-input-file-area>
     @error('adDataFiles.*')

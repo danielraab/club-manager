@@ -13,7 +13,7 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <a class="btn-create"
+                    <a class="btn btn-create"
                                    href="{{route('sponsoring.ad-option.create')}}"
                                    title="Create a new ad option">{{__("New ad option")}}</a>
                 </div>

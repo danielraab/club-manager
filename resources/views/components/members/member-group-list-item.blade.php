@@ -17,7 +17,7 @@
         <div class="mx-2 flex gap-2 items-center">
             <span class="text-gray-500" title="{{__("Member count")}}">{{$memberGroup->members()->whereNull("leaving_date")->count()}}</span>
             <a href="{{route('member.group.edit', $memberGroup->id)}}" title="Edit this member group"
-                           class="btn-primary">
+                           class="btn btn-primary">
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
         </div>

@@ -8,7 +8,7 @@
             @if($hasEventEditPermission)
                 <a href="{{route('event.edit', $event->id)}}"
                                title="Edit this event"
-                               class="btn-primary">
+                               class="btn btn-primary">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             @endif

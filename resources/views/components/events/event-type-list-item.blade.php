@@ -17,7 +17,7 @@
         <div class="mx-2 flex gap-2 items-center">
             <span class="text-gray-500" title="{{__("enabled events")}}">{{$eventType->events()->where("enabled", true)->count()}}</span>
             <a href="{{route('event.type.edit', $eventType->id)}}" title="Edit this event type"
-                           class="btn-primary">
+                           class="btn btn-primary">
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
         </div>

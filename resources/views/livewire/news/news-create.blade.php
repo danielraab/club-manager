@@ -9,7 +9,7 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
-        <button type="button" class="btn-primary" wire:click="saveNews"
+        <button type="button" class="btn btn-primary" wire:click="saveNews"
                 title="Create new news">{{ __('Save') }}</button>
     </div>
 

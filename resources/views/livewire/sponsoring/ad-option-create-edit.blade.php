@@ -26,14 +26,14 @@
                     }
                 }}"
                 x-on:click="onClick()" title="Delete this ad option"
-                class="btn-danger">{{ __('Delete ad option') }}</button>
-            <button type="button" class="btn-primary" wire:click="saveAdOption"
+                class="btn btn-danger">{{ __('Delete ad option') }}</button>
+            <button type="button" class="btn btn-primary" wire:click="saveAdOption"
                               title="Save changes of ad option">{{ __('Save') }}</button>
         @else
-            <button type="button" class="btn-info"
+            <button type="button" class="btn btn-info"
                           wire:click="saveAdOptionAndStay"
                           title="Create new ad option and stay on this site">{{ __('Save and stay') }}</button>
-            <button type="button" class="btn-primary" wire:click="saveAdOption"
+            <button type="button" class="btn btn-primary" wire:click="saveAdOption"
                           title="Create new ad option">{{ __('Save') }}</button>
         @endif
     </div>

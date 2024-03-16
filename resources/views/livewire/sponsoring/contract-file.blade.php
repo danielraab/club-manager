@@ -14,7 +14,7 @@
             <i class="fa-solid fa-file"></i>
             <a href="{{$savedContractFile->getUrl()}}" target="_blank"
                class="underline">{{$savedContractFile->name}}</a>
-            <button type="button" class="btn-danger"
+            <button type="button" class="btn btn-danger"
                               wire:click="deleteFile({{$savedContractFile->id}})"
                               wire:confirm="{{__('Are you sure you want to delete the file?')}}">
                 <i class="fa-solid fa-trash"></i>
@@ -34,7 +34,7 @@
                            {{$contractFile->getClientOriginalName()}}
                     </p>
                 </div>
-                <button type="button" class="btn-primary" wire:click="uploadFile">Upload file</button>
+                <button type="button" class="btn btn-primary" wire:click="uploadFile">Upload file</button>
             @endif
         </x-input-file-area>
         @error('contractFile')

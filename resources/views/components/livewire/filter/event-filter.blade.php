@@ -64,7 +64,7 @@
             </label>
         </div>
         <div class="py-1 px-3">
-            <button type="button" class="btn-secondary px-3" wire:click="$toggle('sortAsc')">
+            <button type="button" class="btn btn-secondary px-3" wire:click="$toggle('sortAsc')">
                 @if($this->sortAsc)
                     <i class="fa-solid fa-arrow-down"></i>
                 @else

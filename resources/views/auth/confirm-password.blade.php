@@ -19,7 +19,7 @@
         </div>
 
         <div class="flex justify-end mt-4">
-            <button type="submit" class="btn-primary">
+            <button type="submit" class="btn btn-primary">
                 {{ __('Confirm') }}
             </button>
         </div>

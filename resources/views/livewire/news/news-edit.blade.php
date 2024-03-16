@@ -21,7 +21,7 @@
                             }
                         }}"
                         x-on:click="onClick()" title="Delete this news"
-                        class="btn-danger">{{ __('Delete news') }}</button>
+                        class="btn btn-danger">{{ __('Delete news') }}</button>
                 @if($newsForm->display_until > now() && $newsForm->enabled && !$newsForm->logged_in_only)
                     <button type="button"
                             x-data="{ clickCnt: 0, disabled: false, onClick() {
@@ -35,14 +35,14 @@
                             }}"
                             x-on:click="onClick()" title="Force a web push to all subscribes (with the updated data)."
                             x-bind:disabled="disabled"
-                            class="btn-secondary">{{ __('Force web push') }}</button>
+                            class="btn btn-secondary">{{ __('Force web push') }}</button>
                 @endif
             </div>
             <div class="flex flex-wrap gap-2 justify-end w-full sm:w-auto">
-                <button type="button" class="btn-info"
+                <button type="button" class="btn btn-info"
                         wire:click="saveNewsCopy"
                         title="Save copy of the news">{{ __('Save copy') }}</button>
-                <button type="button" class="btn-primary" wire:click="saveNews"
+                <button type="button" class="btn btn-primary" wire:click="saveNews"
                         title="Save current changes">{{ __('Save') }}</button>
             </div>
         </div>

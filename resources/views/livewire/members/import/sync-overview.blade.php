@@ -95,7 +95,7 @@
         @if(!empty($newMembers) || !empty($changedMembers))
             <div class="w-full text-right mt-5">
                 <div wire:loading class="fa fa-spinner fa-spin mr-3"></div>
-                <button type="button" class="btn-danger" wire:click="syncMembers" wire:loading.attr="disabled"
+                <button type="button" class="btn btn-danger" wire:click="syncMembers" wire:loading.attr="disabled"
                         wire:target="syncMembers"
                         title="Import members">{{ __('Import members') }}</button>
             </div>

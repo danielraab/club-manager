@@ -65,7 +65,7 @@
         <div class="flex items-center flex-wrap justify-center gap-5">
 
             @if($hasAttendanceEditPermission)
-                <a class="btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
+                <a class="btn btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
                     {{__("Edit Attendance")}}
                 </a>
             @endif

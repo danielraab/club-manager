@@ -13,7 +13,7 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <a class="btn-create"
+                    <a class="btn btn-create"
                                    href="{{route('sponsoring.package.create')}}"
                                    title="Create a new package">{{__("New package")}}</a>
                 </div>

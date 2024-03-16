@@ -27,7 +27,7 @@
             </div>
             <div class="w-full text-right mt-5">
                 <div wire:loading class="fa fa-spinner fa-spin mr-3"></div>
-                <button type="button" class="btn-primary" wire:click="showSyncOverview" wire:loading.attr="disabled"
+                <button type="button" class="btn btn-primary" wire:click="showSyncOverview" wire:loading.attr="disabled"
                         wire:target="showSyncOverview"
                         title="Show import overview">{{ __('Show import overview') }}</button>
             </div>

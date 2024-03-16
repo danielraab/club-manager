@@ -1,10 +1,10 @@
 <x-slot name="headline">
     <div class="flex justify-between items-center">
         <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
-        <x-button-dropdown class="">
+        <x-button-dropdown>
             <x-slot name="mainButton">
                 <a href='{{route("member.birthdayList.print")}}'
-                   class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
+                   class="p-2 text-xs">
                     <i class="fa-solid fa-print mr-2"></i>{{__("Print")}}
                 </a>
             </x-slot>

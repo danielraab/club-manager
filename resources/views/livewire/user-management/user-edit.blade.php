@@ -23,7 +23,7 @@
                         }}"
                         x-on:click="onClick()" title="Delete this user"
                         x-bind:disabled="clickCnt > 1"
-                        class="btn-danger">{{ __('Delete user') }}</button>
+                        class="btn btn-danger">{{ __('Delete user') }}</button>
                 <button type="button"
                         x-data="{ clickCnt: 0, onClick() {
                             if(this.clickCnt === 1) {
@@ -36,9 +36,9 @@
                         }}"
                         x-on:click="onClick()" title="Send password reset link."
                         x-bind:disabled="clickCnt > 1"
-                        class="btn-secondary">{{ __('Send reset link') }}</button>
+                        class="btn btn-secondary">{{ __('Send reset link') }}</button>
             </div>
-            <button type="button" class="btn-primary" wire:click="saveUser"
+            <button type="button" class="btn btn-primary" wire:click="saveUser"
                     title="Save the current changes">{{ __('Save') }}</button>
         </div>
     </div>

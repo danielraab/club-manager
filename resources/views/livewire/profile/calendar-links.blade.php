@@ -30,12 +30,12 @@
                     </span>
                     <p x-cloak x-show="showMessage" class="text-gray-700 text-center">Copied</p>
                 </div>
-                <button type="button" class="btn btn-danger inline-flex" wire:click="deleteLink({{$tokenLink->id}})"
+                <button type="button" class="btn btn btn-danger inline-flex" wire:click="deleteLink({{$tokenLink->id}})"
                         title="Delete calendar link">x
                 </button>
             </div>
         @endforeach
-        <button type="button" class="btn btn-primary inline-flex" wire:click="createLink"
+        <button type="button" class="btn btn btn-primary inline-flex" wire:click="createLink"
                 title="Create new calendar link">{{ __('New link') }}</button>
     </div>
 </section>

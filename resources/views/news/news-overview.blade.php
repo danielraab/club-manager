@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center">
             <span>{{ __('News Overview') }}</span>
             @if($hasEditPermission)
-                <a href="{{route('news.create')}}" class="btn-create"
+                <a href="{{route('news.create')}}" class="btn btn-create"
                                title="Create new news">
                     {{__("Create new news")}}
                 </a>
@@ -63,7 +63,7 @@
                     </div>
                     @if($hasEditPermission)
                         <a href="{{route('news.edit', $news->id)}}" title="Edit this news"
-                                       class="btn-edit">
+                                       class="btn btn-edit">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                     @endif

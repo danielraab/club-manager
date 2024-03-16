@@ -6,7 +6,7 @@
 @endphp
 
 <x-slot name="headline">
-    <div class="flex items-center">
+    <div class="flex justify-between items-center">
         <span>{{ __('Member Overview') }}</span>
     </div>
 </x-slot>
@@ -16,11 +16,11 @@
         <div
             class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
             <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
-                <a href="{{route('member.group.index')}}" class="btn-secondary"
+                <a href="{{route('member.group.index')}}" class="btn btn-secondary"
                                title="Show member group list">
                     {{__("Member Groups")}}
                 </a>
-                <a href="{{route('member.create')}}" class="btn-create" title="Create new member">
+                <a href="{{route('member.create')}}" class="btn btn-create" title="Create new member">
                     {{__("Add new member")}}
                 </a>
             </div>
@@ -72,7 +72,7 @@
                         @if($hasEditPermission)
                             <td class="max-md:block md:border">
                                 <a href="{{route('member.edit', $member->id)}}" title="Edit member"
-                                               class="btn-primary">
+                                               class="btn btn-primary">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                             </td>
@@ -95,7 +95,7 @@
                     }" class="relative inline-block text-left" @click.outside="open = false">
                     <div>
                         <button type="button" x-ref="exportDropdownButton"
-                                class="btn-secondary"
+                                class="btn btn-secondary"
                                 @click.stop="open = !open">
                             <i class="fa-solid fa-file-export"></i> Export
                             <i class="fa-solid fa-chevron-down text-gray-400 transition"
@@ -125,7 +125,7 @@
                                href="{{route('member.birthdayList')}}"
                                title="Show list of member birthdays">{{ __('Birthday list') }}</a>
                 @if($hasImportPermission)
-                    <a href="{{route('member.import')}}" class="btn-info ml-auto"
+                    <a href="{{route('member.import')}}" class="btn btn-info ml-auto"
                                    title="Import member list">
                         {{__("Import members")}}
                     </a>

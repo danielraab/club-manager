@@ -14,7 +14,7 @@
         <button type="button" class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
                           wire:click="savePeriodAndStay"
                           title="Create new period and stay on this site">{{ __('Save and stay') }}</button>
-        <button type="button" class="btn-primary" wire:click="savePeriod"
+        <button type="button" class="btn btn-primary" wire:click="savePeriod"
                           title="Create new period">{{ __('Save') }}</button>
     </div>
 

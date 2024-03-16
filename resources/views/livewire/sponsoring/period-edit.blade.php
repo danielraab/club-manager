@@ -19,12 +19,12 @@
                         }
                     }}"
                 x-on:click="onClick()" title="Delete this period"
-                class="btn-danger">{{ __('Delete period') }}</button>
-        <a href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}" class="btn-info"
+                class="btn btn-danger">{{ __('Delete period') }}</button>
+        <a href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}" class="btn btn-info"
            title="Show period backer overview">
             {{__("Show backer overview")}}
         </a>
-        <button type="button" class="btn-primary" wire:click="savePeriod"
+        <button type="button" class="btn btn-primary" wire:click="savePeriod"
                 title="Update period">{{ __('Save') }}</button>
     </div>
 

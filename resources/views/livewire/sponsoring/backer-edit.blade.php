@@ -20,8 +20,8 @@
                         }
                     }}"
                 x-on:click="onClick()" title="Delete this backer"
-                class="btn-danger">{{ __('delete backer') }}</button>
-        <button type="button" class="btn-primary" wire:click="saveBacker"
+                class="btn btn-danger">{{ __('delete backer') }}</button>
+        <button type="button" class="btn btn-primary" wire:click="saveBacker"
                 title="Update backer">{{ __('Save') }}</button>
     </div>
 

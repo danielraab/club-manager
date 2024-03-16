@@ -10,7 +10,7 @@
             <div class="flex gap-2 items-center">
                 <x-dropdown>
                     <x-slot name="trigger">
-                        <button class="btn-secondary flex gap-2"
+                        <button class="btn btn-secondary flex gap-2"
                                 type="button" aria-expanded="true" aria-haspopup="true">
                             {{__("Basic data")}}
                             <i class="fa-solid fa-caret-down"></i>
@@ -32,7 +32,7 @@
                     </x-slot>
                 </x-dropdown>
                 @if($hasEditPermission)
-                    <a class="btn-create"
+                    <a class="btn btn-create"
                        href="{{route('sponsoring.period.create')}}"
                        title="Create a new period">{{__("New period")}}</a>
                 @endif

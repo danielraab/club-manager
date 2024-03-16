@@ -13,7 +13,7 @@
             </div>
             @if($hasEditPermission)
                 <div>
-                    <a class="btn-create"
+                    <a class="btn btn-create"
                                    href="{{route('sponsoring.backer.create')}}"
                                    title="Create a new backer">{{__("New backer")}}</a>
                 </div>

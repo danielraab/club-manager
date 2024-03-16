@@ -17,8 +17,8 @@
                         }
                     }}"
                     x-on:click="onClick()" title="Delete this member group"
-                    class="btn-danger">{{ __('Delete member group') }}</button>
-            <button type="button" class="btn-primary" wire:click="saveMemberGroup"
+                    class="btn btn-danger">{{ __('Delete member group') }}</button>
+            <button type="button" class="btn btn-primary" wire:click="saveMemberGroup"
                     title="Create new member group">{{ __('Save') }}</button>
         </div>
     </div>

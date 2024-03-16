@@ -63,7 +63,7 @@
                     <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @endif
                 @if($hasEditPermission)
-                    <a class="btn-primary w-8 justify-center"
+                    <a class="btn btn-primary w-8 justify-center"
                                    href="{{route('sponsoring.contract.edit', $contract->id)}}"
                                    title="edit contract">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -77,7 +77,7 @@
                 <i class="fa-regular fa-image {{$gray}}"></i>
                 <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
                 @if($hasEditPermission)
-                    <button type="button" class="btn-danger w-8 justify-center"
+                    <button type="button" class="btn btn-danger w-8 justify-center"
                                       wire:click="createContract({{$backer->id}})">
                         <i class="fa-solid fa-file-contract"></i>
                     </button>

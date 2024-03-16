@@ -40,7 +40,7 @@
                             </a>
                         @endif
                         <button type="button" title="Remove event selection"
-                                          class="btn-danger"
+                                          class="btn btn-danger"
                                           wire:click="removeEventFromSelection({{$event->id}})">
                             <i class="fa-solid fa-minus"></i>
                         </button>
@@ -86,7 +86,7 @@
                                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                     {{ __('only future events') }}
                 </x-input-checkbox>
-                <button type="button" class="btn-primary"
+                <button type="button" class="btn btn-primary"
                                   x-bind:disabled="additionalEventList.length === 0"
                                   x-on:click="addEvents">{{__("Add events to poll")}}
                 </button>

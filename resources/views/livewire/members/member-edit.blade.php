@@ -23,13 +23,13 @@ $hasUserEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission
                         }
                     }}"
                         x-on:click="onClick()" title="Delete this member"
-                        class="btn-danger">{{ __('Delete member') }}</button>
+                        class="btn btn-danger">{{ __('Delete member') }}</button>
                 @if($hasUserEditPermission && $memberForm?->member?->email)
-                    <button type="button" class="btn-secondary"
+                    <button type="button" class="btn btn-secondary"
                             wire:click="createUser">{{__("Create user")}}</button>
                 @endif
             </div>
-            <button type="button" class="btn-primary" wire:click="saveMember"
+            <button type="button" class="btn btn-primary" wire:click="saveMember"
                     title="Create new member">{{ __('Save') }}</button>
         </div>
     </div>
