@@ -5,5 +5,5 @@
             <i class="fa-solid fa-caret-down"></i></div>
     </div>
     <div x-show="open" x-cloak x-anchor.bottom-end="$refs.openButton" x-collapse
-         class="bg-white rounded border overflow-hidden shadow-md z-50">{{$slot}}</div>
+         class="flex flex-col bg-white rounded border overflow-hidden shadow-md z-50">{{$slot}}</div>
 </div>
