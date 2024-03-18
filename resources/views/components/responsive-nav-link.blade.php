@@ -7,5 +7,8 @@ $classes = ($active ?? false)
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
+    @if($attributes->has('iconClasses'))
+        <i class="w-6 text-center {{$attributes->get('iconClasses')}}"></i>
+    @endif
     {{ $slot }}
 </a>
