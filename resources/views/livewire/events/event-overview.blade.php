@@ -10,37 +10,19 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-slot name="headline">
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
             <span>{{ __('Event Overview') }}</span>
+
         </div>
     </x-slot>
-    <div
-        class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-wrap gap-2 items-center justify-between">
-        <div class="flex flex-row flex-wrap gap-2 justify-center max-sm:grow">
-            @auth
-                <a href="{{route('event.statistic')}}" class="btn btn-primary" title="Calendar">
-                    <i class="fa-solid fa-chart-simple mr-1"></i>
-                    {{__("Statistic")}}
-                </a>
-            @endauth
-            <a href="{{route('event.calendar')}}" class="btn btn-success max-md:hidden" title="Calendar">
-                <i class="fa-solid fa-calendar-days mr-1"></i>
-                {{__("Calendar")}}
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <a href="{{route('event.create')}}" class="btn btn-success text-lg"
+               title="Create new event">
+                <i class="fa-solid fa-plus"></i>
             </a>
-        </div>
-        @if($hasEditPermission)
-            <div class="flex flex-row flex-wrap gap-2 justify-center">
-                <a href="{{route('event.type.index')}}" class="btn btn-secondary"
-                   title="Show event type list">
-                    {{__("Event Type List")}}
-                </a>
-                <a href="{{route('event.create')}}" class="btn btn-success"
-                   title="Create new event">
-                    {{__("Create new event")}}
-                </a>
-            </div>
-        @endif
-    </div>
+        </x-slot>
+    @endif
 
     <x-livewire.loading/>
 

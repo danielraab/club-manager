@@ -20,8 +20,7 @@ enum ConfigurationKey: string
     /*
      * user settings
      */
-    case DASHBOARD_BTN_BIRTHDAY_LIST = "dashboardButtons_birthdayList";
-    case DASHBOARD_BTN_IMPORT_MEMBERS = "dashboardButtons_importMembers";
+    case NAVIGATION_FAV_BIRTHDAY_LIST = "dashboardButtons_birthdayList";
 
     case MEMBER_FILTER_SHOW_BEFORE_ENTRANCE = "memberFilterShowBeforeEntrance";
     case MEMBER_FILTER_SHOW_AFTER_RETIRED = "memberFilterShowAfterRetired";

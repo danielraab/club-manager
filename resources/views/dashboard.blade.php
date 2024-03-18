@@ -1,25 +1,7 @@
-@php
-    $hasShowPermission = (bool) \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
-    $showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, auth()->user(), true);
-    $hasImportPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
-    $showMemberImportConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, auth()->user(), false);
-@endphp
 <x-backend-layout>
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('Dashboard') }}</span>
-            <div>
-                @if($hasShowPermission && $showBirthdayListConfig)
-                    <a class="btn btn-secondary"
-                                   href="{{route('member.birthdayList')}}"
-                                   title="Show list of member birthdays">{{ __('Birthday list') }}</a>
-                @endif
-                @if($hasImportPermission && $showMemberImportConfig)
-                    <a class="btn btn-info"
-                                   href="{{route('member.import')}}"
-                                   title="Import member list">{{__("Import members")}}</a>
-                @endif
-            </div>
         </div>
     </x-slot>
 

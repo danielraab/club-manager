@@ -1,3 +1,7 @@
+<?php
+$hasShowPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
+$showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::NAVIGATION_FAV_BIRTHDAY_LIST, auth()->user(), true);
+?>
 <nav x-data="{ open: false, alwaysOpen: window.innerWidth > 1278}" class="" @click.outside.stop="open = false"
      x-on:resize.window="alwaysOpen = window.innerWidth > 1278">
     <button @click="open = true" x-show="!alwaysOpen"
@@ -22,10 +26,24 @@
                     <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>
                 </a>
                 <div class="space-y-1 mt-3 overflow-y-auto">
-                    <x-responsive-nav-link iconClasses="fa-solid fa-house"
-                        :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
+
+                    <x-nav-dropdown>
+                        <x-slot name="mainLink">
+                            <x-responsive-nav-link iconClasses="fa-solid fa-house"
+                                                   :href="route('dashboard')"
+                                                   :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-responsive-nav-link>
+                        </x-slot>
+                        @if($hasShowPermission && $showBirthdayListConfig)
+                            <x-responsive-nav-link
+                                href="{{route('member.birthdayList')}}"
+                                title="Show list of member birthdays">
+                                {{ __('Birthday list') }}
+                            </x-responsive-nav-link>
+                        @endif
+                    </x-nav-dropdown>
+
                     <hr>
                     @include("layouts.navigation.main-links")
                     <hr>
@@ -35,7 +53,8 @@
                     <hr>
                     <div class="my-2 flex items-center justify-between">
                         @guest
-                            <x-responsive-nav-link :href="route('login')" iconClasses="fa-solid fa-arrow-right-to-bracket">
+                            <x-responsive-nav-link :href="route('login')"
+                                                   iconClasses="fa-solid fa-arrow-right-to-bracket">
                                 {{ __('Login') }}
                             </x-responsive-nav-link>
                         @endguest
