@@ -12,9 +12,9 @@
 
     <!-- Responsive Navigation Menu -->
     <div x-show="open || alwaysOpen" x-cloak>
-        <div class="flex fixed left-0 top-0 bottom-0">
-            <div x-show="!alwaysOpen" class="fixed inset-0 bg-gray-800 opacity-90 z-[90]"></div>
-            <div class="flex flex-col bg-white border-r p-5 min-w-[310px] z-[100]"
+        <div x-show="!alwaysOpen" class="fixed inset-0 bg-gray-800 opacity-90 z-[90]"></div>
+        <div class="flex fixed left-0 top-0 bottom-0 z-[100]">
+            <div class="flex flex-col bg-white border-r p-5 min-w-[310px]"
                  @click.outside="open = false">
 
                 <!-- Logo -->
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <button x-show="!alwaysOpen" @click="open = false" class="flex m-3 z-[100]">
+            <button x-show="!alwaysOpen" @click="open = false" class="flex m-3">
                 <i class="fa-solid fa-xmark text-xl text-white"></i>
             </button>
         </div>
