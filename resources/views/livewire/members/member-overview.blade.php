@@ -6,27 +6,18 @@
 @endphp
 
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
-        <span>{{ __('Member Overview') }}</span>
-    </div>
+    {{ __('Member Overview') }}
 </x-slot>
+@if($hasEditPermission)
+    <x-slot name="headerBtn">
+        <a href="{{route('member.create')}}" class="btn btn-success text-lg"
+           title="Create new member">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </x-slot>
+@endif
 
 <div class="flex flex-col gap-5">
-    @if($hasEditPermission)
-        <div
-            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5 flex flex-wrap gap-2 w-full sm:w-auto justify-center items-center">
-            <div class="flex flex-wrap gap-2 justify-center sm:ml-auto">
-                <a href="{{route('member.group.index')}}" class="btn btn-secondary"
-                               title="Show member group list">
-                    {{__("Member Groups")}}
-                </a>
-                <a href="{{route('member.create')}}" class="btn btn-create" title="Create new member">
-                    {{__("Add new member")}}
-                </a>
-            </div>
-        </div>
-    @endif
-
     <x-livewire.member-filter/>
 
     @if($this->members->exists())

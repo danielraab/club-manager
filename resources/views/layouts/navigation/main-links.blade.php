@@ -5,12 +5,7 @@
     @include('layouts.navigation.news')
 
     <!-- Member -->
-    @if(Auth::user()->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION, \App\Models\Member::MEMBER_EDIT_PERMISSION))
-        <x-responsive-nav-link :href="route('member.index')" iconClasses="fa-solid fa-users"
-                               :active="request()->routeIs('member.*')">
-            {{ __('Members') }}
-        </x-responsive-nav-link>
-    @endif
+    @include('layouts.navigation.members')
 
     <!-- Polls -->
     @if(Auth::user()->hasPermission(\App\Models\AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION, \App\Models\AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION))
