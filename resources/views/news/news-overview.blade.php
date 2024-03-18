@@ -5,14 +5,16 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <span>{{ __('News Overview') }}</span>
-            @if($hasEditPermission)
-                <a href="{{route('news.create')}}" class="btn btn-create"
-                               title="Create new news">
-                    {{__("Create new news")}}
-                </a>
-            @endif
         </div>
     </x-slot>
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <a href="{{route('news.create')}}" class="btn btn-create"
+               title="Create new news">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </x-slot>
+    @endif
 
     <div class="flex justify-center mb-3">
         {!! $newsList->links('vendor.pagination.paginator') !!}
@@ -63,7 +65,7 @@
                     </div>
                     @if($hasEditPermission)
                         <a href="{{route('news.edit', $news->id)}}" title="Edit this news"
-                                       class="btn btn-edit">
+                           class="btn btn-edit">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                     @endif
