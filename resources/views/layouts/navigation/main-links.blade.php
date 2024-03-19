@@ -16,12 +16,7 @@
     @endif
 
     <!-- sponsoring -->
-    @if(Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_SHOW_PERMISSION, \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION))
-        <x-responsive-nav-link :href="route('sponsoring.index')" iconClasses="fa-solid fa-file-contract"
-                               :active="request()->routeIs('sponsoring.*')">
-            {{ __('Sponsoring') }}
-        </x-responsive-nav-link>
-    @endif
+    @include('layouts.navigation.sponsoring')
 
     <!-- User Management -->
     @if(Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_SHOW_PERMISSION, \App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION))
