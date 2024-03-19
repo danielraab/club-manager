@@ -24,7 +24,7 @@
                 $backerList = $adOptionListItem["backerList"];
             @endphp
             <div class="rounded border overflow-hidden">
-                <div class="bg-gray-300 p-3">
+                <div class="{{isset($adOptionListItem['isNotInPackages']) ? 'bg-red-500' : 'bg-gray-300'}} p-3">
                     {{$adOption->title}}
                 </div>
                 <div class="p-3">

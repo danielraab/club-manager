@@ -15,7 +15,6 @@ class PeriodAdOptionOverview extends Controller
 
     private array $adOptionList;
 
-
     public function index(Period $period)
     {
         $this->period = $period;
@@ -24,19 +23,19 @@ class PeriodAdOptionOverview extends Controller
         $this->fillAdOptionListWithBackers();
 
         return view('sponsoring.period-ad-option-overview', [
-            "period" => $period,
-            "adOptionList" => $this->adOptionList
+            'period' => $period,
+            'adOptionList' => $this->adOptionList,
         ]);
     }
 
     private function listAdOptionsFromPeriod(): void
     {
-        $packages = $this->period->packages()->with("adOptions")->get();
+        $packages = $this->period->packages()->with('adOptions')->get();
         foreach ($packages as $package) {
             /** @var Package $package */
             foreach ($package->adOptions()->get() as $adOption) {
                 /** @var AdOption $adOption */
-                $this->adOptionList[$adOption->id] = ["adOption" => $adOption, "backerList" => []];
+                $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => []];
             }
         }
     }
@@ -44,7 +43,7 @@ class PeriodAdOptionOverview extends Controller
     private function fillAdOptionListWithBackers(): void
     {
 
-        $contracts = $this->period->contracts()->with(["backer", "package"])->get();
+        $contracts = $this->period->contracts()->with(['backer', 'package'])->get();
         foreach ($contracts as $contract) {
             /**
              * @var $contract Contract
@@ -56,9 +55,12 @@ class PeriodAdOptionOverview extends Controller
             $package = $contract->package()->first();
             if ($backer && $package) {
                 foreach ($package->adOptions()->get() as $adOption) {
-                    $this->adOptionList[$adOption->id]["backerList"][] = [
-                        "backer" => $backer,
-                        "package" => $package
+                    if (! isset($this->adOptionList[$adOption->id])) {
+                        $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];
+                    }
+                    $this->adOptionList[$adOption->id]['backerList'][] = [
+                        'backer' => $backer,
+                        'package' => $package,
                     ];
                 }
             }
