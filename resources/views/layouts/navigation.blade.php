@@ -27,22 +27,12 @@ $showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\Configu
                 </a>
                 <div class="space-y-1 mt-3 overflow-y-auto">
 
-                    <x-nav-dropdown>
-                        <x-slot name="mainLink">
-                            <x-responsive-nav-link iconClasses="fa-solid fa-house"
-                                                   :href="route('dashboard')"
-                                                   :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-responsive-nav-link>
-                        </x-slot>
-                        @if($hasShowPermission && $showBirthdayListConfig)
-                            <x-responsive-nav-link
-                                href="{{route('member.birthdayList')}}"
-                                title="Show list of member birthdays">
-                                {{ __('Birthday list') }}
-                            </x-responsive-nav-link>
-                        @endif
-                    </x-nav-dropdown>
+                    <x-responsive-nav-link iconClasses="fa-solid fa-house"
+                                           :href="route('dashboard')"
+                                           :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    @include('layouts.navigation.favourites')
 
                     <hr>
                     @include("layouts.navigation.main-links")
