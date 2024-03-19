@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between w-full">
             @if(isset($headline))
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 class="font-semibold md:text-xl text-gray-800 leading-tight">
                     {{ $headline }}
                 </h2>
             @endif

@@ -9,9 +9,10 @@
     </x-slot>
     @if($hasEditPermission)
         <x-slot name="headerBtn">
-            <a href="{{route('news.create')}}" class="btn btn-create"
+            <a href="{{route('news.create')}}" class="btn btn-create max-sm:text-lg gap-2"
                title="Create new news">
                 <i class="fa-solid fa-plus"></i>
+                <span class="max-sm:hidden">{{__("Create new news")}}</span>
             </a>
         </x-slot>
     @endif

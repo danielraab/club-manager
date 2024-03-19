@@ -10,9 +10,10 @@
 </x-slot>
 @if($hasEditPermission)
     <x-slot name="headerBtn">
-        <a href="{{route('member.create')}}" class="btn btn-success text-lg"
+        <a href="{{route('member.create')}}" class="btn btn-success max-sm:text-lg gap-2"
            title="Create new member">
             <i class="fa-solid fa-plus"></i>
+            <span class="max-sm:hidden">{{__("Add new member")}}</span>
         </a>
     </x-slot>
 @endif

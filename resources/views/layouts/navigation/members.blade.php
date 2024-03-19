@@ -22,12 +22,15 @@
         </x-responsive-nav-link>
     @endif
     @if($hasImportPermission)
-        <x-responsive-nav-link href="{{route('member.import')}}" title="Import member list">
+        <x-responsive-nav-link href="{{route('member.import')}}"
+                               title="Import member list"
+                               iconClasses="fa-solid fa-file-import">
             {{__("Import members")}}
         </x-responsive-nav-link>
     @endif
     <x-responsive-nav-link href="{{route('member.birthdayList')}}"
-       title="Show list of member birthdays">
+                           iconClasses="fa-solid fa-cake-candles"
+                           title="Show list of member birthdays">
         {{ __('Birthday list') }}
     </x-responsive-nav-link>
 </x-nav-dropdown>
