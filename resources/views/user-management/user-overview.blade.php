@@ -3,15 +3,18 @@
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
-            <span>{{ __('User Overview') }}</span>
-            @if($hasEditPermission)
-                <a href="{{route('userManagement.create')}}" class="btn btn-success" title="Create new user">
-                    {{__("Add new user")}}
-                </a>
-            @endif
-        </div>
+        <span>{{ __('User Overview') }}</span>
     </x-slot>
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <a href="{{route('userManagement.create')}}"
+               class="btn btn-success max-sm:text-lg gap-2"
+               title="Create new user">
+                <i class="fa-solid fa-plus"></i>
+                <span class="max-sm:hidden">{{__("Add new user")}}</span>
+            </a>
+        </x-slot>
+    @endif
 
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
         <x-always-responsive-table class="table-auto mx-auto text-center">
@@ -41,7 +44,7 @@
                     @if($hasEditPermission)
                         <td class="border">
                             <a href="{{route('userManagement.edit', $user->id)}}" title="Edit user"
-                                           class="btn btn-edit">
+                               class="btn btn-edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         </td>
