@@ -4,29 +4,32 @@
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <a href="{{route("sponsoring.index")}}">
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
-                <span>{{ __('Backers') }}</span>
-            </div>
-            @if($hasEditPermission)
-                <div>
-                    <a class="btn btn-create"
-                                   href="{{route('sponsoring.backer.create')}}"
-                                   title="Create a new backer">{{__("New backer")}}</a>
-                </div>
-            @endif
+        <div class="flex items-center gap-2">
+            <a href="{{route("sponsoring.index")}}">
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </a>
+            <span>{{ __('Backers') }}</span>
         </div>
     </x-slot>
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <div>
+                <a class="btn btn-create gap-2"
+                   href="{{route('sponsoring.backer.create')}}"
+                   title="Create a new backer">
+                    <i class="fa-solid fa-plus"></i>
+                    {{__("New backer")}}
+                </a>
+            </div>
+        </x-slot>
+    @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         @php($backerList = \App\Models\Sponsoring\Backer::allActive()->get())
         @if($backerList->isNotEmpty())
             @foreach($backerList as $backer)
                 <x-sponsoring.backer-overview-item :backer="$backer"
-                                                          :hasEditPermission="$hasEditPermission"/>
+                                                   :hasEditPermission="$hasEditPermission"/>
             @endforeach
             <div class="p-3">{{$backerList->count()}} {{__("backers")}}</div>
         @else
@@ -39,7 +42,7 @@
 
             @foreach($disabledList as $backer)
                 <x-sponsoring.backer-overview-item :backer="$backer"
-                                                          :hasEditPermission="$hasEditPermission"/>
+                                                   :hasEditPermission="$hasEditPermission"/>
             @endforeach
         @endif
 
@@ -49,7 +52,7 @@
 
             @foreach($closedList as $backer)
                 <x-sponsoring.backer-overview-item :backer="$backer"
-                                                          :hasEditPermission="$hasEditPermission"/>
+                                                   :hasEditPermission="$hasEditPermission"/>
             @endforeach
         @endif
     </div>

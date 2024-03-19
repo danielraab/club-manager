@@ -18,7 +18,7 @@
     @if($hasEditPermission)
         <x-slot name="headerBtn">
             <a href="{{route('event.create')}}"
-               class="btn btn-success max-sm:text-lg gap-2"
+               class="btn btn-create max-sm:text-lg gap-2"
                title="Create new event">
                 <i class="fa-solid fa-plus"></i>
                 <span class="max-sm:hidden">{{__("Create new event")}}</span>

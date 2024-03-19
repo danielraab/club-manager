@@ -13,11 +13,6 @@
         @endif
     </x-slot>
     @if($hasEditPermission)
-        <x-responsive-nav-link href="{{route('member.create')}}" title="Create new member"
-                               iconClasses="fa-solid fa-user-plus"
-                               :active="request()->routeIs('member.create')">
-            {{__("Add new member")}}
-        </x-responsive-nav-link>
         <x-responsive-nav-link href="{{route('member.group.index')}}" title="Show member group list"
                                 iconClasses="fa-solid fa-user-group"
                                :active="request()->routeIs('member.group.index')">

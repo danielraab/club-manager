@@ -9,6 +9,7 @@
         </x-responsive-nav-link>
     </x-slot>
     @if($hasEditPermission)
+{{--        create events is only in navigation because it is frequently used--}}
         <x-responsive-nav-link href="{{route('event.create')}}" title="Create new event"
                                iconClasses="fa-solid fa-plus"
                                :active="request()->routeIs('event.create')">

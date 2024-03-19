@@ -14,13 +14,6 @@
             </x-responsive-nav-link>
         </x-slot>
         @if($hasEditPermission)
-            <x-responsive-nav-link href="{{route('sponsoring.period.create')}}"
-                                   iconClasses="fa-solid fa-plus"
-                                   :active="request()->routeIs('sponsoring.period.create')"
-                                   title="Create a new period">
-                {{__("New period")}}
-            </x-responsive-nav-link>
-
             <x-responsive-nav-link href="{{route('sponsoring.backer.index')}}"
                                    :active="request()->routeIs('sponsoring.backer.index')"
                                    iconClasses="fa-solid fa-industry"

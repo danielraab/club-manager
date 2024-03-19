@@ -4,22 +4,23 @@
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <a href="{{route("sponsoring.index")}}">
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
-                <span>{{ __('Packages') }}</span>
-            </div>
-            @if($hasEditPermission)
-                <div>
-                    <a class="btn btn-create"
-                                   href="{{route('sponsoring.package.create')}}"
-                                   title="Create a new package">{{__("New package")}}</a>
-                </div>
-            @endif
+        <div class="flex items-center gap-2">
+            <a href="{{route("sponsoring.index")}}">
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </a>
+            <span>{{ __('Packages') }}</span>
         </div>
     </x-slot>
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <a class="btn btn-create max-sm:text-lg gap-2"
+               href="{{route('sponsoring.package.create')}}"
+               title="Create a new package">
+                <i class="fa-solid fa-plus"></i>
+                <span class="max-sm:hidden">{{__("New package")}}</span>
+            </a>
+        </x-slot>
+    @endif
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
