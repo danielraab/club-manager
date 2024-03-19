@@ -7,6 +7,7 @@
 
     <title>{{ config('app.name', 'Club management') }}</title>
 
+    @include('layouts.configurable-styles')
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
