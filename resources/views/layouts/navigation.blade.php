@@ -21,10 +21,19 @@ $showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\Configu
             <div class="flex flex-col bg-white border-r p-5 min-w-[310px]"
                  @click.outside="open = false">
 
-                <!-- Logo -->
-                <a href="{{ route('dashboard') }}">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>
-                </a>
+                <div class="flex gap-2 justify-center items-center font-semibold">
+                    <!-- Logo -->
+                    <a href="{{ route('dashboard') }}">{{-- add setting to show or hide app icon --}}
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>
+                    </a>
+                    @php($appName = config('app.name', 'Club management')) {{-- add setting to show or hide app name --}}
+                    @if($appName)
+                        <div class="grow text-center text-gray-700">
+                            {{ $appName }}
+                        </div>
+                    @endif
+                </div>
+
                 <div class="space-y-1 mt-3 overflow-y-auto">
 
                     <x-responsive-nav-link iconClasses="fa-solid fa-house"
