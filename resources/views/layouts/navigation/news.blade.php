@@ -10,6 +10,7 @@
     </x-slot>
     @if($hasEditPermission)
         <x-responsive-nav-link href="{{route('news.create')}}" title="Create new event"
+                               iconClasses="fa-solid fa-plus"
                                :active="request()->routeIs('news.create')">
             {{__("Create new news")}}
         </x-responsive-nav-link>

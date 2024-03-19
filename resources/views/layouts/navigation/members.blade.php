@@ -5,7 +5,8 @@
 <x-nav-dropdown>
     <x-slot name="mainLink">
         @if(Auth::user()->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION, \App\Models\Member::MEMBER_EDIT_PERMISSION))
-            <x-responsive-nav-link :href="route('member.index')" iconClasses="fa-solid fa-users"
+            <x-responsive-nav-link :href="route('member.index')"
+                                   iconClasses="fa-solid fa-users"
                                    :active="request()->routeIs('member.*')">
                 {{ __('Members') }}
             </x-responsive-nav-link>
@@ -13,10 +14,12 @@
     </x-slot>
     @if($hasEditPermission)
         <x-responsive-nav-link href="{{route('member.create')}}" title="Create new member"
+                               iconClasses="fa-solid fa-user-plus"
                                :active="request()->routeIs('member.create')">
             {{__("Add new member")}}
         </x-responsive-nav-link>
         <x-responsive-nav-link href="{{route('member.group.index')}}" title="Show member group list"
+                                iconClasses="fa-solid fa-user-group"
                                :active="request()->routeIs('member.group.index')">
             {{__("Member Groups")}}
         </x-responsive-nav-link>

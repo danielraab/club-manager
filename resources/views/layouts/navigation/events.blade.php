@@ -10,24 +10,26 @@
     </x-slot>
     @if($hasEditPermission)
         <x-responsive-nav-link href="{{route('event.create')}}" title="Create new event"
+                               iconClasses="fa-solid fa-plus"
                                :active="request()->routeIs('event.create')">
             {{__("Create new event")}}
         </x-responsive-nav-link>
         <x-responsive-nav-link href="{{route('event.type.index')}}" title="Show event type list"
+                               iconClasses="fa-solid fa-layer-group"
                                :active="request()->routeIs('event.type.index')">
             {{__("Event Types")}}
         </x-responsive-nav-link>
     @endif
     @auth
         <x-responsive-nav-link href="{{route('event.statistic')}}" title="Calendar"
+                               iconClasses="fa-solid fa-chart-simple"
                                :active="request()->routeIs('event.statistic')">
-            <i class="fa-solid fa-chart-simple mr-1"></i>
             {{__("Statistic")}}
         </x-responsive-nav-link>
     @endauth
     <x-responsive-nav-link href="{{route('event.calendar')}}"
+                           iconClasses="fa-solid fa-calendar-days"
                            :active="request()->routeIs('event.calendar')">
-        <i class="fa-solid fa-calendar-days mr-1"></i>
         {{ __('Calendar') }}
     </x-responsive-nav-link>
 </x-nav-dropdown>
