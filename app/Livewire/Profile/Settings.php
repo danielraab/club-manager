@@ -13,13 +13,7 @@ class Settings extends Component
     #[Renderless]
     public function dashboardButtonChangedBirthdayList(bool $enabled): void
     {
-        Configuration::storeBool(ConfigurationKey::DASHBOARD_BTN_BIRTHDAY_LIST, $enabled, auth()->user());
-    }
-
-    #[Renderless]
-    public function dashboardButtonChangedImportMembers(bool $enabled): void
-    {
-        Configuration::storeBool(ConfigurationKey::DASHBOARD_BTN_IMPORT_MEMBERS, $enabled, auth()->user());
+        Configuration::storeBool(ConfigurationKey::NAVIGATION_FAV_BIRTHDAY_LIST, $enabled, auth()->user());
     }
 
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
