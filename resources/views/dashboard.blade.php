@@ -1,8 +1,9 @@
 <x-backend-layout>
     <x-slot name="headline">
-        <div class="flex justify-between items-center">
-            <span>{{ __('Dashboard') }}</span>
-        </div>
+        <span>{{ __('Dashboard') }}</span>
+    </x-slot>
+    <x-slot name="headerBtn">
+        <x-web-push-notification-icon/>
     </x-slot>
 
     <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">
