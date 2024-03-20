@@ -3,7 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+## v0.7.0 - 2024-03-20
 ### Changed
+- Change whole navigation to sidebar navigation
+- reworked some button in the header
 - logger channels updated
 ### Fixed
 - period - ad option overview works now with illegal(not in packages) options
