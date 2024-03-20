@@ -5,7 +5,7 @@
     <x-button-dropdown>
         <x-slot name="mainButton">
             <a href='{{route("member.birthdayList.print")}}'
-               class="p-2 text-xs">
+               class="p-2 text-xs flex">
                 <i class="fa-solid fa-print mr-2"></i>{{__("Print")}}
             </a>
         </x-slot>

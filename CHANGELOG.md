@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Fixed
+- birthday list print button on mobile does not wrap now
+
 ## v0.7.0 - 2024-03-20
 ### Changed
 - Change whole navigation to sidebar navigation
