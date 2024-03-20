@@ -12,7 +12,7 @@
     <div class="mt-6">
         <div>
             <x-input-label for="title" :value="__('Title')"/>
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
+            <x-input id="title" name="title" type="text" class="mt-1 block w-full"
                           wire:model="periodForm.title"
                           required autofocus autocomplete="title"/>
             @error('periodForm.title')
@@ -30,7 +30,7 @@
 
         <div class="mt-3">
             <x-input-label for="start" :value="__('Start')"/>
-            <x-input-date id="start" name="start" class="mt-1 block w-full"
+            <x-input type="date" id="start" name="start" class="mt-1 block w-full"
                               wire:model="periodForm.start"
                               autofocus autocomplete="start"/>
             @error('periodForm.start')
@@ -39,7 +39,7 @@
 
         <div class="mt-3">
             <x-input-label for="end" :value="__('End')"/>
-            <x-input-date id="end" name="end" class="mt-1 block w-full"
+            <x-input type="date" id="end" name="end" class="mt-1 block w-full"
                               wire:model="periodForm.end"
                               autofocus autocomplete="end"/>
             @error('periodForm.end')

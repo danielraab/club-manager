@@ -140,7 +140,7 @@
                     {{__('Refused')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
-                    <x-input-date id="refused" name="refused" class="grow"
+                    <x-input type="date" id="refused" name="refused" class="grow"
                                   wire:model.live="contractForm.refused"
                                   autofocus autocomplete="refused"/>
                     <button class="btn btn-secondary" type="button"
@@ -156,7 +156,7 @@
                     {{__('Contract received')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
-                    <x-input-date id="contract_received" name="contract_received" class="block w-full"
+                    <x-input type="date" id="contract_received" name="contract_received" class="block w-full"
                                   wire:model.live="contractForm.contract_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="contract_received"/>
@@ -173,7 +173,7 @@
                     {{__('Ad data received')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
-                    <x-input-date id="ad_data_received" name="ad_data_received" class="block w-full"
+                    <x-input type="date" id="ad_data_received" name="ad_data_received" class="block w-full"
                                   wire:model.live="contractForm.ad_data_received"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="ad_data_received"/>
@@ -190,7 +190,7 @@
                     {{__('Paid')}}
                 </x-input-label>
                 <div class="flex gap-3 mt-1">
-                    <x-input-date id="paid" name="paid" class="block w-full"
+                    <x-input type="date" id="paid" name="paid" class="block w-full"
                                   wire:model.live="contractForm.paid"
                                   :disabled="!empty($contractForm->refused)"
                                   autofocus autocomplete="paid"/>

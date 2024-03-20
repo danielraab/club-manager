@@ -12,7 +12,7 @@
     <div class="mt-6">
         <div>
             <x-input-label for="title" :value="__('Title')"/>
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
+            <x-input id="title" name="title" type="text" class="mt-1 block w-full"
                           wire:model="pollForm.title"
                           required autofocus autocomplete="title"/>
             @error('pollForm.title')
@@ -41,7 +41,7 @@
 
         <div class="mt-4">
             <x-input-label for="closing_at" :value="__('Closing at')"/>
-            <x-input-datetime id="closing_at" name="closing_at" type="text" class="mt-1 block w-full"
+            <x-input type="datetime-local" id="closing_at" name="closing_at" type="text" class="mt-1 block w-full"
                               wire:model="pollForm.closing_at"
                               required autofocus autocomplete="closing_at"/>
             @error('pollForm.closing_at')

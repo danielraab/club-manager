@@ -14,7 +14,7 @@
         {{-- entrance_date --}}
         <div class="mt-4">
             <x-input-label for="entrance_date" :value="__('Entrance date')"/>
-            <x-input-date id="entrance_date" name="entrance_date" type="text" class="mt-1 block w-full"
+            <x-input type="date" id="entrance_date" name="entrance_date" type="text" class="mt-1 block w-full"
                               wire:model="memberForm.entrance_date"
                           autofocus autocomplete="entrance_date"/>
             @error('memberForm.entrance_date')
@@ -27,7 +27,7 @@
                 <span>{{__('Leaving date')}}</span>
                 <i class="fa-solid fa-circle-info text-gray-500 ml-2" title="{{__("The Member is special marked after the leaving date is reached. And will not appear in export etc.")}}"></i>
             </x-input-label>
-            <x-input-date id="leaving_date" name="leaving_date" type="text" class="mt-1 block w-full"
+            <x-input type="date" id="leaving_date" name="leaving_date" type="text" class="mt-1 block w-full"
                               wire:model="memberForm.leaving_date"
                           autofocus autocomplete="leaving_date"/>
             @error('memberForm.leaving_date')

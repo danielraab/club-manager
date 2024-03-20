@@ -10,7 +10,7 @@
         <div>
             <x-input-label for="password">{{ __('Password') }}</x-input-label>
 
-            <x-text-input id="password" type="password"
+            <x-input id="password" type="password"
                           name="password" required autocomplete="new-password"/>
             <x-input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>
@@ -18,7 +18,7 @@
         <div class="mt-4">
             <x-input-label for="password-confirm">{{ __('Confirm Password') }}</x-input-label>
 
-            <x-text-input id="password-confirm" type="password" name="password_confirmation" required
+            <x-input id="password-confirm" type="password" name="password_confirmation" required
                           autocomplete="new-password"/>
         </div>
 

@@ -48,7 +48,7 @@
 
                     <div class="mt-3">
                         <x-input-label for="closedAt" :value="__('Closed at')"/>
-                        <x-input-date id="closedAt" name="closedAt" class="mt-1 block w-full"
+                        <x-input type="date" id="closedAt" name="closedAt" class="mt-1 block w-full"
                                       wire:model="backerForm.closed_at"
                                       autofocus autocomplete="closedAt"/>
                         @error('backerForm.closed_at')

@@ -13,7 +13,7 @@
     <div class="mt-6">
         <div>
             <x-input-label for="title" :value="__('Title')"/>
-            <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
+            <x-input id="title" name="title" type="text" class="mt-1 block w-full"
                           wire:model="eventForm.title"
                           required autofocus autocomplete="title"/>
             @error('eventForm.title')
@@ -30,7 +30,7 @@
 
         <div>
             <x-input-label for="location" :value="__('Location')"/>
-            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full"
+            <x-input id="location" name="location" type="text" class="mt-1 block w-full"
                           wire:model="eventForm.location"
                           list="locationHistory" required autofocus autocomplete="location"/>
             <datalist id="locationHistory">
@@ -44,7 +44,7 @@
 
         <div>
             <x-input-label for="dress_code" :value="__('Dress code')"/>
-            <x-text-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full"
+            <x-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full"
                           wire:model="eventForm.dress_code"
                           list="dressCodeHistory" required autofocus autocomplete="dress_code"/>
             <datalist id="dressCodeHistory">
@@ -58,7 +58,7 @@
 
         <div>
             <x-input-label for="link" :value="__('Link')"/>
-            <x-text-input id="link" name="link" type="url" class="mt-1 block w-full"
+            <x-input id="link" name="link" type="url" class="mt-1 block w-full"
                           wire:model="eventForm.link"
                           required autofocus autocomplete="link"/>
             @error('eventForm.link')

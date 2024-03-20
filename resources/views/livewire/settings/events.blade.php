@@ -24,7 +24,7 @@
                         $wire.set('eventStartToday', curState);
                     }
                 }" x-init="enabled={{$eventStartToday ? 'true' : 'false'}}">
-                <x-input-date wire:model.live="eventStartDate" x-bind:disabled="enabled"/>
+                <x-input type="date" wire:model.live="eventStartDate" x-bind:disabled="enabled"/>
                 <div class="flex items-center gap-3">
                     <span>{{__("Today")}}</span>
                     <x-input-switch/>
@@ -33,7 +33,7 @@
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
             <span>{{__("End date")}}</span>
-            <x-input-date wire:model.live="eventEndDate"/>
+            <x-input type="date" wire:model.live="eventEndDate"/>
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
              x-init="enabled={{$birthdaysInPublicICS ? 'true':'false'}}"
