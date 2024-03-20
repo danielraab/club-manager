@@ -8,8 +8,8 @@
 </x-slot>
 
 <div>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        <div class="flex flex-wrap gap-2 items-center justify-between">
+    <div class="flex justify-end bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
+        {{-- <div class="flex flex-wrap gap-2 items-center justify-between">
             <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
                 <button type="button"
                         x-data="{ clickCnt: 0, onClick() {
@@ -45,7 +45,21 @@
                 <button type="button" class="btn btn-primary" wire:click="saveNews"
                         title="Save current changes">{{ __('Save') }}</button>
             </div>
-        </div>
+        </div> --}}
+
+        <x-button-dropdown class="btn-success inline">
+            <x-slot name="mainButton">
+                <button type="button" class="p-2 text-xs" wire:click="saveNews"
+                        title="Save current changes">{{ __('Save') }}</button>
+            </x-slot>
+
+            <button type="button" class="p-2 text-xs" wire:click="saveNewsCopy"
+            title="Save copy of the news">{{ __('Save copy') }}</button>
+            <a href='{{route("member.birthdayList.print", ["printMissing"=>true])}}'
+            class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
+                <i class="fa-solid fa-print mr-2"></i>{{__("Print with missing")}}
+            </a>
+        </x-button-dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
