@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - show full formatted news in news overview
 - update news form buttons to button dropdown
 - change form buttons for member forms
+- change form buttons for user forms
 
 ## v0.7.1 - 2024-03-21
 ### Added

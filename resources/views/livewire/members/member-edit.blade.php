@@ -14,7 +14,7 @@ $hasUserEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission
         <x-button-dropdown>
             <x-slot name="mainButton">
                 <button type="button" class="btn-success p-2 text-xs gap-2" wire:click="saveMember"
-                        title="Create new member"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+                        title="Update new member"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
             </x-slot>
             @if($hasUserEditPermission && $memberForm?->member?->email)
                 <button type="button" class="btn-secondary inline-flex gap-2 text-xs p-2"
