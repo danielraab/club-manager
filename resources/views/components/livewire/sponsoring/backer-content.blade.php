@@ -67,7 +67,7 @@
             <div class="basis-2/3">
                 <x-input-label for="city" :value="__('City')"/>
                 <x-input id="city" name="city" type="text" class="mt-1 block w-full"
-                              wire:model.blur="backerForm.city"
+                              wire:model="backerForm.city"
                               required autofocus autocomplete="city"/>
                 @error('backerForm.city')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror

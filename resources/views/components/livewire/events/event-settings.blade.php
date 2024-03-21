@@ -49,7 +49,7 @@
         {{--        start--}}
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
-            <x-input type="datetime-local" id="start" name="start" type="text" class="mt-1 block w-full"
+            <x-input type="datetime-local" id="start" name="start" class="mt-1 block w-full"
                               wire:model.blur="eventForm.start"
                               required autofocus autocomplete="start"/>
             @error('eventForm.start')
@@ -59,7 +59,7 @@
         {{--        end--}}
         <div class="mt-4">
             <x-input-label for="end" :value="__('End')"/>
-            <x-input type="datetime-local" id="end" name="end" type="text" class="mt-1 block w-full"
+            <x-input type="datetime-local" id="end" name="end" class="mt-1 block w-full"
                               wire:model.blur="eventForm.end"
                               required autofocus autocomplete="end"/>
             @error('eventForm.end')

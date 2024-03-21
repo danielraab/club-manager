@@ -41,7 +41,7 @@
 
         <div class="mt-4">
             <x-input-label for="closing_at" :value="__('Closing at')"/>
-            <x-input type="datetime-local" id="closing_at" name="closing_at" type="text" class="mt-1 block w-full"
+            <x-input type="datetime-local" id="closing_at" name="closing_at" class="mt-1 block w-full"
                               wire:model="pollForm.closing_at"
                               required autofocus autocomplete="closing_at"/>
             @error('pollForm.closing_at')
