@@ -17,9 +17,6 @@
                         title="Create new news"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
                 </button>
             </x-slot>
-            <button type="button" class="p-2 text-xs" wire:click="saveNewsStay"
-                    title="Create new news and stay">{{ __('Save and stay') }}
-            </button>
         </x-button-dropdown>
     </div>
 
