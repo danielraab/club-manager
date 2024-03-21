@@ -15,13 +15,13 @@
                 @foreach(\App\Models\Import\ImportedMember::ATTRIBUTE_LABEL_ARRAY as $field => $fieldLabel)
                     <div>
                         <x-input-label :for="$field" :value="__($fieldLabel)"/>
-                        <select id="{{$field}}" name="{{$field}}" class="mt-2"
+                        <x-select id="{{$field}}" name="{{$field}}" class="mt-2"
                                 wire:model.lazy="fieldMap.{{$field}}">
                             <option></option>
                             @foreach($csvColumns as $idx => $column)
                                 <option value="{{$idx}}">{{__($column)}}</option>
                             @endforeach
-                        </select>
+                        </x-select>
                     </div>
                 @endforeach
             </div>

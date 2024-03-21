@@ -41,7 +41,7 @@
 
         <div class="mt-4">
             <x-input-label for="closing_at" :value="__('Closing at')"/>
-            <x-input type="datetime-local" id="closing_at" name="closing_at" type="text" class="mt-1 block w-full"
+            <x-input type="datetime-local" id="closing_at" name="closing_at" class="mt-1 block w-full"
                               wire:model="pollForm.closing_at"
                               required autofocus autocomplete="closing_at"/>
             @error('pollForm.closing_at')
@@ -52,14 +52,14 @@
         {{--        member group--}}
         <div class="mt-4">
             <x-input-label for="memberGroup" :value="__('Member group')"/>
-            <select id="memberGroup" name="memberGroup"
+            <x-select id="memberGroup" name="memberGroup"
                     wire:model.lazy="pollForm.memberGroup"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
                     <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" />
                 @endforeach
-            </select>
+            </x-select>
             @error('pollForm.memberGroup')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

@@ -66,15 +66,15 @@
         @endphp
         @if($possibleEvents->count() > 0)
             <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>
-            <select id="eventSelectionList" name="eventSelectionList" multiple size="5"
+            <x-select id="eventSelectionList" name="eventSelectionList" multiple size="5"
                     x-model="additionalEventList"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 @foreach($possibleEvents as $event)
                     @php /** @var \App\Models\Event $event*/ @endphp
                     <option value="{{$event->id}}">{{$event->getFormattedStart()}}
                         - {{$event->title}}</option>
                 @endforeach
-            </select>
+            </x-select>
         @else
             <div class="text-center text-gray-700">
                 <span>{{__("No further events available.")}}</span>

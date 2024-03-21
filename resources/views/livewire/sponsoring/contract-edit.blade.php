@@ -88,15 +88,15 @@
                     <i class="fa-solid fa-user"></i>
                     {{__('Member')}}
                 </x-input-label>
-                <select name="member" id="member"
+                <x-select name="member" id="member"
                         wire:model="contractForm.member_id"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                        class="block mt-1 w-full"
                 >
                     <option>{{__("-- choose a member --")}}</option>
                     @foreach(App\Models\Member::getAllFiltered(new \App\Models\Filter\MemberFilter(true, true, true))->get() as $member)
                         <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                     @endforeach
-                </select>
+                </x-select>
                 @if(($member = $contractForm->contract->member()->first()))
                     <span class="text-sm text-gray-500">{{__("currently selected: ")}} {{$member->getFullName()}}</span>
                 @endif
@@ -106,10 +106,9 @@
                     <i class="fa-solid fa-cube"></i>
                     {{__('Package')}}
                 </x-input-label>
-                <select name="package" id="package"
+                <x-select name="package" id="package"
                         wire:model="contractForm.package_id"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
-                >
+                        class="block mt-1 w-full">
                     <option>{{__("-- choose a package --")}}</option>
                     @foreach($period->packages()->where("enabled", true)->get() as $package)
                         @if($package->is_official)
@@ -122,7 +121,7 @@
                             </option>
                         @endif
                     @endforeach
-                </select>
+                </x-select>
                 @if(($package = $contractForm->contract->package()->first()))
                     <div>
                     <span class="text-sm text-gray-500">{{__("currently selected: ")}}

@@ -12,13 +12,13 @@
     <div class="mt-6">
         <div>
             <x-input-label for="availableAdOptionArr" :value="__('available ad option')"/>
-            <select id="availableAdOptionArr" name="availableAdOptionArr" multiple size="8"
+            <x-select id="availableAdOptionArr" name="availableAdOptionArr" multiple size="8"
                     wire:model="selectedAdOptionArr"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class=" block mt-1 w-full">
                 @foreach($this->availableAdOptionArr as $id => $title)
                     <option value="{{$id}}">{{$title}}</option>
                 @endforeach
-            </select>
+            </x-select>
         </div>
     </div>
 </section>

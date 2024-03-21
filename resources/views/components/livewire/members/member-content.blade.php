@@ -47,7 +47,7 @@
 
         <div class="mt-3">
             <x-input-label for="birthday" :value="__('Birthday')"/>
-            <x-input type="date" id="birthday" name="birthday" type="text" class="mt-1 block w-full"
+            <x-input type="date" id="birthday" name="birthday" class="mt-1 block w-full"
                               wire:model="memberForm.birthday"
                           autofocus autocomplete="birthday"/>
             @error('memberForm.birthday')
@@ -92,7 +92,7 @@
             <div class="basis-2/3">
                 <x-input-label for="city" :value="__('City')"/>
                 <x-input id="city" name="city" type="text" class="mt-1 block w-full"
-                              wire:model.blur="memberForm.city"
+                              wire:model="memberForm.city"
                               required autofocus autocomplete="city"/>
                 @error('memberForm.city')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
