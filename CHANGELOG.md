@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.1 - 2024-03-21
 ### Added
 - page size selector for event overview
 ### Fixed
