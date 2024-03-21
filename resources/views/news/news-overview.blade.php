@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <p class="text-gray-700 text-base">
-                        {{ strlen($news->content) > 200 ? substr($news->content, 0,150) . " ..." : $news->content }}
+                        {!! $news->content !!}
                     </p>
                 </div>
                 <div class="flex items-center justify-between">
