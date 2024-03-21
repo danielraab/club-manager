@@ -26,7 +26,7 @@
     }
 
     .btn-danger {
-        @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 focus:ring-red-500 uppercase;
+        @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 focus:ring-red-500;
     }
 
     .btn-success, .btn-create {

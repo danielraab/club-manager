@@ -17,8 +17,6 @@ class NewsEdit extends Component
 {
     public NewsForm $newsForm;
 
-    public string $previousUrl;
-
     public function mount(News $news): void
     {
         $this->newsForm->setNewsModel($news);
@@ -33,7 +31,7 @@ class NewsEdit extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('The news has been successfully deleted.'), ItemType::WARNING));
 
-        return redirect($this->previousUrl);
+        return redirect(route("news.index"));
     }
 
     /**
@@ -61,7 +59,7 @@ class NewsEdit extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('News successfully updated.'), ItemType::SUCCESS));
 
-        return redirect($this->previousUrl);
+        return redirect(route("news.index"));
     }
 
     /**
@@ -77,6 +75,8 @@ class NewsEdit extends Component
         );
 
         Log::info("News web push forced", [auth()->user(), $this->newsForm->news]);
+        NotificationMessage::addNotificationMessage(
+            new Item(__('Web push successfully triggered.'), ItemType::SUCCESS));
     }
 
     public function render()

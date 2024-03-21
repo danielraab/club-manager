@@ -7,10 +7,20 @@
     </div>
 </x-slot>
 
-<div>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
-        <button type="button" class="btn btn-primary" wire:click="saveNews"
-                title="Create new news">{{ __('Save') }}</button>
+        <x-button-dropdown class=" inline">
+            <x-slot name="mainButton">
+                <button type="button" class="btn-primary p-2 text-xs" wire:click="saveNews"
+                        title="Create new news"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
+                </button>
+            </x-slot>
+            <button type="button" class="p-2 text-xs" wire:click="saveNewsStay"
+                    title="Create new news and stay">{{ __('Save and stay') }}
+            </button>
+        </x-button-dropdown>
     </div>
 
 

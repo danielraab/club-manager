@@ -12,10 +12,10 @@
         </div>
     </x-slot>
 
-        <div class="py-6">
+    <div class="py-4">
         <x-notification-messages/>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                {{ $slot }}
-            </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{ $slot }}
         </div>
+    </div>
 </x-app-layout>

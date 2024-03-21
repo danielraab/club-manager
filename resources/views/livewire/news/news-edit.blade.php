@@ -7,58 +7,30 @@
     </div>
 </x-slot>
 
-<div>
-    <div class="flex justify-end bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        {{-- <div class="flex flex-wrap gap-2 items-center justify-between">
-            <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
-                <button type="button"
-                        x-data="{ clickCnt: 0, onClick() {
-                            if(this.clickCnt > 0) {
-                                $wire.deleteNews();
-                            } else {
-                                this.clickCnt++;
-                                $el.innerHTML = 'Are you sure?';
-                            }
-                        }}"
-                        x-on:click="onClick()" title="Delete this news"
-                        class="btn btn-danger">{{ __('Delete news') }}</button>
-                @if($newsForm->display_until > now() && $newsForm->enabled && !$newsForm->logged_in_only)
-                    <button type="button"
-                            x-data="{ clickCnt: 0, disabled: false, onClick() {
-                                if(this.clickCnt == 1) {
-                                    $wire.forceWebPush();
-                                    this.disabled = true;
-                                } else {
-                                    this.clickCnt++;
-                                    $el.innerHTML = 'Are you sure?';
-                                }
-                            }}"
-                            x-on:click="onClick()" title="Force a web push to all subscribes (with the updated data)."
-                            x-bind:disabled="disabled"
-                            class="btn btn-secondary">{{ __('Force web push') }}</button>
-                @endif
-            </div>
-            <div class="flex flex-wrap gap-2 justify-end w-full sm:w-auto">
-                <button type="button" class="btn btn-info"
-                        wire:click="saveNewsCopy"
-                        title="Save copy of the news">{{ __('Save copy') }}</button>
-                <button type="button" class="btn btn-primary" wire:click="saveNews"
-                        title="Save current changes">{{ __('Save') }}</button>
-            </div>
-        </div> --}}
-
-        <x-button-dropdown class="btn-success inline">
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
+    <div class="flex justify-end bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5">
+        <x-button-dropdown class=" inline">
             <x-slot name="mainButton">
-                <button type="button" class="p-2 text-xs" wire:click="saveNews"
-                        title="Save current changes">{{ __('Save') }}</button>
+                <button type="button" class="btn-success p-2 text-xs" wire:click="saveNews"
+                        title="Save current changes"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
+                </button>
             </x-slot>
 
-            <button type="button" class="p-2 text-xs" wire:click="saveNewsCopy"
-            title="Save copy of the news">{{ __('Save copy') }}</button>
-            <a href='{{route("member.birthdayList.print", ["printMissing"=>true])}}'
-            class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
-                <i class="fa-solid fa-print mr-2"></i>{{__("Print with missing")}}
-            </a>
+            <button type="button" class="btn-success inline-flex gap-2 p-2 text-xs" wire:click="saveNewsCopy"
+                    title="Save copy of the news"><i class="fa-solid fa-copy"></i> {{ __('Save copy') }}</button>
+            @if($newsForm->display_until > now() && $newsForm->enabled && !$newsForm->logged_in_only)
+                <button type="button" class="text-xs p-2 btn-info inline-flex gap-2"
+                        wire:confirm="{{__('Are you sure you want to send a web push to all subscribers?')}}"
+                        wire:click="forceWebPush"
+                        title="Force a web push to all subscribes (with the updated data)."
+                        x-bind:disabled="disabled"><i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
+            @endif
+            <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
+                    wire:confirm="{{__('Are you sure you want to delete this news?')}}"
+                    wire:click="deleteNews" title="Delete this news"
+            ><i class="fa-solid fa-trash"></i> {{ __('Delete news') }}</button>
         </x-button-dropdown>
     </div>
 
