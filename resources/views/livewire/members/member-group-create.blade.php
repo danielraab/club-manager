@@ -7,8 +7,8 @@
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center justify-end">
-            <button type="button" class="btn btn-primary" wire:click="saveMemberGroup"
-                    title="Create new member group">{{ __('Save') }}</button>
+            <button type="button" class="btn btn-create" wire:click="saveMemberGroup"
+                    title="Create new member group"><i class="fa-solid fa-plus mr-2"></i> {{ __('Create') }}</button>
         </div>
     </div>
 

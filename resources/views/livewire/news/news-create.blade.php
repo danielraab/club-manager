@@ -13,8 +13,8 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
         <x-button-dropdown class=" inline">
             <x-slot name="mainButton">
-                <button type="button" class="btn-primary p-2 text-xs" wire:click="saveNews"
-                        title="Create new news"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
+                <button type="button" class="btn-success p-2 text-xs" wire:click="saveNews"
+                        title="Create new news"><i class="fa-solid fa-plus mr-2"></i>{{ __('Create') }}
                 </button>
             </x-slot>
         </x-button-dropdown>

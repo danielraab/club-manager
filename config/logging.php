@@ -67,7 +67,7 @@ return [
 
         'userManagement' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'singleUserManagement', 'slack'],
+            'channels' => ['daily', 'singleUserManagement'],
             'ignore_exceptions' => false,
         ],
 
