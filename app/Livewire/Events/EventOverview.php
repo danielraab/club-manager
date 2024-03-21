@@ -8,7 +8,6 @@ use App\Models\Configuration;
 use App\Models\ConfigurationKey;
 use App\Models\Event;
 use App\NotificationMessage\Item;
-use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,6 +17,9 @@ class EventOverview extends Component
     use EventFilterTrait, WithPagination;
 
     public ?string $search = null;
+
+    public array $availablePageSizes = [20, 50, 100];
+    public int $pageSize = 20;
 
     public function mount(): void
     {
@@ -80,6 +82,6 @@ class EventOverview extends Component
             $eventList = $eventList->where('title', 'like', "%$this->search%");
         }
 
-        return $eventList->paginate(20)->onEachSide(1);
+        return $eventList->paginate($this->pageSize)->onEachSide(1);
     }
 }

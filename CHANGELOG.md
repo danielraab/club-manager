@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- page size selector for event overview
 ### Fixed
 - birthday list print button on mobile does not wrap now
 - fix inputs with double types
