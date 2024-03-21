@@ -10,14 +10,14 @@
     @if($this->useMemberGroupFilter === true)
     <div class="flex items-center flex-wrap justify-center">
         <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
-        <select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
-                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
+        <x-select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
+                class="ml-3 py-1 text-sm"
         >
             <option></option>
             @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                 <x-members.member-group-select-option :memberGroup="$memberGroup"/>
             @endforeach
-        </select>
+        </x-select>
     </div>
     @endif
 

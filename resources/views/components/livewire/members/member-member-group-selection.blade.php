@@ -45,14 +45,14 @@
 
         <div class="mt-5 mb-6">
             <x-input-label for="memberGroupList" :value="__('Member groups')"/>
-            <select name="memberGroupList" id="memberGroupList" size="10" multiple
+            <x-select name="memberGroupList" id="memberGroupList" size="10" multiple
                     wire:model="memberForm.memberGroupList"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                    class="block mt-1 w-full"
             >
                 @foreach(\App\Models\MemberGroup::getLeafQuery()->get() as $memberGroup)
                     <option value="{{$memberGroup->id}}">{{$memberGroup->title}}</option>
                 @endforeach
-            </select>
+            </x-select>
             @error('memberForm.memberGroupList')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

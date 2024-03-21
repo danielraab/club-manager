@@ -15,13 +15,13 @@
                 <div>{{__("no data available")}}</div>
             @else
                 <label for="selectedYear">Year:</label>
-                <select name="selectedYear" id="selectedYear" wire:model.lazy="selectedYear"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ml-3 py-1 text-sm"
+                <x-select name="selectedYear" id="selectedYear" wire:model.lazy="selectedYear"
+                        class="ml-3 py-1 text-sm"
                 >
                     @foreach($availableYears as $year)
                         <option value="{{$year}}">{{$year}}</option>
                     @endforeach
-                </select>
+                </x-select>
         </div>
         <div class="py-4">
             @if($selectedYear)

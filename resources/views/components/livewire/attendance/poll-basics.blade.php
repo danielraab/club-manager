@@ -52,14 +52,14 @@
         {{--        member group--}}
         <div class="mt-4">
             <x-input-label for="memberGroup" :value="__('Member group')"/>
-            <select id="memberGroup" name="memberGroup"
+            <x-select id="memberGroup" name="memberGroup"
                     wire:model.lazy="pollForm.memberGroup"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
                     <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" />
                 @endforeach
-            </select>
+            </x-select>
             @error('pollForm.memberGroup')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

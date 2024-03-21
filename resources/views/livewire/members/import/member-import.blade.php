@@ -28,11 +28,11 @@
                     </div>
                     <div>
                         <x-input-label for="separator" :value="__('Separator')"/>
-                        <select id="separator" name="separator" wire:model.lazy="separator"
-                                class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                        <x-select id="separator" name="separator" wire:model.lazy="separator"
+                                class="block mt-1 w-full">
                             <option value=";">;</option>
                             <option value=",">,</option>
-                        </select>
+                        </x-select>
                     </div>
                 </div>
                 <div class="w-full text-right mt-5">

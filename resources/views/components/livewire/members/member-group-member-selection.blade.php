@@ -13,14 +13,14 @@
         <div class="mt-6">
             <div>
                 <x-input-label for="members" :value="__('Members')"/>
-                <select name="members" id="members" size="10" multiple
+                <x-select name="members" id="members" size="10" multiple
                         wire:model="memberGroupForm.memberSelection"
-                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                        class="block mt-1 w-full"
                 >
                     @foreach(\App\Models\Member::getAllFiltered()->get() as $member)
                         <option value="{{$member->id}}">{{$member->lastname}} {{$member->firstname}}</option>
                     @endforeach
-                </select>
+                </x-select>
                 @error('memberGroupForm.memberSelection')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>

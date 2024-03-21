@@ -33,14 +33,14 @@
         {{--        event type--}}
         <div>
             <x-input-label for="eventType" :value="__('Parent event type')"/>
-            <select id="parent" name="parent"
+            <x-select id="parent" name="parent"
                     wire:model="eventTypeForm.parent"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventTypeTreeElem)
                     <x-events.event-type-select-option :eventType="$eventTypeTreeElem" :currentEditingEventTypeForm="$eventTypeForm" />
                 @endforeach
-            </select>
+            </x-select>
             @error('eventTypeForm.parent')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

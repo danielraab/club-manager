@@ -14,14 +14,14 @@
         {{-- event type--}}
         <div class="my-4">
             <x-input-label for="type" :value="__('Type')"/>
-            <select id="type" name="type"
+            <x-select id="type" name="type"
                     wire:model="eventForm.type"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\EventType::getTopLevelQuery()->get() as $eventType)
                     <x-events.event-type-select-option :eventType="$eventType"/>
                 @endforeach
-            </select>
+            </x-select>
             @error('eventForm.type')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>

@@ -33,14 +33,14 @@
         {{--        member group--}}
         <div>
             <x-input-label for="memberGroup" :value="__('Parent member group')"/>
-            <select id="parent" name="parent"
+            <x-select id="parent" name="parent"
                     wire:model.blur="memberGroupForm.parent"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full">
+                    class="block mt-1 w-full">
                 <option value=""></option>
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $topLevelMemberGroup)
                     <x-members.member-group-select-option :memberGroup="$topLevelMemberGroup" :currentEditingMemberGroup="$memberGroupForm->memberGroup" />
                 @endforeach
-            </select>
+            </x-select>
             @error('memberGroupForm.parent')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
