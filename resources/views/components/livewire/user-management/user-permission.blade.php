@@ -22,11 +22,11 @@
             </thead>
             <tbody>
             @foreach(\App\Models\UserPermission::all() as $permission)
-                <tr class="[&:nth-child(2)]:bg-neutral-100">
+                <tr class="@if($this->userForm->permissionArr[$permission->id] ?? false) bg-green-500 @endif">
                     <td class="border px-4 py-2" >
                         <input type="checkbox" data-permission
                                id="{{$permission->id}}"
-                               wire:model="userForm.permissionArr.{{$permission->id}}"
+                               wire:model.live="userForm.permissionArr.{{$permission->id}}"
                         >
                     </td>
                     <td class="border px-4 py-2" ><label for="{{$permission->id}}">{{$permission->id}}</label></td>
