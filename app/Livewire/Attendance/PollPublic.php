@@ -51,8 +51,14 @@ class PollPublic extends Component
             ]);
             $attendance->poll_status = $result;
             $attendance->save();
-            Log::info("Attendance set via public poll", [$attendance]);
+            Log::info('Attendance set via public poll', [$attendance]);
         }
+    }
+
+    public function resetSelected(): void
+    {
+        $this->selectedMember = null;
+        $this->memberSelection = '';
     }
 
     public function render()

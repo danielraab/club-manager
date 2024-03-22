@@ -28,10 +28,7 @@
     </div>
 </x-slot>
 
-<div x-data="{selectedMember: @entangle('selectedMember'), resetSelected() {
-    $wire.set('selectedMember', null);
-    $wire.set('memberSelection', '');
-}}">
+<div>
     <x-livewire.loading/>
     <div class="bg-white over   flow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-col">
@@ -47,7 +44,7 @@
                             class="block mt-1"
                             wire:model.lazy="memberSelection"
                             required autofocus autocomplete="memberSelection"
-                            @disabled($selectedMember !== null)>
+                            :disabled="$selectedMember != null">
                         <option></option>
                         @php
                             $memberList = new \Illuminate\Database\Eloquent\Collection();
@@ -63,14 +60,14 @@
                             } else {
                                 $memberList = \App\Models\Member::getAllFiltered($filter)->get();
                             }
+                            /** @var \App\Models\Member $member */
                         @endphp
-                        @foreach($memberList as /** @var \App\Models\Member $member */ $member)
+                        @foreach($memberList as $member)
                             <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                         @endforeach
                     </x-select>
                     <button type="button" class="btn btn-primary px-3 rounded" title="Clear selected member"
-                                      x-on:click="resetSelected"
-                                      :disabled="$selectedMember === null">x
+                            wire:click="resetSelected" @if($selectedMember == null) disabled @endif>x
                     </button>
                 </div>
                 @if($selectedMember === null)

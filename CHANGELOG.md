@@ -9,8 +9,10 @@ All notable changes to this project will be documented in this file.
 - change form buttons for member forms
 - change form buttons for user forms
 - change form buttons for events forms
+- change form buttons for event polls
 ### Fixed
 - event calendar can hold apos now
+- fix public poll bug (when no events can be selected)
 
 ## v0.7.1 - 2024-03-21
 ### Added
