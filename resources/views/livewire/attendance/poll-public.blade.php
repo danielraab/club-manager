@@ -97,7 +97,7 @@
                     <div class="flex flex-col sm:table-row gap-2 py-2 items-center">
                         <div class="text-gray-500 text-center sm:table-cell align-middle">
                             @if($hasEventEditPermission)
-                                <a href="{{route('event.edit', $event->id)}}" title="Edit this event" class="px-3">
+                                <a href="{{route('event.edit', $event->id)}}" title="Edit this event" class="btn btn-primary mr-2">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                             @endif
