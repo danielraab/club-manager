@@ -8,45 +8,29 @@
 </x-slot>
 
 <div>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        <div class="flex flex-wrap gap-2 items-center justify-between">
-            <div class="flex flex-wrap gap-2 justify-start w-full sm:w-auto">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex items-center justify-end">
+        <x-button-dropdown>
+            <x-slot name="mainButton">
+                <button type="button" class="btn-success p-2 text-xs inline-flex items-center gap-2" wire:click="saveEvent"
+                        title="Update event"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+            </x-slot>
+            <button type="button" class="btn-create inline-flex gap-2 text-xs p-2"
+                    wire:click="saveEventCopy"
+                    title="Save copy of the event"
+            ><i class="fa-solid fa-copy"></i> {{__("Save copy")}}</button>
+            @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
                 <button type="button"
-                        x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt > 0) {
-                            $wire.deleteEvent();
-                        } else {
-                            this.clickCnt++;
-                            $el.innerHTML = 'Are you sure?';
-                        }
-                    }}"
-                        x-on:click="onClick()" title="Delete this event"
-                        class="btn btn-danger">{{ __('Delete event') }}</button>
-
-                @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
-                    <button type="button"
-                            x-data="{ clickCnt: 0, disabled: false, onClick() {
-                            if(this.clickCnt == 1) {
-                                $wire.forceWebPush();
-                                this.disabled = true;
-                            } else {
-                                this.clickCnt++;
-                                $el.innerHTML = 'Are you sure?';
-                            }
-                        }}"
-                            x-on:click="onClick()" title="Force a web push to all subscribes (with the updated data)."
-                            x-bind:disabled="disabled"
-                            class="btn btn-secondary">{{ __('Force web push') }}</button>
-                @endif
-            </div>
-            <div class="flex flex-wrap gap-2 justify-end w-full sm:w-auto">
-                <button type="button" class="bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
-                        wire:click="saveEventCopy"
-                        title="Save copy of the event">{{ __('Save copy') }}</button>
-                <button type="button" class="btn btn-primary" wire:click="saveEvent"
-                        title="Update event">{{ __('Save') }}</button>
-            </div>
-        </div>
+                        class="btn-info inline-flex gap-2 text-xs p-2"
+                        wire:click="forceWebPush"
+                        wire:confirm="{{__('Are you sure you want to send a web push to all subscribers?')}}"
+                        title="Force a web push to all subscribes (with the updated data).">
+                    <i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
+            @endif
+            <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
+                    wire:confirm="{{__('Are you sure you want to delete this event?')}}"
+                    wire:click="deleteEvent" title="Delete this event"
+            ><i class="fa-solid fa-trash"></i> {{ __('Delete event') }}</button>
+        </x-button-dropdown>
     </div>
 
 

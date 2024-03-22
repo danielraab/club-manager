@@ -24,8 +24,8 @@
                 <button type="button" class="text-xs p-2 btn-info inline-flex gap-2"
                         wire:confirm="{{__('Are you sure you want to send a web push to all subscribers?')}}"
                         wire:click="forceWebPush"
-                        title="Force a web push to all subscribes (with the updated data)."
-                        x-bind:disabled="disabled"><i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
+                        title="Force a web push to all subscribes (with the updated data).">
+                    <i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
             @endif
             <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
                     wire:confirm="{{__('Are you sure you want to delete this news?')}}"

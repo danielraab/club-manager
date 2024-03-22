@@ -53,7 +53,7 @@ class EventCreate extends Component
 
         Log::info("Event created", [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
-            new Item( __('New event successfully created.'), ItemType::SUCCESS));
+            new Item( __('New event successfully created. You can create the next one.'), ItemType::SUCCESS));
     }
 
     public function render()

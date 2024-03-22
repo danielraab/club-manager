@@ -9,8 +9,9 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex flex-row-reverse">
-        <button type="button" class="btn btn-primary" wire:click="saveEventType"
-                title="Create new event type">{{ __('Save') }}</button>
+        <button type="button" class="btn btn-create" wire:click="saveEventType"
+                title="Create new event type">
+            <i class="fa-solid fa-plus mr-2"></i>{{ __('Save') }}</button>
     </div>
 
 

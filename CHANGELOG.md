@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - update news form buttons to button dropdown
 - change form buttons for member forms
 - change form buttons for user forms
+- change form buttons for events forms
 
 ## v0.7.1 - 2024-03-21
 ### Added

@@ -8,22 +8,19 @@
 </x-slot>
 
 <div>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
-        <div class="flex items-center justify-between">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex items-center justify-end">
+        <x-button-dropdown>
+            <x-slot name="mainButton">
+                <button type="button" class="btn-success p-2 inline-flex items-center text-xs gap-2" wire:click="saveEventType"
+                        title="Create new event type"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+            </x-slot>
             <button type="button"
-                    x-data="{ clickCnt: 0, onClick() {
-                if(this.clickCnt > 0) {
-                    $wire.deleteEventType();
-                } else {
-                    this.clickCnt++;
-                    $el.innerHTML = 'Are you sure?';
-                }
-            }}"
-                    x-on:click="onClick()" title="Delete this event type"
-                    class="btn btn-danger">{{ __('Delete event type') }}</button>
-            <button type="button" class="btn btn-primary" wire:click="saveEventType"
-                    title="Create new event type">{{ __('Save') }}</button>
-        </div>
+                    class="text-xs p-2 btn-danger inline-flex gap-2"
+                    wire:confirm="{{__('Are you sure you want to delete this event type?')}}"
+                    wire:click="deleteEventType" title="Delete this event"
+                    title="Delete this event type">{{ __('Delete event type') }}</button>
+        </x-button-dropdown>
+
     </div>
 
 
