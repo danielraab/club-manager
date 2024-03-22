@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - event calendar can hold apos now
 - fix public poll bug (when no events can be selected)
+- missing member in poll statistic
 
 ## v0.7.1 - 2024-03-21
 ### Added

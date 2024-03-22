@@ -179,7 +179,7 @@ class Event extends Model
 
         foreach ($attendances as $attendance) {
             /** @var Attendance $attendance */
-            if (! $attendance->member()->first()->matchFilter($memberFilter)) {
+            if (! $attendance->member()->first()?->matchFilter($memberFilter)) {
                 continue;
             }
 
