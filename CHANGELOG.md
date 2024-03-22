@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.2 - 2024-03-22
 ### Changed
 - show full formatted news in news overview
 - update news form buttons to button dropdown
