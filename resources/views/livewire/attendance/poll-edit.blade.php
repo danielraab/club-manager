@@ -5,7 +5,10 @@
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
 @endphp
 <x-slot name="headline">
-    <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+        <a href="{{route("attendancePoll.index")}}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </a>
         {{ __("Update attendance poll") }}
     </div>
 </x-slot>
