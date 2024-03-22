@@ -23,8 +23,8 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                         locale: '{{config("app.locale")}}',
                         headerToolbar: {
                             left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,listWeek'
+                            center: '',
+                            right: 'title'
                         },
                         events: JSON.parse('{!! $jsonEventList!!}'),
                         eventClick: function(info) {
@@ -49,7 +49,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 });
 
             </script>
-            <div id="calendar"></div>
+            <div id="calendar" class="max-sm:text-xs"></div>
         </div>
     </div>
 </x-backend-layout>

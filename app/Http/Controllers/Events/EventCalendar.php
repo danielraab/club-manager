@@ -27,7 +27,7 @@ class EventCalendar extends Controller
                 return $event;
             });
 
-        $jsonEventList = $eventList->toJson();
+        $jsonEventList = $eventList->toJson(JSON_HEX_APOS);
 
         return view('events.calendar', [
             'jsonEventList' => $jsonEventList,

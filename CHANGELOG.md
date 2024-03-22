@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - change form buttons for member forms
 - change form buttons for user forms
 - change form buttons for events forms
+### Fixed
+- event calendar can hold apos now
 
 ## v0.7.1 - 2024-03-21
 ### Added
