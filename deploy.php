@@ -46,7 +46,7 @@ desc('Deploys your project');
 task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
-    'artisan:storage:link',
+    'artisan:storage:linkRelative',
     'artisan:caches:all',
     'artisan:migrate',
     'deploy:publish',
