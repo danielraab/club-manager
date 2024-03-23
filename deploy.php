@@ -36,6 +36,9 @@ task('artisan:caches:all', [
     'config:cache:fix',
 ]);
 
+desc('Creates the symbolic links configured for the application');
+task('artisan:storage:linkRelative', artisan('storage:link --relative', ['min' => 5.3]));
+
 /**
  * Main deploy task.
  */
