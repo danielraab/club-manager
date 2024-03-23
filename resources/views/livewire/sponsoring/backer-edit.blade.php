@@ -9,20 +9,19 @@
 
 <div>
     <x-livewire.loading/>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <button type="button"
-                x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt > 0) {
-                            $wire.deleteBacker();
-                        } else {
-                            this.clickCnt++;
-                            $el.innerHTML = 'Are you sure?';
-                        }
-                    }}"
-                x-on:click="onClick()" title="Delete this backer"
-                class="btn btn-danger">{{ __('delete backer') }}</button>
-        <button type="button" class="btn btn-primary" wire:click="saveBacker"
-                title="Update backer">{{ __('Save') }}</button>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end items-center">
+        <x-button-dropdown>
+            <x-slot name="mainButton">
+                <button type="button" class="btn-success p-2 text-xs" wire:click="saveBacker"
+                        title="Update backer"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}</button>
+            </x-slot>
+            <button type="button"
+                    wire:confirm="{{__('Are you sure you want to delete this backer?')}}"
+                    wire:click="deleteBacker" title="Delete this backer"
+                    class="btn-danger p-2 text-xs">
+                <i class="fa-solid fa-trash mr-2"></i>{{ __('Delete backer') }}</button>
+
+        </x-button-dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

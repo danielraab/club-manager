@@ -35,16 +35,6 @@ class PackageCreate extends Component
         return redirect($this->previousUrl);
     }
 
-    public function savePackageAndStay(): void
-    {
-        $this->packageForm->store();
-        $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
-
-        Log::info("Package created", [auth()->user(), $this->packageForm->package]);
-        NotificationMessage::addNotificationMessage(
-            new Item(__('New package successfully created. You can create the next one now.'), ItemType::SUCCESS));
-    }
-
     public function render()
     {
         return view('livewire.sponsoring.package-create')->layout('layouts.backend');

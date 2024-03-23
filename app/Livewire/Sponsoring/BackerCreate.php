@@ -31,14 +31,6 @@ class BackerCreate extends Component
         return redirect($this->previousUrl);
     }
 
-    public function saveBackerAndStay(): void
-    {
-        $this->backerForm->store();
-        Log::info("Backer created", [auth()->user(), $this->backerForm->backer]);
-        NotificationMessage::addNotificationMessage(
-            new Item(__('New backer successfully created. You can create the next one now.'), ItemType::SUCCESS));
-    }
-
     public function render()
     {
         return view('livewire.sponsoring.backer-create')->layout('layouts.backend');

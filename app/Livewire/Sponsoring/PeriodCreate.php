@@ -35,16 +35,6 @@ class PeriodCreate extends Component
         return redirect($this->previousUrl);
     }
 
-    public function savePeriodAndStay(): void
-    {
-        $this->periodForm->store();
-        $this->periodForm->period->packages()->sync($this->selectedPackageArr);
-
-        Log::info("Period created", [auth()->user(), $this->periodForm->period]);
-        NotificationMessage::addNotificationMessage(
-            new Item(__('New period successfully created. You can create the next one now.'), ItemType::SUCCESS));
-    }
-
     public function render()
     {
         return view('livewire.sponsoring.period-create')->layout('layouts.backend');

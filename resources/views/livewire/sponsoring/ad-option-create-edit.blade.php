@@ -1,5 +1,5 @@
 @php
-/** @var $editMode bool */
+    /** @var $editMode bool */
 @endphp
 <x-slot name="headline">
     <div class="flex items-center gap-2">
@@ -13,28 +13,25 @@
 <div x-init="$store.notificationMessages
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex gap-2 items-center
-    {{$editMode ? "justify-between" : "justify-end"}}">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex gap-2 items-center justify-end">
         @if($editMode)
-            <button type="button"
-                x-data="{ clickCnt: 0, onClick() {
-                    if(this.clickCnt > 0) {
-                        $wire.deleteAdOption();
-                    } else {
-                        this.clickCnt++;
-                        $el.innerHTML = 'Are you sure?';
-                    }
-                }}"
-                x-on:click="onClick()" title="Delete this ad option"
-                class="btn btn-danger">{{ __('Delete ad option') }}</button>
-            <button type="button" class="btn btn-primary" wire:click="saveAdOption"
-                              title="Save changes of ad option">{{ __('Save') }}</button>
+            <x-button-dropdown>
+                <x-slot name="mainButton">
+                    <button type="button" class="btn-success p-2 text-xs" wire:click="saveAdOption"
+                            title="Save changes of ad option"><i
+                            class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}</button>
+                </x-slot>
+                <button type="button"
+                        wire:confirm="{{__('Are you sure you want to delete this ad option?')}}"
+                        wire:click="deleteAdOption"
+                        title="Delete this ad option"
+                        class="btn-danger p-2 text-xs">
+                    <i class="fa-solid fa-trash mr-2"></i>{{ __('Delete ad option') }}</button>
+                </x-button-dropdown>
         @else
-            <button type="button" class="btn btn-info"
-                          wire:click="saveAdOptionAndStay"
-                          title="Create new ad option and stay on this site">{{ __('Save and stay') }}</button>
-            <button type="button" class="btn btn-primary" wire:click="saveAdOption"
-                          title="Create new ad option">{{ __('Save') }}</button>
+            <button type="button" class="btn btn-success text-xs" wire:click="saveAdOption"
+                    title="Create new ad option"><i class="fa-solid fa-plus mr-2"></i>{{ __('Create') }}
+            </button>
         @endif
     </div>
 
@@ -51,8 +48,8 @@
             <div class="mt-3">
                 <x-input-label for="title" :value="__('Title')"/>
                 <x-input id="title" name="title" type="text" class="mt-1 block w-full"
-                              wire:model="adOptionForm.title"
-                              required autofocus autocomplete="title"/>
+                         wire:model="adOptionForm.title"
+                         required autofocus autocomplete="title"/>
                 @error('adOptionForm.title')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
@@ -70,7 +67,7 @@
                 <x-input-label for="price" :value="__('Price')"/>
                 <x-input-currency id="price" name="price" class="mt-1 block w-full"
                                   wire:model="adOptionForm.price"
-                                  autofocus autocomplete="price" />
+                                  autofocus autocomplete="price"/>
                 @error('adOptionForm.price')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>

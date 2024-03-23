@@ -21,24 +21,22 @@
 
 <div>
     <x-livewire.loading/>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-        <button type="button"
-                x-data="{ clickCnt: 0, onClick() {
-                        if(this.clickCnt > 0) {
-                            $wire.deleteContract();
-                        } else {
-                            this.clickCnt++;
-                            $el.innerHTML = 'Are you sure?';
-                        }
-                    }}"
-                x-on:click="onClick()" title="Delete this contract"
-                class="btn btn-danger">{{ __('Delete contract') }}</button>
-        <button type="button" class="btn btn-primary" wire:click="saveContract"
-                title="Update contract">{{ __('Save') }}</button>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex justify-end items-center">
+
+        <x-button-dropdown>
+            <x-slot name="mainButton">
+                <button type="button" class="btn-success p-2 text-xs" wire:click="saveContract"
+                        title="Update contract"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}</button>
+            </x-slot>
+            <button type="button"
+                    wire:confirm="{{__('Are you sure you want to delete this contract?')}}"
+                    wire:click="deleteContract" title="Delete this contract"
+                    class="btn-danger p-2 text-xs">
+                <i class="fa-solid fa-trash mr-2"></i>{{ __('Delete contract') }}</button>
+        </x-button-dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <div>
                 <span class="font-bold">{{__("Period")}}:</span>

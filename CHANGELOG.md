@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Changed
+- update sponsor buttons to dropdown
 
 ## v0.7.2 - 2024-03-22
 ### Changed

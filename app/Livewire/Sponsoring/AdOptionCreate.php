@@ -31,14 +31,6 @@ class AdOptionCreate extends Component
         return redirect($this->previousUrl);
     }
 
-    public function saveAdOptionAndStay(): void
-    {
-        $this->adOptionForm->store();
-        Log::info("Ad option created", [auth()->user(), $this->adOptionForm->adOption]);
-        NotificationMessage::addNotificationMessage(
-            new Item(__('New ad option successfully created. You can create the next one now.'), ItemType::SUCCESS));
-    }
-
     public function render()
     {
         return view('livewire.sponsoring.ad-option-create-edit', ["editMode" => false])->layout('layouts.backend');

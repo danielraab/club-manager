@@ -23,28 +23,14 @@
         JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-livewire.loading/>
     @if($hasEditPermission && $period->end > now())
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-between items-center">
-            <div class="flex items-center gap-3 flex-wrap">
-                <button type="button"
-                    x-data="{ clickCnt: 0, onClick() {
-                if(this.clickCnt > 0) {
-                    $wire.generateAllContracts();
-                } else {
-                    this.clickCnt++;
-                    $el.innerHTML = 'Are you sure?';
-                }
-            }}"
-                    x-on:click="onClick()" title="Generate a contract for every backer."
-                    class="btn btn-secondary">{{ __('Generate contracts') }}</button>
-            </div>
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 gap-2 flex justify-end items-center">
 
             <div class="flex items-center gap-2" x-data="{showLegend:false}">
-                <button type="button" x-ref="legendBtn" class="btn btn-secondary" x-on:click="showLegend= !showLegend">
-                    <i class="fa-solid fa-circle-info mr-2"></i>
-                    Icon Legend
+                <button type="button" x-ref="legendBtn" class="" x-on:click="showLegend= !showLegend">
+                    <i class="fa-solid fa-circle-info text-blue-700"></i>
                 </button>
                 <div x-anchor="$refs.legendBtn" x-show="showLegend" x-cloak x-on:click.outside="showLegend = false"
-                class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl divide-y">
+                     class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl divide-y">
                     <div class="flex items-center gap-1">
                         <i class="fa-solid fa-circle-info text-cyan-900"></i>
                         <span>{{__("show contract details")}}</span>
@@ -87,11 +73,20 @@
                     </div>
                 </div>
 
-            <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn btn-primary"
-                           title="Edit this period">
-                {{__("Edit period")}}
-            </a>
             </div>
+            <x-button-dropdown>
+                <x-slot name="mainButton">
+                    <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary p-2 text-xs"
+                       title="Edit this period">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i>
+                        {{__("Edit period")}}
+                    </a>
+                </x-slot>
+                <button type="button"
+                        wire:confirm.prompt="{{__('Do you want to generate a contract for every backer ?')}}"
+                        wire:click="generateAllContracts" title="Generate a contract for every backer."
+                        class="btn-secondary p-2 text-xs">{{ __('Generate contracts') }}</button>
+            </x-button-dropdown>
         </div>
     @endif
 
