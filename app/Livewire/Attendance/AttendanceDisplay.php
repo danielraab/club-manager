@@ -9,25 +9,20 @@ use Livewire\Component;
 
 class AttendanceDisplay extends Component
 {
-    use MemberFilterTrait;
-
     public Event $event;
 
     public function mount(Event $event)
     {
-        $this->initFilter();
-        $this->useMemberGroupFilter = false;
         $this->event = $event;
     }
 
     public function render()
     {
-        $attendanceStatistics = new AttendanceStatistic($this->event);
-        $attendanceStatistics->calculateStatistics();
+        $attendanceStatistic = new AttendanceStatistic($this->event);
+        $attendanceStatistic->calculateStatistics();
 
         return view('livewire.attendance.attendance-display', [
-            'statistic' => $attendanceStatistics,
-            'displayListOrGroup' => request()->get('listGroup', 'group'),
+            'statistic' => $attendanceStatistic
         ])->layout('layouts.backend');
     }
 }

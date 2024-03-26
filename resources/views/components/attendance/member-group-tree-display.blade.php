@@ -36,7 +36,7 @@
             @php
                 /** @var \App\Models\Member $member */
                     $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
-                    if(!$member->matchFilter($memberFilter) && $currentAttendance === null) continue;
+                    if($currentAttendance === null) continue;
                     $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
             @endphp
             <div class="flex gap-2 items-center px-2">
@@ -53,8 +53,7 @@
             @if($childMemberGroup->members()->get()->isNotEmpty() ||
                 $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
-                                                        :attendanceStatistic="$attendanceStatistic"
-                                                        :memberFilter="$memberFilter"/>
+                                                        :attendanceStatistic="$attendanceStatistic"/>
             @endif
         @endforeach
     </div>

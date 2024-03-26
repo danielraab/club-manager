@@ -2,6 +2,7 @@
 
 namespace App\Calculation;
 
+use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\MemberGroup;
@@ -62,6 +63,7 @@ class AttendanceStatistic
 
         $attendances = $this->event->attendances()->get();
         foreach ($attendances as $attendance) {
+            /** @var $attendance Attendance */
 
             if ($attendance->poll_status === 'in') {
                 $this->cntIn++;
@@ -78,29 +80,36 @@ class AttendanceStatistic
 
             /** @var Member $member */
             $member = $attendance->member()->first();
-            foreach ($member->memberGroups()->get() as $memberGroup) {
-                $groupElem = $this->memberGroupStatList[$memberGroup->id] ?? new MemberGroupStatistic();
-
-                switch ($attendance->poll_status) {
-                    case 'in':
-                        $groupElem->in[] = $member->id;
-                        break;
-                    case 'unsure':
-                        $groupElem->unsure[] = $member->id;
-                        break;
-                    case 'out':
-                        $groupElem->out[] = $member->id;
-                        break;
-                }
-                if ($attendance->attended) {
-                    $groupElem->attended[] = $member->id;
-                }
-                $this->memberGroupStatList[$memberGroup->id] = $groupElem;
-                $this->accumulateToParentGroup($memberGroup, $groupElem);
+            if ($member) {
+                $this->handleAttendanceOfMember($member, $attendance);
             }
         }
         $this->isCalculated = true;
 
         return $this;
+    }
+
+    private function handleAttendanceOfMember(Member $member, Attendance $attendance): void
+    {
+        foreach ($member->memberGroups()->get() as $memberGroup) {
+            $groupElem = $this->memberGroupStatList[$memberGroup->id] ?? new MemberGroupStatistic();
+
+            switch ($attendance->poll_status) {
+                case 'in':
+                    $groupElem->in[] = $member->id;
+                    break;
+                case 'unsure':
+                    $groupElem->unsure[] = $member->id;
+                    break;
+                case 'out':
+                    $groupElem->out[] = $member->id;
+                    break;
+            }
+            if ($attendance->attended) {
+                $groupElem->attended[] = $member->id;
+            }
+            $this->memberGroupStatList[$memberGroup->id] = $groupElem;
+            $this->accumulateToParentGroup($memberGroup, $groupElem);
+        }
     }
 }

@@ -3,10 +3,6 @@
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
     $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
-
-    /** @var $displayListOrGroup string */
-
-    $memberFilter = $this->getMemberFilter();
 @endphp
 
 <x-slot name="headline">
@@ -39,7 +35,7 @@
     </div>
 </x-slot>
 
-<div>
+<div x-data="{showGroup:true}">
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
@@ -84,55 +80,62 @@
 
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
-            <div class="flex items-center flex-wrap justify-center">
-                @if($displayListOrGroup === 'group')
+            <template x-if="showGroup">
+                <div class="flex items-center flex-wrap justify-center">
                     <div class="py-2 px-4 rounded-l-lg bg-sky-600">
                         {{__("Groups")}}</div>
-                    <a type="button" href="?listGroup=list"
-                       class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
-                        {{__("List")}}</a>
-                @else
-                    <a type="button" href="?listGroup=group"
-                       class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
-                        {{__("Groups")}}</a>
+                    <button type="button" @click="showGroup = false"
+                            class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
+                        {{__("List")}}</button>
+                </div>
+            </template>
+            <template x-if="!showGroup">
+                <div class="flex items-center flex-wrap justify-center">
+                    <button type="button" @click="showGroup = true"
+                            class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
+                        {{__("Groups")}}</button>
                     <div class="py-2 px-4 rounded-r-lg bg-sky-600">
                         {{__("List")}}</div>
-                @endif
-            </div>
-            <x-livewire.member-filter/>
+                </div>
+            </template>
         </div>
     </div>
 
     <div class="flex bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 justify-center">
         <div>
-            @if($displayListOrGroup === 'group')
-                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                    <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
-                                                            initialShow="true" :memberFilter="$memberFilter"
-                                                            :attendanceStatistic="$statistic"/>
-                @endforeach
-            @else
-                @forelse($members = \App\Models\Member::query()->get() as $member)
-                    @php
-                        /** @var \App\Models\Member $member */
-                        $attendance = $member->attendances()->where("event_id", $event->id)->first();
-                        if(!$member->matchFilter($memberFilter) && $attendance === null) continue;
-                        /** @var \App\Models\Attendance $attendance */
-                        $cssClasses = $attendance?->attended ? " bg-green-300" : '';
-                    @endphp
-                    <div class="flex gap-2 items-center px-2">
-                        <div class="h-2 w-2 rounded-full {{match($attendance?->poll_status){
+            <template x-if="showGroup">
+                <div>
+
+                    @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                        <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
+                                                                initialShow="true"
+                                                                :attendanceStatistic="$statistic"/>
+                    @endforeach
+                </div>
+            </template>
+            <template x-if="!showGroup">
+                <div>
+                    @forelse($members = \App\Models\Member::query()->get() as $member)
+                        @php
+                            /** @var \App\Models\Member $member */
+                            $attendance = $member->attendances()->where("event_id", $event->id)->first();
+                            if($attendance === null) continue;
+                            /** @var \App\Models\Attendance $attendance */
+                            $cssClasses = $attendance?->attended ? " bg-green-300" : '';
+                        @endphp
+                        <div class="flex gap-2 items-center px-2">
+                            <div class="h-2 w-2 rounded-full {{match($attendance?->poll_status){
                         "in" => 'bg-green-700',
                         "unsure" => 'bg-yellow-600',
                         "out" => 'bg-red-700',
                         default => ''} }}"></div>
-                        <span class="rounded px-2 {{$cssClasses}}">{{__($member->getFullName())}}</span>
-                    </div>
-
-                @empty
-                    <span>{{__("Currently no attendance information.")}}</span>
-                @endforelse
-            @endif
+                            <span class="rounded px-2 {{$cssClasses}}">{{__($member->getFullName())}}</span>
+                        </div>
+                    @empty
+                        <span>{{__("Currently no attendance information.")}}</span>
+                    @endforelse
+                </div>
+            </template>
         </div>
     </div>
 </div>
