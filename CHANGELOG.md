@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.3 - 2024-03-26
 ### Changed
 - update sponsor buttons to dropdown
 - move helpful links of attendance views into header bar
