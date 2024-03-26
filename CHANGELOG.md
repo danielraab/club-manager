@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Changed
 - attendance display group list switcher is frontend managed again, removed member filter
+- add today switch for event filter, update accordion component
 ### Fixed
 - attendance display and record render works now after group/list switch
 

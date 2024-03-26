@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 trait EventFilterTrait
 {
+
+    public bool $isStartNow = false;
+
     public ?string $start = null;
 
     public ?string $end = null;
@@ -31,8 +34,13 @@ trait EventFilterTrait
 
     public function getEventFilter(): EventFilter
     {
+        $start = new Carbon();
+        if (!$this->isStartNow) {
+            $start = $this->start ? Carbon::parseFromDatetimeLocalInput($this->start) : null;
+        }
+
         return new EventFilter(
-            $this->start ? Carbon::parseFromDatetimeLocalInput($this->start) : null,
+            $start,
             $this->end ? Carbon::parseFromDatetimeLocalInput($this->end) : null,
             $this->canFilterShowDisabled() ? $this->showDisabled : false,
             $this->canFilterShowLoggedInOnly() ? $this->showLoggedInOnly : false,
