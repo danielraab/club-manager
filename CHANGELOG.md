@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Changed
 - attendance display group list switcher is frontend managed again, removed member filter
+### Fixed
+- attendance display and record render works now after group/list switch
 
 ## v0.7.3 - 2024-03-26
 ### Changed

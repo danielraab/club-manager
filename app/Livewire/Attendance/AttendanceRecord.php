@@ -15,6 +15,8 @@ class AttendanceRecord extends Component
 
     public Event $event;
 
+    public bool $isDisplayGroup = true;
+
     public function mount($event)
     {
         $this->initFilter();
@@ -28,8 +30,7 @@ class AttendanceRecord extends Component
         $memberList = Member::getAllFiltered($this->getMemberFilter());
 
         return view('livewire.attendance.attendance-record', [
-            'members' => $memberList,
-            'displayListOrGroup' => request()->get('listGroup', 'group'),
+            'members' => $memberList
         ])->layout('layouts.backend');
     }
 }
