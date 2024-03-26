@@ -1,6 +1,7 @@
 @php
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
+    $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
 
     $memberFilter = $this->getMemberFilter();
 @endphp
@@ -8,6 +9,30 @@
 <x-slot name="headline">
     <div class="flex flex-wrap justify-between items-center gap-3">
         <span>{{ __('Attendance overview') }}</span>
+    </div>
+</x-slot>
+<x-slot name="headerBtn">
+    <div x-data="{open:false}" @click.outside="open = false" @close.stop="open = false">
+        <div class="btn btn-primary items-center gap-2" x-ref="openButton" x-on:click="open = !open">
+            <i class="fa-solid fa-vector-square"></i>
+            <span class="max-sm:hidden">{{ __('Links') }}</span>
+            <i class="fa-solid fa-caret-down"></i>
+        </div>
+        <div x-show="open" x-cloak x-anchor.bottom-end="$refs.openButton" x-collapse
+             class="flex flex-col bg-white rounded border overflow-hidden shadow-md z-50">
+            @if ($hasAttendanceEditPermission)
+                <a class="btn-info p-2 text-xs"
+                   href="{{ route('event.attendance.edit', $event->id) }}">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i>{{ __('Edit Attendance') }}
+                </a>
+            @endif
+            @if ($hasEventEditPermission)
+                <a class="btn-primary p-2 text-xs"
+                   href="{{ route('event.edit', $event->id) }}">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i>{{ __('Edit event') }}
+                </a>
+            @endif
+        </div>
     </div>
 </x-slot>
 
@@ -64,11 +89,6 @@
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
 
-            @if($hasAttendanceEditPermission)
-                <a class="btn btn-primary" href="{{route('event.attendance.edit', $event->id)}}">
-                    {{__("Edit Attendance")}}
-                </a>
-            @endif
             <div x-show="displayMemberGroups" class="flex items-center flex-wrap justify-center">
                 <div class="py-2 px-4 rounded-l-lg bg-sky-600">
                     {{__("Groups")}}</div>

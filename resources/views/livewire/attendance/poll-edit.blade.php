@@ -25,7 +25,7 @@ addEvents() {
             <x-slot name="mainButton">
                 <button type="button" class="btn-success p-2 text-xs inline-flex items-center gap-2"
                         x-bind:disabled="additionalEventList.length > 0"
-                        wire:click="savePoll" title="Delete this poll">
+                        wire:click="savePoll" title="Save this poll">
                     <i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
             </x-slot>
             @if($hasPollShowPermission)

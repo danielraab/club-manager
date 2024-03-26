@@ -11,7 +11,8 @@
 
 @layer components {
     .btn {
-        @apply inline-flex items-center px-2 py-2 rounded-md font-semibold text-xs text-center tracking-wide focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-75;
+        @apply inline-flex items-center px-2 py-2 rounded-md font-semibold text-xs text-center tracking-wide
+        focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-75 hover:cursor-pointer;
     }
     .btn-info {
         @apply bg-blue-500 text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 disabled:opacity-75;
