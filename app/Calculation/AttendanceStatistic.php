@@ -2,85 +2,105 @@
 
 namespace App\Calculation;
 
-use App\Models\Attendance;
 use App\Models\Event;
-use App\Models\Filter\MemberFilter;
+use App\Models\Member;
+use App\Models\MemberGroup;
 
 class AttendanceStatistic
 {
     private Event $event;
 
-    private ?MemberFilter $memberFilter;
+    private bool $isCalculated = false;
 
-    public function __construct(Event $event, MemberFilter $memberFilter = null)
+    public int $cntIn = 0;
+
+    public int $cntUnsure = 0;
+
+    public int $cntOut = 0;
+
+    public int $cntAttended = 0;
+
+    /**
+     * [
+     *    "memberGroupId" => AttendanceStatisticItem
+     * ]
+     *
+     * @var MemberGroupStatistic[]
+     */
+    private array $memberGroupStatList = [];
+
+    public function __construct(Event $event)
     {
         $this->event = $event;
-        $this->memberFilter = $memberFilter;
-        if ($this->memberFilter === null) {
-            $this->memberFilter = new \App\Models\Filter\MemberFilter(true, true, true);
+    }
+
+    public function getMemberGroupStat(int $memberGroupId): ?MemberGroupStatistic
+    {
+        return $this->memberGroupStatList[$memberGroupId] ?? null;
+    }
+
+    private function accumulateToParentGroup(MemberGroup $memberGroup, MemberGroupStatistic $groupStat): void
+    {
+        /** @var MemberGroup $parent */
+        if ($parent = $memberGroup->parent()->first()) {
+            $parentStat = $this->memberGroupStatList[$parent->id] ?? new MemberGroupStatistic();
+            $parentStat->in = array_unique(array_merge($parentStat->in, $groupStat->in));
+            $parentStat->unsure = array_unique(array_merge($parentStat->unsure, $groupStat->unsure));
+            $parentStat->out = array_unique(array_merge($parentStat->out, $groupStat->out));
+            $parentStat->attended = array_unique(array_merge($parentStat->attended, $groupStat->attended));
+            $this->memberGroupStatList[$parent->id] = $parentStat;
+
+            $this->accumulateToParentGroup($parent, $parentStat);
         }
     }
 
-    public function getAttendanceStatistics(): array
+    public function calculateStatistics(): self
     {
-        $cntIn = 0;
-        $cntUnsure = 0;
-        $cntOut = 0;
-        $cntAttended = 0;
-
-        $attendances = $this->event->attendances()->get();
-
-        $memberGroupCntList = [];
-
-        foreach ($attendances as $attendance) {
-            /** @var Attendance $attendance */
-            if (! $attendance->member()->first()?->matchFilter($this->memberFilter)) {
-                continue;
-            }
-
-            if ($attendance->poll_status === 'in') {
-                $cntIn++;
-            }
-            if ($attendance->poll_status === 'unsure') {
-                $cntUnsure++;
-            }
-            if ($attendance->poll_status === 'out') {
-                $cntOut++;
-            }
-            if ($attendance->attended === true) {
-                $cntAttended++;
-            }
-
-            foreach ($attendance->member()->first()->memberGroups()->get() as $memberGroup) {
-                $groupElem = $memberGroupCntList[$memberGroup->id] ?? [
-                    'in' => 0,
-                    'unsure' => 0,
-                    'out' => 0,
-                    'attended' => 0,
-                ];
-                if ($attendance->poll_status === 'in') {
-                    $groupElem['in'] = $groupElem['in'] + 1;
-                }
-                if ($attendance->poll_status === 'unsure') {
-                    $groupElem['unsure'] = $groupElem['unsure'] + 1;
-                }
-                if ($attendance->poll_status === 'out') {
-                    $groupElem['out'] = $groupElem['out'] + 1;
-                }
-                if ($attendance->attended) {
-                    $groupElem['attended'] = $groupElem['attended'] + 1;
-                }
-                $memberGroupCntList[$memberGroup->id] = $groupElem;
-            }
+        if ($this->isCalculated) {
+            return $this;
         }
 
-        return [
-            'in' => $cntIn,
-            'unsure' => $cntUnsure,
-            'out' => $cntOut,
-            'attended' => $cntAttended,
-            'memberGroupStatistics' => $memberGroupCntList,
-            'unset' => $attendances->count() - ($cntIn + $cntUnsure + $cntOut),
-        ];
+        $attendances = $this->event->attendances()->get();
+        foreach ($attendances as $attendance) {
+
+            if ($attendance->poll_status === 'in') {
+                $this->cntIn++;
+            }
+            if ($attendance->poll_status === 'unsure') {
+                $this->cntUnsure++;
+            }
+            if ($attendance->poll_status === 'out') {
+                $this->cntOut++;
+            }
+            if ($attendance->attended === true) {
+                $this->cntAttended++;
+            }
+
+            /** @var Member $member */
+            $member = $attendance->member()->first();
+            foreach ($member->memberGroups()->get() as $memberGroup) {
+                $groupElem = $this->memberGroupStatList[$memberGroup->id] ?? new MemberGroupStatistic();
+
+                switch ($attendance->poll_status) {
+                    case 'in':
+                        $groupElem->in[] = $member->id;
+                        break;
+                    case 'unsure':
+                        $groupElem->unsure[] = $member->id;
+                        break;
+                    case 'out':
+                        $groupElem->out[] = $member->id;
+                        break;
+                }
+                if ($attendance->attended) {
+                    $groupElem->attended[] = $member->id;
+                }
+                $this->memberGroupStatList[$memberGroup->id] = $groupElem;
+                $this->accumulateToParentGroup($memberGroup, $groupElem);
+            }
+        }
+        $this->isCalculated = true;
+
+        return $this;
     }
 }

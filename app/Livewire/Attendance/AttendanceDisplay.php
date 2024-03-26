@@ -22,10 +22,11 @@ class AttendanceDisplay extends Component
 
     public function render()
     {
-        $attendanceStatistics = new AttendanceStatistic($this->event, $this->getMemberFilter());
+        $attendanceStatistics = new AttendanceStatistic($this->event);
+        $attendanceStatistics->calculateStatistics();
 
         return view('livewire.attendance.attendance-display', [
-            'statistics' => $attendanceStatistics->getAttendanceStatistics(),
+            'statistic' => $attendanceStatistics,
             'displayListOrGroup' => request()->get('listGroup', 'group'),
         ])->layout('layouts.backend');
     }

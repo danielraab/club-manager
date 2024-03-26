@@ -1,4 +1,5 @@
 @php
+    /** @var \App\Calculation\AttendanceStatistic $attendanceStatistic */
     /** @var \App\Models\Event $event */
     /** @var \App\Models\MemberGroup $memberGroup */
     /** @var \App\Models\Filter\MemberFilter $memberFilter */
@@ -12,19 +13,19 @@
             <i class="fas " :class="show ? 'fa-minus':'fa-plus'"></i>
             <h3>{{__($memberGroup->title)}}</h3>
         </div>
-        @if(isset($memberGroupCntList[$memberGroup->id]))
+        @if($attendanceStatistic->getMemberGroupStat($memberGroup->id))
             <div class="flex gap-1">
                 <div class="text-white text-xs bg-green-700 rounded-full w-6 h-6 flex justify-center items-center">
-                    {{$memberGroupCntList[$memberGroup->id]["in"]}}
+                    {{count($attendanceStatistic->getMemberGroupStat($memberGroup->id)->in)}}
                 </div>
                 <div class="text-white text-xs bg-yellow-600 rounded-full w-6 h-6 flex justify-center items-center">
-                    {{$memberGroupCntList[$memberGroup->id]["unsure"]}}
+                    {{count($attendanceStatistic->getMemberGroupStat($memberGroup->id)->unsure)}}
                 </div>
                 <div class="text-white text-xs bg-red-700 rounded-full w-6 h-6 flex justify-center items-center">
-                    {{$memberGroupCntList[$memberGroup->id]["out"]}}
+                    {{count($attendanceStatistic->getMemberGroupStat($memberGroup->id)->out)}}
                 </div>
                 <div class="text-white text-xs bg-green-700 w-6 h-6 flex justify-center items-center">
-                    {{$memberGroupCntList[$memberGroup->id]["attended"]}}
+                    {{count($attendanceStatistic->getMemberGroupStat($memberGroup->id)->attended)}}
                 </div>
             </div>
         @endif
@@ -35,7 +36,7 @@
             @php
                 /** @var \App\Models\Member $member */
                     $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
-                    if(!$member->matchFilter($memberFilter) || $currentAttendance === null) continue;
+                    if(!$member->matchFilter($memberFilter) && $currentAttendance === null) continue;
                     $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
             @endphp
             <div class="flex gap-2 items-center px-2">
@@ -52,7 +53,7 @@
             @if($childMemberGroup->members()->get()->isNotEmpty() ||
                 $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
-                                                        :memberGroupCntList="$memberGroupCntList"
+                                                        :attendanceStatistic="$attendanceStatistic"
                                                         :memberFilter="$memberFilter"/>
             @endif
         @endforeach

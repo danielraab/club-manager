@@ -25,7 +25,7 @@
                 @foreach($attendancePoll->events()->orderBy('start')->get() as $event)
                     @php
                         /** @var \App\Models\Event $event */
-                        $statistic = (new \App\Calculation\AttendanceStatistic($event))->getAttendanceStatistics();
+                        $statistic = (new \App\Calculation\AttendanceStatistic($event))->calculateStatistics();
                     @endphp
                     <div class="flex flex-wrap flex-col sm:table-row py-3">
                         <div
@@ -33,12 +33,12 @@
                         <div class="text-gray-700 text-center sm:table-cell">{{$event->title}}</div>
                         <div class="flex justify-center sm:table-cell">
                             <div class="flex sm:grid grid-cols-4 place-items-center">
-                                <span class="text-white bg-green-700 rounded-full px-2 m-1">{{$statistic["in"]}}</span>
+                                <span class="text-white bg-green-700 rounded-full px-2 m-1">{{$statistic->cntIn}}</span>
                                 <span
-                                    class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic["unsure"]}}</span>
-                                <span class="text-white bg-red-700 rounded-full px-2 m-1">{{$statistic["out"]}}</span>
+                                    class="text-white bg-yellow-700 rounded-full px-2 m-1">{{$statistic->cntUnsure}}</span>
+                                <span class="text-white bg-red-700 rounded-full px-2 m-1">{{$statistic->cntOut}}</span>
                                 <span class="text-white text-center bg-green-700 px-2 m-1"><i
-                                        class="fa-solid fa-check"></i> {{$statistic["attended"]}}
+                                        class="fa-solid fa-check"></i> {{$statistic->cntAttended}}
                             </div>
                         </div>
                         <div class="px-2 sm:table-cell">

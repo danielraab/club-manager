@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - move helpful links of attendance views into header bar
 - dont render list and group in attendance view
 - add attended cnt to attendance display, move statistic calculation into own class
+- add attendance statistic to parent member groups
+- dont show member in attendance statistic only if not in member AND no records available
 
 ## v0.7.2 - 2024-03-22
 ### Changed

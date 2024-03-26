@@ -1,4 +1,5 @@
 @php
+    /** @var \App\Calculation\AttendanceStatistic $statistic */
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
     $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
@@ -54,35 +55,28 @@
                 <i class="fa-solid fa-check "></i>
             </div>
             <div class="grow px-5">{{__("promised")}}</div>
-            <div class="text-green-900 font-bold text-xl">{{$statistics["in"]}}</div>
+            <div class="text-green-900 font-bold text-xl">{{$statistic->cntIn}}</div>
         </div>
         <div class="flex bg-white shadow rounded-lg p-5 items-center">
             <div class="text-white bg-yellow-600 rounded-full w-10 h-10 flex justify-center items-center">
                 <i class="fa-solid fa-question "></i>
             </div>
             <div class="grow px-5">{{__("unsure")}}</div>
-            <div class="text-orange-900 font-bold text-xl">{{$statistics["unsure"]}}</div>
+            <div class="text-orange-900 font-bold text-xl">{{$statistic->cntUnsure}}</div>
         </div>
         <div class="flex bg-white shadow rounded-lg p-5 items-center">
             <div class="text-white bg-red-700 rounded-full w-10 h-10 flex justify-center items-center">
                 <i class="fa-solid fa-xmark "></i>
             </div>
             <div class="grow px-5">{{__("cancelled")}}</div>
-            <div class="text-red-900 font-bold text-xl">{{$statistics["out"]}}</div>
-        </div>
-        <div class="flex bg-white shadow rounded-lg p-5 items-center">
-            <div class="text-white bg-blue-700 rounded-full w-10 h-10 flex justify-center items-center">
-                <i class="fa-solid fa-exclamation"></i>
-            </div>
-            <div class="grow px-5">{{__("missing")}}</div>
-            <div class="text-blue-900 font-bold text-xl">{{$statistics["unset"]}}</div>
+            <div class="text-red-900 font-bold text-xl">{{$statistic->cntOut}}</div>
         </div>
 
-        @if($statistics["attended"] && $statistics["attended"] > 0)
+        @if($statistic->cntAttended > 0)
             <div class="flex bg-green-700 shadow rounded-lg p-5 items-center text-white">
                 <i class="fa-solid fa-check fa-2xl"></i>
                 <div class="grow px-5">{{__("attended")}}</div>
-                <div class="font-bold text-xl">{{$statistics["attended"]}}</div>
+                <div class="font-bold text-xl">{{$statistic->cntAttended}}</div>
             </div>
         @endif
     </div>
@@ -115,13 +109,14 @@
                 @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                     <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
                                                             initialShow="true" :memberFilter="$memberFilter"
-                                                            :memberGroupCntList="$statistics['memberGroupStatistics']"/>
+                                                            :attendanceStatistic="$statistic"/>
                 @endforeach
             @else
-                @forelse($members = \App\Models\Member::getAllFiltered($memberFilter)->get() as $member)
+                @forelse($members = \App\Models\Member::query()->get() as $member)
                     @php
                         /** @var \App\Models\Member $member */
                         $attendance = $member->attendances()->where("event_id", $event->id)->first();
+                        if(!$member->matchFilter($memberFilter) && $attendance === null) continue;
                         /** @var \App\Models\Attendance $attendance */
                         $cssClasses = $attendance?->attended ? " bg-green-300" : '';
                     @endphp
