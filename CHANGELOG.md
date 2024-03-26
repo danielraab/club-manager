@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Changed
 - update sponsor buttons to dropdown
+- move helpful links of attendance views into header bar
+- dont render list and group in attendance view
+- add attended cnt to attendance display, move statistic calculation into own class
 
 ## v0.7.2 - 2024-03-22
 ### Changed

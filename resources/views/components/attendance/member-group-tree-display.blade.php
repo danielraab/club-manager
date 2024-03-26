@@ -23,6 +23,9 @@
                 <div class="text-white text-xs bg-red-700 rounded-full w-6 h-6 flex justify-center items-center">
                     {{$memberGroupCntList[$memberGroup->id]["out"]}}
                 </div>
+                <div class="text-white text-xs bg-green-700 w-6 h-6 flex justify-center items-center">
+                    {{$memberGroupCntList[$memberGroup->id]["attended"]}}
+                </div>
             </div>
         @endif
     </div>

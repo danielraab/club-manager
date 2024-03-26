@@ -40,7 +40,7 @@
             <span class="text-gray-700 text-xl">{{ $event->title }}</span>
         </div>
     </div>
-    
+
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
             <div class="flex items-center flex-wrap justify-center">
