@@ -58,7 +58,7 @@
                         {{__("List")}}</div>
                 @endif
             </div>
-            <x-livewire.member-filter/>
+            <x-livewire.filter.member-filter/>
         </div>
     </div>
     <div class="flex justify-center gap-4 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">

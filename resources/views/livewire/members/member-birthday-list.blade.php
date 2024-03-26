@@ -17,7 +17,7 @@
 </x-slot>
 
 <div>
-    <x-livewire.member-filter/>
+    <x-livewire.filter.member-filter/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg lg:p-6 text-gray-900 my-5">
         @if($members && $members->isNotEmpty())
             <div class="flex flex-col divide-y">

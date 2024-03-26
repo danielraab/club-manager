@@ -19,7 +19,7 @@
 @endif
 
 <div class="flex flex-col gap-5">
-    <x-livewire.member-filter/>
+    <x-livewire.filter.member-filter/>
 
     @if($this->members->exists())
 
