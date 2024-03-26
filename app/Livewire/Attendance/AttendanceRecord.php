@@ -6,6 +6,8 @@ use App\Livewire\MemberFilterTrait;
 use App\Models\Event;
 use App\Models\Member;
 use Livewire\Component;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class AttendanceRecord extends Component
 {
@@ -25,6 +27,9 @@ class AttendanceRecord extends Component
     {
         $memberList = Member::getAllFiltered($this->getMemberFilter());
 
-        return view('livewire.attendance.attendance-record', ['members' => $memberList])->layout('layouts.backend');
+        return view('livewire.attendance.attendance-record', [
+            'members' => $memberList,
+            'displayListOrGroup' => request()->get('listGroup', 'group'),
+        ])->layout('layouts.backend');
     }
 }

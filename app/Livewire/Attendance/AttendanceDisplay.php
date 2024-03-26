@@ -25,7 +25,7 @@ class AttendanceDisplay extends Component
 
         return view('livewire.attendance.attendance-display', [
             'statistics' => $attendanceStatistics,
-        ]
-        )->layout('layouts.backend');
+            'displayListOrGroup' => request()->get('listGroup', 'group'),
+        ])->layout('layouts.backend');
     }
 }
