@@ -22,7 +22,7 @@
         </div>
     @else
         <h3 class="mt-3 text-gray-600">{{__('Select a File')}}</h3>
-        <x-input-file-area id="contractFile" name="contractFile" type="file" class="mt-1 block w-full"
+        <x-livewire.input-file-area id="contractFile" name="contractFile" type="file" class="mt-1 block w-full"
                            wire:model="contractFile"
                            subTitle="PNG, JPG, GIF up to 10MB"
                            autofocus autocomplete="contractFile">
@@ -36,7 +36,7 @@
                 </div>
                 <button type="button" class="btn btn-primary" wire:click="uploadFile">Upload file</button>
             @endif
-        </x-input-file-area>
+        </x-livewire.input-file-area>
         @error('contractFile')
         <x-input-error class="mt-2" :messages="$message"/>@enderror
 

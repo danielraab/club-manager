@@ -7,25 +7,23 @@ enum ConfigurationKey: string
     /*
      * global settings
      */
-    case STYLE_NAV_BACKGROUND_C = "style-nav-background-color";
-    case STYLE_NAV_TEXT_C = "style-nav-text-color";
-    case EVENT_FILTER_DEFAULT_START_TODAY = "eventFilter_defaultStartToday";
-    case EVENT_FILTER_DEFAULT_START_DATE = "eventFilter_defaultStartDate";
-    case EVENT_FILTER_DEFAULT_END_DATE = "eventFilter_defaultEndDate";
-    case EVENT_BIRTHDAYS_IN_ICS_EXPORT = "eventFilter_birthdaysInIcsExport";
-    case POLL_PUBLIC_FILTER_BEFORE_ENTRANCE = "publicPoll_beforeEntrance";
-    case POLL_PUBLIC_FILTER_AFTER_RETIRED = "publicPoll_afterRetired";
-    case POLL_PUBLIC_FILTER_SHOW_PAUSED = "publicPoll_showPaused";
-
-
+    case APPEARANCE_APP_NAME = 'appearance_app_name';
+    case APPEARANCE_APP_LOGO_ID = 'appearance_app_logo_id';
+    case EVENT_FILTER_DEFAULT_START_TODAY = 'eventFilter_defaultStartToday';
+    case EVENT_FILTER_DEFAULT_START_DATE = 'eventFilter_defaultStartDate';
+    case EVENT_FILTER_DEFAULT_END_DATE = 'eventFilter_defaultEndDate';
+    case EVENT_BIRTHDAYS_IN_ICS_EXPORT = 'eventFilter_birthdaysInIcsExport';
+    case POLL_PUBLIC_FILTER_BEFORE_ENTRANCE = 'publicPoll_beforeEntrance';
+    case POLL_PUBLIC_FILTER_AFTER_RETIRED = 'publicPoll_afterRetired';
+    case POLL_PUBLIC_FILTER_SHOW_PAUSED = 'publicPoll_showPaused';
 
     /*
      * user settings
      */
-    case NAVIGATION_FAV_BIRTHDAY_LIST = "dashboardButtons_birthdayList";
+    case NAVIGATION_FAV_BIRTHDAY_LIST = 'dashboardButtons_birthdayList';
 
-    case MEMBER_FILTER_SHOW_BEFORE_ENTRANCE = "memberFilterShowBeforeEntrance";
-    case MEMBER_FILTER_SHOW_AFTER_RETIRED = "memberFilterShowAfterRetired";
-    case MEMBER_FILTER_SHOW_PAUSED = "memberFilterShowPaused";
-    case MEMBER_FILTER_GROUP_ID = "memberFilterGroupId";
+    case MEMBER_FILTER_SHOW_BEFORE_ENTRANCE = 'memberFilterShowBeforeEntrance';
+    case MEMBER_FILTER_SHOW_AFTER_RETIRED = 'memberFilterShowAfterRetired';
+    case MEMBER_FILTER_SHOW_PAUSED = 'memberFilterShowPaused';
+    case MEMBER_FILTER_GROUP_ID = 'memberFilterGroupId';
 }

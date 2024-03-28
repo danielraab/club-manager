@@ -41,23 +41,25 @@ class UploadedFile extends Model
 
     public function hasAccess(): bool
     {
-        if ($this->forcePublic) return true;
+        if ($this->forcePublic) {
+            return true;
+        }
 
         /** @var User $user */
         $user = auth()->user();
+
         return match ($this->storer()->first()->getMorphClass()) {
-            Backer::class, Contract::class, Period::class =>
-            !!$user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
+            Backer::class, Contract::class, Period::class => (bool) $user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
             default => false
         };
     }
 
     public function getUrl(): string
     {
-        if (str_starts_with($this->path, "public")) {
+        if (str_starts_with($this->path, 'public')) {
             return Storage::url($this->path);
         }
 
-        return route("file", $this->id);
+        return route('file', $this->id);
     }
 }

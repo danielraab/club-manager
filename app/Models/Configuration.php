@@ -50,7 +50,7 @@ class Configuration extends Model
         return $query->whereNull('user_id');
     }
 
-    public static function storeString(ConfigurationKey $key, string $value, User $user = null): ?string
+    public static function storeString(ConfigurationKey $key, ?string $value, User $user = null): ?string
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -77,7 +77,7 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeInt(ConfigurationKey $key, int $value, User $user = null): ?int
+    public static function storeInt(ConfigurationKey $key, ?int $value, User $user = null): ?int
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -104,7 +104,7 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeBool(ConfigurationKey $key, bool $value, User $user = null): ?bool
+    public static function storeBool(ConfigurationKey $key, ?bool $value, User $user = null): ?bool
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();

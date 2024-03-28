@@ -25,7 +25,7 @@
     @endif
 
     <h3 class="mt-3 text-gray-600">{{__('Select new file(s)')}}</h3>
-    <x-input-file-area id="periodFiles" name="periodFiles" type="file" class="mt-1 block w-full"
+    <x-livewire.input-file-area id="periodFiles" name="periodFiles" type="file" class="mt-1 block w-full"
                        wire:model="periodFiles"
                        subTitle="PNG, JPG, GIF up to 10MB" multiple
                        autofocus autocomplete="periodFiles">
@@ -41,7 +41,7 @@
             </div>
             <button type="button" class="btn btn-primary" wire:click="uploadFiles">Upload files</button>
         @endif
-    </x-input-file-area>
+    </x-livewire.input-file-area>
     @error('periodFiles.*')
     <x-input-error class="mt-2" :messages="$message"/>@enderror
 </div>

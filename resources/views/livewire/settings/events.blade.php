@@ -1,5 +1,5 @@
-<section>
-    <header>
+<x-section-card>
+    <header class="mb-3">
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Event-Settings') }}
         </h2>
@@ -11,7 +11,7 @@
 
     <x-livewire.loading/>
     <div
-        class="m-3 rounded-md bg-white p-4 text-[0.8125rem] leading-6 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
+        class="rounded-md bg-white p-4 text-[0.8125rem] leading-6 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
         <div class="font-semibold leading-5">{{__("List Filter")}}</div>
         <div class="mt-2 mb-4 leading-5 text-slate-500">{{__("Default settings for list filters.")}}</div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
@@ -46,4 +46,4 @@
             <x-input-switch/>
         </div>
     </div>
-</section>
+</x-section-card>
