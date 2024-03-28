@@ -9,13 +9,23 @@
     <div
         class="rounded-md bg-white p-4 text-[0.8125rem] leading-6 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
         <div class="flex items-center justify-between border-slate-400/20 py-3">
-            <span>{{__("Name")}}</span>
+            <div>
+                <span>{{__("Name")}}</span>
+                <div class="text-gray-700 flex items-center gap-2">{{__("Default")}}: {{config('app.name')}}
+                </div>
+            </div>
             <div class="flex flex-col justify-end gap-2 items-center">
                 <x-input type="text" wire:model.blur="appName"/>
             </div>
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
-            <span>{{__("Logo")}}</span>
+            <div>
+                <span>{{__("Logo")}}</span>
+                <div class="text-gray-700 flex items-center gap-2">{{__("Default")}}:
+                <img src="{{ \Illuminate\Support\Facades\Vite::asset("resources/images/logo.svg")}}"
+                     alt="Logo" class="h-10"/>
+                </div>
+            </div>
 
             @php
                 /** @var $uploadedFile \App\Models\UploadedFile|null */
