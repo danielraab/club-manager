@@ -32,7 +32,7 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-42f36ee7.css",
+    "file": "assets/app-ddd07af8.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -53,8 +53,16 @@
     "file": "assets/nunito-latin-700-normal-923eb1ee.woff2",
     "src": "resources/fonts/nunito-latin-700-normal.woff2"
   },
+  "resources/images/favicon.ico": {
+    "file": "assets/favicon-3778fc09.ico",
+    "src": "resources/images/favicon.ico"
+  },
+  "resources/images/logo-text.svg": {
+    "file": "assets/logo-text-d82b442d.svg",
+    "src": "resources/images/logo-text.svg"
+  },
   "resources/images/logo.svg": {
-    "file": "assets/logo-3ee182fd.svg",
+    "file": "assets/logo-7b379b90.svg",
     "src": "resources/images/logo.svg"
   },
   "resources/js/app.js": {

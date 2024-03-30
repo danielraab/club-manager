@@ -8,7 +8,9 @@ require 'recipe/laravel.php';
 
 set('repository', 'git@gitlab.com:mvkematen/club-scheduler.git');
 
-add('shared_files', []);
+add('shared_files', [
+    'public/favicon.ico'
+]);
 add('shared_dirs', []);
 add('writable_dirs', []);
 
