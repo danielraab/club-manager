@@ -54,7 +54,7 @@ class Appearance extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->logoFile->store('appearance');
+        $path = $this->logoFile->store('public/appearance');
         $uploadedFile = new UploadedFile();
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->logoFile->getClientOriginalName();
