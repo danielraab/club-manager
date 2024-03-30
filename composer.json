@@ -1,8 +1,8 @@
 {
-    "name": "draab/club-manager",
+    "name": "draab/club-administrator",
     "type": "project",
-    "description": "Club Manager",
-    "keywords": ["framework", "laravel", "club", "manager"],
+    "description": "Club Administrator",
+    "keywords": ["framework", "laravel", "club", "manager", "admin", "administrator", "scheduler"],
     "license": "MIT",
     "require": {
         "php": "^8.1",

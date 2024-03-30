@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - attendance display group list switcher is frontend managed again, removed member filter
 - add today switch for event filter, update accordion component
-- change default logo from a club specific to font awesome based logo
+- change default logo from a club specific to an own application logo
 ### Fixed
 - attendance display and record render works now after group/list switch
 

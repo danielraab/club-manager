@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Club manager'),
+    'name' => env('APP_NAME', 'Club Administrator'),
 
     /*
     |--------------------------------------------------------------------------

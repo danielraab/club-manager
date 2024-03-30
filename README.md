@@ -1,4 +1,4 @@
-# club manager
+# club administrator
 
 ## install repo
 
