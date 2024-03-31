@@ -14,8 +14,7 @@
         "livewire/livewire": "^3.0",
         "mk-j/php_xlsxwriter": "^0.39.0",
         "spatie/icalendar-generator": "^2.5",
-        "spatie/laravel-welcome-notification": "^2.3",
-        "symfony/filesystem": "^7.0"
+        "spatie/laravel-welcome-notification": "^2.3"
     },
     "require-dev": {
         "deployer/deployer": "^7.3",

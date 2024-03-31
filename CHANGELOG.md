@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+## Changed
+- removed relative symlinks and unused composer module
 
 ## v0.7.4 - 2024-03-31
 ### Added
