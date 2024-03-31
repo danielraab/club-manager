@@ -42,7 +42,7 @@ class Appearance extends Component
     public function deleteFile(): void
     {
         Configuration::storeInt(
-            ConfigurationKey::APPEARANCE_APP_LOGO_ID, -1);
+            ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
         UploadedFile::query()->delete($this->logoFileId);
         $this->logoFileId = null;
 
