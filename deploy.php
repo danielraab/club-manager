@@ -13,6 +13,7 @@ add('shared_files', [
 ]);
 add('shared_dirs', []);
 add('writable_dirs', []);
+set('writable_recursive', true);
 
 // Hosts
 
