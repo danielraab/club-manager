@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.4 - 2024-03-31
 ### Added
 - appearance setting part (set application name, and logo)
 ### Changed
@@ -11,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - change default logo from a club specific to an own application logo
 ### Fixed
 - attendance display and record render works now after group/list switch
+- fix deployment problem with permissions on uploaded files
 
 ## v0.7.3 - 2024-03-26
 ### Changed
