@@ -2,7 +2,9 @@
 
 namespace App\Models\Sponsoring;
 
+use App\Models\HasFileRelationInterface;
 use App\Models\UploadedFile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
-class Backer extends Model
+class Backer extends Model implements HasFileRelationInterface
 {
     use HasFactory;
     use SoftDeletes;
@@ -68,5 +70,10 @@ class Backer extends Model
     public function uploadedFiles(): MorphMany
     {
         return $this->morphMany(UploadedFile::class, 'storer');
+    }
+
+    public function hasFileAccess(?User $user): bool
+    {
+        return (bool) $user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION);
     }
 }

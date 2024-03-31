@@ -54,19 +54,23 @@ class Appearance extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->logoFile->store('public/appearance');
+        $path = $this->logoFile->store('public/appearance'); // is always public
+
+        $config = Configuration::findByKey(ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
+
         $uploadedFile = new UploadedFile();
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->logoFile->getClientOriginalName();
         $uploadedFile->mimeType = $this->logoFile->getMimeType();
         $uploadedFile->forcePublic = true;
 
+        $uploadedFile->storer()->associate($config);
         $uploadedFile->uploader()->associate($user);
         $uploadedFile->save();
 
         $this->logoFileId = $uploadedFile->id;
-        Configuration::storeInt(
-            ConfigurationKey::APPEARANCE_APP_LOGO_ID, $uploadedFile->id);
+        $config->value = $uploadedFile->id;
+        $config->save();
 
         Log::info('Logo file uploaded', [$user, $uploadedFile]);
         NotificationMessage::addNotificationMessage(

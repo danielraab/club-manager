@@ -2,8 +2,10 @@
 
 namespace App\Models\Sponsoring;
 
+use App\Models\HasFileRelationInterface;
 use App\Models\Member;
 use App\Models\UploadedFile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
-class Contract extends Model
+class Contract extends Model implements HasFileRelationInterface
 {
     use HasFactory;
     use SoftDeletes;
@@ -68,5 +70,10 @@ class Contract extends Model
     public function uploadedFile(): MorphOne
     {
         return $this->morphOne(UploadedFile::class, 'storer');
+    }
+
+    public function hasFileAccess(?User $user): bool
+    {
+        return (bool) $user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION);
     }
 }

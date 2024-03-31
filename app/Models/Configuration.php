@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string datatype [string, int, bool]
  * @property string value
  */
-class Configuration extends Model
+class Configuration extends Model implements HasFileRelationInterface
 {
     use HasFactory;
 
@@ -50,11 +50,16 @@ class Configuration extends Model
         return $query->whereNull('user_id');
     }
 
-    public static function storeString(ConfigurationKey $key, ?string $value, User $user = null): ?string
+    public static function findByKey(ConfigurationKey $key, ?User $user): Configuration {
+        /** @var Configuration $config */
+        $config = self::getSingleKeyQuery($key, $user)->firstOrCreate();
+        return $config;
+    }
+
+    public static function storeString(ConfigurationKey $key, ?string $value, User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
-        $oldValue = $config->value;
         $config->key = $key;
         $config->value = $value;
         $config->datatype = self::DATATYPE_STRING;
@@ -62,7 +67,7 @@ class Configuration extends Model
 
         $config->save();
 
-        return $oldValue;
+        return $config;
     }
 
     public static function getString(ConfigurationKey $key, User $user = null, string $default = null): ?string
@@ -77,11 +82,10 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeInt(ConfigurationKey $key, ?int $value, User $user = null): ?int
+    public static function storeInt(ConfigurationKey $key, ?int $value, User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
-        $oldValue = $config->value;
         $config->key = $key;
         $config->value = (string) $value;
         $config->datatype = self::DATATYPE_INT;
@@ -89,7 +93,7 @@ class Configuration extends Model
 
         $config->save();
 
-        return $oldValue ? (int) $oldValue : null;
+        return $config;
     }
 
     public static function getInt(ConfigurationKey $key, User $user = null, int $default = null): ?int
@@ -104,20 +108,18 @@ class Configuration extends Model
         return $default;
     }
 
-    public static function storeBool(ConfigurationKey $key, ?bool $value, User $user = null): ?bool
+    public static function storeBool(ConfigurationKey $key, ?bool $value, User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
-        $oldValue = $config->value;
         $config->key = $key;
         $config->value = (string) $value;
         $config->datatype = self::DATATYPE_BOOL;
 
         $config->user()->associate($user);
-
         $config->save();
 
-        return $oldValue ? (bool) $oldValue : null;
+        return $config;
     }
 
     public static function getBool(ConfigurationKey $key, User $user = null, bool $default = null): ?bool
@@ -135,5 +137,13 @@ class Configuration extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function hasFileAccess(?User $user): bool
+    {
+        return match($this->key) {
+            ConfigurationKey::APPEARANCE_APP_LOGO_ID => true,
+            default => false
+        };
     }
 }

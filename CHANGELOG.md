@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ## Changed
 - removed relative symlinks and unused composer module
+- file access management will now managed via interface in the storer models
 
 ## v0.7.4 - 2024-03-31
 ### Added

@@ -37,7 +37,7 @@ class PeriodFiles extends Component
         $user = auth()->user();
         $uploadedFiles = [];
         foreach ($this->periodFiles as $periodFile) {
-            $path = $periodFile->store("public/period");
+            $path = $periodFile->store("public/period"); // is always public
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
             $uploadedFile->name = $periodFile->getClientOriginalName();

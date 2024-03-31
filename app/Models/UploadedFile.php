@@ -6,6 +6,7 @@ use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,13 +46,12 @@ class UploadedFile extends Model
             return true;
         }
 
-        /** @var User $user */
-        $user = auth()->user();
+        /** @var $storer HasFileRelationInterface  */
+        if(($storer = $this->storer()->first()) instanceof HasFileRelationInterface) {
+            return $storer->hasFileAccess(auth()->user());
+        }
 
-        return match ($this->storer()->first()->getMorphClass()) {
-            Backer::class, Contract::class, Period::class => (bool) $user?->hasPermission(Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION),
-            default => false
-        };
+        return false;
     }
 
     public function getUrl(): string
