@@ -130,7 +130,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('sponsor_package_sponsor_ad_option');
         Schema::dropIfExists('sponsor_period_sponsor_package');
-        Schema::dropIfExists('backers');
+        Schema::dropIfExists('sponsor_backers');
         Schema::dropIfExists('sponsor_ad_options');
         Schema::dropIfExists('sponsor_packages');
         Schema::dropIfExists('sponsor_periods');

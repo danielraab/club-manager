@@ -19,9 +19,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string contact_person
  * @property string phone
  * @property string email
+ * @property string website
  * @property string street
  * @property string zip
  * @property string city
+ * @property string country
  * @property string info
  * @property \DateTime closed_at
  *
@@ -40,9 +42,11 @@ class Backer extends Model implements HasFileRelationInterface
         'contact_person',
         'phone',
         'email',
+        'website',
         'street',
         'zip',
         'city',
+        'country',
         'info',
         'closed_at',
     ];

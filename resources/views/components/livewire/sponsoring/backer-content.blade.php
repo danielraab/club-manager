@@ -48,6 +48,15 @@
         </div>
 
         <div class="mt-3">
+            <x-input-label for="website" :value="__('Website')"/>
+            <x-input id="website" name="website" type="url" class="mt-1 block w-full"
+                          wire:model="backerForm.website"
+                          required autofocus autocomplete="website"/>
+            @error('backerForm.website')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
+        <div class="mt-3">
             <x-input-label for="street" :value="__('Street')"/>
             <x-input id="street" name="street" type="text" class="mt-1 block w-full"
                           wire:model="backerForm.street"
@@ -72,6 +81,18 @@
                 @error('backerForm.city')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
+        </div>
+        <div class="mt-3">
+            <x-input-label for="country" :value="__('Country')"/>
+            <x-select id="country" name="country" class="mt-1 block w-full"
+                      wire:model="backerForm.country"
+                      required autofocus autocomplete="country">
+                @foreach(\App\Models\Country::array() as $code => $name)
+                    <option value="{{$code}}">{{__($name)}}</option>
+                @endforeach
+            </x-select>
+            @error('backerForm.country')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
     </div>

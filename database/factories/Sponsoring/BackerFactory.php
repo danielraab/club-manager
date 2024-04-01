@@ -22,9 +22,11 @@ class BackerFactory extends Factory
             'contact_person' => fake()->name(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->email(),
+            'website' => fake()->url(),
             'street' => fake()->streetAddress(),
             'zip' => fake()->numberBetween(1000, 99999),
             'city' => fake()->city(),
+            'country' => fake()->countryCode(),
             'info' => fake()->text(),
             'closed_at' => fake()->boolean(3) ? fake()->dateTime() : null
         ];
