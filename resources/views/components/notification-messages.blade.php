@@ -31,14 +31,23 @@
                 setTimeout(()=>$store.notificationMessages.removeNotificationMessage(message.timestamp), 1000);
             },
             startShrinkProgress() {
-                this.shrinkInterval = setInterval(()=>{
-                    this.progress = this.progress - ((100*100) / (message.displayedSeconds*1000));
-                    if(this.progress <= 0) {
-                        this.progress = 0
-                        this.hideAndRemove();
+                if(message.displayedSeconds > 0) {
+                    if(message.progress && message.progress > 0 && message.progress < 100) {
+                        this.progress = message.progress;
                     }
-                },100);
-            },
+                    this.shrinkInterval = setInterval(()=>{
+                        this.progress = this.progress - ((100*100) / (message.displayedSeconds*1000));
+                        if(this.progress <= 0) {
+                            this.progress = 0
+                            this.hideAndRemove();
+                            return;
+                        }
+                        if(!message.progress || (message.progress - this.progress) > 20) { // update progress in storage
+                            message.progress = this.progress;
+                        }
+                    },100);
+                }
+            }
         }"
              x-init="startShrinkProgress()"
              x-show="show" x-collapse>

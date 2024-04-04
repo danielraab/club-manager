@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ## Changed
 - removed relative symlinks and unused composer module
 - file access management will now managed via interface in the storer models
+- notification message progress will now be stored in the storage
+## Fixed
+- modal overlay over navigation
 
 ## v0.7.4 - 2024-03-31
 ### Added
