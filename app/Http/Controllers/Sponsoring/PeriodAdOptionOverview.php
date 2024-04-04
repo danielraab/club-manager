@@ -59,6 +59,7 @@ class PeriodAdOptionOverview extends Controller
                         $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];
                     }
                     $this->adOptionList[$adOption->id]['backerList'][] = [
+                        'contract' => $contract,
                         'backer' => $backer,
                         'package' => $package,
                     ];

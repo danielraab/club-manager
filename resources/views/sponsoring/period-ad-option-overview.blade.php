@@ -18,6 +18,7 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-col gap-3">
+        <livewire:sponsoring.ad-placement />
         @forelse($adOptionList as $adOptionListItem)
             @php
                 $adOption = $adOptionListItem["adOption"];
@@ -32,6 +33,7 @@
                         <ul class="list-disc ml-5">
                             @foreach($backerList as $backerItem)
                                 @php
+                                    $contract = $backerItem["contract"];
                                     $backer = $backerItem["backer"];
                                     $package = $backerItem["package"];
                                     $adDataFiles = $backer->uploadedFiles()->get()
@@ -40,9 +42,12 @@
                                     <div x-data="{showFiles:false}">
                                         <div class="cursor-pointer"
                                              x-on:click="showFiles=!showFiles">{{$backer->name}} ({{$package->title}})
+
                                             <i class="fa-solid"
                                                :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
-                                        </div>
+                                        </div><button type="button" class="btn btn-primary"
+                                                      @click="$dispatch('update-modal-and-show', { contractId: {{ $contract->id }}, adOptionId: {{$adOption->id}} })"
+                                        >test</button>
                                         <div x-show="showFiles" x-cloak x-collapse>
                                             @if($adDataFiles->isNotEmpty())
                                                 <ul class="list-disc ml-5 break-all">
