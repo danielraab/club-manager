@@ -18,7 +18,9 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-col gap-3">
-        <livewire:sponsoring.ad-placement/>
+        @if($hasPlacementEditPermission)
+            <livewire:sponsoring.ad-placement/>
+        @endif
         @forelse($adOptionList as $adOptionListItem)
             @php
                 $adOption = $adOptionListItem["adOption"];
@@ -30,7 +32,7 @@
                 </div>
                 <div class="p-3">
                     @if(!empty($backerList))
-                        <ul class="list-disc ml-5">
+                        <ul class="ml-5">
                             @foreach($backerList as $backerItem)
                                 @php
                                     $contract = $backerItem["contract"];
@@ -40,22 +42,28 @@
                                 @endphp
                                 <li>
                                     <div x-data="{showFiles:false}">
-                                        <div class="cursor-pointer"
-                                             x-on:click="showFiles=!showFiles">
-                                            <span class="@if($backerItem["adPlacementDone"]) text-green-800 @endif">
-                                            {{$backer->name}} ({{$package->title}})
-                                            </span>
-                                            <i class="fa-solid"
-                                               :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
-                                        </div>
-                                        <button type="button" class="btn btn-primary"
-                                                @click="$dispatch('update-modal-and-show',
+                                        <div class="flex items-center gap-2">
+                                            <div class="cursor-pointer"
+                                                 x-on:click="showFiles=!showFiles">
+                                                <i class="fa-solid"
+                                                   :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
+                                                <span
+                                                    class="@if($backerItem["adPlacementDone"]) text-green-900 font-bold @endif">
+                                                    {{$backer->name}} ({{$package->title}})
+                                                </span>
+                                            </div>
+                                            @if($hasPlacementEditPermission)
+                                                <button type="button" class="btn btn-primary"
+                                                        title="{{__('Edit ad placement info')}}"
+                                                        @click="$dispatch('update-modal-and-show',
                                                        {
                                                          contract: {{ $contract->id }},
                                                          adOption: {{ $adOption->id }}
-                                                       })"
-                                        >test
-                                        </button>
+                                                       })">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>
+                                            @endif
+                                        </div>
                                         <div x-show="showFiles" x-cloak x-collapse>
                                             @if($adDataFiles->isNotEmpty())
                                                 <ul class="list-disc ml-5 break-all">

@@ -24,9 +24,15 @@ class PeriodAdOptionOverview extends Controller
         $this->listAdOptionsFromPeriod();
         $this->fillAdOptionListWithBackers();
 
+        $hasPlacementEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(
+            \App\Models\Sponsoring\AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS,
+            \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION
+        );
+
         return view('sponsoring.period-ad-option-overview', [
             'period' => $period,
             'adOptionList' => $this->adOptionList,
+            'hasPlacementEditPermission' => $hasPlacementEditPermission
         ]);
     }
 

@@ -9,6 +9,7 @@ use App\Models\Sponsoring\AdPlacement as AdPlacementModel;
 use App\Models\Sponsoring\Contract;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -20,6 +21,19 @@ class AdPlacement extends Component
     public ?AdOption $adOption;
 
     public AdPlacementForm $adPlacementForm;
+
+    /**
+     * @throws AuthenticationException
+     */
+    public function boot():void {
+        $hasPlacementEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(
+            \App\Models\Sponsoring\AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS,
+            \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION
+        );
+        if(!$hasPlacementEditPermission) {
+            throw new AuthenticationException("You are not authorized");
+        }
+    }
 
     #[On('update-modal-and-show')]
     public function updateModal(Contract $contract, AdOption $adOption): void
