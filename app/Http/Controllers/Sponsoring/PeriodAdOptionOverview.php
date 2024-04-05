@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sponsoring;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sponsoring\AdOption;
+use App\Models\Sponsoring\AdPlacement;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Package;
@@ -19,6 +20,7 @@ class PeriodAdOptionOverview extends Controller
     {
         $this->period = $period;
 
+        //TODO make seperate lookup arrays instead of monster array with all (and dupl) data
         $this->listAdOptionsFromPeriod();
         $this->fillAdOptionListWithBackers();
 
@@ -58,11 +60,16 @@ class PeriodAdOptionOverview extends Controller
                     if (! isset($this->adOptionList[$adOption->id])) {
                         $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];
                     }
-                    $this->adOptionList[$adOption->id]['backerList'][] = [
-                        'contract' => $contract,
-                        'backer' => $backer,
-                        'package' => $package,
-                    ];
+                    if (! isset($this->adOptionList[$adOption->id]['backerList'][$backer->id])) {
+                        /** @var AdPlacement $adPlacement */
+                        $adPlacement = AdPlacement::find($contract->id, $adOption->id);
+                        $this->adOptionList[$adOption->id]['backerList'][$backer->id] = [
+                            'contract' => $contract,
+                            'backer' => $backer,
+                            'package' => $package,
+                            'adPlacementDone' => $adPlacement?->done ?: false,
+                        ];
+                    }
                 }
             }
         }

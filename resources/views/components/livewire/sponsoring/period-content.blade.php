@@ -21,7 +21,7 @@
 
         <div class="mt-3">
             <x-input-label for="description" :value="__('Description')"/>
-            <x-textarea id="description" name="description" type="text" class="mt-1 block w-full"
+            <x-textarea id="description" name="description" class="mt-1 block w-full"
                         wire:model="periodForm.description"
                         autofocus autocomplete="description"/>
             @error('periodForm.description')

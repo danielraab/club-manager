@@ -20,9 +20,9 @@ return new class extends Migration {
 
             $table->foreignIdFor(Contract::class, 'contract_id');
             $table->foreign('contract_id')->references('id')->on('sponsor_contracts')->cascadeOnDelete();
-            $table->foreignIdFor(AdOption::class, 'option_id');
-            $table->foreign('option_id')->references('id')->on('sponsor_ad_options')->cascadeOnDelete();
-            $table->unique(['contract_id', 'option_id']);
+            $table->foreignIdFor(AdOption::class, 'ad_option_id');
+            $table->foreign('ad_option_id')->references('id')->on('sponsor_ad_options')->cascadeOnDelete();
+            $table->unique(['contract_id', 'ad_option_id']);
 
             $table->boolean('done')->default(false);
             $table->text('comment')->nullable();

@@ -18,7 +18,7 @@
     </x-slot>
 
     <div class="bg-white shadow-sm sm:rounded-lg p-4 flex flex-col gap-3">
-        <livewire:sponsoring.ad-placement />
+        <livewire:sponsoring.ad-placement/>
         @forelse($adOptionList as $adOptionListItem)
             @php
                 $adOption = $adOptionListItem["adOption"];
@@ -41,19 +41,27 @@
                                 <li>
                                     <div x-data="{showFiles:false}">
                                         <div class="cursor-pointer"
-                                             x-on:click="showFiles=!showFiles">{{$backer->name}} ({{$package->title}})
-
+                                             x-on:click="showFiles=!showFiles">
+                                            <span class="@if($backerItem["adPlacementDone"]) text-green-800 @endif">
+                                            {{$backer->name}} ({{$package->title}})
+                                            </span>
                                             <i class="fa-solid"
                                                :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
-                                        </div><button type="button" class="btn btn-primary"
-                                                      @click="$dispatch('update-modal-and-show', { contractId: {{ $contract->id }}, adOptionId: {{$adOption->id}} })"
-                                        >test</button>
+                                        </div>
+                                        <button type="button" class="btn btn-primary"
+                                                @click="$dispatch('update-modal-and-show',
+                                                       {
+                                                         contract: {{ $contract->id }},
+                                                         adOption: {{ $adOption->id }}
+                                                       })"
+                                        >test
+                                        </button>
                                         <div x-show="showFiles" x-cloak x-collapse>
                                             @if($adDataFiles->isNotEmpty())
                                                 <ul class="list-disc ml-5 break-all">
                                                     @foreach($adDataFiles as $file)
                                                         <li><a href="{{$file->getUrl()}}" target="_blank"
-                                                           class="underline mr-2">{{$file->name}}</a></li>
+                                                               class="underline mr-2">{{$file->name}}</a></li>
                                                     @endforeach
                                                 </ul>
                                             @else
