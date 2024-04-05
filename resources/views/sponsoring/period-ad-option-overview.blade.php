@@ -35,9 +35,7 @@
                         <ul class="ml-5">
                             @foreach($backerList as $backerItem)
                                 @php
-                                    $contract = $backerItem["contract"];
                                     $backer = $backerItem["backer"];
-                                    $package = $backerItem["package"];
                                     $adDataFiles = $backer->uploadedFiles()->get()
                                 @endphp
                                 <li>
@@ -49,7 +47,7 @@
                                                    :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
                                                 <span
                                                     class="@if($backerItem["adPlacementDone"]) text-green-900 font-bold @endif">
-                                                    {{$backer->name}} ({{$package->title}})
+                                                    {{$backer->name}} ({{$backerItem["packageTitle"]}})
                                                 </span>
                                             </div>
                                             @if($hasPlacementEditPermission)
@@ -57,7 +55,7 @@
                                                         title="{{__('Edit ad placement info')}}"
                                                         @click="$dispatch('update-modal-and-show',
                                                        {
-                                                         contract: {{ $contract->id }},
+                                                         contract: {{ $backerItem["contractId"] }},
                                                          adOption: {{ $adOption->id }}
                                                        })">
                                                     <i class="fa-regular fa-pen-to-square"></i>

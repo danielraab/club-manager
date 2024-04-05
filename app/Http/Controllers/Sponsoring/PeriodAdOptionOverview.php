@@ -20,7 +20,6 @@ class PeriodAdOptionOverview extends Controller
     {
         $this->period = $period;
 
-        //TODO make seperate lookup arrays instead of monster array with all (and dupl) data
         $this->listAdOptionsFromPeriod();
         $this->fillAdOptionListWithBackers();
 
@@ -50,7 +49,6 @@ class PeriodAdOptionOverview extends Controller
 
     private function fillAdOptionListWithBackers(): void
     {
-
         $contracts = $this->period->contracts()->with(['backer', 'package'])->get();
         foreach ($contracts as $contract) {
             /**
@@ -62,21 +60,25 @@ class PeriodAdOptionOverview extends Controller
             $backer = $contract->backer()->first();
             $package = $contract->package()->first();
             if ($backer && $package) {
-                foreach ($package->adOptions()->get() as $adOption) {
-                    if (! isset($this->adOptionList[$adOption->id])) {
-                        $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];
-                    }
-                    if (! isset($this->adOptionList[$adOption->id]['backerList'][$backer->id])) {
-                        /** @var AdPlacement $adPlacement */
-                        $adPlacement = AdPlacement::find($contract->id, $adOption->id);
-                        $this->adOptionList[$adOption->id]['backerList'][$backer->id] = [
-                            'contract' => $contract,
-                            'backer' => $backer,
-                            'package' => $package,
-                            'adPlacementDone' => $adPlacement?->done ?: false,
-                        ];
-                    }
-                }
+                $this->addAdOptionFromPackage($package, $contract, $backer);
+            }
+        }
+    }
+
+    private function addAdOptionFromPackage(Package $package, Contract $contract, Backer $backer): void {
+        foreach ($package->adOptions()->get() as $adOption) {
+            if (! isset($this->adOptionList[$adOption->id])) {
+                $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];
+            }
+            if (! isset($this->adOptionList[$adOption->id]['backerList'][$backer->id])) {
+                /** @var AdPlacement $adPlacement */
+                $adPlacement = AdPlacement::find($contract->id, $adOption->id);
+                $this->adOptionList[$adOption->id]['backerList'][$backer->id] = [
+                    'contractId' => $contract->id,
+                    'backer' => $backer,
+                    'packageTitle' => $package->title,
+                    'adPlacementDone' => $adPlacement?->done ?: false,
+                ];
             }
         }
     }
