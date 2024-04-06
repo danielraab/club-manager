@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.5 - 2024-04-06
 ### Added
 - ad placement modal on period/adOption overview
 - sort functionality via form of event type and member type
