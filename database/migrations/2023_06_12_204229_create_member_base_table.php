@@ -43,6 +43,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->date('entrance_date');
             $table->date('leaving_date')->nullable();
+            $table->string('external_id')->unique()->nullable();
+            $table->dateTime('last_import_date')->nullable();
 
             $table->foreignIdFor(User::class, 'creator_id')->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
@@ -73,6 +75,11 @@ return new class extends Migration
             'label' => 'Create, edit and delete members and member groups',
             'is_default' => false,
         ]);
+        UserPermission::create([
+            'id' => ImportedMember::MEMBER_IMPORT_PERMISSION,
+            'label' => 'Import members via list',
+            'is_default' => false,
+        ]);
     }
 
     /**
@@ -85,5 +92,6 @@ return new class extends Migration
         Schema::dropIfExists('member_member_group');
         UserPermission::find(Member::MEMBER_SHOW_PERMISSION)?->delete();
         UserPermission::find(Member::MEMBER_EDIT_PERMISSION)?->delete();
+        UserPermission::find(ImportedMember::MEMBER_IMPORT_PERMISSION)?->delete();
     }
 };

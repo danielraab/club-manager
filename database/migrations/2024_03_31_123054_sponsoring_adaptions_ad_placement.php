@@ -2,9 +2,7 @@
 
 use App\Models\Sponsoring\AdOption;
 use App\Models\Sponsoring\AdPlacement;
-use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
-use App\Models\Sponsoring\Period;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -48,5 +46,6 @@ return new class extends Migration {
     {
         Schema::dropIfExists('sponsor_ad_placements');
         \App\Models\UserPermission::find(AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS)?->delete();
+        Schema::dropColumns('sponsor_backers', ['website', 'country']);
     }
 };
