@@ -23,13 +23,14 @@ class Appearance extends Component
     public ?TemporaryUploadedFile $logoFile = null;
 
     public ?string $appName;
-
     public ?int $logoFileId;
+    public ?string $guestLayoutText;
 
     public function mount(): void
     {
         $this->appName = Configuration::getString(ConfigurationKey::APPEARANCE_APP_NAME);
         $this->logoFileId = (int) Configuration::getInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID);
+        $this->guestLayoutText = Configuration::getString(ConfigurationKey::GUEST_LAYOUT_TEXT);
     }
 
     #[Renderless]
@@ -37,6 +38,13 @@ class Appearance extends Component
     {
         Configuration::storeString(
             ConfigurationKey::APPEARANCE_APP_NAME, $value);
+    }
+
+    #[Renderless]
+    public function updatedGuestLayoutText(string $value): void
+    {
+        Configuration::storeString(
+            ConfigurationKey::GUEST_LAYOUT_TEXT, $value);
     }
 
     public function deleteFile(): void

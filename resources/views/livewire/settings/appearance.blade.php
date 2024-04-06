@@ -22,8 +22,8 @@
             <div>
                 <span>{{__("Logo")}}</span>
                 <div class="text-gray-700 flex items-center gap-2">{{__("Default")}}:
-                <img src="{{ \Illuminate\Support\Facades\Vite::asset("resources/images/logo.svg")}}"
-                     alt="Logo" class="h-10"/>
+                    <img src="{{ \Illuminate\Support\Facades\Vite::asset("resources/images/logo.svg")}}"
+                         alt="Logo" class="h-10"/>
                 </div>
             </div>
 
@@ -63,6 +63,12 @@
                     @endif
                 </x-livewire.input-file-area>
             @endif
+
+        </div>
+        <div class="my-3">
+            <x-input-label for="guestLayoutText" :value="__('Guest Layout Text')"/>
+            <x-textarea id="guestLayoutText" name="guestLayoutText" class="mt-1 block w-full min-h-[100px]"
+                        wire:model.blur="guestLayoutText" required autocomplete="guestLayoutText"/>
         </div>
     </div>
 </x-section-card>
