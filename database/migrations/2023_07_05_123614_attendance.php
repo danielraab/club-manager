@@ -4,6 +4,7 @@ use App\Models\Attendance;
 use App\Models\AttendancePoll;
 use App\Models\Event;
 use App\Models\Member;
+use App\Models\MemberGroup;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,6 +30,8 @@ return new class extends Migration
             $table->foreign('creator_id')->references('id')->on('users')->nullOnDelete();
             $table->foreignIdFor(User::class, 'last_updater_id')->nullable();
             $table->foreign('last_updater_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreignIdFor(MemberGroup::class, 'member_group_id')->nullable();
+            $table->foreign('member_group_id')->references('id')->on('member_groups')->nullOnDelete();
 
             $table->timestamps();
         });

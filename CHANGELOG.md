@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - removed relative symlinks and unused composer module
 - file access management will now managed via interface in the storer models
 - notification message progress will now be stored in the storage
+- move member import adaptions into member migration
+- move attendance poll migration to base migration
 ### Fixed
 - modal overlay over navigation
 
