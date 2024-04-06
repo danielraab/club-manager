@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - ad placement modal on period/adOption overview
 - sort functionality via form of event type and member type
+- add info field to member
 ### Changed
 - removed relative symlinks and unused composer module
 - file access management will now managed via interface in the storer models

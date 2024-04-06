@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Import\ImportedMember;
 use App\Models\Member;
 use App\Models\MemberGroup;
 use App\Models\User;

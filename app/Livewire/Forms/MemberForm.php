@@ -33,6 +33,8 @@ class MemberForm extends Form
 
     public ?string $city;
 
+    public ?string $info;
+
     public ?string $birthday = null;
 
     public string $entrance_date;
@@ -54,6 +56,7 @@ class MemberForm extends Form
             'street' => ['nullable', 'string', 'max:255'],
             'zip' => ['nullable', 'integer'],
             'city' => ['nullable', 'string', 'max:255'],
+            'info' => ['nullable', 'string'],
 
             'entrance_date' => ['required', 'date'],
             'leaving_date' => ['nullable', 'date', 'after_or_equal:memberForm.entrance_date'],
@@ -80,6 +83,7 @@ class MemberForm extends Form
         $this->street = $member->street;
         $this->zip = $member->zip;
         $this->city = $member->city;
+        $this->info = $member->info;
 
         $this->birthday = $member->birthday?->format('Y-m-d');
         $this->entrance_date = $member->entrance_date->format('Y-m-d');

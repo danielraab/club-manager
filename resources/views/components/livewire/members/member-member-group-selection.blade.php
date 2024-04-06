@@ -45,7 +45,7 @@
 
         <div class="mt-5 mb-6">
             <x-input-label for="memberGroupList" :value="__('Member groups')"/>
-            <x-select name="memberGroupList" id="memberGroupList" size="10" multiple
+            <x-select name="memberGroupList" id="memberGroupList" size="6" multiple
                     wire:model="memberForm.memberGroupList"
                     class="block mt-1 w-full"
             >
@@ -57,6 +57,13 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
+        <div class="my-3">
+            <x-input-label for="info" :value="__('Information')"/>
+            <x-textarea id="info" name="info" class="mt-1 block w-full min-h-[100px]"
+                        wire:model="memberForm.info" required autocomplete="info"/>
+            @error('memberForm.info')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
 
         @if($memberForm->member?->external_id || $memberForm->member?->last_import_date)
             <div class="text-gray-500 mt-2 ml-3">

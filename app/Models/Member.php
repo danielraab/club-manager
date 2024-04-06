@@ -25,6 +25,7 @@ use Illuminate\Support\Arr;
  * @property string|null street
  * @property string|null zip
  * @property string|null city
+ * @property string|null info
  * @property \DateTime entrance_date
  * @property \DateTime|null leaving_date
  * @property string|null external_id
@@ -54,6 +55,7 @@ class Member extends Model
         'street',
         'zip',
         'city',
+        'info',
         'entrance_date',
         'leaving_date',
         'external_id',
