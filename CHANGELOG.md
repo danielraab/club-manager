@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - move attendance poll migration to base migration
 ### Fixed
 - modal overlay over navigation
+- event navigation dropdown works now for eventEdit permission
 
 ## v0.7.4 - 2024-03-31
 ### Added
