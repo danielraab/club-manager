@@ -30,8 +30,9 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
 
+        <div class="flex gap-2 mt-3">
         {{--        event type--}}
-        <div>
+            <div class="basis-3/4">
             <x-input-label for="eventType" :value="__('Parent event type')"/>
             <x-select id="parent" name="parent"
                     wire:model="eventTypeForm.parent"
@@ -43,6 +44,16 @@
             </x-select>
             @error('eventTypeForm.parent')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
+            </div>
+
+            <div class="basis-1/4">
+                <x-input-label for="sort_order" :value="__('Sort order')"/>
+                <x-input id="sort_order" name="sort_order" type="number" class="mt-1 block w-full"
+                         wire:model="eventTypeForm.sort_order"
+                         required autofocus autocomplete="sort_order"/>
+                @error('eventTypeForm.sort_order')
+                <x-input-error class="mt-2" :messages="$message"/>@enderror
+            </div>
         </div>
 
     </section>

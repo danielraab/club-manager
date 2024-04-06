@@ -3,11 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-## Changed
+### Added
+- ad placement modal on period/adOption overview
+- sort functionality via form of event type and member type
+### Changed
 - removed relative symlinks and unused composer module
 - file access management will now managed via interface in the storer models
 - notification message progress will now be stored in the storage
-## Fixed
+### Fixed
 - modal overlay over navigation
 
 ## v0.7.4 - 2024-03-31

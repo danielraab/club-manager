@@ -17,6 +17,8 @@ class MemberGroupForm extends Form
 
     public ?string $parent = null;
 
+    public int $sort_order = 1;
+
     public array $memberSelection = [];
 
     protected function rules(): array
@@ -25,6 +27,7 @@ class MemberGroupForm extends Form
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'parent' => ['nullable', 'int', 'exists:member_groups,id'],
+            'sort_order' => ['required', 'int'],
             'memberSelection' => ['array', 'nullable',
                 function (string $attribute, mixed $value, \Closure $fail) {
                     self::memberSelectionCheck($attribute, $value, $fail);
@@ -48,6 +51,7 @@ class MemberGroupForm extends Form
         $this->title = $this->memberGroup->title;
         $this->description = $this->memberGroup->description;
         $this->parent = $this->memberGroup->parent()->first()?->id;
+        $this->sort_order = $this->memberGroup->sort_order;
         $this->memberSelection = Arr::pluck($this->memberGroup->members()->getResults(), 'id');
     }
 

@@ -37,12 +37,12 @@ class MemberGroup extends Model
 
     public static function getTopLevelQuery(): Builder
     {
-        return self::query()->whereNull('parent_id')->orderBy('sort_order')->orderBy('title');
+        return self::query()->whereNull('parent_id')->orderBy('sort_order', 'desc')->orderBy('title');
     }
 
     public static function getLeafQuery(): Builder
     {
-        return self::query()->whereDoesntHave('children')->orderBy('sort_order')->orderBy('title');
+        return self::query()->whereDoesntHave('children')->orderBy('sort_order', 'desc')->orderBy('title');
     }
 
     public function members(): BelongsToMany
@@ -79,7 +79,7 @@ class MemberGroup extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(MemberGroup::class, 'parent_id');
+        return $this->hasMany(MemberGroup::class, 'parent_id')->orderBy('sort_order', 'desc');
     }
 
     /**

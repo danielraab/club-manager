@@ -24,6 +24,7 @@ class EventType extends Model
     protected $fillable = [
         'title',
         'description',
+        'sort_order',
         'parent_id',
     ];
 
@@ -34,7 +35,8 @@ class EventType extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(EventType::class, 'parent_id');
+        return $this->hasMany(EventType::class, 'parent_id')
+            ->orderBy('sort_order', 'desc');
     }
 
     public static function getLeveledList(): array
@@ -63,7 +65,7 @@ class EventType extends Model
 
     public static function getTopLevelQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return self::query()->whereNull('parent_id')->orderBy('sort_order')->orderBy('title');
+        return self::query()->whereNull('parent_id')->orderBy('sort_order', 'desc')->orderBy('title');
     }
 
     public function events(): HasMany

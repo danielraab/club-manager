@@ -19,6 +19,9 @@ class EventTypeForm extends Form
     #[Validate('nullable|exists:event_types,id')]
     public ?int $parent = null;
 
+    #[Validate('required|int')]
+    public int $sort_order = 1;
+
     /**
      * @throws ValidationException
      */
@@ -47,6 +50,7 @@ class EventTypeForm extends Form
         $this->eventType = $eventType;
         $this->title = $eventType->title;
         $this->description = $eventType->description;
+        $this->sort_order = $eventType->sort_order;
         $this->parent = $eventType->parent()->first()?->id;
     }
 
