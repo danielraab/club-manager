@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ## v0.7.6 - 2024-04-08
 ### Added
 - add user id at push notifications for future features
+- add back symfony/filesystem composer module for enabling relative symlinks (`artisan storage:link --relative` is now possible)
 ### Changed
 - group/list switch selection in attendance record is now cached in the session
 - less abrasive push notification asking, only on click on icon
