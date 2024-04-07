@@ -2,48 +2,50 @@
     function initNotificationIconFunctions() {
 
         return {
-            addClasses: '', title: [], clickAction: null,
+            addClasses: [], title: [], clickAction: null,
 
-            requestNotificationPermission() {
-                webPush.notification.requestNotificationPermission().then(async (allowed) => {
-                    console.log("request result", allowed)
-                    if (allowed) alert("Please reload the page.");
-                })
+            init() {
+                webPush.setupAll(true);
             },
 
             updateData() {
-                if(webPush.isReady()) {
-                    this.addClasses = 'fa-solid text-green-700';
+                this.addClasses = [];
+                this.title = [];
+
+                if (webPush.isReady()) {
+                    this.addClasses.push('fa-solid', 'text-green-700');
+                    this.title.push("Web push notifications enabled and active.");
                     return;
                 }
 
-                this.addClasses = 'text-red-700';
-                this.title = [];
+                this.addClasses.push('text-red-700');
 
                 if (webPush.isBrowserReady === false) {
                     this.title.push("The browser is not ready to receive notifications.");
+                    return;
                 }
                 if (!webPush.notification.isNotificationGranted()) {
-                    this.title.push("Notification access is not granted.")
-
-                    if(webPush.notification.getNotificationPermission() === "default") {
-                        this.addClasses += " cursor-pointer";
-                        this.clickAction = this.requestNotificationPermission;
+                    if (webPush.notification.getNotificationPermission() !== "default") {
+                        this.title.push("Notification access is blocked! Please check your settings.")
+                        return;
                     }
+                    this.title.push("Notification access is not granted.")
                 }
 
-                if (webPush.hasServiceWorker === false) {
+                this.addClasses.push("cursor-pointer");
+                this.clickAction = () => webPush.setupAll(false);
+
+                if (!webPush.hasServiceWorker === false) {
                     this.title.push("The service worker is not installed.");
                 }
 
-                if (webPush.hasPushSubscription) {
+                if (!webPush.hasPushSubscription === false) {
                     this.title.push("No push subscription is registered.");
                 }
 
-                if (webPush.isPushSubscriptionStored) {
+                if (!webPush.isPushSubscriptionStored === false) {
                     this.title.push("The push subscription is not stored at the server.");
                 }
-
             }
         }
     }

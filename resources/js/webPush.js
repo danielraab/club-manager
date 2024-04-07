@@ -42,7 +42,7 @@ const webPush = {
     checkBrowserRequirements: function () {
         this.isBrowserReady = true;
 
-        if (!"serviceWorker" in navigator) {
+        if (!("serviceWorker" in navigator)) {
             console.log("service Worker not supported in this browser.");
             this.isBrowserReady = false;
         }
@@ -69,7 +69,7 @@ const webPush = {
         },
 
         registerServiceWorker: () => {
-            return navigator.serviceWorker.register('../sw.js')
+            return navigator.serviceWorker.register('/sw.js')
                 .then(() => {
                     console.log('serviceWorker installed!')
                     webPush.hasServiceWorker = true;
@@ -239,55 +239,59 @@ const webPush = {
         return outputArray;
     },
 
-    setupAll: async function () {
-        let checksSuccessful = true;
+    setupAll: async function (checkOnly = false) {
+        await ( async (checkOnly) => {
+            let lastSetup = localStorage.getItem('clubManagerSubscriptionCheck');
+            if(lastSetup && (Number(lastSetup) < Date.now()+300000)) {
+                this.forceIsReady = true;
+                console.log("webPush check timestamp found");
+                window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
+                return true;
+            }
 
-        let lastSetup = localStorage.getItem('clubManagerSubscriptionCheck');
-        if(lastSetup && (Number(lastSetup) < Date.now()+300000)) {
-            this.forceIsReady = true;
-            console.log("webPush check timestamp found");
-            window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
+            if (!webPush.checkBrowserRequirements()) return false;
+
+            if (!webPush.notification.isNotificationGranted()) {
+                if(checkOnly) return false;
+                if (!(await webPush.notification.requestNotificationPermission())) {
+                    console.warn("unable to request notification permission.")
+                    return false;
+                }
+            }
+
+            if (!(await webPush.serviceWorker.hasServiceWorker())) {
+                if(checkOnly) return false;
+                if (!(await webPush.serviceWorker.registerServiceWorker())) {
+                    console.warn('unable to install serviceWorker');
+                    return false;
+                }
+            }
+
+            let pushSubscription = null;
+            if (!(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
+                if(checkOnly) return false;
+                if (!(pushSubscription = await webPush.pushSubscription.addPushSubscription())) {
+                    console.warn("unable to add push subscription to manager");
+                    return false;
+                }
+            }
+
+            console.log(checkOnly);
+            if (!(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
+                if(checkOnly) return false;
+                if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
+                    console.log("unable to store subscription on server");
+                    return false;
+                }
+            }
+
+            if(this.isReady())
+                localStorage.setItem("clubManagerSubscriptionCheck", Date.now().toString());
+
             return true;
-        }
-
-        if (!webPush.checkBrowserRequirements()) checksSuccessful = false;
-
-        if (checksSuccessful && !webPush.notification.isNotificationGranted()) {
-            if (!(await webPush.notification.requestNotificationPermission())) {
-                console.log("unable to request notification permission.")
-                checksSuccessful = false;
-            }
-        }
-
-        if (checksSuccessful && !(await webPush.serviceWorker.hasServiceWorker())) {
-            if (!(await webPush.serviceWorker.registerServiceWorker())) {
-                console.log('unable to install serviceWorker');
-                checksSuccessful = false;
-            }
-        }
-
-        let pushSubscription = null;
-        if (checksSuccessful && !(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
-            if (!(pushSubscription = await webPush.pushSubscription.addPushSubscription())) {
-                console.log("unable to add push subscription to manager");
-                checksSuccessful = false;
-            }
-        }
-
-        if (checksSuccessful && !(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
-            if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
-                console.log("unable to store subscription on server");
-                checksSuccessful = false;
-            }
-        }
+        })(checkOnly)
 
         window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
-
-        if (checksSuccessful) {
-            localStorage.setItem("clubManagerSubscriptionCheck", Date.now().toString());
-        }
-
-        return checksSuccessful;
     }
 }
 

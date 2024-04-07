@@ -20,7 +20,7 @@ class WebPushSubscription extends Model
      * @var array
      */
     protected $fillable = [
-        'logged_in',
+        'user_id',
         'endpoint',
         'public_key',
         'auth_token',

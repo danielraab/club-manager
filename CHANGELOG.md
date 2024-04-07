@@ -3,8 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- add user id at push notifications for future features
 ### Changed
 - group/list switch selection in attendance record is now cached in the session
+- less abrasive push notification asking, only on click on icon
 ### Fixed
 - attendance record shows correct member sets after filter change (without the need of a reload)
 
