@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.6 - 2024-04-08
 ### Added
 - add user id at push notifications for future features
 ### Changed
