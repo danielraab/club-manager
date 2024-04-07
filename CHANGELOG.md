@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
 - less abrasive push notification asking, only on click on icon
 ### Fixed
 - attendance record shows correct member sets after filter change (without the need of a reload)
+- deleting app icon does not delete all uploaded files anymore
+- correct image will be displayed on app icon settings
+- display correct logo from app icon
 
 ## v0.7.5 - 2024-04-06
 ### Added

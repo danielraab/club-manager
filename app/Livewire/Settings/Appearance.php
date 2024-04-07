@@ -29,7 +29,7 @@ class Appearance extends Component
     public function mount(): void
     {
         $this->appName = Configuration::getString(ConfigurationKey::APPEARANCE_APP_NAME);
-        $this->logoFileId = (int) Configuration::getInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID);
+        $this->logoFileId = Configuration::getInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID);
         $this->guestLayoutText = Configuration::getString(ConfigurationKey::GUEST_LAYOUT_TEXT);
     }
 
@@ -49,12 +49,15 @@ class Appearance extends Component
 
     public function deleteFile(): void
     {
-        Configuration::storeInt(
-            ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
-        UploadedFile::query()->delete($this->logoFileId);
-        $this->logoFileId = null;
+        if($this->logoFileId) {
+            $logo = UploadedFile::query()->find($this->logoFileId);
+            $logo?->delete();
+            Configuration::storeInt(
+                ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
+            $this->logoFileId = null;
 
-        Log::info('Logo file deleted', [auth()->user()]);
+            Log::info('Logo file deleted', [auth()->user()]);
+        }
     }
 
     public function uploadFile(): void

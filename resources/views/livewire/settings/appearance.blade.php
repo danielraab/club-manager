@@ -32,7 +32,7 @@
                 $uploadedFile = null;
                 /** @var $logoFileId int|null */
                 if($logoFileId) {
-                    $uploadedFile = \App\Models\UploadedFile::query()->find($logoFileId)?->first();
+                    $uploadedFile = \App\Models\UploadedFile::query()->find($logoFileId);
                 }
             @endphp
             @if($uploadedFile)
