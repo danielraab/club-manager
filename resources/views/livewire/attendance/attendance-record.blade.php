@@ -43,15 +43,16 @@
 
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
-            <div class="flex items-center flex-wrap justify-center">
+            <div class="flex items-center flex-wrap justify-center"
+            x-data="{isDisplayGroup: $wire.entangle('isDisplayGroup').live}">
                 @if($isDisplayGroup)
                     <div class="py-2 px-4 rounded-l-lg bg-sky-600">
                         {{__("Groups")}}</div>
-                    <button type="button" wire:click="$set('isDisplayGroup', false)"
+                    <button type="button" @click="isDisplayGroup = false"
                             class="py-2 px-4 rounded-r-lg hover:bg-sky-500 bg-gray-300">
                         {{__("List")}}</button>
                 @else
-                    <button type="button" wire:click="$set('isDisplayGroup', true)"
+                    <button type="button" @click="isDisplayGroup = true"
                             class="py-2 px-4 rounded-l-lg hover:bg-sky-500 bg-gray-300">
                         {{__("Groups")}}</button>
                     <div class="py-2 px-4 rounded-r-lg bg-sky-600">
@@ -67,7 +68,7 @@
                 @foreach (\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                     <x-attendance.member-group-tree-record :memberGroup="$memberGroup" :event="$event"
                                                            initialShow="true"
-                                                           wire:key="mgtr-{{ $event->id.'-'.$memberGroup->id }}"
+                                                           wire:key="mgtr-{{ $memberGroup->id }}"
                                                            :memberFilter="$memberFilter"/>
                 @endforeach
             </div>
@@ -75,7 +76,7 @@
             <div class="flex flex-col justify-center text-center divide-y divide-gray-500">
                 @foreach ($members->get() as $member)
                         <livewire:attendance.single-attendance :event="$event" :member="$member"
-                                                               key="att-list-lw-{{ $event->id.'-'.$member->id }}"/>
+                                                               key="att-list-lw-{{ $member->id }}"/>
                 @endforeach
             </div>
         @endif

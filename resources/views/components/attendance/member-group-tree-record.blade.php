@@ -15,15 +15,15 @@
     <div x-show="show" class="px-5 pt-0 overflow-hidden" x-transition>
         <div class="space-y-1 divide-y divide-gray-500">
             @foreach($memberGroup->filteredMembers($memberFilter)->get() as $member)
-                    <livewire:attendance.single-attendance :event="$event" :member="$member"
-                                                           key="att-lw-{{$event->id.'-'.$member->id}}"/>
+                <livewire:attendance.single-attendance :event="$event" :member="$member"
+                                                       key="att-lw-{{$memberGroup->id.'-'.$member->id}}"/>
             @endforeach
         </div>
 
         @foreach($memberGroup->children()->get() as $childMemberGroup)
             @if($childMemberGroup->filteredMembers($memberFilter)->get()->isNotEmpty() || $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-record :memberGroup="$childMemberGroup" :event="$event"
-                                                       wire:key="mgtr-{{$event->id.'-'.$childMemberGroup->id}}"
+                                                       wire:key="mgtr-{{ $childMemberGroup->id }}"
                                                        :memberFilter="$memberFilter"/>
             @endif
         @endforeach

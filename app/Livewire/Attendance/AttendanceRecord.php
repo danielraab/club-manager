@@ -5,6 +5,7 @@ namespace App\Livewire\Attendance;
 use App\Livewire\MemberFilterTrait;
 use App\Models\Event;
 use App\Models\Member;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -15,6 +16,7 @@ class AttendanceRecord extends Component
 
     public Event $event;
 
+    #[Session]
     public bool $isDisplayGroup = true;
 
     public function mount($event)
@@ -22,7 +24,6 @@ class AttendanceRecord extends Component
         $this->initFilter();
         $this->useMemberGroupFilter = false;
         $this->event = $event;
-        $this->previousUrl = url()->previous();
     }
 
     public function render()
