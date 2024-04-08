@@ -26,11 +26,14 @@ class Appearance extends Component
     public ?int $logoFileId;
     public ?string $guestLayoutText;
 
+    public bool $isDevPageAvailable = false;
+
     public function mount(): void
     {
         $this->appName = Configuration::getString(ConfigurationKey::APPEARANCE_APP_NAME);
         $this->logoFileId = Configuration::getInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID);
         $this->guestLayoutText = Configuration::getString(ConfigurationKey::GUEST_LAYOUT_TEXT);
+        $this->isDevPageAvailable = Configuration::getBool(ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, default: false);
     }
 
     #[Renderless]
@@ -47,9 +50,15 @@ class Appearance extends Component
             ConfigurationKey::GUEST_LAYOUT_TEXT, $value);
     }
 
+    public function updatedIsDevPageAvailable(bool $value): void
+    {
+        Configuration::storeBool(
+            ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, $value);
+    }
+
     public function deleteFile(): void
     {
-        if($this->logoFileId) {
+        if ($this->logoFileId) {
             $logo = UploadedFile::query()->find($this->logoFileId);
             $logo?->delete();
             Configuration::storeInt(

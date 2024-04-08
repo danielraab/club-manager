@@ -5,9 +5,17 @@ const webPush = {
     isPushSubscriptionStored: null,
     forceIsReady: false,
 
-    getVapidPublicKey: async function ()  {
+    isVapidPublicKeyStored: function () {
         let vapidPublicKey = localStorage.getItem("vapidPublicKey");
-        if(vapidPublicKey && vapidPublicKey.length > 0) return vapidPublicKey;
+        return vapidPublicKey && vapidPublicKey.length > 0;
+    },
+
+    getStoredVapidPublicKey: function () {
+        return localStorage.getItem("vapidPublicKey");
+    },
+
+    getVapidPublicKey: async function ()  {
+        if(this.isVapidPublicKeyStored) return this.getStoredVapidPublicKey();
 
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
@@ -239,9 +247,13 @@ const webPush = {
         return outputArray;
     },
 
+    getLastCheckTimeStamp: () => {
+        return localStorage.getItem('clubManagerSubscriptionCheck');
+    },
+
     setupAll: async function (checkOnly = false) {
         await ( async (checkOnly) => {
-            let lastSetup = localStorage.getItem('clubManagerSubscriptionCheck');
+            let lastSetup = this.getLastCheckTimeStamp();
             if(lastSetup && (Number(lastSetup) < Date.now()+300000)) {
                 this.forceIsReady = true;
                 console.log("webPush check timestamp found");

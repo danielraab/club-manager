@@ -9,6 +9,7 @@ enum ConfigurationKey: string
      */
     case APPEARANCE_APP_NAME = 'appearance_app_name';
     case APPEARANCE_APP_LOGO_ID = 'appearance_app_logo_id';
+    case DEVELOPMENT_PAGE_AVAILABLE = 'is_dev_page_available';
     case GUEST_LAYOUT_TEXT = 'guest_layout_text';
     case EVENT_FILTER_DEFAULT_START_TODAY = 'eventFilter_defaultStartToday';
     case EVENT_FILTER_DEFAULT_START_DATE = 'eventFilter_defaultStartDate';
