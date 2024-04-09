@@ -31,6 +31,18 @@
                             x-on:resize.window="text= window.outerWidth+' x '+window.outerHeight"
                             x-text="text"></dd>
                     </div>
+                    <div class="p-2">
+                        <dt class="font-bold">current browser time</dt>
+                        <dd class="text-gray-700" x-init x-text="(new Date())"></dd>
+                    </div>
+                    <div class="p-2">
+                        <dt class="font-bold">current server time</dt>
+                        <dd class="text-gray-700 text-xs">{{(new \Carbon\Carbon())->formatDateTimeWithSec()}}</dd>
+                    </div>
+                    <div class="p-2">
+                        <dt class="font-bold">timezone</dt>
+                        <dd class="text-gray-700">{{config('app.displayed_timezone')}}</dd>
+                    </div>
                 </dl>
             </header>
         </section>
@@ -61,9 +73,15 @@
                 <ol class="text-sm p-2 text-gray-700" x-data="initWebPush()" x-on:webpush-setup-finished.window="updateFlags">
                     <li>
                         <i :class="{
+                        'text-green-700 fa-solid fa-circle-check': forceIsReady,
+                        'text-red-700 fa-solid fa-circle-xmark': forceIsReady === false}"></i> is browser ready
+                        <template x-if="forceIsReady"><span class="text-xs" x-text="'('+(new Date(Number(webPush.getLastCheckTimeStamp())))+')'"></span></template>
+                    </li>
+                    <li>
+                        <i :class="{
                         'text-green-700 fa-solid fa-circle-check': isBrowserReady,
                         'text-orange-700 fa-solid fa-triangle-exclamation': isBrowserReady === null,
-                        'text-red-700 fa-solid fa-circle-xmark': isBrowserReady === false}"></i> is browser ready
+                        'text-red-700 fa-solid fa-circle-xmark': isBrowserReady === false}"></i> is browser readydat
                     </li>
                     <li>
                         <i :class="{
@@ -91,12 +109,8 @@
                         'text-red-700 fa-solid fa-circle-xmark': isPushSubscriptionStored === false}"></i> is push subscription stored
                     </li>
                     <li>
-                        <span>is ready forced ?</span> - <span class="text-gray-500" x-text="forceIsReady ? 'yes': 'no'"></span>
-                        <template x-if="forceIsReady"><span x-text="webPush.getLastCheckTimeStamp()"></span></template>
-                    </li>
-                    <li>
                         <span>is vapid public key stored ?</span> - <span class="text-gray-500" x-text="webPush.isVapidPublicKeyStored() ? 'yes': 'no'"></span>
-                        <template x-if="webPush.isVapidPublicKeyStored"><span x-text="webPush.getStoredVapidPublicKey()"></span></template>
+                        <template x-if="webPush.isVapidPublicKeyStored"><span class="text-xs" x-text="webPush.getStoredVapidPublicKey()"></span></template>
                     </li>
                 </ol>
             </details>
