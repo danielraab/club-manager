@@ -70,12 +70,15 @@
             </script>
             <details open>
                 <summary>Web Push Notification Info</summary>
-                <ol class="text-sm p-2 text-gray-700" x-data="initWebPush()" x-on:webpush-setup-finished.window="updateFlags">
+                <ol class="text-sm p-2 text-gray-700" x-data="initWebPush()"
+                    x-on:webpush-setup-finished.window="updateFlags">
                     <li>
                         <i :class="{
                         'text-green-700 fa-solid fa-circle-check': forceIsReady,
                         'text-red-700 fa-solid fa-circle-xmark': forceIsReady === false}"></i> is browser ready
-                        <template x-if="forceIsReady"><span class="text-xs" x-text="'('+(new Date(Number(webPush.getLastCheckTimeStamp())))+')'"></span></template>
+                        <template x-if="forceIsReady"><span class="text-xs"
+                                                            x-text="'('+(new Date(Number(webPush.getLastCheckTimeStamp())))+')'"></span>
+                        </template>
                     </li>
                     <li>
                         <i :class="{
@@ -87,7 +90,8 @@
                         <i :class="{
                         'text-green-700 fa-solid fa-circle-check': Notification.permission === 'granted',
                         'text-orange-700 fa-solid fa-triangle-exclamation': Notification.permission === 'default',
-                        'text-red-700 fa-solid fa-circle-xmark': Notification.permission === 'denied'}"></i> has notification permission
+                        'text-red-700 fa-solid fa-circle-xmark': Notification.permission === 'denied'}"></i> has
+                        notification permission
                         (<span class="text-gray-500" x-text="Notification.permission"></span>)
                     </li>
                     <li>
@@ -100,20 +104,47 @@
                         <i :class="{
                         'text-green-700 fa-solid fa-circle-check': hasPushSubscription,
                         'text-orange-700 fa-solid fa-triangle-exclamation': hasPushSubscription === null,
-                        'text-red-700 fa-solid fa-circle-xmark': hasPushSubscription === false}"></i> has push subscription
+                        'text-red-700 fa-solid fa-circle-xmark': hasPushSubscription === false}"></i> has push
+                        subscription
                     </li>
                     <li>
                         <i :class="{
                         'text-green-700 fa-solid fa-circle-check': isPushSubscriptionStored,
                         'text-orange-700 fa-solid fa-triangle-exclamation': isPushSubscriptionStored === null,
-                        'text-red-700 fa-solid fa-circle-xmark': isPushSubscriptionStored === false}"></i> is push subscription stored
+                        'text-red-700 fa-solid fa-circle-xmark': isPushSubscriptionStored === false}"></i> is push
+                        subscription stored
                     </li>
                     <li>
-                        <span>is vapid public key stored ?</span> - <span class="text-gray-500" x-text="webPush.isVapidPublicKeyStored() ? 'yes': 'no'"></span>
-                        <template x-if="webPush.isVapidPublicKeyStored"><span class="text-xs" x-text="webPush.getStoredVapidPublicKey()"></span></template>
+                        <span>is vapid public key stored ?</span> - <span class="text-gray-500"
+                                                                          x-text="webPush.isVapidPublicKeyStored() ? 'yes': 'no'"></span>
+                        <template x-if="webPush.isVapidPublicKeyStored"><span class="text-xs"
+                                                                              x-text="webPush.getStoredVapidPublicKey()"></span>
+                        </template>
                     </li>
                 </ol>
             </details>
         </div>
+        <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
+            <details open>
+                <summary>Global DB configuration settings</summary>
+                <ol class="text-sm p-2 text-gray-700">
+                    @foreach([] as $config)
+                        <li><span>{{$config->key}}</span><span>{{$config->value}}</span></li>
+                    @endforeach
+                </ol>
+            </details>
+        </div>
+        @if()
+            <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
+                <details open>
+                    <summary>Your user specific DB configuration settings</summary>
+                    <ol class="text-sm p-2 text-gray-700">
+                        @foreach()
+                            <li><span>{{$key}}</span><span>{{$value}}</span></li>
+                        @endforeach
+                    </ol>
+                </details>
+            </div>
+        @endif
     </div>
 </x-backend-layout>
