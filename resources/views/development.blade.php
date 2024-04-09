@@ -35,14 +35,35 @@
             </header>
         </section>
         <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
+            <script>
+                function initWebPush() {
+                    return {
+                        forceIsReady: null,
+                        isBrowserReady: null,
+                        hasServiceWorker: null,
+                        hasPushSubscription: null,
+                        isPushSubscriptionStored: null,
+                        init() {
+                            webPush.setupAll(true);
+                        },
+                        updateFlags() {
+                            this.forceIsReady = webPush.forceIsReady;
+                            this.isBrowserReady = webPush.isBrowserReady;
+                            this.hasServiceWorker = webPush.hasServiceWorker;
+                            this.hasPushSubscription = webPush.hasPushSubscription;
+                            this.isPushSubscriptionStored = webPush.isPushSubscriptionStored;
+                        }
+                    }
+                }
+            </script>
             <details open>
                 <summary>Web Push Notification Info</summary>
-                <ol class="text-sm p-2 text-gray-700" x-init="webPush.setupAll(true)">
+                <ol class="text-sm p-2 text-gray-700" x-data="initWebPush()" x-on:webpush-setup-finished.window="updateFlags">
                     <li>
                         <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': webPush.isBrowserReady,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': webPush.isBrowserReady === null,
-                        'text-red-700 fa-solid fa-circle-xmark': webPush.isBrowserReady === false}"></i> is browser ready
+                        'text-green-700 fa-solid fa-circle-check': isBrowserReady,
+                        'text-orange-700 fa-solid fa-triangle-exclamation': isBrowserReady === null,
+                        'text-red-700 fa-solid fa-circle-xmark': isBrowserReady === false}"></i> is browser ready
                     </li>
                     <li>
                         <i :class="{
@@ -53,31 +74,30 @@
                     </li>
                     <li>
                         <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': webPush.hasServiceWorker,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': webPush.hasServiceWorker === null,
-                        'text-red-700 fa-solid fa-circle-xmark': webPush.hasServiceWorker === false}"></i> has service worker
+                        'text-green-700 fa-solid fa-circle-check': hasServiceWorker,
+                        'text-orange-700 fa-solid fa-triangle-exclamation': hasServiceWorker === null,
+                        'text-red-700 fa-solid fa-circle-xmark': hasServiceWorker === false}"></i> has service worker
                     </li>
                     <li>
                         <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': webPush.hasPushSubscription,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': webPush.hasPushSubscription === null,
-                        'text-red-700 fa-solid fa-circle-xmark': webPush.hasPushSubscription === false}"></i> has push subscription
+                        'text-green-700 fa-solid fa-circle-check': hasPushSubscription,
+                        'text-orange-700 fa-solid fa-triangle-exclamation': hasPushSubscription === null,
+                        'text-red-700 fa-solid fa-circle-xmark': hasPushSubscription === false}"></i> has push subscription
                     </li>
                     <li>
                         <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': webPush.isPushSubscriptionStored,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': webPush.isPushSubscriptionStored === null,
-                        'text-red-700 fa-solid fa-circle-xmark': webPush.isPushSubscriptionStored === false}"></i> is push subscription stored
+                        'text-green-700 fa-solid fa-circle-check': isPushSubscriptionStored,
+                        'text-orange-700 fa-solid fa-triangle-exclamation': isPushSubscriptionStored === null,
+                        'text-red-700 fa-solid fa-circle-xmark': isPushSubscriptionStored === false}"></i> is push subscription stored
                     </li>
                     <li>
-                        <span>is ready forced ?</span> - <span class="text-gray-500" x-text="webPush.forceIsReady ? 'yes': 'no'"></span>
-                        <template x-if="webPush.forceIsReady"><span x-text="webPush.getLastCheckTimeStamp()"></span></template>
+                        <span>is ready forced ?</span> - <span class="text-gray-500" x-text="forceIsReady ? 'yes': 'no'"></span>
+                        <template x-if="forceIsReady"><span x-text="webPush.getLastCheckTimeStamp()"></span></template>
                     </li>
                     <li>
                         <span>is vapid public key stored ?</span> - <span class="text-gray-500" x-text="webPush.isVapidPublicKeyStored() ? 'yes': 'no'"></span>
                         <template x-if="webPush.isVapidPublicKeyStored"><span x-text="webPush.getStoredVapidPublicKey()"></span></template>
                     </li>
-
                 </ol>
             </details>
         </div>

@@ -15,7 +15,7 @@ const webPush = {
     },
 
     getVapidPublicKey: async function ()  {
-        if(this.isVapidPublicKeyStored) return this.getStoredVapidPublicKey();
+        if(this.isVapidPublicKeyStored()) return this.getStoredVapidPublicKey();
 
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
@@ -68,8 +68,8 @@ const webPush = {
 
         hasServiceWorker: () => {
             return navigator.serviceWorker.getRegistration().then(reg => {
-                webPush.hasServiceWorker = reg !== undefined;
-                return webPush.hasServiceWorker;
+                webPush.hasServiceWorker = (reg !== undefined);
+                return (reg !== undefined);
             }).catch(() => {
                 webPush.hasServiceWorker = false;
                 return false;
@@ -121,7 +121,8 @@ const webPush = {
         getPushSubscription: () => {
             return navigator.serviceWorker.ready.then(swr => {
                 return swr.pushManager.getSubscription().then(async sub => {
-                    if (webPush.urlBase64ToUint8Array(await webPush.getVapidPublicKey()).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
+                    const vapidPubKey = await webPush.getVapidPublicKey();
+                    if (webPush.urlBase64ToUint8Array(vapidPubKey).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
                         webPush.hasPushSubscription = true;
                         return sub;
                     }
@@ -271,7 +272,8 @@ const webPush = {
                 }
             }
 
-            if (!(await webPush.serviceWorker.hasServiceWorker())) {
+            const hasServiceWorker = await webPush.serviceWorker.hasServiceWorker();
+            if (!(hasServiceWorker)) {
                 if(checkOnly) return false;
                 if (!(await webPush.serviceWorker.registerServiceWorker())) {
                     console.warn('unable to install serviceWorker');
@@ -288,7 +290,6 @@ const webPush = {
                 }
             }
 
-            console.log(checkOnly);
             if (!(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
                 if(checkOnly) return false;
                 if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
