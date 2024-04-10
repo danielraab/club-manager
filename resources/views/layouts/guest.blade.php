@@ -1,4 +1,11 @@
 <x-app-layout>
+    <x-slot name="title">
+        @if(isset($titlePostfix))
+            {{ ($title ?? $appName) . ' - ' . $titlePostfix }}
+        @else
+            {{ $title ?? $appName }}
+        @endif
+    </x-slot>
     <div class="min-h-[80vh] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div class="flex flex-col items-center">
             <a href="/">

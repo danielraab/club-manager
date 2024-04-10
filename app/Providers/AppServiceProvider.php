@@ -19,6 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->share('appName', \App\Models\Configuration::getString(\App\Models\ConfigurationKey::APPEARANCE_APP_NAME) ?: config('app.name'));
     }
 }

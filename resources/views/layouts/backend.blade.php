@@ -1,4 +1,11 @@
 <x-app-layout>
+    <x-slot name="title">
+        @if(isset($titlePostfix))
+            {{ ($title ?? $appName) . ' - ' . $titlePostfix }}
+        @else
+            {{ $title ?? $appName }}
+        @endif
+    </x-slot>
     <x-slot name="header">
         <div class="flex items-center justify-between w-full">
             @if(isset($headline))

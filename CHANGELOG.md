@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - add development page with different details, and a config to enable (public) access to it
+- add possibility to update page title
 
 ## v0.7.6 - 2024-04-08
 ### Added
