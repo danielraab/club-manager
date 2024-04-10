@@ -1,15 +1,10 @@
-@php
-/*
- * alpine component with
- */
-@endphp
-
-<button x-init="innerEnabled=enabled"
+@props(['enabled' => false])
+<button x-init="innerEnabled=@js($enabled)"
     x-data="{
         innerEnabled:false,
         clickHandler() {
             this.innerEnabled = !this.innerEnabled;
-            typeof switchChanged === 'function' && switchChanged(this.innerEnabled);
+            $dispatch('switched', { enabled: this.innerEnabled })
         }
     }"
         x-on:click="clickHandler">

@@ -21,14 +21,10 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
             @if($hasShowMemberPermission)
                 @php($birthdayList = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::NAVIGATION_FAV_BIRTHDAY_LIST, auth()->user(), true))
                 <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-                     x-init="enabled={{$birthdayList ? 'true':'false'}}"
-                     x-data="{enabled:false,
-                                    switchChanged(curState) {
-                                        this.enabled = curState;
-                                        $wire.dashboardButtonChangedBirthdayList(curState);
-                                    }}">
+                     x-init
+                     x-on:switched="$wire.dashboardButtonChangedBirthdayList($event.detail.enabled)">
                     <span>{{__("Birthday list")}}</span>
-                    <x-input-switch />
+                    <x-input-switch :enabled="!!$birthdayList" />
                 </div>
             @endif
         </div>

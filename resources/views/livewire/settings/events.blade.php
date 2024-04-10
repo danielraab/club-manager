@@ -17,17 +17,14 @@
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3">
             <span>{{__("Start date")}}</span>
             <div class="flex flex-col justify-end gap-2 items-center"
+                 x-on:switched="enabled = $event.detail.enabled; $wire.set('eventStartToday', enabled);"
                  x-data="{
-                    enabled:false,
-                    switchChanged(curState) {
-                        this.enabled = curState
-                        $wire.set('eventStartToday', curState);
-                    }
-                }" x-init="enabled={{$eventStartToday ? 'true' : 'false'}}">
+                    enabled: @js($eventStartToday)
+                }" x-init>
                 <x-input type="date" wire:model.live="eventStartDate" x-bind:disabled="enabled"/>
                 <div class="flex items-center gap-3">
                     <span>{{__("Today")}}</span>
-                    <x-input-switch/>
+                    <x-input-switch :enabled="$eventStartToday"/>
                 </div>
             </div>
         </div>
@@ -36,14 +33,10 @@
             <x-input type="date" wire:model.live="eventEndDate"/>
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-             x-init="enabled={{$birthdaysInPublicICS ? 'true':'false'}}"
-             x-data="{enabled:false,
-                                    switchChanged(curState) {
-                                        this.enabled = curState;
-                                        $wire.setBirthdayInIcsExport(curState);
-                                    }}">
+             x-init
+             x-on:switched="$wire.setBirthdayInIcsExport($event.detail.enabled)">
             <span>{{__("Show members birthdays in public ics export")}}</span>
-            <x-input-switch/>
+            <x-input-switch :enabled="$birthdaysInPublicICS"/>
         </div>
     </div>
 </x-section-card>

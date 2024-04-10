@@ -72,19 +72,14 @@
         </div>
         @php($isDevPageAvail = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE))
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-             x-init="enabled={{$isDevPageAvail ? 'true':'false'}}"
-             x-data="{
-                        enabled:false,
-                        switchChanged(curState) {
-                            this.enabled = curState;
-                            $wire.set('isDevPageAvailable', curState);
-                        }}">
+             x-init
+             x-on:switched="$wire.set('isDevPageAvailable', $event.detail.enabled)">
             <span>{{__("Is dev mode available ?")}}
                 @if($isDevPageAvail)
-                    <a href="{{route("development")}}">Link</a>
+                    <a class="underline" href="{{route("development")}}">Link</a>
                 @endif
             </span>
-            <x-input-switch/>
+            <x-input-switch :enabled="$isDevPageAvail"/>
         </div>
     </div>
 </x-section-card>

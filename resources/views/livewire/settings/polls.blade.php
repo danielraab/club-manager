@@ -15,39 +15,27 @@
         <div class="font-semibold leading-5">{{__("Public poll")}}</div>
         <div class="mt-2 mb-4 leading-5 text-slate-500">{{__("Default settings for public polls.")}}</div>
         @php
-        $beforeEntrance = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_BEFORE_ENTRANCE);
-        $afterRetired = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_AFTER_RETIRED);
-        $showPaused = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_SHOW_PAUSED);
+            $beforeEntrance = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_BEFORE_ENTRANCE);
+            $afterRetired = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_AFTER_RETIRED);
+            $showPaused = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::POLL_PUBLIC_FILTER_SHOW_PAUSED);
         @endphp
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-             x-init="enabled={{$beforeEntrance ? 'true':'false'}}"
-             x-data="{enabled:false,
-                                    switchChanged(curState) {
-                                        this.enabled = curState;
-                                        $wire.setBeforeEntrance(curState);
-                                    }}">
+             x-init
+             x-on:switched="$wire.setBeforeEntrance($event.detail.enabled)">
             <span>{{__("Show members before entrance")}}</span>
-            <x-input-switch/>
+            <x-input-switch :enabled="$beforeEntrance"/>
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-             x-init="enabled={{$afterRetired ? 'true':'false'}}"
-             x-data="{enabled:false,
-                                    switchChanged(curState) {
-                                        this.enabled = curState;
-                                        $wire.setAfterRetired(curState);
-                                    }}">
+             x-init
+             x-on:switched="$wire.setAfterRetired($event.detail.enabled)">
             <span>{{__("Show retired members")}}</span>
-            <x-input-switch/>
+            <x-input-switch :enabled="$afterRetired"/>
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
-             x-init="enabled={{$showPaused ? 'true':'false'}}"
-             x-data="{enabled:false,
-                                    switchChanged(curState) {
-                                        this.enabled = curState;
-                                        $wire.setShowPaused(curState);
-                                    }}">
+             x-init
+             x-on:switched="$wire.setShowPaused($event.detail.enabled)">
             <span>{{__("Show paused members")}}</span>
-            <x-input-switch/>
+            <x-input-switch :enabled="$showPaused"/>
         </div>
     </div>
 </x-section-card>

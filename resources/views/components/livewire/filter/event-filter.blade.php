@@ -2,7 +2,6 @@
     open:false,
     start: $persist(@entangle('start').live).using(cookieStorage),
     end: $persist(@entangle('end').live).using(cookieStorage),
-    isStartNow: $persist(@entangle('isStartNow').live),
     showDisabled: $persist(@entangle('showDisabled').live),
     showLoggedInOnly: $persist(@entangle('showLoggedInOnly').live),
     sortAsc: $persist(@entangle('sortAsc').live),
@@ -38,14 +37,15 @@
                 </x-input-checkbox>
             </div>
         @endif
-            <x-accordion title="Date filter" class="min-w-60 text-sm text-gray-700">
+        <x-accordion title="Date filter" class="min-w-60 text-sm text-gray-700">
 
-                <div x-data="{enabled:isStartNow, switchChanged(value){isStartNow = value}}">
-                    <label class="flex items-center gap-2">
-                        <x-input-switch/>
-                        <span>{{__("Hide past")}}</span>
-                    </label>
-                    <label title="{{__('Filter start date')}}" x-show="!isStartNow"
+            <div x-on:switched="$wire.set('isStartNow', $event.detail.enabled)">
+                <label class="flex items-center gap-2">
+                    <x-input-switch :enabled="$this->isStartNow"/>
+                    <span>{{__("Hide past")}}</span>
+                </label>
+                @if(!$this->isStartNow)
+                    <label title="{{__('Filter start date')}}"
                            class="flex border border-gray-700 divide-x focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm m-1 w-fit overflow-hidden">
                         <div class="px-2 flex items-center"
                              :class="{ 'bg-green-700': start, 'bg-gray-500': !start }">
@@ -56,21 +56,22 @@
                         </div>
                         <input type="date" wire:model.live="start" class="text-xs border-none" name="start">
                     </label>
-                </div>
-                <div class="">
-                    <label title="{{__('Filter end date')}}"
-                           class="flex border border-gray-700 divide-x focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm m-1 w-fit overflow-hidden">
-                        <div class="px-2 flex items-center"
-                             :class="{ 'bg-red-700': end, 'bg-gray-500': !end }">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                      d="M22 14v8h-2v-4l-4 4v-3h-5v-2h5v-3l4 4v-4zM5 19h4v2H5c-1.1 0-2-.9-2-2V5a2 2 0 0 1 2-2h1V.998h2V3h8V.998h2V3h1c1.11 0 2 .89 2 2v7h-2V8H5z"/>
-                            </svg>
-                        </div>
-                        <input type="date" wire:model.live="end" class="text-xs border-none" name="end">
-                    </label>
-                </div>
-            </x-accordion>
+                @endif
+            </div>
+            <div class="">
+                <label title="{{__('Filter end date')}}"
+                       class="flex border border-gray-700 divide-x focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm m-1 w-fit overflow-hidden">
+                    <div class="px-2 flex items-center"
+                         :class="{ 'bg-red-700': end, 'bg-gray-500': !end }">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M22 14v8h-2v-4l-4 4v-3h-5v-2h5v-3l4 4v-4zM5 19h4v2H5c-1.1 0-2-.9-2-2V5a2 2 0 0 1 2-2h1V.998h2V3h8V.998h2V3h1c1.11 0 2 .89 2 2v7h-2V8H5z"/>
+                        </svg>
+                    </div>
+                    <input type="date" wire:model.live="end" class="text-xs border-none" name="end">
+                </label>
+            </div>
+        </x-accordion>
         <div class="py-1 px-3">
             <button type="button" class="btn btn-secondary px-3" wire:click="$toggle('sortAsc')">
                 @if($this->sortAsc)
