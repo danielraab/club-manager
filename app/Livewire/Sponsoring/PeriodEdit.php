@@ -21,7 +21,7 @@ class PeriodEdit extends Component
     public function mount(Period $period): void
     {
         $this->availablePackageArr = $this->getPackageArr();
-        $this->selectedPackageArr = $period->packages()->get(["id"])->pluck("id")->toArray();
+        $this->selectedPackageArr = $period->packages()->get(['id'])->pluck('id')->toArray();
 
         $this->periodForm->setPeriodModel($period);
         $this->previousUrl = url()->previous();
@@ -32,7 +32,7 @@ class PeriodEdit extends Component
         $this->periodForm->update();
         $this->periodForm->period->packages()->sync($this->selectedPackageArr);
 
-        Log::info("Period updated", [auth()->user(), $this->periodForm->period]);
+        Log::info('Period updated', [auth()->user(), $this->periodForm->period]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The period has been successfully updated.'), ItemType::SUCCESS));
 
@@ -43,13 +43,12 @@ class PeriodEdit extends Component
     {
         $this->periodForm->delete();
 
-        Log::info("Period deleted", [auth()->user(), $this->periodForm->period]);
+        Log::info('Period deleted', [auth()->user(), $this->periodForm->period]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The period has been successfully deleted.'), ItemType::WARNING));
 
-        return redirect($this->previousUrl);
+        return redirect(route('sponsoring.index'));
     }
-
 
     public function render()
     {
