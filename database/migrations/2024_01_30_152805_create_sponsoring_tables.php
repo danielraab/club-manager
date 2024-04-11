@@ -18,14 +18,16 @@ return new class extends Migration
     {
         Schema::create('sponsor_backers', function (Blueprint $table) {
             $table->id();
-            $table->boolean("enabled")->default(true);
-            $table->string("name");
+            $table->boolean('enabled')->default(true);
+            $table->string('name');
             $table->string('contact_person')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('website')->nullable();
             $table->string('street')->nullable();
             $table->string('zip')->nullable();
             $table->string('city')->nullable();
+            $table->string('country');
             $table->text('info')->nullable();
             $table->date('closed_at')->nullable();
             $table->softDeletes();
@@ -34,8 +36,8 @@ return new class extends Migration
 
         Schema::create('sponsor_ad_options', function (Blueprint $table) {
             $table->id();
-            $table->boolean("enabled")->default(true);
-            $table->string("title");
+            $table->boolean('enabled')->default(true);
+            $table->string('title');
             $table->text('description')->nullable();
             $table->float('price')->nullable();
             $table->softDeletes();
@@ -44,8 +46,8 @@ return new class extends Migration
 
         Schema::create('sponsor_packages', function (Blueprint $table) {
             $table->id();
-            $table->boolean("enabled")->default(true);
-            $table->string("title");
+            $table->boolean('enabled')->default(true);
+            $table->string('title');
             $table->text('description')->nullable();
             $table->boolean('is_official')->default(false);
             $table->float('price')->nullable();
@@ -64,7 +66,7 @@ return new class extends Migration
 
         Schema::create('sponsor_periods', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
+            $table->string('title');
             $table->text('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
@@ -138,6 +140,5 @@ return new class extends Migration
 
         \App\Models\UserPermission::find(Contract::SPONSORING_SHOW_PERMISSION)?->delete();
         \App\Models\UserPermission::find(Contract::SPONSORING_EDIT_PERMISSION)?->delete();
-
     }
 };

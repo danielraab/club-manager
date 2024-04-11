@@ -8,7 +8,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 //TODO move into sponsoring migration after live deployment
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -33,11 +34,6 @@ return new class extends Migration {
             'label' => 'Edit sponsoring ad placement information',
             'is_default' => false,
         ]);
-
-        Schema::table('sponsor_backers', function (Blueprint $table) {
-            $table->string('website')->nullable()->after('email');
-            $table->string('country')->after('city');
-        });
     }
 
     /**
@@ -47,6 +43,5 @@ return new class extends Migration {
     {
         Schema::dropIfExists('sponsor_ad_placements');
         \App\Models\UserPermission::find(AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS)?->delete();
-        Schema::dropColumns('sponsor_backers', ['website', 'country']);
     }
 };

@@ -15,10 +15,15 @@ class CreatePushSubscriptionsTable extends Migration
     {
         Schema::connection(config('webpush.database_connection'))->create(config('webpush.table_name'), function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->foreignIdFor(\App\Models\User::class, 'user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
             $table->string('endpoint', 500)->unique();
             $table->string('public_key')->nullable();
             $table->string('auth_token')->nullable();
             $table->string('content_encoding')->nullable();
+
             $table->timestamps();
         });
     }

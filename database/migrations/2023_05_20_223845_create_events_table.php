@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('event_types', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
 
             $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('event_types')->onDelete('set null');
@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->string('dress_code')->nullable();
             $table->dateTime('start');

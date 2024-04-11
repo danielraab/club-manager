@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::create('member_groups', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
 
             $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('member_groups')->onDelete('set null');
@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('zip')->nullable();
             $table->string('city')->nullable();
+            $table->text('info')->nullable();
             $table->date('entrance_date');
             $table->date('leaving_date')->nullable();
             $table->string('external_id')->unique()->nullable();

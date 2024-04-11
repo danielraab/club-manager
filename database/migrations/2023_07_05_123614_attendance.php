@@ -21,7 +21,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
 
             $table->boolean('allow_anonymous_vote')->default(false);
             $table->dateTime('closing_at')->nullable();
