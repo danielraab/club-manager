@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string path
  * @property bool forcePublic
  * @property int uploader_id
+ * @property User|null uploader
  *
  * @see /database/migrations/2024_01_20_152805_create_updated_files_tables.php
  */
@@ -50,9 +51,14 @@ class UploadedFile extends Model
         return false;
     }
 
+    public function isPublicStored(): bool
+    {
+        return str_starts_with($this->path, 'public');
+    }
+
     public function getUrl(): string
     {
-        if (str_starts_with($this->path, 'public')) {
+        if ($this->isPublicStored()) {
             return Storage::url($this->path);
         }
 

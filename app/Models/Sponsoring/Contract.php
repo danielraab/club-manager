@@ -20,7 +20,9 @@ use function Deployer\upload;
  * @property \DateTime contract_received
  * @property \DateTime ad_data_received
  * @property \DateTime paid
- * @property UploadedFile uploadedFile
+ * @property Member|null member
+ * @property UploadedFile|null uploadedFile
+ * @property Package|null package
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */

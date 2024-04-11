@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - add development page with different details, and a config to enable (public) access to it
 - add possibility to update page title
+- add uploaded file page incl navigation to see all files (only for admin)
 ### Changed
 - input switch works now with events
 - update and changed legend of period backer overview

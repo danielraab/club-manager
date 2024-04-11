@@ -3,7 +3,6 @@
      * @var $backer \App\Models\Sponsoring\Backer
      * @var $period \App\Models\Sponsoring\Period
      * @var $contract \App\Models\Sponsoring\Contract|null
-     * @var $package \App\Models\Sponsoring\Package|null
      */
     $green = "text-green-700";
     $yellow = "text-yellow-600";
@@ -20,8 +19,8 @@
                 title="{{__("show contract details")}}">
                     <i class="fa-solid fa-circle-info text-cyan-900"></i>
                 </a>
-                @if($contract->member_id)
-                    <i class="fa-solid fa-user {{$green}}" title="{{$contract->member()->first()->getFullName()}}"></i>
+                @if($contract->member)
+                    <i class="fa-solid fa-user {{$green}}" title="{{$contract->member->getFullName()}}"></i>
                 @else
                     <i class="fa-solid fa-user {{$red}}"></i>
                 @endif
@@ -30,9 +29,9 @@
                 @else
                     <i class="fa-solid fa-ban {{$gray}}"></i>
                 @endif
-                @if($package = $contract->package()->first())
+                @if($contract->package)
                     <i class="fa-solid fa-cube {{$green}}"
-                       title="{{$package->title}} ({{\App\Facade\Currency::formatPrice($package->price)}})"></i>
+                       title="{{$contract->package->title}} ({{\App\Facade\Currency::formatPrice($contract->package->price)}})"></i>
                 @else
                     <i class="fa-solid fa-cube {{$gray}}"></i>
                 @endif
@@ -44,7 +43,7 @@
                     <i class="fa-solid fa-file-contract {{$yellow}}"
                        title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
-                    <i class="fa-solid fa-file-contract {{$package ? $red : $gray}}"></i>
+                    <i class="fa-solid fa-file-contract {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
                 @if($contract->ad_data_received)
@@ -54,13 +53,13 @@
                     <i class="fa-regular fa-image text-blue-700"
                        title="{{__('No ad data files received, but old data is available.')}}"></i>
                 @else
-                    <i class="fa-regular fa-image {{$package ? $red : $gray}}"></i>
+                    <i class="fa-regular fa-image {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @if($contract->paid)
                     <i class="fa-solid fa-money-bill-wave {{$green}}"
                        title="{{$contract->paid->formatDateOnly(true)}}"></i>
                 @else
-                    <i class="fa-solid fa-money-bill-wave {{$package ? $red : $gray}}"></i>
+                    <i class="fa-solid fa-money-bill-wave {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @if($hasEditPermission)
                     <a class="btn btn-primary w-8 justify-center"
