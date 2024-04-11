@@ -60,6 +60,6 @@ class PeriodForm extends Form
 
     public function delete(): void
     {
-        $this->period?->delete();
+        $this->period?->forceDelete();
     }
 }

@@ -20,7 +20,7 @@ class AdOption extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "sponsor_ad_options";
+    protected $table = 'sponsor_ad_options';
 
     protected $fillable = [
         'enabled',
@@ -34,10 +34,19 @@ class AdOption extends Model
         'price' => 'float',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::forceDeleting(function (AdOption $adOption) {
+            AdPlacement::query()->where('ad_option_id', $adOption->id)->delete();
+        });
+    }
+
     public static function allActive(): \Illuminate\Database\Eloquent\Builder
     {
         return self::query()
-            ->where("enabled", true)
-            ->orderBy("title");
+            ->where('enabled', true)
+            ->orderBy('title');
     }
 }

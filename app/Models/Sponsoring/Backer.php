@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string country
  * @property string info
  * @property \DateTime closed_at
+ * @property UploadedFile[] uploadedFiles
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
@@ -34,7 +35,7 @@ class Backer extends Model implements HasFileRelationInterface
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "sponsor_backers";
+    protected $table = 'sponsor_backers';
 
     protected $fillable = [
         'enabled',
@@ -56,6 +57,16 @@ class Backer extends Model implements HasFileRelationInterface
         'closed_at' => 'datetime',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function (Backer $backer) {
+            foreach ($backer->uploadedFiles as $file) {
+                $file->delete();
+            }
+        });
+    }
 
     public static function allActive(): Builder
     {
@@ -64,7 +75,6 @@ class Backer extends Model implements HasFileRelationInterface
             ->where('enabled', true)
             ->orderBy('name');
     }
-
 
     public function contracts(): HasMany
     {

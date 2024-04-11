@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - input switch works now with events
 - update and changed legend of period backer overview
 - show red icons on contract, ad data and paid if package is already selected
+- sponsoring contracts, uploaded files and ad placement will be deleted if parent is deleted
 
 ## v0.7.6 - 2024-04-08
 ### Added

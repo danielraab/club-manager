@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string description
  * @property \DateTime start
  * @property \DateTime end
+ * @property Contract[] contracts
+ * @property UploadedFile[] uploadedFiles
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
@@ -26,7 +28,7 @@ class Period extends Model implements HasFileRelationInterface
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "sponsor_periods";
+    protected $table = 'sponsor_periods';
 
     protected $fillable = [
         'title',
@@ -40,10 +42,34 @@ class Period extends Model implements HasFileRelationInterface
         'end' => 'datetime',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function (Period $period) {
+            foreach ($period->contracts as $contract) {
+                $contract->delete();
+            }
+            foreach ($period->uploadedFiles as $file) {
+                $file->delete();
+            }
+        });
+
+        self::forceDeleting(function (Period $period) {
+            foreach ($period->contracts as $contract) {
+                $contract->forceDelete();
+            }
+            foreach ($period->uploadedFiles as $file) {
+                $file->delete();    //files stay soft deleted (as backup)
+            }
+        });
+    }
+
     public function packages(): BelongsToMany
     {
-        return $this->belongsToMany(Package::class, "sponsor_period_sponsor_package");
+        return $this->belongsToMany(Package::class, 'sponsor_period_sponsor_package');
     }
+
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);

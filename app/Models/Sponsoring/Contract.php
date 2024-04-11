@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Deployer\upload;
 
 /**
  * @property int id
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \DateTime contract_received
  * @property \DateTime ad_data_received
  * @property \DateTime paid
+ * @property UploadedFile uploadedFile
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
@@ -28,9 +30,10 @@ class Contract extends Model implements HasFileRelationInterface
     use SoftDeletes;
 
     public const SPONSORING_SHOW_PERMISSION = 'sponsoringShow';
+
     public const SPONSORING_EDIT_PERMISSION = 'sponsoringEdit';
 
-    protected $table = "sponsor_contracts";
+    protected $table = 'sponsor_contracts';
 
     protected $fillable = [
         'info',
@@ -46,6 +49,20 @@ class Contract extends Model implements HasFileRelationInterface
         'ad_data_received' => 'datetime',
         'paid' => 'datetime',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function (Contract $contract) {
+            $contract->uploadedFile?->delete();
+        });
+
+        self::forceDeleting(function (Contract $contract) {
+            AdPlacement::query()->where('contract_id', $contract->id)->forceDelete();
+            $contract->uploadedFile?->delete();    //files stay soft deleted (as backup)
+        });
+    }
 
     public function period(): BelongsTo
     {

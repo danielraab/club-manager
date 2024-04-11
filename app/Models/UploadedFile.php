@@ -2,11 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Sponsoring\Backer;
-use App\Models\Sponsoring\Contract;
-use App\Models\Sponsoring\Period;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -46,8 +42,8 @@ class UploadedFile extends Model
             return true;
         }
 
-        /** @var $storer HasFileRelationInterface  */
-        if(($storer = $this->storer()->first()) instanceof HasFileRelationInterface) {
+        /** @var $storer HasFileRelationInterface */
+        if (($storer = $this->storer()->first()) instanceof HasFileRelationInterface) {
             return $storer->hasFileAccess(auth()->user());
         }
 
