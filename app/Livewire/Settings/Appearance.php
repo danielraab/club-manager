@@ -76,7 +76,7 @@ class Appearance extends Component
         $user = auth()->user();
         $path = $this->logoFile->store('public/appearance'); // is always public
 
-        $config = Configuration::findByKey(ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
+        $config = Configuration::findByKeyOrNew(ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
 
         $uploadedFile = new UploadedFile();
         $uploadedFile->path = $path;

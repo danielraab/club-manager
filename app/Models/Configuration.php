@@ -50,9 +50,12 @@ class Configuration extends Model implements HasFileRelationInterface
         return $query->whereNull('user_id');
     }
 
-    public static function findByKey(ConfigurationKey $key, ?User $user): Configuration {
+    public static function findByKeyOrNew(ConfigurationKey $key, ?User $user): Configuration
+    {
         /** @var Configuration $config */
-        $config = self::getSingleKeyQuery($key, $user)->firstOrCreate();
+        $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
+        $config->key = $key;
+        $config->user()->associate($user);
         return $config;
     }
 
@@ -141,7 +144,7 @@ class Configuration extends Model implements HasFileRelationInterface
 
     public function hasFileAccess(?User $user): bool
     {
-        return match($this->key) {
+        return match ($this->key) {
             ConfigurationKey::APPEARANCE_APP_LOGO_ID => true,
             default => false
         };

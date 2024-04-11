@@ -20,23 +20,23 @@ use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|'.Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
-    Route::get('/sponsoring', [Overview::class, "index"])
+    Route::get('/sponsoring', [Overview::class, 'index'])
         ->name('sponsoring.index');
-    Route::get('/sponsoring/backer', [BackerOverview::class, "index"])
+    Route::get('/sponsoring/backer', [BackerOverview::class, 'index'])
         ->name('sponsoring.backer.index');
-    Route::get('/sponsoring/adOption', [AdOptionOverview::class, "index"])
+    Route::get('/sponsoring/adOption', [AdOptionOverview::class, 'index'])
         ->name('sponsoring.ad-option.index');
-    Route::get('/sponsoring/package', [PackageOverview::class, "index"])
+    Route::get('/sponsoring/package', [PackageOverview::class, 'index'])
         ->name('sponsoring.package.index');
     Route::get('/sponsoring/period/backer/{period}', PeriodBackerOverview::class)
         ->name('sponsoring.period.backer.overview');
-    Route::get('/sponsoring/period/adOption/{period}', [PeriodAdOptionOverview::class, "index"])
+    Route::get('/sponsoring/period/adOption/{period}', [PeriodAdOptionOverview::class, 'index'])
         ->name('sponsoring.period.adOption.overview');
     Route::get('/sponsoring/contract/{contract}', [ContractDetail::class, 'index'])
         ->name('sponsoring.contract.detail');
 });
 
-Route::middleware(['auth', 'permission:'. Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
+Route::middleware(['auth', 'permission:'.Contract::SPONSORING_EDIT_PERMISSION])->group(function () {
     Route::get('/sponsoring/backer/create', BackerCreate::class)
         ->name('sponsoring.backer.create');
     Route::get('/sponsoring/backer/{backer}', BackerEdit::class)
