@@ -44,7 +44,7 @@
                     <i class="fa-solid fa-file-contract {{$yellow}}"
                        title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
-                    <i class="fa-solid fa-file-contract {{$gray}}"></i>
+                    <i class="fa-solid fa-file-contract {{$package ? $red : $gray}}"></i>
                 @endif
                 @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
                 @if($contract->ad_data_received)
@@ -54,13 +54,13 @@
                     <i class="fa-regular fa-image text-blue-700"
                        title="{{__('No ad data files received, but old data is available.')}}"></i>
                 @else
-                    <i class="fa-regular fa-image {{$gray}}"></i>
+                    <i class="fa-regular fa-image {{$package ? $red : $gray}}"></i>
                 @endif
                 @if($contract->paid)
                     <i class="fa-solid fa-money-bill-wave {{$green}}"
                        title="{{$contract->paid->formatDateOnly(true)}}"></i>
                 @else
-                    <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
+                    <i class="fa-solid fa-money-bill-wave {{$package ? $red : $gray}}"></i>
                 @endif
                 @if($hasEditPermission)
                     <a class="btn btn-primary w-8 justify-center"

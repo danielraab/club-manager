@@ -46,7 +46,7 @@
                                                 <i class="fa-solid"
                                                    :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
                                                 <span
-                                                    class="@if($backerItem["adPlacementDone"]) text-green-900 font-bold @endif">
+                                                    class="@if($backerItem["adPlacementDone"]) text-green-900 @else text-red-700 @endif font-bold">
                                                     {{$backer->name}} ({{$backerItem["packageTitle"]}})
                                                 </span>
                                             </div>

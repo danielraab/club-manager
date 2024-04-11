@@ -30,47 +30,93 @@
                     <i class="fa-solid fa-circle-info text-blue-700"></i>
                 </button>
                 <div x-anchor="$refs.legendBtn" x-show="showLegend" x-cloak x-on:click.outside="showLegend = false"
-                     class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl divide-y">
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-circle-info text-cyan-900"></i>
-                        <span>{{__("show contract details")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-user {{$green}}"></i>
-                        <i class="fa-solid fa-user {{$red}}"></i>
-                        <span>{{__("contract has/has no member")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-ban {{$red}}"></i>
-                        <i class="fa-solid fa-ban {{$gray}}"></i>
-                        <span>{{__("contract is/is no declined")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-cube {{$green}}"></i>
-                        <i class="fa-solid fa-cube {{$gray}}"></i>
-                        <span>{{__("package is/is no selected")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-file-contract {{$green}}"></i>
-                        <i class="fa-solid fa-file-contract {{$yellow}}"></i>
-                        <i class="fa-solid fa-file-contract {{$gray}}"></i>
-                        <span>{{__("contract is uploaded/received/or neither")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-regular fa-image {{$green}}"></i>
-                        <i class="fa-regular fa-image text-blue-700"></i>
-                        <span>{{__("ad data is available and up to date/not up to date")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-regular fa-image {{$yellow}}"></i>
-                        <i class="fa-regular fa-image {{$gray}}"></i>
-                        <span>{{__("ad data is transmitted/not transmitted")}}</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <i class="fa-solid fa-money-bill-wave {{$green}}"></i>
-                        <i class="fa-solid fa-money-bill-wave {{$gray}}"></i>
-                        <span>{{__("backer has/has not paid")}}</span>
-                    </div>
+                     class="z-10 bg-white rounded px-5 py-2 border border-black m-1 shadow-xl text-sm">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><i class="fa-solid fa-circle-info text-cyan-900"></i></td>
+                            <td>{{__("show contract details")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-solid fa-user {{$green}}"></i></td>
+                            <td>{{__("no member selected")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-user {{$red}}"></i></td>
+                            <td>{{__("no member selected")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-solid fa-ban {{$red}}"></i></td>
+                            <td>{{__("contract is declined")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-ban {{$gray}}"></i></td>
+                            <td>{{__("contract not declined (yet)")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-solid fa-cube {{$green}}"></i></td>
+                            <td>{{__("package is selected")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-cube {{$gray}}"></i></td>
+                            <td>{{__("no package is selected")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-solid fa-file-contract {{$green}}"></i></td>
+                            <td>{{__("contract is uploaded")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-file-contract {{$yellow}}"></i></td>
+                            <td>{{__("contract is marked as received but not uploaded")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-file-contract {{$gray}}"></i></td>
+                            <td>{{__("no information about contract")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-file-contract {{$red}}"></i></td>
+                            <td>{{__("no information about contract but package is already selected")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-regular fa-image {{$green}}"></i></td>
+                            <td>{{__("new up to date ad data is received")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-regular fa-image text-blue-700"></i></td>
+                            <td>{{__("ad data is available but is not up to date")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-regular fa-image {{$yellow}}"></i></td>
+                            <td>{{__("ad data is marked as received but not uploaded")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-regular fa-image {{$gray}}"></i></td>
+                            <td>{{__("ad data is not available")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-regular fa-image {{$red}}"></i></td>
+                            <td>{{__("ad data is not available but a package is already selected")}}</td>
+                        </tr>
+
+                        <tr class="border-t">
+                            <td><i class="fa-solid fa-money-bill-wave {{$green}}"></i></td>
+                            <td>{{__("backer has paid")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-money-bill-wave {{$gray}}"></i></td>
+                            <td>{{__("backer has not paid yet")}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-money-bill-wave {{$red}}"></i></td>
+                            <td>{{__("backer has not paid yet but package is already selected")}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - add possibility to update page title
 ### Changed
 - input switch works now with events
+- update and changed legend of period backer overview
+- show red icons on contract, ad data and paid if package is already selected
 
 ## v0.7.6 - 2024-04-08
 ### Added
