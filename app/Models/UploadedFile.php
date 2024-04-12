@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
  * @property bool forcePublic
  * @property int uploader_id
  * @property User|null uploader
+ * @property Model|null storer
  *
  * @see /database/migrations/2024_01_20_152805_create_updated_files_tables.php
  */

@@ -3,7 +3,7 @@
     /** @var $storer \Illuminate\Database\Eloquent\Model|null */
     $type = '';
     $typeLink = null;
-    $storer = $file->storer()->withTrashed()->first();
+    $storer = $file->storer;
     $storerPossibleSoftDelete = $storer && method_exists($storer, 'trashed');
     if($storer === null) $type = __('no storer');
     else {

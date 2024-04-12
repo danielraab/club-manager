@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Fixed
+- fixed uplaoded file page error on null storer files
 
 ## v0.7.7 - 2024-04-11
 ### Added
