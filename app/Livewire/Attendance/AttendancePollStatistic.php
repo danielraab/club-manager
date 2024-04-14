@@ -2,26 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Livewire\Attendance;
 
-use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
 use App\Models\Event;
 use Illuminate\Support\Arr;
+use Livewire\Component;
 
-class AttendancePollStatistic extends Controller
+class AttendancePollStatistic extends Component
 {
     public AttendancePoll $attendancePoll;
+    public array $memberStatistic;
+    public array $showMembers = [];
 
-    public function render(AttendancePoll $attendancePoll)
-    {
+    public function mount(AttendancePoll $attendancePoll) {
         $this->attendancePoll = $attendancePoll;
+        $this->memberStatistic = Arr::sortDesc($this->createMemberStatistic());
+    }
+    public function render()
+    {
+        return view('livewire.attendance.poll-statistic')->layout('layouts.backend');
+    }
 
-        return view('attendance.poll-statistic', [
-            'attendancePoll' => $attendancePoll,
-            'memberStatistic' => Arr::sortDesc($this->createMemberStatistic()),
-        ]);
+    public function toggleShowMember(int $eventId): void {
+        $this->showMembers[$eventId] = ! ($this->showMembers[$eventId] ?? false);
     }
 
     private function createMemberStatistic(): array

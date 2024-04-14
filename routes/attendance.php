@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Attendance\AttendancePollStatistic;
 use App\Livewire\Attendance\AttendanceDisplay;
+use App\Livewire\Attendance\AttendancePollStatistic;
 use App\Livewire\Attendance\AttendanceRecord;
 use App\Livewire\Attendance\PollCreate;
 use App\Livewire\Attendance\PollEdit;
@@ -27,7 +27,7 @@ Route::middleware(['auth', 'permission:'.AttendancePoll::ATTENDANCE_POLL_SHOW_PE
     ->group(function () {
         Route::get('/attendancePolls', fn () => view('attendance.poll-list'))
             ->name('attendancePoll.index');
-        Route::get('/attendancePolls/{attendancePoll}/index', [AttendancePollStatistic::class, 'render'])
+        Route::get('/attendancePolls/{attendancePoll}/index', AttendancePollStatistic::class)
             ->name('attendancePoll.statistic');
     });
 

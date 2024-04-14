@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- add member list for attendance poll statistic
 ### Fixed
 - fixed uplaoded file page error on null storer files
 
