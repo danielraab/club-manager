@@ -193,5 +193,19 @@
                 </details>
             </div>
         @endif
+        <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
+            <details open>
+                <summary>Log files</summary>
+                <ol class="text-sm p-2 text-gray-700 list-disc">
+                    @foreach(\Illuminate\Support\Facades\File::allFiles("../storage/logs") as $file)
+                        <li class="ml-4">
+                            <button type="submit" class="underline" >{{$file->getFilename()}}</button>
+{{--                            <button type="submit" class="underline" wire:click="download({{$file->getPath()}})">{{$file->getFilename()}}</button>--}}
+                            <span class="text-xs text-gray-500">({{$file->getSize()}} B)</span>
+                        </li>
+                    @endforeach
+                </ol>
+            </details>
+        </div>
     </div>
 </x-backend-layout>
