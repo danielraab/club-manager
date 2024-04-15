@@ -5,8 +5,9 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - add member list for attendance poll statistic
+- show unknown files on storage app on uploaded files page
 ### Fixed
-- fixed uplaoded file page error on null storer files
+- fixed uploaded file page error on null storer files
 
 ## v0.7.7 - 2024-04-11
 ### Added

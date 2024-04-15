@@ -25,9 +25,16 @@
         @endif
     </span> -
     @if($file->forcePublic || $file->isPublicStored()) <i class="fa-solid fa-globe"></i> @endif
-    <span class="text-gray-500 @if($file->trashed()) line-through text-red-700 @endif">
-        <a class="underline" href="{{$file->getUrl()}}">{{$file->name}}</a>
-    </span>
+
+    @if(!\Illuminate\Support\Facades\Storage::exists($file->path))
+        <span class="text-red-700 @if($file->trashed()) line-through @endif "
+            title="{{__("File does not exit on the server.")}}">{{$file->name}}</span>
+    @else
+        <span class="text-gray-500 @if($file->trashed()) line-through @endif ">
+            <a class="underline" href="{{$file->getUrl()}}">{{$file->name}}</a>
+        </span>
+    @endif
+
     @if($file->uploader)
     <span class="text-gray-500 text-xs">({{$file->uploader->name}})</span>
     @endif
