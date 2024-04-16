@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - hide past switch is session persistent now on event filter
 - create and use development middleware class instead of function in router
+- when enabling the development mode, it is only enabled a limited time (10 min)
 ### Fixed
 - fixed uploaded file page error on null storer files
 

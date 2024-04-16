@@ -70,16 +70,16 @@
             <x-textarea id="guestLayoutText" name="guestLayoutText" class="mt-1 block w-full min-h-[100px]"
                         wire:model.blur="guestLayoutText" required autocomplete="guestLayoutText"/>
         </div>
-        @php($isDevPageAvail = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE))
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
              x-init
              x-on:switched="$wire.set('isDevPageAvailable', $event.detail.enabled)">
             <span>{{__("Is dev mode available ?")}}
-                @if($isDevPageAvail)
+                @if($isDevPageAvailable)
                     <a class="underline" href="{{route("development")}}">Link</a>
+                    <span class="text-xs">({{\App\Http\Middleware\Development::isAvailableInSec()}} sec)</span>
                 @endif
             </span>
-            <x-input-switch :enabled="$isDevPageAvail"/>
+            <x-input-switch :enabled="$isDevPageAvailable"/>
         </div>
     </div>
 </x-section-card>

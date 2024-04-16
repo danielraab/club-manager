@@ -3,6 +3,7 @@
 namespace App\Livewire\Settings;
 
 use App\Facade\NotificationMessage;
+use App\Http\Middleware\Development;
 use App\Models\Configuration;
 use App\Models\ConfigurationKey;
 use App\Models\UploadedFile;
@@ -33,7 +34,7 @@ class Appearance extends Component
         $this->appName = Configuration::getString(ConfigurationKey::APPEARANCE_APP_NAME);
         $this->logoFileId = Configuration::getInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID);
         $this->guestLayoutText = Configuration::getString(ConfigurationKey::GUEST_LAYOUT_TEXT);
-        $this->isDevPageAvailable = Configuration::getBool(ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, default: false);
+        $this->isDevPageAvailable = Development::isAvailableInSec() > 0;
     }
 
     #[Renderless]
@@ -52,8 +53,12 @@ class Appearance extends Component
 
     public function updatedIsDevPageAvailable(bool $value): void
     {
-        Configuration::storeBool(
-            ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, $value);
+        $time = 0;
+        if ($value) {
+            $time = now()->getTimestamp();
+        }
+        Configuration::storeInt(
+            ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, $time);
     }
 
     public function deleteFile(): void
