@@ -53,6 +53,37 @@
         </header>
     </section>
     <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
+        <ol class="text-sm p-2 text-gray-700">
+            <li>
+                <span class="font-bold">are notification supported:</span>
+                <span x-init x-text="webPush.notification.isNotificationSupported()"></span>
+            </li>
+            <li>
+                <span class="font-bold">notification permission granted:</span>
+                <span x-init x-text="webPush.notification.hasNotificationPermission()"></span>
+            </li>
+            <li>
+                <span class="font-bold">notification api permission status:</span>
+                <span x-init x-text="webPush.notification.getNotificationApiPermissionStatus()"></span>
+            </li>
+            <li>
+                <span class="font-bold">are service worker supported:</span>
+                <span x-init x-text="webPush.serviceWorker.isServiceWorkerSupported()"></span>
+            </li>
+            <li>
+                <span class="font-bold">has active service worker:</span>
+                <span x-init x-text="webPush.serviceWorker.hasServiceWorker()"></span>
+            </li>
+            <li>
+                <span class="font-bold">service worker script url:</span>
+                <span x-init x-text="webPush.serviceWorker.getServiceWorkerScriptUrl()"></span>
+            </li>
+            <li>
+                <span class="font-bold">are push managers supported:</span>
+                <span x-init x-text="webPush.isPushManagerSupported()"></span>
+            </li>
+        </ol>
+        <hr/>
         <script>
             function initWebPush() {
                 return {
