@@ -6,10 +6,11 @@ use App\Models\Event;
 use App\Models\Filter\EventFilter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Session;
 
 trait EventFilterTrait
 {
-
+    #[Session]
     public bool $isStartNow = false;
 
     public ?string $start = null;
@@ -35,7 +36,7 @@ trait EventFilterTrait
     public function getEventFilter(): EventFilter
     {
         $start = new Carbon();
-        if (!$this->isStartNow) {
+        if (! $this->isStartNow) {
             $start = $this->start ? Carbon::parseFromDatetimeLocalInput($this->start) : null;
         }
 

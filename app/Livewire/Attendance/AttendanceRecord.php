@@ -7,8 +7,6 @@ use App\Models\Event;
 use App\Models\Member;
 use Livewire\Attributes\Session;
 use Livewire\Component;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class AttendanceRecord extends Component
 {
