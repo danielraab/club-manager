@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.7.8 - 2024-04-16
 ### Added
 - add member list for attendance poll statistic
 - show unknown files on storage app on uploaded files page
