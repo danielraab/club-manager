@@ -7,8 +7,10 @@ All notable changes to this project will be documented in this file.
 - add member list for attendance poll statistic
 - show unknown files on storage app on uploaded files page
 - show log files on developer page
+- add log files to development page and make downloadable
 ### Changed
 - hide past switch is session persistent now on event filter
+- create and use development middleware class instead of function in router
 ### Fixed
 - fixed uploaded file page error on null storer files
 

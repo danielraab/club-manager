@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings;
 use App\Http\Controllers\UploadedFileController;
+use App\Livewire\Development;
 use App\Livewire\UploadedFiles;
 use App\Models\Configuration;
 use App\Models\ConfigurationKey;
@@ -26,12 +27,9 @@ Route::get('/file/{file}', [UploadedFileController::class, 'response'])->name('f
 Route::get('/file/{file}/download', [UploadedFileController::class, 'download'])->name('file.download');
 Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
-Route::get('/development', function () {
-    if (Configuration::getBool(ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, default: false)) {
-        return view('development');
-    }
-    throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
-})->name('development');
+Route::middleware(\App\Http\Middleware\Development::class)->group(function () {
+    Route::get('/development', Development::class)->name('development');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
