@@ -1,38 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Sponsoring;
+namespace App\Livewire\Sponsoring;
 
-use App\Http\Controllers\Controller;
 use App\Models\Sponsoring\AdOption;
 use App\Models\Sponsoring\AdPlacement;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Package;
 use App\Models\Sponsoring\Period;
+use Livewire\Component;
 
-class PeriodAdOptionOverview extends Controller
+class PeriodAdOptionOverview extends Component
 {
-    private Period $period;
+    public Period $period;
 
-    private array $adOptionList;
+    public array $adOptionList;
 
-    public function index(Period $period)
+    public function mount(Period $period)
     {
         $this->period = $period;
+    }
 
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
         $this->listAdOptionsFromPeriod();
         $this->fillAdOptionListWithBackers();
 
-        $hasPlacementEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(
-            \App\Models\Sponsoring\AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS,
-            \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION
-        );
-
-        return view('sponsoring.period-ad-option-overview', [
-            'period' => $period,
-            'adOptionList' => $this->adOptionList,
-            'hasPlacementEditPermission' => $hasPlacementEditPermission
-        ]);
+        return view('livewire.sponsoring.period-ad-option-overview')->layout('layouts.backend');
     }
 
     private function listAdOptionsFromPeriod(): void

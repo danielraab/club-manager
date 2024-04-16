@@ -62,6 +62,7 @@ class AdPlacement extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('The ad placement information has been successfully saved.'), ItemType::SUCCESS));
 
+        $this->dispatch('ad-placement-saved');
         $this->dispatch('close');
     }
 
