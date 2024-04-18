@@ -36,24 +36,15 @@
             </div>
             <div class="p-3">
                 @if(!empty($backerList))
-                    <ul class="ml-5">
+                    <ol class="list-decimal ml-5">
                         @foreach($backerList as $backerItem)
                             @php
                                 $backer = $backerItem["backer"];
                                 $adDataFiles = $backer->uploadedFiles()->get()
                             @endphp
-                            <li>
+                            <li class="mb-1 pl-2">
                                 <div x-data="{showFiles:false}">
                                     <div class="flex items-center gap-2">
-                                        <div class="cursor-pointer"
-                                             x-on:click="showFiles=!showFiles">
-                                            <i class="fa-solid"
-                                               :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
-                                            <span
-                                                class="@if($backerItem["adPlacementDone"]) text-green-900 @else text-red-700 @endif font-bold">
-                                                    {{$backer->name}} ({{$backerItem["packageTitle"]}})
-                                                </span>
-                                        </div>
                                         @if($hasPlacementEditPermission)
                                             <button type="button" class="btn btn-primary"
                                                     title="{{__('Edit ad placement info')}}"
@@ -65,6 +56,15 @@
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </button>
                                         @endif
+                                        <div class="cursor-pointer"
+                                             x-on:click="showFiles=!showFiles">
+                                            <span
+                                                class="@if($backerItem["adPlacementDone"]) text-green-900 @else text-red-700 @endif font-bold">
+                                                    {{$backer->name}} ({{$backerItem["packageTitle"]}})
+                                                </span>
+                                            <i class="fa-solid"
+                                               :class="showFiles ? 'fa-caret-down' : 'fa-caret-right'"></i>
+                                        </div>
                                     </div>
                                     <div x-show="showFiles" x-cloak x-collapse>
                                         @if($adDataFiles->isNotEmpty())
@@ -81,7 +81,7 @@
                                 </div>
                             </li>
                         @endforeach
-                    </ul>
+                    </ol>
                 @else
                     {{__(("no backers"))}}
                 @endif
