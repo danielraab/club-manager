@@ -52,6 +52,11 @@ return [
     'debug' => (bool) env('APP_DEBUG', false),
 
     /*
+     * time duration the dev mode is available after activating (in Seconds)
+     */
+    'devMode' => (int) env('APP_DEV_MODE_DURATION', 600),
+
+    /*
     |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
@@ -180,7 +185,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\CarbonProvider::class,
         \App\Providers\CurrencyServiceProvider::class,
-        \App\Providers\NotificationMessageServiceProvider::class
+        \App\Providers\NotificationMessageServiceProvider::class,
     ])->toArray(),
 
     /*
