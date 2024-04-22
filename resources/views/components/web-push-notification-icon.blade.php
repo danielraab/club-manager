@@ -2,59 +2,42 @@
     function initNotificationIconFunctions() {
 
         return {
-            addClasses: [], title: [], clickAction: null,
+            info: webPush.info,
+            successfullySubscribed: false,
+            hasSomeErrors: false,
+            clickAction: null,
 
-            init() {
-                webPush.setupAll(true);
-            },
+            async updateData() {
+                this.successfullySubscribed = false;
+                this.hasSomeErrors = false;
 
-            updateData() {
-                this.addClasses = [];
-                this.title = [];
+                this.info = (await webPush.checkAll());
 
-                if (webPush.isReady()) {
-                    this.addClasses.push('fa-solid', 'text-green-700');
-                    this.title.push("Web push notifications enabled and active.");
-                    return;
+
+                if (this.info.serviceWorker.pushManager.subscription.hasSubscription &&
+                    this.info.serviceWorker.pushManager.subscription.serverKeyIsSameAsVapid &&
+                    this.info.serviceWorker.pushManager.subscription.server.isPushSubscriptionStored) {
+                    this.successfullySubscribed = true;
+                } else {
+                    this.clickAction = async () => {
+                        await webPush.subscription.addPushSubscription();
+                        await webPush.server.storePushSubscription();
+                    };
                 }
-
-                this.addClasses.push('text-red-700');
-
-                if (webPush.isBrowserReady === false) {
-                    this.title.push("The browser is not ready to receive notifications.");
-                    return;
-                }
-                if (!webPush.notification.isNotificationGranted()) {
-                    if (webPush.notification.getNotificationPermission() !== "default") {
-                        this.title.push("Notification access is blocked! Please check your settings.")
-                        return;
-                    }
-                    this.title.push("Notification access is not granted.")
-                }
-
-                this.addClasses.push("cursor-pointer");
-                this.clickAction = () => webPush.setupAll(false);
-
-                if (!webPush.hasServiceWorker === false) {
-                    this.title.push("The service worker is not installed.");
-                }
-
-                if (!webPush.hasPushSubscription === false) {
-                    this.title.push("No push subscription is registered.");
-                }
-
-                if (!webPush.isPushSubscriptionStored === false) {
-                    this.title.push("The push subscription is not stored at the server.");
-                }
+                if (this.info.errors.length > 0) this.hasSomeErrors = true;
             }
         }
     }
 </script>
 <div class="flex items-center">
-<i x-data="initNotificationIconFunctions()"
-   x-bind:class="addClasses"
-   x-bind:title="title.join(' \n')"
-   x-on:click="clickAction"
-   x-on:webpush-setup-finished.window="updateData()"
-   class="fa-regular fa-bell"></i>
+    <i x-init="updateData()"
+        x-data="initNotificationIconFunctions()"
+       x-bind:class="{
+   'cursor-pointer': !hasSomeErrors && !successfullySubscribed,
+   'fa-solid text-green-700': !hasSomeErrors && successfullySubscribed,
+   'text-red-700': hasSomeErrors
+   }"
+       x-on:click="clickAction"
+       @web-push-info-changed.document="updateData()"
+       class="fa-regular fa-bell"></i>
 </div>

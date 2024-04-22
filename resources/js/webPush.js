@@ -56,6 +56,7 @@ const webPush = {
         // reload is required afterwards
         registerServiceWorker: () => {
             return navigator.serviceWorker.register('/sw.js').then((swr) => {
+                console.log('service worker registered');
                 document.dispatchEvent(new CustomEvent('web-push-info-changed'));
                 return swr;
             });
@@ -111,12 +112,13 @@ const webPush = {
     },
 
     subscription: {
-        addPushSubscription: () => {
-            return navigator.serviceWorker.ready
+        addPushSubscription: async () => {
+            return await navigator.serviceWorker.ready
                 .then(async (registration) => {
+                    const vapidKey = await webPush.vapid.getVapidPublicKey();
                     const subscribeOptions = {
                         userVisibleOnly: true,
-                        applicationServerKey: webPush.urlBase64ToUint8Array(await webPush.vapid.getVapidPublicKey())
+                        applicationServerKey: webPush.urlBase64ToUint8Array(vapidKey)
                     };
 
                     return await registration.pushManager.subscribe(subscribeOptions);
@@ -233,7 +235,6 @@ const webPush = {
     },
 
     async checkAll() {
-        console.log("check all called");
         this.info = {
             errors: this.errors,
             isNotificationSupported: null,
@@ -305,6 +306,11 @@ const webPush = {
         }
         return outputArray;
     },
+}
+
+if(webPush.serviceWorker.isServiceWorkerSupported() &&
+    !webPush.serviceWorker.hasServiceWorker()) {
+    webPush.serviceWorker.registerServiceWorker();
 }
 
 export default webPush;
