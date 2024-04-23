@@ -7,18 +7,7 @@ before_script:
   - echo "$DEPLOYER_HOSTS" > deployer-hosts.yaml
   - echo "$DEPLOY_PHP" > deploy.php
   - eval $(ssh-agent -s)
-  # Generate the private/public key pair using:
-  #
-  #     ssh-keygen -f deploy_key -N ""
-  #
-  # then set the $SSH_PRIVATE_KEY environment variable in the CI (Travis-CI,
-  # GitLab-CI, ...) to the base64 encoded private key:
-  #
-  #     cat deploy_key | base64 -w0
-  #
-  # and add the public key `deploy_key.pub` into the target git repository (with
-  # write permissions).
-  - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 --decode)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
