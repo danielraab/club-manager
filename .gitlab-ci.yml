@@ -44,7 +44,7 @@ stages:
 deploy_test:
   stage: deploy
   script:
-    - ~/.composer/vendor/bin/dep deploy test --commit="$CI_COMMIT_SHA"
+    - ~/.composer/vendor/bin/dep deploy test --revision="$CI_COMMIT_SHA"
   environment:
     name: test
     url: https://test.mv-kematen.at
@@ -53,7 +53,7 @@ deploy_test:
 deploy_production:
   stage: deploy
   script:
-    - ~/.composer/vendor/bin/dep deploy production --commit="$CI_COMMIT_SHA"
+    - ~/.composer/vendor/bin/dep deploy production --revision="$CI_COMMIT_SHA"
   environment:
     name: production
     url: https://intern.mv-kematen.at
