@@ -3,7 +3,13 @@ default:
 #  services:
 #    - mysql:5.7
 
-
+before_script:
+  - echo "$DEPLOYER_HOSTS" > deployer-hosts.yaml
+  - echo "$DEPLOY_PHP" > deploy.php
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 #variables:
 #  MYSQL_DATABASE: homestead
@@ -26,18 +32,20 @@ stages:
 
 deploy_test:
   stage: deploy
+  script:
+    - ~/.composer/vendor/bin/dep deploy test --commit="$CI_COMMIT_SHA"
+  environment:
+    name: test
+    url: https://test.mv-kematen.at
+  when: manual
 
 deploy_production:
   stage: deploy
   script:
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/dep deploy --commit="$CI_COMMIT_SHA"
+    - ~/.composer/vendor/bin/dep deploy production --commit="$CI_COMMIT_SHA"
   environment:
     name: production
-    url: http://192.168.1.1
+    url: https://intern.mv-kematen.at
   when: manual
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
