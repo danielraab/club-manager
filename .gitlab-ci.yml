@@ -1,11 +1,11 @@
 default:
-  image: draabat/laravel-deployer:0.0.1
+  image: draabat/laravel-deployer:0.0.2
 #  services:
 #    - mysql:5.7
 
 before_script:
-  - echo "$DEPLOYER_HOSTS" > deployer-hosts.yaml
-  - echo "$DEPLOY_PHP" > deploy.php
+  - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
+  - echo "${DEPLOY_PHP}" > deploy.php
   - eval $(ssh-agent -s)
   # Generate the private/public key pair using:
   #
@@ -18,8 +18,8 @@ before_script:
   #
   # and add the public key `deploy_key.pub` into the target git repository (with
   # write permissions).
-  - echo "$SSH_PRIVATE_KEY"
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - echo "${SSH_PRIVATE_KEY}"
+  - ssh-add <(echo "${SSH_PRIVATE_KEY}")
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
