@@ -1,5 +1,5 @@
 default:
-  image: draabat/laravel-deployer:0.0.3
+  image: draabat/laravel-deployer:0.0.4
 #  services:
 #    - mysql:5.7
 
