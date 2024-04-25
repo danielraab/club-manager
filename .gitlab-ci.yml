@@ -57,7 +57,7 @@ deploy_test:
   script:
     - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
     - echo "${DEPLOY_PHP}" > deploy.php
-    - ~/.composer/vendor/bin/dep deploy test --revision="$CI_COMMIT_SHA"
+    - ~/.config/composer/vendor/bin/dep deploy test --revision="$CI_COMMIT_SHA"
   environment:
     name: test
     url: https://clubmanager.draab.at
@@ -70,7 +70,7 @@ deploy_production:
   script:
     - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
     - echo "${DEPLOY_PHP}" > deploy.php
-    - ~/.composer/vendor/bin/dep deploy production --revision="$CI_COMMIT_SHA"
+    - ~/.config/composer/vendor/bin/dep deploy production --revision="$CI_COMMIT_SHA"
   environment:
     name: production
     url: https://intern.mv-kematen.at
