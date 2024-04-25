@@ -38,7 +38,7 @@ build_assets:
       - public/build/
   script:
     - npm install
-    - npm build
+    - npm run build
 
 
 #unit_test:
