@@ -6,8 +6,6 @@ use App\Http\Controllers\Settings;
 use App\Http\Controllers\UploadedFileController;
 use App\Livewire\Development;
 use App\Livewire\UploadedFiles;
-use App\Models\Configuration;
-use App\Models\ConfigurationKey;
 use App\Models\UserPermission;
 use Illuminate\Support\Facades\Route;
 

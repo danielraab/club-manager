@@ -5,7 +5,7 @@ FROM php:8.2
 RUN apt-get update
 
 # Install PHP and composer dependencies
-RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev openssh-client
+RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev openssh-client npm
 
 # Clear out the local repository of retrieved package files
 RUN apt-get clean
@@ -19,3 +19,5 @@ RUN curl --silent --show-error "https://getcomposer.org/installer" | php -- --in
 
 # Install Laravel Envoy
 RUN composer global require "deployer/deployer=^7.3"
+
+WORKDIR /home

@@ -1,11 +1,9 @@
 default:
-  image: draabat/laravel-deployer:0.0.2
+  image: draabat/laravel-deployer:0.0.3
 #  services:
 #    - mysql:5.7
 
 before_script:
-  - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
-  - echo "${DEPLOY_PHP}" > deploy.php
   - eval $(ssh-agent -s)
   # Generate the private/public key pair using:
   #
@@ -29,8 +27,19 @@ before_script:
 #  DB_USERNAME: root
 
 stages:
+  - build
   - test
   - deploy
+
+build_assets:
+  stage: build
+  artifacts:
+    paths:
+      - public/build/
+  script:
+    - npm install
+    - npm build
+
 
 #unit_test:
 #  stage: test
@@ -43,16 +52,24 @@ stages:
 
 deploy_test:
   stage: deploy
+  dependencies:
+    - build_assets
   script:
+    - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
+    - echo "${DEPLOY_PHP}" > deploy.php
     - ~/.composer/vendor/bin/dep deploy test --revision="$CI_COMMIT_SHA"
   environment:
     name: test
-    url: https://test.mv-kematen.at
+    url: https://clubmanager.draab.at
   when: manual
 
 deploy_production:
   stage: deploy
+  dependencies:
+    - build_assets
   script:
+    - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
+    - echo "${DEPLOY_PHP}" > deploy.php
     - ~/.composer/vendor/bin/dep deploy production --revision="$CI_COMMIT_SHA"
   environment:
     name: production
