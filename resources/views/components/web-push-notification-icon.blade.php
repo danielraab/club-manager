@@ -10,6 +10,7 @@
             async updateData() {
                 this.successfullySubscribed = false;
                 this.hasSomeErrors = false;
+                this.clickAction = null;
 
                 this.info = (await webPush.checkAll());
 
