@@ -28,24 +28,24 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 <hr/>
             @endif
             <div class="text-center">
-                <div class="text-gray-500">{{__("title")}}:</div>
+                <div class="text-gray-500">{{__("Title")}}:</div>
                 <div class="font-bold text-lg">{{$event->title}}</div>
             </div>
             <div class="flex justify-center gap-5 ">
                 <div>
-                    <div class="text-gray-500">{{__("start")}}:</div>
+                    <div class="text-gray-500">{{__("Start")}}:</div>
                     <div class="font-bold text-lg">{{$event->getFormattedStart()}}</div>
                 </div>
                 <div class="bg-gray-400 w-px shrink-0"></div>
                 <div>
-                    <div class="text-gray-500">{{__("end")}}:</div>
+                    <div class="text-gray-500">{{__("End")}}:</div>
                     <div class="font-bold text-lg">{{$event->getFormattedEnd()}}</div>
                 </div>
             </div>
             <hr class="border-gray-400"/>
             @if($event->description)
                 <div class="text-center">
-                    <div class="text-gray-500">{{__("description")}}:</div>
+                    <div class="text-gray-500">{{__("Description")}}:</div>
                     <div>{{$event->description}}</div>
                 </div>
             @endif
@@ -53,7 +53,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
             <?php $eventType = $event->eventType()->first()->title ?>
             @if($eventType)
                 <div class="text-center">
-                    <div class="text-gray-500">{{__("type")}}:</div>
+                    <div class="text-gray-500">{{__("Type")}}:</div>
                     <div>{{$eventType}}</div>
                 </div>
             @endif
@@ -61,7 +61,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 <div class="text-center">
                     <div class="flex gap-2 items-center justify-center text-gray-500">
                         <i class="fa-solid fa-location-dot"></i>
-                        {{__("location")}}:
+                        {{__("Location")}}:
                     </div>
                     <div>{{$event->location}}</div>
                 </div>
@@ -70,7 +70,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 <div class="text-center">
                     <div class="flex gap-2 items-center justify-center text-gray-500">
                         <i class="fa-solid fa-shirt"></i>
-                        {{__("dress code")}}:
+                        {{__("Dress code")}}:
                     </div>
                     <div>{{$event->dress_code}}</div>
                 </div>
@@ -79,7 +79,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 <div class="text-center">
                     <div class="flex gap-2 items-center justify-center text-gray-500">
                         <i class="fa-solid fa-link"></i>
-                        {{__("link")}}:
+                        {{__("Link")}}:
                     </div>
                     <a href="{{$event->link}}">{{$event->link}}</a>
                 </div>
