@@ -6,10 +6,10 @@
     "background_color": "#90cdf4",
     "theme_color": "#90cdf4",
     "orientation": "portrait-primary",
-    "icons": {
-        "48": "logo.svg",
-        "96": "logo.svg",
-        "192": "logo.svg",
-        "500": "logo.svg"
-    }
+    "icons": [
+        {
+            "src": "/logo.svg",
+            "sizes": "any"
+        }
+    ]
 }
