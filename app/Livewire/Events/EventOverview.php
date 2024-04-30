@@ -9,6 +9,7 @@ use App\Models\ConfigurationKey;
 use App\Models\Event;
 use App\NotificationMessage\Item;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,6 +17,7 @@ class EventOverview extends Component
 {
     use EventFilterTrait, WithPagination;
 
+    #[Session]
     public ?string $search = null;
 
     public array $availablePageSizes = [20, 50, 100];
