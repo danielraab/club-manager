@@ -33,6 +33,8 @@ stages:
 
 build_assets:
   stage: build
+  only:
+    - tags
   artifacts:
     paths:
       - public/build/
