@@ -89,18 +89,18 @@
                     </div>
                 </div>
                 @if($showMembers[$event->id] ?? false)
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 justify-center py-3">
-                            @forelse($members = \App\Models\Member::query()->get() as $member)
-                                @php
-                                    /** @var \App\Models\Member $member */
-                                    $attendance = $member->attendances()->where("event_id", $event->id)->first();
-                                    if($attendance === null) continue;
-                                @endphp
-                                <x-attendance.list-item-display :attendance="$attendance" :member="$member"/>
-                            @empty
-                                <span>{{__("Currently no attendance information.")}}</span>
-                            @endforelse
-                        </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 justify-center py-3">
+                        @forelse($members = \App\Models\Member::query()->orderBy('lastname')->get() as $member)
+                            @php
+                                /** @var \App\Models\Member $member */
+                                $attendance = $member->attendances()->where("event_id", $event->id)->first();
+                                if($attendance === null) continue;
+                            @endphp
+                            <x-attendance.list-item-display :attendance="$attendance" :member="$member"/>
+                        @empty
+                            <span>{{__("Currently no attendance information.")}}</span>
+                        @endforelse
+                    </div>
                 @endif
             @endforeach
         </div>
