@@ -16,12 +16,26 @@ add('writable_dirs', []);
 set('writable_recursive', true);
 
 // Hosts
+import('deployer-hosts.yaml');
 
-host('your.domain.com')
-    ->set('remote_user', 'username')
-    ->set('http_user', 'username')
-    ->set('bin/php', '/usr/local/php82/bin/php')
-    ->set('writable_mode', 'chmod')
-    ->set('deploy_path', '~/path_to_the_project');
+
+//necessary for some hosting systems
+desc('Creates the symbolic links configured for the application');
+task('artisan:storage:linkRelative', artisan('storage:link --relative', ['min' => 5.3]));
+
+
+/**
+ * Main deploy task.
+ */
+desc('Deploys your project');
+task('deploy', [
+    'deploy:prepare',
+    'deploy:vendors',
+    'artisan:storage:linkRelative',
+    'artisan:caches:all',
+    'artisan:migrate',
+    'deploy:publish',
+]);
+
 
 after('deploy:failed', 'deploy:unlock');

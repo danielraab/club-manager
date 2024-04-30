@@ -52,104 +52,149 @@
             </dl>
         </header>
     </section>
-    <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
-        <script>
-            function initWebPush() {
-                return {
-                    forceIsReady: null,
-                    isBrowserReady: null,
-                    hasServiceWorker: null,
-                    hasPushSubscription: null,
-                    isPushSubscriptionStored: null,
-                    init() {
-                        webPush.setupAll(true);
-                    },
-                    updateFlags() {
-                        this.forceIsReady = webPush.forceIsReady;
-                        this.isBrowserReady = webPush.isBrowserReady;
-                        this.hasServiceWorker = webPush.hasServiceWorker;
-                        this.hasPushSubscription = webPush.hasPushSubscription;
-                        this.isPushSubscriptionStored = webPush.isPushSubscriptionStored;
-                    }
+    <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3" x-init="updateAll()" x-data="{
+                info: webPush.info,
+                async updateAll() {
+                    this.info = (await webPush.checkAll());
                 }
-            }
-        </script>
-        <details open>
-            <summary>Web Push Notification Info</summary>
-            <div class="mx-2 mt-3">
-                <span>Legend: </span>
-                <i class='text-green-700 fa-solid fa-circle-check'></i> Passed
-                <i class='text-orange-700 fa-solid fa-triangle-exclamation'></i> Not Checked
-                <i class='text-red-700 fa-solid fa-circle-xmark'></i> Failed
-            </div>
-            <ol class="text-sm p-2 text-gray-700" x-data="initWebPush()"
-                x-on:webpush-setup-finished.window="updateFlags">
+            }" @web-push-info-changed.document="updateAll()">
+        <button class="ml-auto btn btn-secondary"
+                x-on:click="await updateAll(); alert('done');">force param refresh
+        </button>
+        <ol class="text-sm p-2 text-gray-700">
+            <li>
+                <span class="font-bold">notification supported:</span>
+                <span x-text="info.isNotificationSupported"></span>
+            </li>
+            <template x-if="info.isNotificationSupported">
                 <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': Notification.permission === 'granted',
-                        'text-orange-700 fa-solid fa-triangle-exclamation': Notification.permission === 'default',
-                        'text-red-700 fa-solid fa-circle-xmark': Notification.permission === 'denied'}"></i> has
-                    notification permission
-                    (<span class="text-gray-500" x-text="Notification.permission"></span>)
+                    <ol class="mx-3 my-1">
+                        <li>
+                            <span class="font-bold">notification permission granted:</span>
+                            <span x-text="info.notification.hasNotificationPermission"></span>
+                        </li>
+                        <li>
+                            <span class="font-bold">notification api permission status:</span>
+                            <span x-text="info.notification.notificationPermission"></span>
+                        </li>
+                    </ol>
                 </li>
-                <li x-data="{serviceWorkerSupported: ('serviceWorker' in navigator)}">
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': serviceWorkerSupported,
-                        'text-red-700 fa-solid fa-circle-xmark': serviceWorkerSupported === false}"></i> are service
-                    worker supported by your browser
-                </li>
-                <li x-data="{pushManagerSupported: ('PushManager' in window)}">
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': pushManagerSupported,
-                        'text-red-700 fa-solid fa-circle-xmark': pushManagerSupported === false}"></i> is the push
-                    manager supported by your browser
-                </li>
+            </template>
+            <li>
+                <span class="font-bold">push managers supported:</span>
+                <span x-text="info.isPushManagerSupported"></span>
+            </li>
+            <li>
+                <span class="font-bold">service worker supported:</span>
+                <span x-text="info.isServiceWorkerSupported"></span>
+            </li>
+
+            <template x-if="info.isServiceWorkerSupported">
                 <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': isBrowserReady,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': isBrowserReady === null,
-                        'text-red-700 fa-solid fa-circle-xmark': isBrowserReady === false}"></i> is browser ready
+                    <ol class="mx-3 my-1">
+                        <li>
+                            <span class="font-bold">active service worker:</span>
+                            <span x-text="info.serviceWorker.hasServiceWorker"></span>
+                        </li>
+                        <template x-if="info.serviceWorker.hasServiceWorker">
+                            <li>
+                                <span class="font-bold">service worker script url:</span>
+                                <span x-text="info.serviceWorker.serviceWorkerUrl"></span>
+                            </li>
+                        </template>
+                        <template x-if="info.serviceWorker.hasServiceWorker">
+                            <li>
+                                <span class="font-bold">service worker has pushManager:</span>
+                                <span x-text="info.serviceWorker.pushManager.hasPushManager"></span>
+                                <template x-if="info.serviceWorker.pushManager.hasPushManager">
+                                    <ol class="mx-3 my-1">
+                                        <li>
+                                            <span class="font-bold">push manager has subscription:</span>
+                                            <span
+                                                x-text="info.serviceWorker.pushManager.subscription.hasSubscription"></span>
+                                            <template
+                                                x-if="info.serviceWorker.pushManager.subscription.hasSubscription">
+                                                <ol class="mx-3 my-1">
+                                                    <li>
+                                                        <span class="font-bold">keys are matching:</span>
+                                                        <span
+                                                            x-text="info.serviceWorker.pushManager.subscription.serverKeyIsSameAsVapid"></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-bold">key is on server:</span>
+                                                        <span
+                                                            x-text="info.serviceWorker.pushManager.subscription.server.isPushSubscriptionStored"></span>
+                                                    </li>
+                                                </ol>
+                                            </template>
+                                        </li>
+                                    </ol>
+                                </template>
+                            </li>
+                        </template>
+                    </ol>
                 </li>
-                <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': forceIsReady,
-                        'text-red-700 fa-solid fa-circle-xmark': forceIsReady === false}"></i> checked is cached
-                    <template x-if="forceIsReady"><span class="text-xs"
-                                                        x-text="'('+(new Date(Number(webPush.getLastCheckTimeStamp())))+')'"></span>
+            </template>
+            <li>
+                <span class="font-bold">stored vapid:</span>
+                <div class="text-xs ml-5 break-all" x-text="info.storedVapidPublicKey"></div>
+            </li>
+            <li x-cloak x-init x-show="info.errors?.length">
+                <span class="font-bold">web push errors:</span>
+                <template x-for="error in info.errors">
+                    <div class="text-xs" x-text="error"></div>
+                </template>
+            </li>
+        </ol>
+        <hr/>
+        <div class="flex flex-col items-center gap-2">
+            <button class="btn btn-danger" x-cloak
+                    x-show="info.storedVapidPublicKey?.length > 0"
+                    x-on:click="await webPush.vapid.setStoredVapidPublicKey('')">DELETE vapid key
+            </button>
+            <button class="btn btn-info" x-cloak
+                    x-show="!(info.storedVapidPublicKey?.length > 0)"
+                    x-on:click="await webPush.vapid.getVapidPublicKeyFromServer()">get vapid key
+            </button>
+
+            <button class="btn btn-primary"
+                    :disabled="info.notification.hasNotificationPermission"
+                    x-on:click="await webPush.notification.requestNotificationPermission()">request notification permission
+            </button>
+
+            <button class="btn btn-secondary" x-cloak
+                    x-show="!info.serviceWorker.hasServiceWorker"
+                    x-on:click="await webPush.serviceWorker.registerServiceWorker()">register service worker
+            </button>
+
+            <template x-if="info.serviceWorker.hasServiceWorker">
+                <div class="flex flex-col items-center gap-2">
+                    <button class="btn btn-danger"
+                            x-on:click="await webPush.serviceWorker.unregisterServiceWorker()">UNregister service worker
+                    </button>
+
+                    <button class="btn btn-primary"
+                            x-show="!info.serviceWorker.pushManager.subscription.hasSubscription"
+                            x-on:click="await webPush.subscription.addPushSubscription()">add push subscription
+                    </button>
+                    <template x-if="info.serviceWorker.pushManager.subscription.hasSubscription">
+                        <div class="flex flex-col items-center gap-2">
+                            <button class="btn btn-danger"
+                                    x-on:click="await webPush.subscription.removePushSubscription()">REMOVE push subscription
+                            </button>
+                            <button class="btn btn-danger"
+                                    x-show="info.serviceWorker.pushManager.subscription.server.isPushSubscriptionStored"
+                                    x-on:click="await webPush.server.removePushSubscription()">REMOVE subscription from server
+                            </button>
+                            <button class="btn btn-primary"
+                                    x-show="!info.serviceWorker.pushManager.subscription.server.isPushSubscriptionStored"
+                                    x-on:click="await webPush.server.storePushSubscription()">store subscription on server
+                            </button>
+                        </div>
                     </template>
-                </li>
-                <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': hasServiceWorker,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': hasServiceWorker === null,
-                        'text-red-700 fa-solid fa-circle-xmark': hasServiceWorker === false}"></i> has service worker
-                </li>
-                <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': hasPushSubscription,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': hasPushSubscription === null,
-                        'text-red-700 fa-solid fa-circle-xmark': hasPushSubscription === false}"></i> has push
-                    subscription
-                </li>
-                <li>
-                    <i :class="{
-                        'text-green-700 fa-solid fa-circle-check': isPushSubscriptionStored,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': isPushSubscriptionStored === null,
-                        'text-red-700 fa-solid fa-circle-xmark': isPushSubscriptionStored === false}"></i> is push
-                    subscription stored
-                </li>
-                <li>
-                    <i x-data="{isVapidKeyStored: webPush.isVapidPublicKeyStored()}" :class="{
-                        'text-green-700 fa-solid fa-circle-check': isVapidKeyStored,
-                        'text-orange-700 fa-solid fa-triangle-exclamation': isVapidKeyStored === null,
-                        'text-red-700 fa-solid fa-circle-xmark': isVapidKeyStored === false}"></i>
-                    <span>is vapid public key stored</span>
-                    <template x-if="webPush.isVapidPublicKeyStored">
-                        <div class="text-xs ml-5 break-all" x-text="webPush.getStoredVapidPublicKey()"></div>
-                    </template>
-                </li>
-            </ol>
-        </details>
+                </div>
+            </template>
+        </div>
     </div>
     <div class="shadow-xl shadow-black/5 sm:rounded-md bg-white p-3">
         <details open>
@@ -202,7 +247,8 @@
                 <ol class="text-sm p-2 text-gray-700 list-disc">
                     @foreach(\Illuminate\Support\Facades\File::allFiles("../storage/logs") as $file)
                         <li class="ml-4">
-                            <button type="submit" class="underline" wire:click="download('{{$file->getPathname()}}')">{{$file->getFilename()}}</button>
+                            <button type="submit" class="underline"
+                                    wire:click="download('{{$file->getPathname()}}')">{{$file->getFilename()}}</button>
                             <span class="text-xs text-gray-500">({{$file->getSize()}} B)</span>
                         </li>
                     @endforeach

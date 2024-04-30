@@ -11,12 +11,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Development
 {
-    const DEVELOPMENT_MODE_UP_TIME_SEC = 60 * 10;
-
     /**
      * Handle an incoming request.
      *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      *
      * @throws NotFoundHttpException
      */
@@ -31,7 +29,7 @@ class Development
     public static function isAvailableInSec(): int
     {
         return Configuration::getInt(ConfigurationKey::DEVELOPMENT_PAGE_AVAILABLE, default: 0)
-            + self::DEVELOPMENT_MODE_UP_TIME_SEC
+            + config('app.devMode')
             - now()->getTimestamp();
     }
 }

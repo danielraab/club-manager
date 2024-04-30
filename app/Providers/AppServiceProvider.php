@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->share('appName', \App\Models\Configuration::getString(\App\Models\ConfigurationKey::APPEARANCE_APP_NAME) ?: config('app.name'));
+        $appName = config('app.name');
+        try {
+            $appName = \App\Models\Configuration::getString(\App\Models\ConfigurationKey::APPEARANCE_APP_NAME, default: $appName);
+        } catch (QueryException $qe) {}
+        view()->share('appName', $appName);
     }
 }

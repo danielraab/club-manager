@@ -1,0 +1,17 @@
+{
+    "name": "Club Administrator",
+    "short_name": "ClubAdmin",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#90cdf4",
+    "theme_color": "#90cdf4",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/logo.svg",
+            "sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ]
+}

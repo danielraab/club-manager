@@ -1,237 +1,296 @@
 const webPush = {
-    isBrowserReady: null,
-    hasServiceWorker: null,
-    hasPushSubscription: null,
-    isPushSubscriptionStored: null,
-    forceIsReady: false,
-
-    isVapidPublicKeyStored: function () {
-        let vapidPublicKey = localStorage.getItem("vapidPublicKey");
-        return vapidPublicKey && vapidPublicKey.length > 0;
-    },
-
-    getStoredVapidPublicKey: function () {
-        return localStorage.getItem("vapidPublicKey");
-    },
-
-    getVapidPublicKey: async function ()  {
-        if(this.isVapidPublicKeyStored()) return this.getStoredVapidPublicKey();
-
-        const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-
-        return await fetch('/webPush/vapidPublicKey', {
-            method: 'GET', headers: {
-                'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+    errors: [],
+    info: {
+        errors: null,
+        isNotificationSupported: null,
+        notification: {
+            hasNotificationPermission: null,
+            notificationPermission: null,
+        },
+        isPushManagerSupported: null,
+        isServiceWorkerSupported: null,
+        serviceWorker: {
+            hasServiceWorker: null,
+            serviceWorkerUrl: null,
+            object: null,
+            pushManager: {
+                hasPushManager: null,
+                object: null,
+                subscription: {
+                    hasSubscription: null,
+                    serverKeyIsSameAsVapid: null,
+                    server: {
+                        isPushSubscriptionStored: null
+                    }
+                }
             }
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((res) => {
-                const publicKey = res.public_key;
-                localStorage.setItem("vapidPublicKey", publicKey);
-                return publicKey;
-            })
-            .catch((err) => {
-                console.log(err)
-                return null;
-            });
-    },
-
-    isReady() {
-        return this.forceIsReady ||
-            (this.isBrowserReady &&
-                this.notification.isNotificationGranted() &&
-                this.hasServiceWorker &&
-                this.hasPushSubscription &&
-                this.isPushSubscriptionStored);
-    },
-
-    checkBrowserRequirements: function () {
-        this.isBrowserReady = true;
-
-        if (!("serviceWorker" in navigator)) {
-            console.log("service Worker not supported in this browser.");
-            this.isBrowserReady = false;
-        }
-
-        //don't use it here if you use service worker
-        //for other stuff.
-        if (!"PushManager" in window) {
-            console.log("push manager not supported in this browser.")
-            this.isBrowserReady = false;
-        }
-        return this.isBrowserReady;
-    },
-
-    serviceWorker: {
-
-        hasServiceWorker: () => {
-            return navigator.serviceWorker.getRegistration().then(reg => {
-                webPush.hasServiceWorker = (reg !== undefined);
-                return (reg !== undefined);
-            }).catch(() => {
-                webPush.hasServiceWorker = false;
-                return false;
-            });
         },
-
-        registerServiceWorker: () => {
-            return navigator.serviceWorker.register('/sw.js')
-                .then(() => {
-                    console.log('serviceWorker installed!')
-                    webPush.hasServiceWorker = true;
-                    return true;
-                })
-                .catch((err) => {
-                    webPush.hasServiceWorker = false;
-                    return false;
-                });
-        },
-
-        unregisterServiceWorker: () => {
-            navigator.serviceWorker.getRegistration().then(swr => {
-                swr?.unregister().then(unreg => {
-                    console.log("service worker unregistering: " + unreg);
-                    webPush.hasServiceWorker = false;
-                });
-            })
-        },
+        storedVapidPublicKey: null,
     },
-
     notification: {
-
-        getNotificationPermission: () => {
-            return Notification.permission;
+        isNotificationSupported() {
+            return typeof Notification !== "undefined"
         },
-
-        isNotificationGranted: () => {
-            return Notification.permission === 'granted';
+        getNotificationApiPermissionStatus() {
+            return typeof Notification !== "undefined"
+                ? Notification.permission
+                : "Notification API unsupported"
         },
-
+        hasNotificationPermission() {
+            return this.getNotificationApiPermissionStatus() === "granted";
+        },
         requestNotificationPermission: () => {
             return Notification.requestPermission().then(result => {
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
                 return result === "granted";
             });
         }
     },
-
-    pushSubscription: {
-
-        getPushSubscription: () => {
-            return navigator.serviceWorker.ready.then(swr => {
-                return swr.pushManager.getSubscription().then(async sub => {
-                    const vapidPubKey = await webPush.getVapidPublicKey();
-                    if (webPush.urlBase64ToUint8Array(vapidPubKey).toString() === new Uint8Array(sub.options.applicationServerKey).toString()) {
-                        webPush.hasPushSubscription = true;
-                        return sub;
-                    }
-                    webPush.hasPushSubscription = false;
-                    return false;
-                });
-            }).catch(err => {
-                webPush.hasPushSubscription = false;
-                return false;
+    serviceWorker: {
+        isServiceWorkerSupported() {
+            return "serviceWorker" in navigator;
+        },
+        hasServiceWorker() {
+            return !!navigator.serviceWorker.controller;
+        },
+        // reload is required afterwards
+        registerServiceWorker: () => {
+            return navigator.serviceWorker.register('/sw.js').then((swr) => {
+                console.log('service worker registered');
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                return swr;
             });
+        },
+        getServiceWorkerRegistration: async () => {
+            return await navigator.serviceWorker.getRegistration();
+        },
+        unregisterServiceWorker: () => {
+            return navigator.serviceWorker.getRegistration().then(swr => {
+                return swr?.unregister().then(() => {
+                    document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                });
+            })
+        },
+    },
+
+    vapid: {
+        getVapidPublicKey: function () {
+            let vapid = this.getStoredVapidPublicKey();
+            if (vapid?.length > 0) return vapid;
+            return this.getVapidPublicKeyFromServer();
+        },
+        getStoredVapidPublicKey: function () {
+            return localStorage.getItem("vapidPublicKey");
+        },
+
+        setStoredVapidPublicKey: function (publicKey) {
+            localStorage.setItem("vapidPublicKey", publicKey);
+            document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+        },
+
+        getVapidPublicKeyFromServer: async function (store = true) {
+            const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+
+            return await fetch('/webPush/vapidPublicKey', {
+                method: 'GET', headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+                }
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((res) => {
+                    if (store) this.setStoredVapidPublicKey(res.public_key);
+                    return res.public_key;
+                })
+                .catch((err) => {
+                    webPush.errors.push("Error while getting vapid public key from server.")
+                    console.log(err)
+                    return null;
+                });
+        },
+    },
+
+    subscription: {
+        addPushSubscription: async () => {
+            return await navigator.serviceWorker.ready
+                .then(async (registration) => {
+                    const vapidKey = await webPush.vapid.getVapidPublicKey();
+                    const subscribeOptions = {
+                        userVisibleOnly: true,
+                        applicationServerKey: webPush.urlBase64ToUint8Array(vapidKey)
+                    };
+
+                    return await registration.pushManager.subscribe(subscribeOptions);
+                }).catch((err) => {
+                    webPush.errors.push('exception while adding push subscription: ' + err.message);
+                    console.log(err);
+                }).finally(() => {
+                    document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                });
         },
 
         removePushSubscription: async () => {
-            return navigator.serviceWorker.ready.then(swr => {
-                return swr.pushManager.getSubscription().then(sub => {
-                    return sub.unsubscribe().then((result => {
-                        if (result) webPush.hasPushSubscription = false;
-                        return result
-                    }));
+            return navigator.serviceWorker.ready.then(async swr => {
+                return await swr.pushManager.getSubscription().then(async sub => {
+                    return await sub.unsubscribe();
                 });
             }).catch(() => {
-                return false;
+                webPush.errors.push('exception while removing push subscription: ' + err.message);
+            }).finally(() => {
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
             });
         },
+    },
 
-        addPushSubscription: () => {
-            return navigator.serviceWorker.ready
-                .then(async (registration) => {
-                    const subscribeOptions = {
-                        userVisibleOnly: true,
-                        applicationServerKey: webPush.urlBase64ToUint8Array(await webPush.getVapidPublicKey())
-                    };
+    server: {
 
-                    return registration.pushManager.subscribe(subscribeOptions).then(pushSub => {
-                        if (pushSub instanceof PushSubscription) {
-                            webPush.hasPushSubscription = true;
-                            return pushSub;
-                        }
-                        return false;
-                    });
-                }).catch(() => {
-                    return false;
-                })
+        storePushSubscription: async () => {
+
+            const sub = await (await navigator.serviceWorker.getRegistration())?.pushManager?.getSubscription();
+
+            if (!sub) {
+                webPush.errors.push('no push subscription to check for');
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                return null;
+            }
+            return webPush.server.storeGivenPushSubscription(sub);
         },
 
-        store: {
+        storeGivenPushSubscription: async (pushSubscription) => {
+            const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
-            storePushSubscription: (pushSubscription) => {
-                const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-
-                return fetch('/webPush', {
-                    method: 'POST', body: JSON.stringify(pushSubscription), headers: {
-                        'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
-                    }
+            return await fetch('/webPush', {
+                method: 'POST', body: JSON.stringify(pushSubscription), headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+                }
+            })
+                .then((res) => {
+                    return res.status === 200;
                 })
-                    .then((res) => {
-                        webPush.isPushSubscriptionStored = res.status === 200;
-                        return webPush.isPushSubscriptionStored;
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        return false;
-                    });
-            },
+                .catch((err) => {
+                    webPush.errors.push("Error while getting storing key on server: "+err.message)
+                    console.log(err)
+                }).finally(() => {
+                    document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                });
+        },
 
-            isPushSubscriptionStored: (pushSubscription) => {
-                const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+        isPushSubscriptionStored: async () => {
+            const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
-                return fetch('/webPush/hasEndpoint', {
-                    method: 'POST', body: JSON.stringify({
-                        endpoint: pushSubscription.endpoint
-                    }), headers: {
-                        'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
-                    }
-                })
-                    .then((res) => {
-                        webPush.isPushSubscriptionStored = res.status === 200;
-                        return webPush.isPushSubscriptionStored;
-                    })
-                    .catch((err) => {
-                        webPush.isPushSubscriptionStored = false;
-                        return false;
-                    });
-            },
+            const sub = await (await navigator.serviceWorker.getRegistration())?.pushManager?.getSubscription();
 
-            removePushSubscriptionFromStore: (pushSubscription) => {
-                const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
-
-                return fetch('/webPush/removeEndpoint', {
-                    method: 'POST', body: JSON.stringify({
-                        endpoint: pushSubscription.endpoint
-                    }), headers: {
-                        'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
-                    }
-                })
-                    .then((res) => {
-                        if (res.status === 200) {
-                            webPush.isPushSubscriptionStored = false;
-                            return true;
-                        }
-                        return false;
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        return false;
-                    });
+            if (!sub) {
+                webPush.errors.push('no push subscription to check for');
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                return null;
             }
+
+            return await fetch('/webPush/hasEndpoint', {
+                method: 'POST', body: JSON.stringify({
+                    endpoint: sub.endpoint
+                }), headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+                }
+            })
+                .then((res) => {
+                    return res.status === 200;
+                })
+                .catch((err) => {
+                    return false;
+                });
+        },
+
+        removePushSubscription: async () => {
+            const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+
+            const sub = await (await navigator.serviceWorker.getRegistration())?.pushManager?.getSubscription();
+
+            if (!sub) {
+                webPush.errors.push('no push subscription to check for');
+                document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                return null;
+            }
+
+            return await fetch('/webPush/removeEndpoint', {
+                method: 'POST', body: JSON.stringify({
+                    endpoint: sub.endpoint
+                }), headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': token
+                }
+            })
+                .catch((err) => {
+                    webPush.errors.push("Error while removing subscription from server: "+err.message)
+                    console.log(err)
+                }).finally(() => {
+                    document.dispatchEvent(new CustomEvent('web-push-info-changed'));
+                });
         }
     },
+
+
+    isPushManagerSupported() {
+        return "PushManager" in window;
+    },
+
+    async checkAll() {
+        this.info = {
+            errors: this.errors,
+            isNotificationSupported: null,
+            notification: {
+                hasNotificationPermission: null,
+                notificationPermission: null,
+            },
+            isPushManagerSupported: null,
+            isServiceWorkerSupported: null,
+            serviceWorker: {
+                hasServiceWorker: null,
+                serviceWorkerUrl: null,
+                object: null,
+                pushManager: {
+                    hasPushManager: null,
+                    object: null,
+                    subscription: {
+                        hasSubscription: null,
+                        serverKeyIsSameAsVapid: null,
+                        server: {
+                            isPushSubscriptionStored: null
+                        }
+                    }
+                }
+            },
+            storedVapidPublicKey: null,
+        };
+        this.info.storedVapidPublicKey = this.vapid.getStoredVapidPublicKey();
+        this.info.isNotificationSupported = this.notification.isNotificationSupported();
+        this.info.notification.hasNotificationPermission = this.notification.hasNotificationPermission();
+        this.info.notification.notificationPermission = this.notification.getNotificationApiPermissionStatus();
+        this.info.isPushManagerSupported = this.isPushManagerSupported();
+        this.info.isServiceWorkerSupported = this.serviceWorker.isServiceWorkerSupported();
+        const serviceWorkerRegistration = await this.serviceWorker.getServiceWorkerRegistration();
+        this.info.serviceWorker.hasServiceWorker = !!serviceWorkerRegistration;
+        if (serviceWorkerRegistration && serviceWorkerRegistration.active) {
+            this.info.serviceWorker.serviceWorkerUrl = serviceWorkerRegistration.active.scriptURL;
+            this.info.serviceWorker.object = serviceWorkerRegistration;
+            const pushManager = serviceWorkerRegistration.pushManager;
+            this.info.serviceWorker.pushManager.hasPushManager = !!pushManager;
+            if (pushManager) {
+                this.info.serviceWorker.pushManager.object = pushManager;
+                const subscription = await pushManager.getSubscription();
+                this.info.serviceWorker.pushManager.subscription.hasSubscription = !!subscription;
+                if (subscription) {
+                    this.info.serviceWorker.pushManager.subscription.serverKeyIsSameAsVapid =
+                        this.info.storedVapidPublicKey && this.urlBase64ToUint8Array(this.info.storedVapidPublicKey).toString() ===
+                        new Uint8Array(subscription.options.applicationServerKey).toString();
+                    this.info.serviceWorker.pushManager.subscription.server.isPushSubscriptionStored =
+                        await this.server.isPushSubscriptionStored();
+                }
+            }
+        }
+        return this.info;
+    },
+
 
     urlBase64ToUint8Array: (base64String) => {
         const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -247,67 +306,11 @@ const webPush = {
         }
         return outputArray;
     },
+}
 
-    getLastCheckTimeStamp: () => {
-        return localStorage.getItem('clubManagerSubscriptionCheck');
-    },
-
-    setupAll: async function (checkOnly = false) {
-        await ( async (checkOnly) => {
-            let lastSetup = this.getLastCheckTimeStamp();
-            if(lastSetup && (Number(lastSetup) < Date.now()+300000)) {
-                this.forceIsReady = true;
-                console.log("webPush check timestamp found");
-                window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
-                return true;
-            }
-
-            if (!webPush.checkBrowserRequirements()) return false;
-
-            if (!webPush.notification.isNotificationGranted()) {
-                if(checkOnly) return false;
-                if (!(await webPush.notification.requestNotificationPermission())) {
-                    console.warn("unable to request notification permission.")
-                    return false;
-                }
-            }
-
-            const hasServiceWorker = await webPush.serviceWorker.hasServiceWorker();
-            if (!(hasServiceWorker)) {
-                if(checkOnly) return false;
-                if (!(await webPush.serviceWorker.registerServiceWorker())) {
-                    console.warn('unable to install serviceWorker');
-                    return false;
-                }
-            }
-
-            let pushSubscription = null;
-            if (!(pushSubscription = await webPush.pushSubscription.getPushSubscription())) {
-                if(checkOnly) return false;
-                if (!(pushSubscription = await webPush.pushSubscription.addPushSubscription())) {
-                    console.warn("unable to add push subscription to manager");
-                    return false;
-                }
-            }
-
-            if (!(await webPush.pushSubscription.store.isPushSubscriptionStored(pushSubscription))) {
-                if(checkOnly) return false;
-                if (!(await webPush.pushSubscription.store.storePushSubscription(pushSubscription))) {
-                    console.log("unable to store subscription on server");
-                    return false;
-                }
-            }
-
-            if(this.isReady())
-                localStorage.setItem("clubManagerSubscriptionCheck", Date.now().toString());
-
-            return true;
-        })(checkOnly)
-
-        window.dispatchEvent(new CustomEvent("webpush-setup-finished"))
-    }
+if(webPush.serviceWorker.isServiceWorkerSupported() &&
+    !webPush.serviceWorker.hasServiceWorker()) {
+    webPush.serviceWorker.registerServiceWorker();
 }
 
 export default webPush;
-
-
