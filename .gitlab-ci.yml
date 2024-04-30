@@ -62,7 +62,7 @@ deploy_test:
     - ~/.config/composer/vendor/bin/dep deploy test --revision="$CI_COMMIT_SHA"
   environment:
     name: test
-    url: https://clubmanager.draab.at
+    url: https://clubmanager.softdev.at
   when: manual
 
 deploy_production:
