@@ -9,7 +9,7 @@
 @endphp
 
 <x-slot name="headline">
-    <span>{{ __('Attend poll') }}</span>
+    <span>{{ __('Attendance poll') }}</span>
 </x-slot>
 <x-slot name="headerBtn">
     <div class="space-x-2">
@@ -73,7 +73,7 @@
                     </button>
                 </div>
                 @if($selectedMember === null)
-                    <span class="text-xs text-gray-600">Start type in your name until you find it in the list.</span>
+                    <span class="text-xs text-gray-600">{{__('Start type in your name until you find it in the list.')}}</span>
                 @endif
                 @error('member')
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
@@ -163,7 +163,7 @@
                 @endforeach
             </div>
         @else
-            <span>Please select your name first.</span>
+            <span>{{__('Please select your name first.')}}</span>
         @endif
     </div>
 </div>

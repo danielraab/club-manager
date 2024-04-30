@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - manifest file for PWA, necessary for (iOS and webpush)
 - gitlab pipeline deployment
+- de translations for public polls
 ### Changed
 - ad option backer overview is now an order list and button is exchanged with caret
 - webpush notification refactored

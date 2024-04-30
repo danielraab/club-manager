@@ -75,6 +75,7 @@
     "Select a File": "Eine Datei auswählen",
     "no file uploaded": "keine Datei hochgeladen",
     "no files to show": "keine Dateien zum anzeigen",
+    "Summary": "Zusammenfassung",
 
     "Force web push": "Benachrichtigung auslösen",
     "Force a web push to all subscribes (with the updated data).": "Browser-Benachrichtigung an alle Abonennten senden (mit aktualisierten Daten).",
@@ -266,7 +267,9 @@
     "Unsure": "unsicher",
     "Attended": "teilgenommen",
 
-    "Attendance polls": "Anwesenheitsabfrage",
+    "Attendance polls": "Anwesenheitsabfragen",
+    "Attendance poll": "Anwesenheitsabfrage",
+    "Edit Poll": "Abfrage ändern",
     "Create new attendance poll": "Neue Anwesenheitsabfrage erstellen",
     "Attendance Poll overview": "Übersicht Anwesenheitsabfragen",
     "Attendance Polls": "Anwesenheitsabfragen",
@@ -286,7 +289,8 @@
     "Add events to poll": "Veranstaltungen hinzufügen",
     "No attendance polls to display.": "Keine Veranstaltungsabfragen.",
     "Currently no attendance information.": "Aktuell gibt es keine Teilnahmeinformationen.",
-
+    "Start type in your name until you find it in the list.": "Geben Sie ihren Namen ein bis Sie in in der Liste finden.",
+    "Please select your name first.": "Wählen Sie zuerst ihren Namen aus.",
 
 
     "Sponsoring": "Sponsoring",
