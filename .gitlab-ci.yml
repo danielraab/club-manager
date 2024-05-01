@@ -67,8 +67,6 @@ deploy_test:
 
 deploy_production:
   stage: deploy
-  only:
-    - tags && master
   dependencies:
     - build_assets
   script:
