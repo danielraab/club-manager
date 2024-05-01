@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.9 - 2024-05-01
 ### Added
 - manifest file for PWA, necessary for (iOS and webpush)
 - gitlab pipeline deployment
