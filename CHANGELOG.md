@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - switch to show unattended members in attendance display
 - add vat to sponsor backer (incl forms, contract overview)
+- delete button for all attendance records
 ### Changed
 - sort member in overview sorted by name
 

@@ -15,6 +15,7 @@ class SingleAttendance extends Component
 
     public Member $member;
 
+    #[On('all-attendance-updated')]
     #[On('attendance-updated.{event.id}.{member.id}')]
     public function refreshAttendance()
     {

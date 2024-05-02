@@ -1,6 +1,7 @@
 @php
     /** @var $event \App\Models\Event */
     /** @var $members \Illuminate\Database\Eloquent\Collection */
+    /** @var $member \App\Models\Member */
 
     $memberFilter = $this->getMemberFilter();
     $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
@@ -32,7 +33,9 @@
     </div>
 </x-slot>
 
-<div>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
@@ -44,7 +47,7 @@
     <div class="flex justify-center gap-4 bg-white shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex items-center flex-wrap justify-center gap-5">
             <div class="flex items-center flex-wrap justify-center"
-            x-data="{isDisplayGroup: $wire.entangle('isDisplayGroup').live}">
+                 x-data="{isDisplayGroup: $wire.entangle('isDisplayGroup').live}">
                 @if($isDisplayGroup)
                     <div class="py-2 px-4 rounded-l-lg bg-sky-600">
                         {{__("Groups")}}</div>
@@ -75,10 +78,21 @@
         @else
             <div class="flex flex-col justify-center text-center divide-y divide-gray-500">
                 @foreach ($members->get() as $member)
-                        <livewire:attendance.single-attendance :event="$event" :member="$member"
-                                                               key="att-list-lw-{{ $member->id }}"/>
+                    <livewire:attendance.single-attendance :event="$event" :member="$member"
+                                                           key="att-list-lw-{{ $member->id }}"/>
                 @endforeach
             </div>
         @endif
     </div>
+
+    @if ($hasEventEditPermission)
+        <div class="flex justify-end bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
+            <button class="btn btn-danger " type="button"
+                    wire:confirm.prompt="{{__('Are you sure you want to delete all attendance records? All records will get lost.\nEnter \'DELETE\' if your are sure.|DELETE')}}"
+                    wire:click="removeAllAttendanceRecords">
+                <i class="fa-solid fa-trash mr-2"></i>
+                {{__('Delete all attendance records')}}
+            </button>
+        </div>
+    @endif
 </div>
