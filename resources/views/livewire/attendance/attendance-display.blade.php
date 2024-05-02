@@ -3,6 +3,7 @@
     /** @var \App\Models\Event $event */
     $hasAttendanceEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Attendance::ATTENDANCE_EDIT_PERMISSION) ?? false;
     $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION) ?? false;
+    $defaultMemberFilter = new \App\Models\Filter\MemberFilter()
 @endphp
 
 <x-slot name="headline">
@@ -40,7 +41,7 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5">
         <div class="flex flex-wrap gap-2 items-center justify-between">
             <span
-                class="text-gray-500">{{$event->getFormattedStart()}}</span>
+                    class="text-gray-500">{{$event->getFormattedStart()}}</span>
             <span class="text-gray-700 text-xl">{{$event->title}}</span>
         </div>
     </div>
@@ -98,6 +99,12 @@
                         {{__("List")}}</div>
                 </div>
             </template>
+
+            <div class="flex items-center gap-2"
+                 x-on:switched="$wire.set('showUnattended', $event.detail.enabled)">
+                <x-input-switch :enabled="$showUnattended"/>
+                <span>{{__('Show unattended members')}}</span>
+            </div>
         </div>
     </div>
 
@@ -105,21 +112,21 @@
         <div>
             <template x-if="showGroup">
                 <div>
-
                     @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
                         <x-attendance.member-group-tree-display :memberGroup="$memberGroup" :event="$event"
-                                                                initialShow="true"
+                                                                initialShow="true" :defaultMemberFilter="$defaultMemberFilter"
                                                                 :attendanceStatistic="$statistic"/>
                     @endforeach
                 </div>
             </template>
             <template x-if="!showGroup">
                 <div>
-                    @forelse($members = \App\Models\Member::query()->get() as $member)
+                    @forelse($members = \App\Models\Member::query()->orderBy('lastname')->orderBy('firstname')->get() as $member)
                         @php
                             /** @var \App\Models\Member $member */
                             $attendance = $member->attendances()->where("event_id", $event->id)->first();
-                            if($attendance === null) continue;
+                            if($attendance === null &&
+                                !($showUnattended && $member->matchFilter($defaultMemberFilter))) continue;
                         @endphp
                         <x-attendance.list-item-display :attendance="$attendance" :member="$member"/>
                     @empty

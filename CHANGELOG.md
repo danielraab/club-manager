@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- switch to show unattended members in attendance display
+### Changed
+- sort member in overview sorted by name
 
 ## v0.7.9 - 2024-05-01
 ### Added

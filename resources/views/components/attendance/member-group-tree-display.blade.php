@@ -32,11 +32,12 @@
     </div>
     <!-- Content -->
     <div x-show="show" class="px-5 pt-0 overflow-hidden space-y-1" x-transition>
-        @foreach($memberGroup->members()->get() as $member)
+        @foreach($memberGroup->members()->orderBy('lastname')->orderBy('firstname')->get() as $member)
             @php
                 /** @var \App\Models\Member $member */
                     $currentAttendance = $member->attendances()->where('event_id', $event->id)->first();
-                    if($currentAttendance === null) continue;
+                    if($currentAttendance === null &&
+                                !($this->showUnattended && $member->matchFilter($defaultMemberFilter))) continue;
                     $cssClasses = $currentAttendance?->attended ? " bg-green-300" : '';
             @endphp
             <div class="flex gap-2 items-center px-2">
@@ -53,6 +54,7 @@
             @if($childMemberGroup->members()->get()->isNotEmpty() ||
                 $childMemberGroup->children()->get()->isNotEmpty())
                 <x-attendance.member-group-tree-display :memberGroup="$childMemberGroup" :event="$event"
+                                                        :defaultMemberFilter="$defaultMemberFilter"
                                                         :attendanceStatistic="$attendanceStatistic"/>
             @endif
         @endforeach

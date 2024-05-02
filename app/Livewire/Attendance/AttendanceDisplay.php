@@ -3,13 +3,16 @@
 namespace App\Livewire\Attendance;
 
 use App\Calculation\AttendanceStatistic;
-use App\Livewire\MemberFilterTrait;
 use App\Models\Event;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 
 class AttendanceDisplay extends Component
 {
     public Event $event;
+
+    #[Session]
+    public bool $showUnattended = true;
 
     public function mount(Event $event)
     {
@@ -22,7 +25,7 @@ class AttendanceDisplay extends Component
         $attendanceStatistic->calculateStatistics();
 
         return view('livewire.attendance.attendance-display', [
-            'statistic' => $attendanceStatistic
+            'statistic' => $attendanceStatistic,
         ])->layout('layouts.backend');
     }
 }
