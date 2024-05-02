@@ -16,20 +16,20 @@
     <x-slot name="headline">
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <a href="{{url()->previous()}}">
+                <a href="{{route('sponsoring.period.backer.overview',['period' => $period->id])}}">
                     <i class="fa-solid fa-arrow-left-long"></i>
                 </a>
                 {{ __('Contract details') }}
             </div>
-            @if($hasEditPermission)
-                <div>
-                    <a class="btn btn-edit"
-                                   href="{{route('sponsoring.contract.edit', $contract->id)}}"
-                                   title="Edit this contract">{{__("Edit contract")}}</a>
-                </div>
-            @endif
         </div>
     </x-slot>
+    @if($hasEditPermission)
+        <x-slot name="headerBtn">
+            <a class="btn btn-edit"
+               href="{{route('sponsoring.contract.edit', $contract->id)}}"
+               title="Edit this contract">{{__("Edit contract")}}</a>
+        </x-slot>
+    @endif
 
     <div class="flex flex-wrap gap-3 justify-center">
 
@@ -92,7 +92,7 @@
         </section>
 
         <section class="bg-white shadow-sm sm:rounded-lg w-full max-w-screen-sm overflow-hidden"
-                 x-data="{showBackerDetail:$persist(true), showDescription:false, showPackages:false}">
+                 x-data="{showBackerDetail:$persist(true), showDescription:false, showPackages:false, showInfo:false}">
             <h2 class="w-full bg-purple-300 text-center p-2 font-bold cursor-pointer hover:opacity-75 relative"
                 x-on:click="showBackerDetail=!showBackerDetail">
                 {{__("Backer")}}
@@ -110,7 +110,13 @@
             <div class="p-3 flex flex-col gap-2" x-show="showBackerDetail" x-collapse x-cloak>
                 <div>
                     <h3 class="font-semibold"><i class="fa-solid fa-building"></i> {{__("Company name")}}</h3>
-                    <p class="p-2">{{$backer->name}}</p>
+                    <p class="p-2">{{$backer->name}}
+                        @if($backer->vat)
+                            <span class="text-gray-700 text-sm">
+                                ({{$backer->vat}})
+                            </span>
+                        @endif
+                    </p>
                 </div>
                 <div>
                     <h3 class="font-semibold"><i class="fa-solid fa-map-location"></i> {{__("Address")}}</h3>

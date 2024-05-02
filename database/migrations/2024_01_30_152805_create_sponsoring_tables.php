@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Member;
+use App\Models\Sponsoring\AdOption;
 use App\Models\Sponsoring\AdPlacement;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
@@ -58,7 +59,7 @@ return new class extends Migration
 
         Schema::create('sponsor_package_sponsor_ad_option', function (Blueprint $table) {
             $table->foreignIdFor(Package::class, 'package_id');
-            $table->foreignIdFor(\App\Models\Sponsoring\AdOption::class, 'ad_option_id');
+            $table->foreignIdFor(AdOption::class, 'ad_option_id');
             $table->foreign('package_id')->references('id')
                 ->on('sponsor_packages')->cascadeOnDelete();
             $table->foreign('ad_option_id')->references('id')

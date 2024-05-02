@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - switch to show unattended members in attendance display
+- add vat to sponsor backer (incl forms, contract overview)
 ### Changed
 - sort member in overview sorted by name
 

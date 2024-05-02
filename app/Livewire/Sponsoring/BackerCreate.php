@@ -24,7 +24,7 @@ class BackerCreate extends Component
     {
         $this->backerForm->store();
 
-        Log::info("Backer created", [auth()->user(), $this->backerForm->backer]);
+        Log::info('Backer created', [auth()->user(), $this->backerForm->backer]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The backer has been successfully created.'), ItemType::SUCCESS));
 

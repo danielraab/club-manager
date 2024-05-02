@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string zip
  * @property string city
  * @property string country
+ * @property string vat
  * @property string info
  * @property \DateTime closed_at
  * @property UploadedFile[] uploadedFiles
@@ -48,6 +49,7 @@ class Backer extends Model implements HasFileRelationInterface
         'zip',
         'city',
         'country',
+        'vat',
         'info',
         'closed_at',
     ];

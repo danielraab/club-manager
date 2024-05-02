@@ -27,7 +27,7 @@ class BackerEdit extends Component
     {
         $this->backerForm->update();
 
-        Log::info("Backer updated", [auth()->user(), $this->backerForm->backer]);
+        Log::info('Backer updated', [auth()->user(), $this->backerForm->backer]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The backer has been successfully updated.'), ItemType::SUCCESS));
 
@@ -38,13 +38,12 @@ class BackerEdit extends Component
     {
         $this->backerForm->delete();
 
-        Log::info("Backer deleted", [auth()->user(), $this->backerForm->backer]);
+        Log::info('Backer deleted', [auth()->user(), $this->backerForm->backer]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The backer has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
-
 
     public function render()
     {

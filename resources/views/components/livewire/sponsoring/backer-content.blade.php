@@ -12,7 +12,7 @@
     <div class="mt-6">
 
         <div class="mt-3">
-            <x-input-label for="name" :value="__('Name')"/>
+            <x-input-label for="name" :value="__('Name')" required/>
             <x-input id="name" name="name" type="text" class="mt-1 block w-full"
                           wire:model="backerForm.name"
                           required autofocus autocomplete="name"/>
@@ -66,7 +66,7 @@
         </div>
         <div class="flex gap-2 mt-3">
             <div class="basis-1/3">
-                <x-input-label for="zip" :value="__('ZIP')"/>
+                <x-input-label for="zip" :value="__('ZIP')" required/>
                 <x-input id="zip" name="zip" type="number" class="mt-1 block w-full"
                               wire:model="backerForm.zip"
                               required autofocus autocomplete="zip"/>
@@ -74,7 +74,7 @@
                 <x-input-error class="mt-2" :messages="$message"/>@enderror
             </div>
             <div class="basis-2/3">
-                <x-input-label for="city" :value="__('City')"/>
+                <x-input-label for="city" :value="__('City')" required/>
                 <x-input id="city" name="city" type="text" class="mt-1 block w-full"
                               wire:model="backerForm.city"
                               required autofocus autocomplete="city"/>
@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="mt-3">
-            <x-input-label for="country" :value="__('Country')"/>
+            <x-input-label for="country" :value="__('Country')" required/>
             <x-select id="country" name="country" class="mt-1 block w-full"
                       wire:model="backerForm.country"
                       required autofocus autocomplete="country">
@@ -94,6 +94,13 @@
             @error('backerForm.country')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
-
+        <div class="mt-3">
+            <x-input-label for="vat" :value="__('VAT')"/>
+            <x-input id="vat" name="vat" type="text" class="mt-1 block w-full"
+                     wire:model="backerForm.vat"
+                     required autofocus autocomplete="vat"/>
+            @error('backerForm.vat')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
     </div>
 </section>

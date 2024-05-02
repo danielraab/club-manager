@@ -31,6 +31,8 @@ class BackerForm extends Form
 
     public string $country;
 
+    public ?string $vat;
+
     public ?string $info;
 
     public ?string $closed_at = null;
@@ -38,7 +40,7 @@ class BackerForm extends Form
     public function __construct(Component $component, $propertyName)
     {
         parent::__construct($component, $propertyName);
-        $this->country = "AT"; //todo load from config
+        $this->country = 'AT'; //todo load from config
     }
 
     protected function rules(): array
@@ -54,6 +56,7 @@ class BackerForm extends Form
             'zip' => ['required', 'integer'],
             'city' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:2'],
+            'vat' => ['nullable', 'string', 'max:255'],
             'info' => ['nullable', 'string'],
             'closed_at' => ['nullable', 'date'],
         ];
@@ -73,6 +76,7 @@ class BackerForm extends Form
         $this->zip = $backer->zip;
         $this->city = $backer->city;
         $this->country = $backer->country;
+        $this->vat = $backer->vat;
         $this->info = $backer->info;
 
         $this->closed_at = $backer->closed_at?->format('Y-m-d');

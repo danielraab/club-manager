@@ -21,7 +21,12 @@
             <div><span class="font-bold">{{__("address")}}: </span>{{$backer->street}}
                 , {{$backer->zip}} {{$backer->city}}</div>
             <div><span class="font-bold">{{__("phone")}}: </span>{{$backer->phone}}</div>
-            <div><span class="font-bold">{{__("info")}}: </span>{{$backer->info}}</div>
+            @if($backer->info)
+                <div><span class="font-bold">{{__("info")}}: </span>{{$backer->info}}</div>
+            @endif
+            @if($backer->vat)
+                <div><span class="font-bold">{{__("vat")}}: </span>{{$backer->vat}}</div>
+            @endif
             @if($backer->closed_at)
                 <div><span class="font-bold">{{__("closed")}}: </span>{{$backer->closed_at}}</div>
             @endif
