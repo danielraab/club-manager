@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.10 - 2024-05-05
 ### Added
 - switch to show unattended members in attendance display
 - add vat to sponsor backer (incl forms, contract overview)
