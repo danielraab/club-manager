@@ -10,6 +10,7 @@ set('repository', 'git@gitlab.com:mvkematen/club-scheduler.git'); //todo change 
 
 add('shared_files', [
     'public/favicon.ico',
+    "public/logo.svg",
     'public/manifest.json'
 ]);
 add('shared_dirs', []);
