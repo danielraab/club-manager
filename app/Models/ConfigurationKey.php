@@ -9,8 +9,8 @@ enum ConfigurationKey: string
      */
     case APPEARANCE_APP_NAME = 'appearance_app_name';
     case APPEARANCE_APP_LOGO_ID = 'appearance_app_logo_id';
-    case IMPRINT_LINK_NAME = 'imprint_link_name';
     case IMPRINT_TEXT = 'imprint_text';
+    case PRIVACY_POLICY_TEXT = 'privacy_policy_text';
     case DEVELOPMENT_PAGE_AVAILABLE = 'is_dev_page_available';
     case GUEST_LAYOUT_TEXT = 'guest_layout_text';
     case EVENT_FILTER_DEFAULT_START_TODAY = 'eventFilter_defaultStartToday';

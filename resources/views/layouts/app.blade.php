@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json"/>
     <title>{{ $title }}</title>
 
     <!-- Scripts -->
@@ -27,20 +27,21 @@
     <main>
         {{ $slot }}
     </main>
-    <footer class="text-center text-gray-500 pb-3">
-        <div>
-            @if($linkText = App\Models\Configuration::getString(App\Models\ConfigurationKey::IMPRINT_LINK_NAME))
-                <a class="underline" href="{{route('imprint')}}">{{ $linkText }}</a>
-            @endif
-        </div>
-        <div>
-            <i class="fa-regular fa-copyright"></i>
-            <span>draab.at</span>
-            @if($version = config("app.version"))
-                <span> - </span>
-                <span title="{{config("app.deployDateTime")?->formatDateTimeWithSec()}}">{{config("app.version")}}</span>
-            @endif
-        </div>
+    <footer class="text-center text-gray-500 pb-3 max-sm:text-xs">
+        @if(App\Models\Configuration::getString(App\Models\ConfigurationKey::IMPRINT_TEXT))
+            <a class="underline" href="{{route('imprint')}}">{{__('Imprint')}}</a>
+            <span> &#183; </span>
+        @endif
+        @if(App\Models\Configuration::getString(App\Models\ConfigurationKey::PRIVACY_POLICY_TEXT))
+            <a class="underline" href="{{route('privacy-policy')}}">{{__('Privacy policy')}}</a>
+            <span> &#183; </span>
+        @endif
+        <i class="fa-regular fa-copyright"></i>
+        <span>draab.at</span>
+        @if($version = config("app.version"))
+            <span> &#183; </span>
+            <span title="{{config("app.deployDateTime")?->formatDateTimeWithSec()}}">{{$version}}</span>
+        @endif
     </footer>
 </div>
 <script>

@@ -2,30 +2,30 @@
 
     <header class="mb-3">
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Imprint') }}
+            {{ __('Privacy policy') }}
         </h2>
     </header>
 
     <x-livewire.loading/>
     <div
         class="rounded-md bg-white p-4 text-[0.8125rem] leading-6 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
-        <div class="my-3" wire:ignore x-init="initImprintText()">
+        <div class="my-3" wire:ignore x-init="initPrivacyPolicyText()">
             @vite(['resources/js/trix.umd.min.js', 'resources/css/trix.css'])
             <script>
-                function initImprintText() {
-                    const trixEditor = document.getElementById("imprintTextEditor")
+                function initPrivacyPolicyText() {
+                    const trixEditor = document.getElementById("privacyPolicyTextEditor")
                     addEventListener("trix-before-initialize", function (event) {
                         Trix.config.blockAttributes.heading1.tagName = "h2";
                     });
                     addEventListener("trix-blur", function (event) {
-                        @this.set('imprintText', trixEditor.value);
+                        @this.set('privacyPolicyText', trixEditor.value);
                     });
                 }
             </script>
-            <input id="imprintText" type="hidden" name="imprintText" wire:model="imprintText">
-            <trix-editor id="imprintTextEditor" input="imprintText" class="w-full min-h-[300px]"></trix-editor>
+            <input id="privacyPolicyText" type="hidden" name="privacyPolicyText" wire:model="privacyPolicyText">
+            <trix-editor id="privacyPolicyTextEditor" input="privacyPolicyText" class="w-full min-h-[300px]"></trix-editor>
 
-            @error('imprintText') <x-input-error class="mt-2" :messages="$message"/>@enderror
+            @error('privacyPolicyText') <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
     </div>
 </x-section-card>

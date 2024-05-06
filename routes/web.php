@@ -24,7 +24,8 @@ Route::get('/', [Dashboard::class, 'index'])->name('home');
 Route::get('/file/{file}', [UploadedFileController::class, 'response'])->name('file');
 Route::get('/file/{file}/download', [UploadedFileController::class, 'download'])->name('file.download');
 Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
-Route::get('/imprint', fn() => view('imprint'))->name('imprint');
+Route::get('/imprint', fn () => view('imprint'))->name('imprint');
+Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-policy');
 
 Route::middleware(\App\Http\Middleware\Development::class)->group(function () {
     Route::get('/development', Development::class)->name('development');

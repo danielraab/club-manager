@@ -8,26 +8,26 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Imprint extends Component
+class PrivacyPolicy extends Component
 {
     use WithFileUploads;
 
-    public ?string $imprintText;
+    public ?string $privacyPolicyText;
 
     public function mount(): void
     {
-        $this->imprintText = Configuration::getString(ConfigurationKey::IMPRINT_TEXT);
+        $this->privacyPolicyText = Configuration::getString(ConfigurationKey::PRIVACY_POLICY_TEXT);
     }
 
     #[Renderless]
-    public function updatedImprintText(string $value): void
+    public function updatedPrivacyPolicyText(string $value): void
     {
         Configuration::storeString(
-            ConfigurationKey::IMPRINT_TEXT, $value);
+            ConfigurationKey::PRIVACY_POLICY_TEXT, $value);
     }
 
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.settings.imprint');
+        return view('livewire.settings.privacy-policy');
     }
 }
