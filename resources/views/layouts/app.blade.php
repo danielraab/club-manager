@@ -28,9 +28,19 @@
         {{ $slot }}
     </main>
     <footer class="text-center text-gray-500 pb-3">
-        <i class="fa-regular fa-copyright"></i>
-        <span>draab.at - <span
-                title="{{config("app.deployDateTime")?->formatDateTimeWithSec()}}">{{config("app.version")}}</span></span>
+        <div>
+            @if($linkText = App\Models\Configuration::getString(App\Models\ConfigurationKey::IMPRINT_LINK_NAME))
+                <a class="underline" href="{{route('imprint')}}">{{ $linkText }}</a>
+            @endif
+        </div>
+        <div>
+            <i class="fa-regular fa-copyright"></i>
+            <span>draab.at</span>
+            @if($version = config("app.version"))
+                <span> - </span>
+                <span title="{{config("app.deployDateTime")?->formatDateTimeWithSec()}}">{{config("app.version")}}</span>
+            @endif
+        </div>
     </footer>
 </div>
 <script>

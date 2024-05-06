@@ -27,8 +27,7 @@
                         Trix.config.blockAttributes.heading1.tagName = "h2";
                     });
                     addEventListener("trix-blur", function (event) {
-                        console.log("trixEditor: ", trixEditor.value);
-                    @this.set('newsForm.content', trixEditor.value);
+                        @this.set('newsForm.content', trixEditor.value);
                     });
                 }
             </script>
