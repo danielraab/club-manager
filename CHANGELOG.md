@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- imprint and privacy policy page, editable via settings
 
 ## v0.7.10 - 2024-05-05
 ### Added
