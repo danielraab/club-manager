@@ -25,6 +25,9 @@ enum ConfigurationKey: string
      * user settings
      */
     case NAVIGATION_FAV_BIRTHDAY_LIST = 'dashboardButtons_birthdayList';
+    case NAVIGATION_FAV_CUSTOM_LINK_ENABLED = 'favourite_customLinkEnabled';
+    case NAVIGATION_FAV_CUSTOM_LINK_NAME = 'favourite_customLinkName';
+    case NAVIGATION_FAV_CUSTOM_LINK = 'favourite_customLink';
 
     case MEMBER_FILTER_SHOW_BEFORE_ENTRANCE = 'memberFilterShowBeforeEntrance';
     case MEMBER_FILTER_SHOW_AFTER_RETIRED = 'memberFilterShowAfterRetired';

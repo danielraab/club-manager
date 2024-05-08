@@ -24,9 +24,29 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
                      x-init
                      x-on:switched="$wire.dashboardButtonChangedBirthdayList($event.detail.enabled)">
                     <span>{{__("Birthday list")}}</span>
-                    <x-input-switch :enabled="!!$birthdayList" />
+                    <x-input-switch :enabled="!!$birthdayList"/>
                 </div>
             @endif
+            <div class="border-t border-slate-400/20 py-3">
+                <div class="flex justify-between items-center"
+                     x-init
+                     x-on:switched="$wire.customNavLinkEnabledChanged($event.detail.enabled)">
+                    <span>{{__("Custom Link")}}</span>
+                    @php($customList = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::NAVIGATION_FAV_CUSTOM_LINK_ENABLED, auth()->user(), false))
+                    <x-input-switch :enabled="!!$customList"/>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+
+                    <x-input-label>
+                        <p>{{__("Linkname")}}</p>
+                        <x-input class="w-32"/>
+                    </x-input-label>
+                    <x-input-label class="flex flex-col grow">
+                        <p>{{__("Link")}}</p>
+                        <x-input/>
+                    </x-input-label>
+                </div>
+            </div>
         </div>
 
         <div
