@@ -21,20 +21,22 @@ class EventOverview extends Component
     public ?string $search = null;
 
     public array $availablePageSizes = [20, 50, 100];
+
     public int $pageSize = 20;
 
     public function mount(): void
     {
         $this->end = \App\Models\Configuration::getString(
-            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: "";
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_END_DATE) ?: '';
 
-        $useTodayAsStart = (bool)Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
-        if($useTodayAsStart) {
-            $this->start = now()->setTime(0,0,0)->formatDateInput();
+        $useTodayAsStart = (bool) Configuration::getBool(ConfigurationKey::EVENT_FILTER_DEFAULT_START_TODAY);
+        if ($useTodayAsStart) {
+            $this->start = now()->setTime(0, 0, 0)->formatDateInput();
+
             return;
         }
         $this->start = \App\Models\Configuration::getString(
-            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: "";
+            \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: '';
     }
 
     public function updatingSearch()
@@ -58,7 +60,7 @@ class EventOverview extends Component
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
             $cnt = Event::query()
                 ->where('end', '<', now()->setMonth(1)->setDay(1)->setTime(0, 0, 0))
-                ->where("enabled", true)
+                ->where('enabled', true)
                 ->update(['enabled' => false]);
 
             NotificationMessage::addNotificationMessage(

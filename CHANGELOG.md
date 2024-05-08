@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - flag for public poll statistic, if checked poll stats can be shown to everyone with link
 ### Changed
 - email in member table is now unique (validation in member form added)
+- hide past on event overview is now default true
 
 ## v0.7.10 - 2024-05-05
 ### Added

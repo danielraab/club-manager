@@ -11,7 +11,7 @@ use Livewire\Attributes\Session;
 trait EventFilterTrait
 {
     #[Session]
-    public bool $isStartNow = false;
+    public bool $isStartNow = true;
 
     public ?string $start = null;
 
