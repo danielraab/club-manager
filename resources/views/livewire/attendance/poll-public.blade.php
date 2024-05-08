@@ -13,7 +13,7 @@
 </x-slot>
 <x-slot name="headerBtn">
     <div class="space-x-2">
-        @if($hasPollShowPermission)
+        @if($hasPollShowPermission || $poll->show_public_stats)
             <a href="{{route('attendancePoll.statistic', $poll->id)}}" class="btn btn-secondary inline-flex gap-2 items-center"
                title="Show summary of attendance poll">
                 <i class="fa-solid fa-clipboard-list"></i>

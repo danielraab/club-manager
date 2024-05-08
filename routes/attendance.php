@@ -22,13 +22,13 @@ Route::middleware(['auth', 'permission:'.Attendance::ATTENDANCE_EDIT_PERMISSION]
 
 Route::get('/attendancePolls/{attendancePoll}/public', PollPublic::class)
     ->name('attendancePoll.public');
+Route::get('/attendancePolls/{attendancePoll}/index', AttendancePollStatistic::class)
+    ->name('attendancePoll.statistic');
 
 Route::middleware(['auth', 'permission:'.AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION.'|'.AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])
     ->group(function () {
         Route::get('/attendancePolls', fn () => view('attendance.poll-list'))
             ->name('attendancePoll.index');
-        Route::get('/attendancePolls/{attendancePoll}/index', AttendancePollStatistic::class)
-            ->name('attendancePoll.statistic');
     });
 
 Route::middleware(['auth', 'permission:'.AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION])->group(function () {

@@ -16,6 +16,7 @@ class PollForm extends Form
     public ?string $description;
 
     public ?bool $allow_anonymous_vote;
+    public ?bool $show_public_stats;
 
     public ?string $memberGroup = null;
 
@@ -30,6 +31,7 @@ class PollForm extends Form
         'title' => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string'],
         'allow_anonymous_vote' => ['nullable', 'boolean'],
+        'show_public_stats' => ['nullable', 'boolean'],
         'memberGroup' => ['nullable', 'int', 'exists:member_groups,id'],
         'selectedEvents' => ['nullable', 'array'],
         'closing_at' => ['required', 'date'],
@@ -41,6 +43,7 @@ class PollForm extends Form
         $this->title = $this->poll->title;
         $this->description = $this->poll->description;
         $this->allow_anonymous_vote = $this->poll->allow_anonymous_vote;
+        $this->show_public_stats = $this->poll->show_public_stats;
         $this->closing_at = $this->poll->closing_at->formatDatetimeLocalInput();
         $this->memberGroup = $this->poll->memberGroup()->first('id')?->id;
         $this->selectedEvents = $this->poll->events()->pluck('id')->toArray();

@@ -38,6 +38,15 @@
             </x-input-checkbox>
         </div>
 
+        <!-- allow_anonymous_vote -->
+        <div class="mt-4 ml-3">
+            <x-input-checkbox id="show_public_stats" name="show_public_stats"
+                              wire:model="pollForm.show_public_stats"
+                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                {{ __('Allow public stats') }}
+            </x-input-checkbox>
+        </div>
+
 
         <div class="mt-4">
             <x-input-label for="closing_at" :value="__('Closing at')"/>

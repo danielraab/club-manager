@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string title
  * @property string|null description
  * @property bool allow_anonymous_vote
+ * @property bool show_public_stats
  * @property \DateTime|null closing_at
  *
  * @see /database/migrations/2023_07_05_123614_attendance.php
@@ -32,12 +33,14 @@ class AttendancePoll extends Model
         'title',
         'description',
         'allow_anonymous_vote',
+        'show_public_stats',
         'closing_at',
         'member_group_id',
     ];
 
     protected $casts = [
         'allow_anonymous_vote' => 'boolean',
+        'show_public_stats' => 'boolean',
         'closing_at' => 'datetime',
     ];
 

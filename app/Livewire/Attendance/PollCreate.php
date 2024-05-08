@@ -37,7 +37,7 @@ class PollCreate extends Component
     {
         $this->pollForm->store();
 
-        Log::info("Poll created", [auth()->user(), $this->pollForm->poll]);
+        Log::info('Poll created', [auth()->user(), $this->pollForm->poll]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The attendance poll has been successfully created.'), ItemType::SUCCESS));
 

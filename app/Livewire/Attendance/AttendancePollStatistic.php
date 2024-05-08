@@ -7,25 +7,41 @@ namespace App\Livewire\Attendance;
 use App\Models\Attendance;
 use App\Models\AttendancePoll;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Livewire\Component;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AttendancePollStatistic extends Component
 {
     public AttendancePoll $attendancePoll;
+
     public array $memberStatistic;
+
     public array $showMembers = [];
 
-    public function mount(AttendancePoll $attendancePoll) {
+    public function mount(AttendancePoll $attendancePoll)
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        if (! $attendancePoll->show_public_stats &&
+            ! $user?->hasPermission(
+                AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION,
+                AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION)) {
+            throw new NotFoundHttpException();
+        }
+
         $this->attendancePoll = $attendancePoll;
         $this->memberStatistic = Arr::sortDesc($this->createMemberStatistic());
     }
+
     public function render()
     {
         return view('livewire.attendance.poll-statistic')->layout('layouts.backend');
     }
 
-    public function toggleShowMember(int $eventId): void {
+    public function toggleShowMember(int $eventId): void
+    {
         $this->showMembers[$eventId] = ! ($this->showMembers[$eventId] ?? false);
     }
 
