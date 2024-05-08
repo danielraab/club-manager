@@ -45,14 +45,13 @@ class MemberForm extends Form
 
     protected function rules(): array
     {
-        return [
+        $rules = [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'title_pre' => ['nullable', 'string', 'max:255'],
             'title_post' => ['nullable', 'string', 'max:255'],
             'paused' => ['nullable', 'boolean'],
             'phone' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
             'street' => ['nullable', 'string', 'max:255'],
             'zip' => ['nullable', 'integer'],
             'city' => ['nullable', 'string', 'max:255'],
@@ -67,6 +66,13 @@ class MemberForm extends Form
                     self::memberGroupSelectionCheck($attribute, $value, $fail);
                 }],
         ];
+        $emailUniqueRule = \Illuminate\Validation\Rule::unique('members', 'email');
+        if ($this->member?->id) {
+            $emailUniqueRule->ignore($this->member->id);
+        }
+        $rules['email'] = ['nullable', 'email', 'max:255', $emailUniqueRule];
+
+        return $rules;
     }
 
     public function setMemberModal(Member $member): void
