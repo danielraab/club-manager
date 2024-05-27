@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.11 - 2024-05-27
 ### Added
 - imprint and privacy policy page, editable via settings
 - flag for public poll statistic, if checked poll stats can be shown to everyone with link
