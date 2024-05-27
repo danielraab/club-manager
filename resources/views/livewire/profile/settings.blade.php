@@ -22,7 +22,7 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
                 @php($birthdayList = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::NAVIGATION_FAV_BIRTHDAY_LIST, auth()->user(), true))
                 <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
                      x-init
-                     x-on:switched="$wire.dashboardButtonChangedBirthdayList($event.detail.enabled)">
+                     x-on:switched="$wire.customNavBirthdayListBtnChanged($event.detail.enabled)">
                     <span>{{__("Birthday list")}}</span>
                     <x-input-switch :enabled="!!$birthdayList"/>
                 </div>
@@ -36,14 +36,13 @@ $hasImportMemberPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->ha
                     <x-input-switch :enabled="!!$customList"/>
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
-
                     <x-input-label>
                         <p>{{__("Linkname")}}</p>
-                        <x-input class="w-32"/>
+                        <x-input class="w-32" wire:model.blur="customLinkName"/>
                     </x-input-label>
                     <x-input-label class="flex flex-col grow">
                         <p>{{__("Link")}}</p>
-                        <x-input/>
+                        <x-input wire:model.blur="customLink"/>
                     </x-input-label>
                 </div>
             </div>

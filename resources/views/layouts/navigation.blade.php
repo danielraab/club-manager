@@ -1,7 +1,3 @@
-<?php
-$hasShowPermission = (bool)\Illuminate\Support\Facades\Auth::user()?->hasPermission(\App\Models\Member::MEMBER_SHOW_PERMISSION);
-$showBirthdayListConfig = \App\Models\Configuration::getBool(\App\Models\ConfigurationKey::NAVIGATION_FAV_BIRTHDAY_LIST, auth()->user(), true);
-?>
 <nav x-data="{ open: false, alwaysOpen: window.innerWidth > 1278}" class="" @click.outside.stop="open = false"
      x-on:resize.window="alwaysOpen = window.innerWidth > 1278">
     <button @click="open = true" x-show="!alwaysOpen"

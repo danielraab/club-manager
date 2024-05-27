@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - imprint and privacy policy page, editable via settings
 - flag for public poll statistic, if checked poll stats can be shown to everyone with link
+- personal custom link for navigation
 ### Changed
 - email in member table is now unique (validation in member form added)
 - hide past on event overview is now default true
