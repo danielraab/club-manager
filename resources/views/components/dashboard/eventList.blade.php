@@ -9,7 +9,7 @@
     @forelse($eventList as $event)
         @php
             /** @var \App\Models\Event $event */
-            $end = null; 
+            $end = null;
             if(!$event->end->isSameDay($event->start)) {
                 $end = $event->getFormattedEnd();
             }
@@ -38,7 +38,7 @@
                     @endif
                 </div>
             </div>
-            <p class="font-bold">{{$event->title}}</p>
+            <a href="{{route('event.detail', $event->id)}}" class="font-bold">{{$event->title}}</a>
             <p class="text-sm">{{$event->description}}</p>
             <div class="text-sm text-green-500 mt-2">
                 @if ($event->location)

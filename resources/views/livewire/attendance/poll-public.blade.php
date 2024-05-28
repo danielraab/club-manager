@@ -105,59 +105,8 @@
                         <div class="text-gray-700 text-center sm:table-cell px-3 align-middle">{{$event->title}}</div>
 
                         <div class="sm:table-cell">
-                            <div class="flex justify-center gap-2">
-                                @if($attendance?->poll_status === "in")
-                                    <div title="{{__("In")}}"
-                                         class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-green-700">
-                                        <i class="fa-solid fa-check"></i>
-                                    </div>
-                                @else
-                                    <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'in')"
-                                        @endif
-                                        title="{{__("In")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-green-700">
-                                        <i class="fa-solid fa-check"></i>
-                                    </div>
-                                @endif
-
-                                @if($attendance?->poll_status === "unsure")
-                                    <div
-                                        title="{{__("Unsure")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-yellow-700">
-                                        <i class="fa-solid fa-question"></i>
-                                    </div>
-                                @else
-                                    <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'unsure')"
-                                        @endif
-                                        title="{{__("Unsure")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-yellow-700">
-                                        <i class="fa-solid fa-question"></i>
-                                    </div>
-                                @endif
-
-                                @if($attendance?->poll_status === "out")
-
-                                    <div title="{{__("Out")}}"
-                                         class="rounded-full w-10 h-10 flex justify-center items-center text-white bg-red-700">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </div>
-                                @else
-
-                                    <div
-                                        @if(!$isPast)
-                                            wire:click="setAttendance({{$event->id}}, 'out')"
-                                        @endif
-                                        title="{{__("Out")}}"
-                                        class="rounded-full w-10 h-10 flex justify-center items-center @if(!$isPast) cursor-pointer @endif text-red-700">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </div>
-
-                                @endif
-                            </div>
+                            <livewire:attendance.single-public-attendance :event="$event" :member="$selectedMember"
+                                                                          key="att-list-e-{{ $event->id }}"/>
                         </div>
                     </div>
                 @endforeach

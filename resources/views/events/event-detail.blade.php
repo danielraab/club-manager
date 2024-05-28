@@ -18,12 +18,16 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
 
             @if($hasEventEditPermission)
                 <div class="flex items-center justify-center gap-2">
-                    <span class="text-gray-500">{{__("enabled")}}:</span>
-                    <span
-                        class="inline-block rounded-full h-5 w-5 {{$event->enabled ? "bg-green-700": "bg-red-700"}}"></span>
-                    <span class="text-gray-500">{{__("logged in only")}}:</span>
-                    <span
-                        class="inline-block rounded-full h-5 w-5 {{$event->logged_in_only ? "bg-green-700": "bg-red-700"}}"></span>
+                    @if($event->enabled)
+                        <span class="bg-green-700 text-white px-2 rounded">{{__("enabled")}}</span>
+                    @else
+                        <span class="bg-red-700 text-white px-2 rounded">{{__("disabled")}}</span>
+                    @endif
+                    @if($event->logged_in_only)
+                        <span class="bg-red-700 text-white px-2 rounded">{{__("logged in only")}}</span>
+                    @else
+                        <span class="bg-green-700 text-white px-2 rounded">{{__("public")}}</span>
+                    @endif
                 </div>
                 <hr/>
             @endif
@@ -82,6 +86,18 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                         {{__("Link")}}:
                     </div>
                     <a href="{{$event->link}}">{{$event->link}}</a>
+                </div>
+            @endif
+
+            @php($member = auth()->user()?->getMember())
+            @if($member)
+                <hr class="border-gray-400"/>
+                <div class="text-center">
+                    <header class="mb-3">
+                        <span class="font-bold">{{__('record attendace for')}}:</span>
+                        {{$member->getFullName()}}
+                    </header>
+                    <livewire:attendance.single-public-attendance :event="$event" :member="$member"/>
                 </div>
             @endif
         </div>

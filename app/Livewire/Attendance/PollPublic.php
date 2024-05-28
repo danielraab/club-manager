@@ -39,22 +39,6 @@ class PollPublic extends Component
         }
     }
 
-    public function setAttendance(int $eventId, string $result): void
-    {
-        if ($this->selectedMember) {
-            /** @var \App\Models\Attendance $attendance */
-            $attendance = \App\Models\Attendance::query()->firstOrCreate([
-                'event_id' => $eventId,
-                'member_id' => $this->selectedMember->id,
-            ], [
-                'creator_id' => auth()->user()?->id ?? null,
-            ]);
-            $attendance->poll_status = $result;
-            $attendance->save();
-            Log::info('Attendance set via public poll', [$attendance]);
-        }
-    }
-
     public function resetSelected(): void
     {
         $this->selectedMember = null;

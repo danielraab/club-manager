@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- logged in user can record attendance on event detail page for member with same email
 ### Fixed
 - use application logo for notifications instead of default logo
 
