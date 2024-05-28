@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\ApplicationLogo;
 use App\Models\Event;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -41,7 +42,7 @@ class UpcomingEvent extends Notification
 
         return (new WebPushMessage())
             ->title(__(':app - event', ['app' => config('app.name')]))
-            ->icon(url('/').'/logo.svg')
+            ->icon(ApplicationLogo::getUrl())
             ->body($body)
             ->action(__('View Events'), 'event-detail')
             ->data(['id' => $this->event->id]);

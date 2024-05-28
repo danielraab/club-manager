@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\ApplicationLogo;
 use App\Models\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -40,7 +41,7 @@ class UpcomingNews extends Notification
 
         return (new WebPushMessage())
             ->title(__(':app - news', ['app' => config('app.name')]))
-            ->icon(url('/').'/logo.svg')
+            ->icon(ApplicationLogo::getUrl())
             ->body($body)
             ->action(__('View News'), 'news-detail')
             ->data(['id' => $this->news->id]);

@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Fixed
+- use application logo for notifications instead of default logo
 
 ## v0.7.12 - 2024-05-28
 ### Added
