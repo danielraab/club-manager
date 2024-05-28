@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.13 - 2024-05-28
 ### Added
 - logged on user can record attendance on event detail page for member with same email
 ### Changed
