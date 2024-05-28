@@ -23,9 +23,9 @@
                 $attendancePollList = \App\Models\AttendancePoll::query()->orderByDesc("closing_at")->get()
             @endphp
             @if($attendancePollList->count() > 0)
-                <x-always-responsive-table class="table-auto mx-auto text-center">
+                <x-always-responsive-table class="table-auto mx-auto text-center w-full">
                     <thead class="font-bold">
-                    <tr>
+                    <tr class="max-md:hidden">
                         <td class="px-4 py-2">{{__("Title")}}</td>
                         <td class="px-4 py-2">{{__("Closing at")}}</td>
                         <td class="px-4 py-2">{{__("Event count")}}</td>
@@ -40,11 +40,12 @@
                                 $rowBg = "bg-gray-400";
                             }
                         @endphp
-                        <tr class="[&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
-                            <td class="px-4">{{$attendancePoll->title}}</td>
-                            <td class="px-4">{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
-                            <td class="px-4">{{$attendancePoll->events()->count()}}</td>
-                            <td>
+                        <tr class="max-md:flex flex-col text-center [&:nth-child(2n)]:bg-opacity-50 {{$rowBg}}">
+                            <td class="px-4 max-md:block">{{$attendancePoll->title}}</td>
+                            <td class="px-4 max-md:block">{{$attendancePoll->closing_at?->setTimezone(config("app.displayed_timezone"))->isoFormat("ddd D. MMM YYYY HH:mm")}}</td>
+                            <td class="px-4 max-md:hidden">{{$attendancePoll->events()->count()}}</td>
+                            <td class="flex justify-center md:justify-end items-center">
+                                <span class="px-4 md:hidden">{{$attendancePoll->events()->count()}} {{__('event(s)')}}</span>
                                 <div class="flex gap-2 justify-end py-2 px-4 items-center">
                                     @if($attendancePoll->isPublicPollAvailable())
                                         <a href="{{route('attendancePoll.public', $attendancePoll->id)}}"

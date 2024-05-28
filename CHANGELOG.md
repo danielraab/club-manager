@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 ### Added
-- logged in user can record attendance on event detail page for member with same email
+- logged on user can record attendance on event detail page for member with same email
+### Changed
+- better mobile/responsive view for poll list
 ### Fixed
 - use application logo for notifications instead of default logo
 
