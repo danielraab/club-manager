@@ -11,6 +11,7 @@
         <x-dashboard.polls />
         <x-dashboard.sponsoring />
     </div>
+    <x-dashboard.lastBirthdays />
     <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <x-dashboard.eventList :eventList="$eventList"/>

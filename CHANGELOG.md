@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+## v0.7.12 - 2024-05-28
+### Added
+- dashboard modules for members, polls and sponsoring
+- last member birthday module for dashboard
+
 ## v0.7.11 - 2024-05-27
 ### Added
 - imprint and privacy policy page, editable via settings
