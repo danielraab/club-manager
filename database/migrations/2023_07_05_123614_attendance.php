@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->boolean('allow_anonymous_vote')->default(false);
             $table->dateTime('closing_at')->nullable();
+            $table->boolean('show_public_stats')->default(false);
 
             $table->foreignIdFor(User::class, 'creator_id')->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->nullOnDelete();

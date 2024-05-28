@@ -38,7 +38,7 @@ return new class extends Migration
             $table->boolean('paused')->default(false);
             $table->date('birthday')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('street')->nullable();
             $table->string('zip')->nullable();
             $table->string('city')->nullable();

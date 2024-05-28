@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('zip')->nullable();
             $table->string('city')->nullable();
             $table->string('country');
+            $table->string('vat')->nullable();
             $table->text('info')->nullable();
             $table->date('closed_at')->nullable();
             $table->softDeletes();
