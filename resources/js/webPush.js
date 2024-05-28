@@ -62,7 +62,7 @@ const webPush = {
             });
         },
         getServiceWorkerRegistration: async () => {
-            return await navigator.serviceWorker.getRegistration();
+            return await navigator.serviceWorker?.getRegistration();
         },
         unregisterServiceWorker: () => {
             return navigator.serviceWorker.getRegistration().then(swr => {

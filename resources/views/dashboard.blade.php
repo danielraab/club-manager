@@ -6,7 +6,7 @@
         <x-web-push-notification-icon/>
     </x-slot>
 
-    <div class="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-4">
+    <div class="flex flex-col md:flex-row gap-4">
         <x-dashboard.members />
         <x-dashboard.polls />
         <x-dashboard.sponsoring />
