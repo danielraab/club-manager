@@ -55,8 +55,6 @@ build_tests:
 unit_test:
   stage: test
   needs: ["build_tests"]
-  only:
-    - tags
   dependencies:
     - build_tests
   script:
@@ -65,8 +63,6 @@ unit_test:
 pint_test:
   stage: test
   needs: ["build_tests"]
-  only:
-    - tags
   dependencies:
     - build_tests
   script:
