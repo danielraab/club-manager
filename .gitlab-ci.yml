@@ -53,7 +53,7 @@ build_tests:
   stage: build
   artifacts:
     paths:
-      - /
+      - ./
   script:
     - composer install
 
@@ -62,7 +62,7 @@ unit_test:
   dependencies:
     - build_tests
   script:
-    - artisan test --filter unit
+    - php artisan test --filter unit
 
 pint_test:
   stage: test
