@@ -42,15 +42,29 @@ build_assets:
     - npm install
     - npm run build
 
+build_tests:
+  stage: build
+  only:
+    - tags
+  artifacts:
+    paths:
+      - /
+  script:
+    - composer install
 
-#unit_test:
-#  stage: test
-#  script:
-#    - cp .env.example .env
-#    - composer install
-#    - php artisan key:generate
-#    - php artisan migrate
-#    - vendor/bin/phpunit
+unit_test:
+  stage: test
+  dependencies:
+    - build_tests
+  script:
+    - artisan test --filter unit
+
+pint_test:
+  stage: test
+  dependencies:
+    - build_tests
+  script:
+    - ./vendor/bin/pint --test
 
 deploy_test:
   stage: deploy
