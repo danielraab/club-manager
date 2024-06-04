@@ -5,14 +5,15 @@ FROM php:8.2
 RUN apt-get update
 
 # Install PHP and composer dependencies
-RUN apt-get install -qq git curl rsync libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev openssh-client npm
+RUN apt-get install -qq git curl rsync libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev openssh-client npm libzip-dev
 
 # Clear out the local repository of retrieved package files
 RUN apt-get clean
 
 # Install needed extensions
 # Here you can install any other extension that you need during the test and deployment process
-#RUN docker-php-ext-install mcrypt pdo_mysql zip
+#RUN docker-php-ext-install mcrypt pdo_mysql
+RUN docker-php-ext-install zip
 
 # Install Composer
 RUN curl --silent --show-error "https://getcomposer.org/installer" | php -- --install-dir=/usr/local/bin --filename=composer
