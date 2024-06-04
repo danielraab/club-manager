@@ -3,6 +3,14 @@ default:
 #  services:
 #    - mysql:5.7
 
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: always
+    - when: never
+
+
 before_script:
   - eval $(ssh-agent -s)
   # Generate the private/public key pair using:
@@ -33,8 +41,6 @@ stages:
 
 build_assets:
   stage: build
-  only:
-    - tags
   artifacts:
     paths:
       - public/build/
@@ -44,8 +50,6 @@ build_assets:
 
 build_tests:
   stage: build
-  only:
-    - tags
   artifacts:
     paths:
       - /
@@ -54,7 +58,6 @@ build_tests:
 
 unit_test:
   stage: test
-  needs: ["build_tests"]
   dependencies:
     - build_tests
   script:
@@ -62,7 +65,6 @@ unit_test:
 
 pint_test:
   stage: test
-  needs: ["build_tests"]
   dependencies:
     - build_tests
   script:
