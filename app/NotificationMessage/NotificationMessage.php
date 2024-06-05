@@ -4,7 +4,7 @@ namespace App\NotificationMessage;
 
 class NotificationMessage
 {
-    public function addNotificationMessage(\App\NotificationMessage\Item $messageItem): self
+    public function addNotificationMessage(Item $messageItem): self
     {
         session()->push('notificationMessages', $messageItem);
 
