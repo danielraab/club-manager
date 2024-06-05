@@ -28,6 +28,7 @@ before_script:
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - cd ${CI_PROJECT_DIR}
+  - echo "${CI_TESTING_ENV}" > ./.env.testing
 
 #variables:
 #  MYSQL_DATABASE: homestead
@@ -63,6 +64,13 @@ unit_test:
     - build_tests
   script:
     - php artisan test --filter unit
+
+feature_test:
+  stage: test
+  dependencies:
+    - build_tests
+  script:
+    - php artisan test --filter feature
 
 pint_test:
   stage: test
