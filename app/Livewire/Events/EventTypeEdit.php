@@ -30,7 +30,7 @@ class EventTypeEdit extends Component
     {
         $this->eventTypeForm->update();
 
-        Log::info("Event type updated", [auth()->user(), $this->eventTypeForm->eventType]);
+        Log::info('Event type updated', [auth()->user(), $this->eventTypeForm->eventType]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event type has been successfully updated.'), ItemType::SUCCESS));
 
@@ -41,7 +41,7 @@ class EventTypeEdit extends Component
     {
         $this->eventTypeForm->delete();
 
-        Log::info("Event type deleted", [auth()->user(), $this->eventTypeForm->eventType]);
+        Log::info('Event type deleted', [auth()->user(), $this->eventTypeForm->eventType]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event type has been successfully deleted.'), ItemType::WARNING));
 

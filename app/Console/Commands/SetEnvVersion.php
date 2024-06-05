@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class SetEnvVersion extends Command
 {
     public const ENV_VERSION_KEY = 'APP_VERSION';
+
     /**
      * The name and signature of the console command.
      *
@@ -29,14 +30,14 @@ class SetEnvVersion extends Command
     {
         $version = $this->argument('version');
 
-        if (!$version) {
+        if (! $version) {
             return;
         }
 
         $contents = file_get_contents($this->laravel->environmentFilePath());
 
-        if (!Str::contains($contents, self::ENV_VERSION_KEY)) {
-            $contents .= PHP_EOL . self::ENV_VERSION_KEY . '=';
+        if (! Str::contains($contents, self::ENV_VERSION_KEY)) {
+            $contents .= PHP_EOL.self::ENV_VERSION_KEY.'=';
         }
 
         $contents = preg_replace(
@@ -44,7 +45,7 @@ class SetEnvVersion extends Command
                 $this->keyReplacementPattern(self::ENV_VERSION_KEY),
             ],
             [
-                self::ENV_VERSION_KEY . '=' . $version,
+                self::ENV_VERSION_KEY.'='.$version,
             ],
             $contents
         );
@@ -56,15 +57,12 @@ class SetEnvVersion extends Command
 
     /**
      * Get a regex pattern that will match env $keyName with any key.
-     *
-     * @param string $keyName
-     * @return string
      */
     protected function keyReplacementPattern(string $keyName): string
     {
         $oldKey = $this->laravel['config']['app.version'];
 
-        $escaped = preg_quote('=' . $oldKey, '/');
+        $escaped = preg_quote('='.$oldKey, '/');
 
         return "/^{$keyName}{$escaped}/m";
     }

@@ -28,7 +28,7 @@ class PeriodCreate extends Component
         $this->periodForm->store();
         $this->periodForm->period->packages()->sync($this->selectedPackageArr);
 
-        Log::info("Period created", [auth()->user(), $this->periodForm->period]);
+        Log::info('Period created', [auth()->user(), $this->periodForm->period]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The period has been successfully created.'), ItemType::SUCCESS));
 

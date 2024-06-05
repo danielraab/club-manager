@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Currency\Currency;
 use App\NotificationMessage\NotificationMessage;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +12,7 @@ class NotificationMessageServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind("notificationMessage", function () {
+        $this->app->bind('notificationMessage', function () {
             return new NotificationMessage();
         });
     }

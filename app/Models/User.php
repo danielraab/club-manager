@@ -89,7 +89,8 @@ class User extends Authenticatable
         return $this->name.' <'.$this->email.'>';
     }
 
-    public function getMember(): Member|null {
-        return Member::query()->where("email", $this->email)->first();
+    public function getMember(): ?Member
+    {
+        return Member::query()->where('email', $this->email)->first();
     }
 }

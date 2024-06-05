@@ -32,7 +32,7 @@ class ContractFile extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->contractFile->store("contract");
+        $path = $this->contractFile->store('contract');
         $uploadedFile = new UploadedFile();
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->contractFile->getClientOriginalName();
@@ -42,7 +42,7 @@ class ContractFile extends Component
         $uploadedFile->uploader()->associate($user);
         $uploadedFile->save();
 
-        Log::info("Contract file uploaded", [$user, $uploadedFile]);
+        Log::info('Contract file uploaded', [$user, $uploadedFile]);
         NotificationMessage::addNotificationMessage(
             new Item(__('File uploaded.'), ItemType::SUCCESS));
     }
@@ -51,7 +51,7 @@ class ContractFile extends Component
     {
         $uploadedFile->delete();
 
-        Log::info("Contract deleted.", [auth()->user(), $uploadedFile]);
+        Log::info('Contract deleted.', [auth()->user(), $uploadedFile]);
         NotificationMessage::addNotificationMessage(
             new Item(__('File(s) deleted.'), ItemType::WARNING));
     }

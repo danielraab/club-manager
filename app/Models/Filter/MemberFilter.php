@@ -31,7 +31,7 @@ class MemberFilter
         bool $inclBeforeEntrance = false,
         bool $inclAfterRetired = false,
         bool $inclPaused = false,
-        MemberGroup $memberGroup = null)
+        ?MemberGroup $memberGroup = null)
     {
         $this->inclBeforeEntrance = $inclBeforeEntrance;
         $this->inclAfterRetired = $inclAfterRetired;
@@ -67,6 +67,7 @@ class MemberFilter
 
         return $memberFilter;
     }
+
     public static function getMemberFilterFromConfig(): MemberFilter
     {
         $filterMemberGroup = null;

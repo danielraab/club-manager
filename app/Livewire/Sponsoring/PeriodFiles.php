@@ -37,7 +37,7 @@ class PeriodFiles extends Component
         $user = auth()->user();
         $uploadedFiles = [];
         foreach ($this->periodFiles as $periodFile) {
-            $path = $periodFile->store("public/period"); // is always public
+            $path = $periodFile->store('public/period'); // is always public
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
             $uploadedFile->name = $periodFile->getClientOriginalName();
@@ -51,7 +51,7 @@ class PeriodFiles extends Component
         }
         $this->periodFiles = [];
 
-        Log::info("Period files uploaded", [auth()->user(), $uploadedFiles]);
+        Log::info('Period files uploaded', [auth()->user(), $uploadedFiles]);
         NotificationMessage::addNotificationMessage(
             new Item(__('Files uploaded.'), ItemType::SUCCESS));
     }
@@ -60,7 +60,7 @@ class PeriodFiles extends Component
     {
         $uploadedFile->delete();
 
-        Log::info("Period file deleted.", [auth()->user(), $uploadedFile]);
+        Log::info('Period file deleted.', [auth()->user(), $uploadedFile]);
         NotificationMessage::addNotificationMessage(
             new Item(__('File(s) deleted.'), ItemType::WARNING));
     }

@@ -21,7 +21,7 @@ class PackageEdit extends Component
     public function mount(Package $package): void
     {
         $this->availableAdOptionArr = $this->getAdOptionArr();
-        $this->selectedAdOptionArr = $package->adOptions()->get(["id"])->pluck("id")->toArray();
+        $this->selectedAdOptionArr = $package->adOptions()->get(['id'])->pluck('id')->toArray();
 
         $this->packageForm->setPackageModel($package);
         $this->previousUrl = url()->previous();
@@ -32,7 +32,7 @@ class PackageEdit extends Component
         $this->packageForm->update();
         $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
-        Log::info("Package updated", [auth()->user(), $this->packageForm->package]);
+        Log::info('Package updated', [auth()->user(), $this->packageForm->package]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The package has been successfully updated.'), ItemType::SUCCESS));
 
@@ -43,13 +43,12 @@ class PackageEdit extends Component
     {
         $this->packageForm->delete();
 
-        Log::info("Package deleted", [auth()->user(), $this->packageForm->package]);
+        Log::info('Package deleted', [auth()->user(), $this->packageForm->package]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The package has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
-
 
     public function render()
     {

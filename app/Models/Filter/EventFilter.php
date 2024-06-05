@@ -26,8 +26,8 @@ class EventFilter
     public ?Carbon $end;
 
     public function __construct(
-        Carbon $start = null,
-        Carbon $end = null,
+        ?Carbon $start = null,
+        ?Carbon $end = null,
         bool $inclDisabled = false,
         bool $inclLoggedInOnly = false,
         bool $sortAsc = true)

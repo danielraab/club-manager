@@ -11,5 +11,4 @@ class AdOptionOverview extends Controller
         return view('sponsoring.ad-option', [
         ]);
     }
-
 }

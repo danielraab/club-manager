@@ -32,7 +32,6 @@ class ContractForm extends Form
     #[Validate('nullable|date')]
     public ?string $paid = null;
 
-
     public function setContractModel(Contract $contract): void
     {
         $this->contract = $contract;
@@ -58,7 +57,7 @@ class ContractForm extends Form
                 'refused',
                 'contract_received',
                 'ad_data_received',
-                'paid'
+                'paid',
             ]),
             'refused' => $this->refused ? Carbon::parseFromDatetimeLocalInput($this->refused) : null,
             'contract_received' => $this->contract_received ?

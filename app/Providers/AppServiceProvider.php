@@ -23,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $appName = config('app.name');
         try {
             $appName = \App\Models\Configuration::getString(\App\Models\ConfigurationKey::APPEARANCE_APP_NAME, default: $appName);
-        } catch (QueryException $qe) {}
+        } catch (QueryException $qe) {
+        }
         view()->share('appName', $appName);
     }
 }

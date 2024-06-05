@@ -11,5 +11,4 @@ class Overview extends Controller
         return view('sponsoring.overview', [
         ]);
     }
-
 }

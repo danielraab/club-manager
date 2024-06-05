@@ -80,7 +80,7 @@ class EventICalExport extends Controller
             //last year birthday
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthdayLastYear);
-            $calEvent->description((string)($currentYear - 1 - $member->birthday->year));
+            $calEvent->description((string) ($currentYear - 1 - $member->birthday->year));
             $calEvent->fullDay();
             $calendar->event($calEvent);
 
@@ -89,7 +89,7 @@ class EventICalExport extends Controller
             $birthday->setYear($currentYear);
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthday);
-            $calEvent->description((string)($currentYear - $member->birthday->year));
+            $calEvent->description((string) ($currentYear - $member->birthday->year));
             $calEvent->fullDay();
             $calendar->event($calEvent);
 
@@ -98,7 +98,7 @@ class EventICalExport extends Controller
             $birthdayNextYear->setYear($currentYear + 1);
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthdayNextYear);
-            $calEvent->description((string)($currentYear + 1 - $member->birthday->year));
+            $calEvent->description((string) ($currentYear + 1 - $member->birthday->year));
             $calEvent->fullDay();
             $calendar->event($calEvent);
         }
@@ -139,7 +139,7 @@ class EventICalExport extends Controller
     private function getEventList($inclLoggedInOnly = false): Collection
     {
         $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
-        if (!$inclLoggedInOnly) {
+        if (! $inclLoggedInOnly) {
             $eventList = $eventList->where('logged_in_only', false);
         }
         $eventList = $eventList->where('enabled', true);

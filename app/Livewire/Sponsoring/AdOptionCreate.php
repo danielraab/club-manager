@@ -24,7 +24,7 @@ class AdOptionCreate extends Component
     {
         $this->adOptionForm->store();
 
-        Log::info("Ad option created", [auth()->user(), $this->adOptionForm->adOption]);
+        Log::info('Ad option created', [auth()->user(), $this->adOptionForm->adOption]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The ad option has been successfully created.'), ItemType::SUCCESS));
 
@@ -33,6 +33,6 @@ class AdOptionCreate extends Component
 
     public function render()
     {
-        return view('livewire.sponsoring.ad-option-create-edit', ["editMode" => false])->layout('layouts.backend');
+        return view('livewire.sponsoring.ad-option-create-edit', ['editMode' => false])->layout('layouts.backend');
     }
 }

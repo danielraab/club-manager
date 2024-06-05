@@ -59,7 +59,8 @@ class PeriodAdOptionOverview extends Component
         }
     }
 
-    private function addAdOptionFromPackage(Package $package, Contract $contract, Backer $backer): void {
+    private function addAdOptionFromPackage(Package $package, Contract $contract, Backer $backer): void
+    {
         foreach ($package->adOptions()->get() as $adOption) {
             if (! isset($this->adOptionList[$adOption->id])) {
                 $this->adOptionList[$adOption->id] = ['adOption' => $adOption, 'backerList' => [], 'isNotInPackages' => true];

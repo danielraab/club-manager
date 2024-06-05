@@ -29,7 +29,7 @@ class NewsCreate extends Component
     {
         $this->newsForm->store();
 
-        Log::info("News created", [auth()->user(), $this->newsForm->news]);
+        Log::info('News created', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
             new Item(__('News successfully added.'), ItemType::SUCCESS));
 

@@ -30,9 +30,9 @@ class UserEdit extends Component
         $this->userForm->update();
 
         Log::channel('userManagement')
-            ->info("User " . $this->userForm->user->getNameWithMail() . " has been edited by " . auth()->user()->getNameWithMail());
+            ->info('User '.$this->userForm->user->getNameWithMail().' has been edited by '.auth()->user()->getNameWithMail());
         NotificationMessage::addNotificationMessage(
-            new Item(__("User " . $this->userForm->user->name . " saved successfully."), ItemType::SUCCESS));
+            new Item(__('User '.$this->userForm->user->name.' saved successfully.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -42,10 +42,10 @@ class UserEdit extends Component
         $this->userForm->delete();
 
         Log::channel('userManagement')
-            ->info("User " . $this->userForm->user->getNameWithMail() . " has been DELETED by " . auth()->user()->getNameWithMail());
+            ->info('User '.$this->userForm->user->getNameWithMail().' has been DELETED by '.auth()->user()->getNameWithMail());
         NotificationMessage::addNotificationMessage(
             new Item(
-                __("The user " . $this->userForm->user->getNameWithMail() . " has been deleted."),
+                __('The user '.$this->userForm->user->getNameWithMail().' has been deleted.'),
                 ItemType::WARNING
             ));
 

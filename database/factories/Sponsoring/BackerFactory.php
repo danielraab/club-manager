@@ -28,7 +28,7 @@ class BackerFactory extends Factory
             'city' => fake()->city(),
             'country' => fake()->countryCode(),
             'info' => fake()->text(),
-            'closed_at' => fake()->boolean(3) ? fake()->dateTime() : null
+            'closed_at' => fake()->boolean(3) ? fake()->dateTime() : null,
         ];
     }
 }

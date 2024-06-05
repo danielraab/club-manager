@@ -37,7 +37,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        NotificationMessage::addNotificationMessage(new Item(__("Profile saved"), ItemType::SUCCESS));
+        NotificationMessage::addNotificationMessage(new Item(__('Profile saved'), ItemType::SUCCESS));
 
         return Redirect::route('profile.edit');
     }

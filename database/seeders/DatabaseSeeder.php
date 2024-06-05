@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             AttendanceSeeder::class,
             ConfigurationSeeder::class,
-            SponsoringSeeder::class
+            SponsoringSeeder::class,
         ]);
     }
 }

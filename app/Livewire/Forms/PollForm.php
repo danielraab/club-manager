@@ -16,6 +16,7 @@ class PollForm extends Form
     public ?string $description;
 
     public ?bool $allow_anonymous_vote;
+
     public ?bool $show_public_stats;
 
     public ?string $memberGroup = null;

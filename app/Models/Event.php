@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Filter\EventFilter;
-use App\Models\Filter\MemberFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -145,7 +144,7 @@ class Event extends Model
         return $builder;
     }
 
-    public static function getAllFiltered(EventFilter $filter = null): Builder
+    public static function getAllFiltered(?EventFilter $filter = null): Builder
     {
         if ($filter === null) {
             $filter = new EventFilter();

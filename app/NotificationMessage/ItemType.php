@@ -11,9 +11,12 @@ enum ItemType
 
     public static function getTypeForName(string $name): ?self
     {
-        foreach(self::cases() as $case) {
-            if($case->name === $name) return $case;
+        foreach (self::cases() as $case) {
+            if ($case->name === $name) {
+                return $case;
+            }
         }
+
         return null;
     }
 }

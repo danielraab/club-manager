@@ -11,5 +11,4 @@ class PackageOverview extends Controller
         return view('sponsoring.packages', [
         ]);
     }
-
 }

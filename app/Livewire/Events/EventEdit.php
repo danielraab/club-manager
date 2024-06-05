@@ -38,7 +38,7 @@ class EventEdit extends Component
     {
         $this->eventForm->delete();
 
-        Log::info("Event deleted", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event deleted', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully deleted.'), ItemType::WARNING));
 
@@ -49,7 +49,7 @@ class EventEdit extends Component
     {
         $this->eventForm->store();
 
-        Log::info("Event copied", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event copied', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
 
@@ -60,7 +60,7 @@ class EventEdit extends Component
     {
         $this->eventForm->update();
 
-        Log::info("Event updated", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event updated', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
 
@@ -75,7 +75,7 @@ class EventEdit extends Component
             PushSubscription::all(),
             new UpcomingEvent($this->eventForm->event)
         );
-        Log::info("Event webPush forced", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event webPush forced', [auth()->user(), $this->eventForm->event]);
     }
 
     public function render()

@@ -6,7 +6,6 @@ use App\Models\Attendance as AttendanceModel;
 use App\Models\Event;
 use App\Models\Member;
 use Illuminate\Support\Facades\Log;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SinglePublicAttendance extends Component

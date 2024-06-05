@@ -2,12 +2,16 @@
 
 namespace App\NotificationMessage;
 
-class Item implements \Serializable, \JsonSerializable
+class Item implements \JsonSerializable, \Serializable
 {
     public string $timestamp;
+
     public ItemType $type;
+
     public ?string $title;
+
     public string $message;
+
     public int $displayedSeconds;
 
     public function __construct(string $message, ItemType $type = ItemType::INFORMATION, $title = null, int $displayedSeconds = 8)
@@ -32,21 +36,21 @@ class Item implements \Serializable, \JsonSerializable
     public function __serialize(): array
     {
         return [
-            "timestamp" => $this->timestamp,
-            "type" => $this->type->name,
-            "title" => $this->title,
-            "message" => $this->message,
-            "displayedSeconds" => $this->displayedSeconds
+            'timestamp' => $this->timestamp,
+            'type' => $this->type->name,
+            'title' => $this->title,
+            'message' => $this->message,
+            'displayedSeconds' => $this->displayedSeconds,
         ];
     }
 
     public function __unserialize(array $data): void
     {
-        $this->timestamp = $data["timestamp"];
-        $this->type = ItemType::getTypeForName($data["type"]) ?: ItemType::INFORMATION;
-        $this->title = $data["title"] ?? null;
-        $this->message = $data["message"];
-        $this->displayedSeconds = $data["displayedSeconds"];
+        $this->timestamp = $data['timestamp'];
+        $this->type = ItemType::getTypeForName($data['type']) ?: ItemType::INFORMATION;
+        $this->title = $data['title'] ?? null;
+        $this->message = $data['message'];
+        $this->displayedSeconds = $data['displayedSeconds'];
     }
 
     public function jsonSerialize(): mixed

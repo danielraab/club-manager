@@ -22,7 +22,7 @@ class EmailVerificationNotificationController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
-        NotificationMessage::addNotificationMessage(new Item( __('A new verification link has been sent to your email address.')));
+        NotificationMessage::addNotificationMessage(new Item(__('A new verification link has been sent to your email address.')));
 
         return back();
     }

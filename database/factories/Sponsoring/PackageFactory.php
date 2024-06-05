@@ -21,7 +21,7 @@ class PackageFactory extends Factory
             'title' => fake()->text(30),
             'description' => fake()->text(),
             'is_official' => fake()->boolean(),
-            'price' => fake()->randomFloat(2, 50,500),
+            'price' => fake()->randomFloat(2, 50, 500),
         ];
     }
 }

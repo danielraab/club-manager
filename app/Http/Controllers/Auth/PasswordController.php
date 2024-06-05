@@ -27,7 +27,7 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        NotificationMessage::addNotificationMessage(new Item( __('Password saved'), ItemType::SUCCESS));
+        NotificationMessage::addNotificationMessage(new Item(__('Password saved'), ItemType::SUCCESS));
 
         return back();
     }

@@ -5,7 +5,6 @@ namespace App\Livewire\Attendance;
 use App\Models\AttendancePoll;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class PollPublic extends Component

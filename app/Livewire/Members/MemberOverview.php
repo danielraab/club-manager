@@ -18,7 +18,6 @@ class MemberOverview extends Component
 
     /**
      * method to make a property available in template: $this->members
-     * @return Builder
      */
     public function getMembersProperty(): Builder
     {

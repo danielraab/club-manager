@@ -40,9 +40,9 @@ class EventCreate extends Component
     {
         $this->eventForm->store();
 
-        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event created', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
-            new Item( __('The event has been successfully created.'), ItemType::SUCCESS));
+            new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
 
         return redirect($this->previousUrl);
     }
@@ -51,9 +51,9 @@ class EventCreate extends Component
     {
         $this->eventForm->store();
 
-        Log::info("Event created", [auth()->user(), $this->eventForm->event]);
+        Log::info('Event created', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
-            new Item( __('New event successfully created. You can create the next one.'), ItemType::SUCCESS));
+            new Item(__('New event successfully created. You can create the next one.'), ItemType::SUCCESS));
     }
 
     public function render()

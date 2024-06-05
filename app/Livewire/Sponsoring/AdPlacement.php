@@ -25,13 +25,14 @@ class AdPlacement extends Component
     /**
      * @throws AuthenticationException
      */
-    public function boot():void {
+    public function boot(): void
+    {
         $hasPlacementEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(
             \App\Models\Sponsoring\AdPlacement::SPONSORING_EDIT_AD_PLACEMENTS,
             \App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION
         );
-        if(!$hasPlacementEditPermission) {
-            throw new AuthenticationException("You are not authorized");
+        if (! $hasPlacementEditPermission) {
+            throw new AuthenticationException('You are not authorized');
         }
     }
 

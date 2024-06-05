@@ -64,7 +64,6 @@ class AttendanceStatistic
         $attendances = $this->event->attendances()->get();
         foreach ($attendances as $attendance) {
             /** @var $attendance Attendance */
-
             if ($attendance->poll_status === 'in') {
                 $this->cntIn++;
             }

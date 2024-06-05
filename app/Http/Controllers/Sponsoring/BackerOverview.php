@@ -11,5 +11,4 @@ class BackerOverview extends Controller
         return view('sponsoring.backer', [
         ]);
     }
-
 }

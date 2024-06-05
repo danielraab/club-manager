@@ -20,7 +20,7 @@ class AdOptionFactory extends Factory
             'enabled' => fake()->boolean(95),
             'title' => fake()->text(30),
             'description' => fake()->text(50),
-            'price' => fake()->randomFloat(2, 10,100),
+            'price' => fake()->randomFloat(2, 10, 100),
         ];
     }
 }

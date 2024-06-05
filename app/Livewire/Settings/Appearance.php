@@ -24,7 +24,9 @@ class Appearance extends Component
     public ?TemporaryUploadedFile $logoFile = null;
 
     public ?string $appName;
+
     public ?int $logoFileId;
+
     public ?string $guestLayoutText;
 
     public bool $isDevPageAvailable = false;

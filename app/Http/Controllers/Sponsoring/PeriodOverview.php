@@ -11,5 +11,4 @@ class PeriodOverview extends Controller
         return view('sponsoring.periods', [
         ]);
     }
-
 }

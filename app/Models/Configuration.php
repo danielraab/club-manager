@@ -56,10 +56,11 @@ class Configuration extends Model implements HasFileRelationInterface
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
         $config->key = $key;
         $config->user()->associate($user);
+
         return $config;
     }
 
-    public static function storeString(ConfigurationKey $key, ?string $value, User $user = null): self
+    public static function storeString(ConfigurationKey $key, ?string $value, ?User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -73,7 +74,7 @@ class Configuration extends Model implements HasFileRelationInterface
         return $config;
     }
 
-    public static function getString(ConfigurationKey $key, User $user = null, string $default = null): ?string
+    public static function getString(ConfigurationKey $key, ?User $user = null, ?string $default = null): ?string
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');
@@ -85,7 +86,7 @@ class Configuration extends Model implements HasFileRelationInterface
         return $default;
     }
 
-    public static function storeInt(ConfigurationKey $key, ?int $value, User $user = null): self
+    public static function storeInt(ConfigurationKey $key, ?int $value, ?User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -99,7 +100,7 @@ class Configuration extends Model implements HasFileRelationInterface
         return $config;
     }
 
-    public static function getInt(ConfigurationKey $key, User $user = null, int $default = null): ?int
+    public static function getInt(ConfigurationKey $key, ?User $user = null, ?int $default = null): ?int
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');
@@ -111,7 +112,7 @@ class Configuration extends Model implements HasFileRelationInterface
         return $default;
     }
 
-    public static function storeBool(ConfigurationKey $key, ?bool $value, User $user = null): self
+    public static function storeBool(ConfigurationKey $key, ?bool $value, ?User $user = null): self
     {
         /** @var Configuration $config */
         $config = self::getSingleKeyQuery($key, $user)->firstOrNew();
@@ -125,7 +126,7 @@ class Configuration extends Model implements HasFileRelationInterface
         return $config;
     }
 
-    public static function getBool(ConfigurationKey $key, User $user = null, bool $default = null): ?bool
+    public static function getBool(ConfigurationKey $key, ?User $user = null, ?bool $default = null): ?bool
     {
         /** @var Configuration $configValue */
         $configValue = self::getKeyQuery($key, $user)->first('value');

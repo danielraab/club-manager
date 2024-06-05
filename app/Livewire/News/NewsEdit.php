@@ -27,11 +27,11 @@ class NewsEdit extends Component
     {
         $this->newsForm->delete();
 
-        Log::info("News deleted", [auth()->user(), $this->newsForm->news]);
+        Log::info('News deleted', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The news has been successfully deleted.'), ItemType::WARNING));
 
-        return redirect(route("news.index"));
+        return redirect(route('news.index'));
     }
 
     /**
@@ -41,7 +41,7 @@ class NewsEdit extends Component
     {
         $this->newsForm->store();
 
-        Log::info("News copied", [auth()->user(), $this->newsForm->news]);
+        Log::info('News copied', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
             new Item(__('News successfully created.'), ItemType::SUCCESS));
 
@@ -55,11 +55,11 @@ class NewsEdit extends Component
     {
         $this->newsForm->update();
 
-        Log::info("News updated", [auth()->user(), $this->newsForm->news]);
+        Log::info('News updated', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
             new Item(__('News successfully updated.'), ItemType::SUCCESS));
 
-        return redirect(route("news.index"));
+        return redirect(route('news.index'));
     }
 
     /**
@@ -74,7 +74,7 @@ class NewsEdit extends Component
             new UpcomingNews($this->newsForm->news)
         );
 
-        Log::info("News web push forced", [auth()->user(), $this->newsForm->news]);
+        Log::info('News web push forced', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
             new Item(__('Web push successfully triggered.'), ItemType::SUCCESS));
     }

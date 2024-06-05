@@ -12,7 +12,7 @@ class CurrencyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind("currency", function () {
+        $this->app->bind('currency', function () {
             return new Currency();
         });
     }

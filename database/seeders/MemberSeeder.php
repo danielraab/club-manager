@@ -34,7 +34,7 @@ class MemberSeeder extends Seeder
 
         $memberShow = User::factory()->create([
             'name' => 'Member Show',
-                'email' => 'memberShow@draab.at',
+            'email' => 'memberShow@draab.at',
             'password' => Hash::make('memberShow'),
         ]);
         $memberShow->userPermissions()

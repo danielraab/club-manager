@@ -2,7 +2,6 @@
 
 namespace App\Models\Sponsoring;
 
-use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,7 +22,7 @@ class Package extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "sponsor_packages";
+    protected $table = 'sponsor_packages';
 
     protected $fillable = [
         'enabled',
@@ -41,22 +40,22 @@ class Package extends Model
 
     public function adOptions(): BelongsToMany
     {
-        return $this->belongsToMany(AdOption::class, "sponsor_package_sponsor_ad_option");
+        return $this->belongsToMany(AdOption::class, 'sponsor_package_sponsor_ad_option');
     }
 
     public function periods(): BelongsToMany
     {
-        return $this->belongsToMany(Period::class, "sponsor_period_sponsor_package");
+        return $this->belongsToMany(Period::class, 'sponsor_period_sponsor_package');
     }
 
     public static function allActive(bool $inclNonOfficial = true): \Illuminate\Database\Eloquent\Builder
     {
-        $query = self::query()->where("enabled", true);
+        $query = self::query()->where('enabled', true);
 
-        if(!$inclNonOfficial) {
-            $query->where("is_official", true);
+        if (! $inclNonOfficial) {
+            $query->where('is_official', true);
         }
 
-        return $query->orderBy("title");
+        return $query->orderBy('title');
     }
 }

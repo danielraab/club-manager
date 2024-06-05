@@ -26,7 +26,7 @@ class MemberCreate extends Component
     {
         $this->memberForm->store();
 
-        Log::info("Member created", [auth()->user(), $this->memberForm->member]);
+        Log::info('Member created', [auth()->user(), $this->memberForm->member]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member has been successfully created.'), ItemType::SUCCESS));
 
@@ -36,7 +36,7 @@ class MemberCreate extends Component
     public function saveMemberAndStay(): void
     {
         $this->memberForm->store();
-        Log::info("Member created", [auth()->user(), $this->memberForm->member]);
+        Log::info('Member created', [auth()->user(), $this->memberForm->member]);
         NotificationMessage::addNotificationMessage(
             new Item(__('New member successfully created. You can create the next one now.'), ItemType::SUCCESS));
     }

@@ -27,7 +27,7 @@ class MemberEdit extends Component
     {
         $this->memberForm->update();
 
-        Log::info("Member updated", [auth()->user(), $this->memberForm->member]);
+        Log::info('Member updated', [auth()->user(), $this->memberForm->member]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member has been successfully updated.'), ItemType::SUCCESS));
 
@@ -39,7 +39,7 @@ class MemberEdit extends Component
 
         $this->memberForm->delete();
 
-        Log::info("Member deleted", [auth()->user(), $this->memberForm->member]);
+        Log::info('Member deleted', [auth()->user(), $this->memberForm->member]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member has been successfully deleted.'), ItemType::WARNING));
 
@@ -49,21 +49,24 @@ class MemberEdit extends Component
     public function createUser()
     {
         $member = $this->memberForm->member;
-        if (!$member) {
+        if (! $member) {
             NotificationMessage::addNotificationMessage(
                 new Item(__('Not able to create a user for this member.'), ItemType::ERROR));
+
             return;
         }
 
-        if (!$member->email) {
+        if (! $member->email) {
             NotificationMessage::addNotificationMessage(
                 new Item(__('Member has no email address.'), ItemType::ERROR));
+
             return;
         }
 
         if (User::query()->where('email', $member->email)->exists()) {
             NotificationMessage::addNotificationMessage(
                 new Item(__('A user with the member email already exists.'), ItemType::ERROR));
+
             return;
         }
 
@@ -75,9 +78,9 @@ class MemberEdit extends Component
 
         $user->register();
 
-        Log::channel('userManagement')->info("User " . $user->getNameWithMail() . " has been created by " . auth()->user()?->getNameWithMail());
+        Log::channel('userManagement')->info('User '.$user->getNameWithMail().' has been created by '.auth()->user()?->getNameWithMail());
         NotificationMessage::addNotificationMessage(
-            new Item( __('User ' . $user->name . ' created successfully.'), ItemType::SUCCESS));
+            new Item(__('User '.$user->name.' created successfully.'), ItemType::SUCCESS));
     }
 
     public function render()

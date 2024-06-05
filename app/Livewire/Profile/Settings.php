@@ -10,6 +10,7 @@ use Livewire\Component;
 class Settings extends Component
 {
     public string $customLinkName;
+
     public string $customLink;
 
     public function mount(): void

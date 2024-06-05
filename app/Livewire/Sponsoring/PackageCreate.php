@@ -28,7 +28,7 @@ class PackageCreate extends Component
         $this->packageForm->store();
         $this->packageForm->package->adOptions()->sync($this->selectedAdOptionArr);
 
-        Log::info("Package created", [auth()->user(), $this->packageForm->package]);
+        Log::info('Package created', [auth()->user(), $this->packageForm->package]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The package has been successfully created.'), ItemType::SUCCESS));
 

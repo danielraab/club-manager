@@ -14,8 +14,8 @@ class EventListExport extends Controller
     public function excel()
     {
         return Response::stream(function () {
-            $yes = __("yes");
-            $no = __("no");
+            $yes = __('yes');
+            $no = __('no');
 
             $sheetName = 'eventList';
 
@@ -47,10 +47,10 @@ class EventListExport extends Controller
                         $event->end->setTimezone(config('app.displayed_timezone'))->format('Y-m-d') :
                         $event->end->setTimezone(config('app.displayed_timezone'))->format('Y-m-d H:i:s'),
                     $event->whole_day ? $yes : $no,
-                    $event->whole_day ? "" : $event->end->diffInMinutes($event->start),
+                    $event->whole_day ? '' : $event->end->diffInMinutes($event->start),
                     $event->location,
                     $event->dress_code,
-                    $event->eventType?->title
+                    $event->eventType?->title,
                 ]);
             }
 
@@ -64,8 +64,8 @@ class EventListExport extends Controller
     public function csv()
     {
         return Response::stream(function () {
-            $yes = __("yes");
-            $no = __("no");
+            $yes = __('yes');
+            $no = __('no');
             $file = fopen('php://output', 'w');
             fwrite($file, 'sep='.self::CSV_SEPARATOR."\n");
             fputcsv($file, [
@@ -79,7 +79,7 @@ class EventListExport extends Controller
                 __('Location'),
                 __('Dress code'),
                 __('Type'),
-                ], self::CSV_SEPARATOR);
+            ], self::CSV_SEPARATOR);
 
             foreach (Event::getAllFiltered(EventFilter::getEventFilterFromRequest())->get() as $event) {
                 /** @var Event $event */
@@ -90,10 +90,10 @@ class EventListExport extends Controller
                     $event->whole_day ? $event->start->formatDateOnly() : $event->start->formatDateTimeWithSec(),
                     $event->whole_day ? $event->end->formatDateOnly() : $event->end->formatDateTimeWithSec(),
                     $event->whole_day ? $yes : $no,
-                    $event->whole_day ? "" : $event->end->diffInMinutes($event->start),
+                    $event->whole_day ? '' : $event->end->diffInMinutes($event->start),
                     $event->location,
                     $event->dress_code,
-                    $event->eventType?->title
+                    $event->eventType?->title,
                 ], self::CSV_SEPARATOR);
             }
             fclose($file);
@@ -102,6 +102,4 @@ class EventListExport extends Controller
             'Content-Disposition' => 'attachment; filename="eventList.csv"',
         ]);
     }
-
-
 }

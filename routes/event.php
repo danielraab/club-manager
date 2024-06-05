@@ -29,7 +29,7 @@ Route::get('/events/json', [EventExport::class, 'toJson'])
 Route::get('/events/next', [EventExport::class, 'next'])
     ->name('event.next');
 
-Route::middleware(["auth"])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('/events/statistic', EventStatistic::class)
         ->name('event.statistic');
 

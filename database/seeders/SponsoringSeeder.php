@@ -10,17 +10,21 @@ use App\Models\Sponsoring\Period;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use function Sodium\compare;
 
 class SponsoringSeeder extends Seeder
 {
     private const AD_OPTION_CNT = 10;
+
     public const BACKER_CNT = 100;
+
     private const PACKAGE_CNT = 10;
+
     public const PERIOD_CNT = 5;
+
     private const CONTRACT_CNT = 200;
 
     private User $sponsoringShow;
+
     private User $sponsoringEdit;
 
     /**
@@ -70,8 +74,9 @@ class SponsoringSeeder extends Seeder
         $collection = Package::factory(self::PACKAGE_CNT)->create();
         $first = true;
         foreach ($collection as $package) {
-            if($first) {
+            if ($first) {
                 $first = false;
+
                 continue;
             }
             /** @var $package Package */
@@ -92,8 +97,6 @@ class SponsoringSeeder extends Seeder
         }
     }
 
-
-
     private function addContracts(): void
     {
         $collection = Contract::factory(self::CONTRACT_CNT)->create();
@@ -108,6 +111,7 @@ class SponsoringSeeder extends Seeder
                 $contract->ad_data_received = null;
                 $contract->paid = null;
                 $contract->save();
+
                 continue;
             }
             if ($contract->refused === null &&

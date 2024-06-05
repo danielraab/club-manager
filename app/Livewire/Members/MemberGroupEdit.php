@@ -26,7 +26,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroupForm->update();
 
-        Log::info("Member group updated", [auth()->user(), $this->memberGroupForm->memberGroup]);
+        Log::info('Member group updated', [auth()->user(), $this->memberGroupForm->memberGroup]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member group has been successfully updated.'), ItemType::SUCCESS));
 
@@ -37,7 +37,7 @@ class MemberGroupEdit extends Component
     {
         $this->memberGroupForm->delete();
 
-        Log::info("Member group deleted", [auth()->user(), $this->memberGroupForm->memberGroup]);
+        Log::info('Member group deleted', [auth()->user(), $this->memberGroupForm->memberGroup]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member group has been successfully deleted.'), ItemType::WARNING));
 

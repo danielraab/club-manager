@@ -68,7 +68,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
+     * @param  Collection<int, Member>  $currentMemberList
      */
     private function findMatchingMember(Collection $currentMemberList, ImportedMember $importedMember): Member
     {
@@ -90,7 +90,7 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
+     * @param  Collection<int, Member>  $currentMemberList
      *
      * @throws ItemNotFoundException
      */
@@ -100,15 +100,15 @@ class SyncOverview extends Component
     }
 
     /**
-     * @param Collection<int, Member> $currentMemberList
+     * @param  Collection<int, Member>  $currentMemberList
      *
      * @throws ItemNotFoundException
      */
     private function findNameAndBirthdayInMemberList(
         Collection $currentMemberList,
-        string     $lastname,
-        string     $firstname,
-        Carbon     $birthday): Member
+        string $lastname,
+        string $firstname,
+        Carbon $birthday): Member
     {
         return $currentMemberList->firstOrFail(function (Member $member) use ($lastname, $firstname, $birthday) {
             return $member->lastname === $lastname &&
@@ -119,7 +119,7 @@ class SyncOverview extends Component
 
     public function hydrate()
     {
-        $this->newMembers = array_map(fn(array $e) => new ImportedMember($e), $this->newMembers);
+        $this->newMembers = array_map(fn (array $e) => new ImportedMember($e), $this->newMembers);
         $this->changedMembers = array_map(function (array $wrapper) {
             $originalMember = new Member($wrapper['original']);
             $originalMember->id = $wrapper['original']['id'];
@@ -141,7 +141,7 @@ class SyncOverview extends Component
             foreach ($this->newMembers as $importedMember) {
                 $newMember = $importedMember->toMember();
                 $newMember->last_import_date = now();
-                if (!$newMember->entrance_date) {
+                if (! $newMember->entrance_date) {
                     $newMember->entrance_date = $newMember->last_import_date;
                 }
 

@@ -37,7 +37,7 @@ class BackerFiles extends Component
         $user = auth()->user();
         $uploadedFiles = [];
         foreach ($this->adDataFiles as $adData) {
-            $path = $adData->store("backerData");
+            $path = $adData->store('backerData');
             $uploadedFile = new UploadedFile();
             $uploadedFile->path = $path;
             $uploadedFile->name = $adData->getClientOriginalName();
@@ -51,7 +51,7 @@ class BackerFiles extends Component
         }
         $this->adDataFiles = [];
 
-        Log::info("Backer Ad Data uploaded", [auth()->user(), $uploadedFiles]);
+        Log::info('Backer Ad Data uploaded', [auth()->user(), $uploadedFiles]);
         NotificationMessage::addNotificationMessage(
             new Item(__('Files uploaded.'), ItemType::SUCCESS));
     }
@@ -60,7 +60,7 @@ class BackerFiles extends Component
     {
         $uploadedFile->delete();
 
-        Log::info("Backer Ad Data deleted.", [auth()->user(), $uploadedFile]);
+        Log::info('Backer Ad Data deleted.', [auth()->user(), $uploadedFile]);
         NotificationMessage::addNotificationMessage(
             new Item(__('File(s) deleted.'), ItemType::WARNING));
     }

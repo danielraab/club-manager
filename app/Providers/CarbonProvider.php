@@ -21,7 +21,7 @@ class CarbonProvider extends ServiceProvider
     public function boot(): void
     {
         Carbon::macro('formatDateInput', function () {
-            return Carbon::this()->setTimezone(config('app.displayed_timezone'))->format("Y-m-d");
+            return Carbon::this()->setTimezone(config('app.displayed_timezone'))->format('Y-m-d');
         });
         Carbon::macro('formatDatetimeLocalInput', function () {
             return Carbon::this()->setTimezone(config('app.displayed_timezone'))->format("Y-m-d\TH:i");
@@ -33,10 +33,11 @@ class CarbonProvider extends ServiceProvider
 
         Carbon::macro('formatDateOnly', function ($withDayName = false) {
             $time = Carbon::this()->setTimezone(config('app.displayed_timezone'));
-            if($withDayName) {
-                return $time->isoFormat("dd D. MMM YYYY");
+            if ($withDayName) {
+                return $time->isoFormat('dd D. MMM YYYY');
             }
-            return $time->isoFormat("D. MMM YYYY");
+
+            return $time->isoFormat('D. MMM YYYY');
         });
         Carbon::macro('formatDateTimeWithSec', function () {
             return Carbon::this()->setTimezone(config('app.displayed_timezone'))->isoFormat('D. MMM YYYY - HH:mm:ss');

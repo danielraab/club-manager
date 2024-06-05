@@ -24,7 +24,7 @@ class MemberGroupCreate extends Component
     {
         $this->memberGroupForm->store();
 
-        Log::info("Member group created", [auth()->user(), $this->memberGroupForm->memberGroup]);
+        Log::info('Member group created', [auth()->user(), $this->memberGroupForm->memberGroup]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The member group has been successfully created.'), ItemType::SUCCESS));
 

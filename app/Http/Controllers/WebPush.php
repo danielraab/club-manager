@@ -49,11 +49,11 @@ class WebPush extends Controller
         $token = $request->keys['auth'];
         $key = $request->keys['p256dh'];
 
-//        dd( [
-//            'public_key' => $key,
-//            'auth_token' => $token,
-//            'user_id' => auth()->user()?->id
-//        ]);
+        //        dd( [
+        //            'public_key' => $key,
+        //            'auth_token' => $token,
+        //            'user_id' => auth()->user()?->id
+        //        ]);
         WebPushSubscription::query()->updateOrCreate([
             'endpoint' => $endpoint,
         ], [

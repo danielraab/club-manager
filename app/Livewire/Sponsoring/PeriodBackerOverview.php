@@ -15,7 +15,9 @@ use Livewire\Component;
 class PeriodBackerOverview extends Component
 {
     public bool $hasEditPermission = false;
+
     public Period $period;
+
     public string $previousUrl;
 
     public function mount(Period $period): void
@@ -27,7 +29,9 @@ class PeriodBackerOverview extends Component
 
     public function generateAllContracts(): void
     {
-        if (!$this->hasEditPermission) return;
+        if (! $this->hasEditPermission) {
+            return;
+        }
         $cnt = 0;
         $contractBackerIdArr = $this->getContractBackerIdList();
         foreach (Backer::allActive()->get() as $backer) {
@@ -43,19 +47,21 @@ class PeriodBackerOverview extends Component
             Log::info("$cnt contracts created", [auth()->user()]);
         }
         NotificationMessage::addNotificationMessage(
-            new Item(__(':cnt contracts created.', ["cnt" => $cnt]), ItemType::SUCCESS)
+            new Item(__(':cnt contracts created.', ['cnt' => $cnt]), ItemType::SUCCESS)
         );
     }
 
     public function getContractBackerIdList(): array
     {
-        return Contract::query()->where("period_id", $this->period->id)
-            ->pluck("backer_id")->toArray();
+        return Contract::query()->where('period_id', $this->period->id)
+            ->pluck('backer_id')->toArray();
     }
 
     public function createContract(int $backerId): void
     {
-        if (!$this->hasEditPermission) return;
+        if (! $this->hasEditPermission) {
+            return;
+        }
         $contract = new Contract();
         $contract->backer()->associate($backerId);
         $contract->period()->associate($this->period->id);
@@ -64,26 +70,31 @@ class PeriodBackerOverview extends Component
 
     private function getContractsOfPeriod(Backer $backer): null|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $backer->contracts()->where("period_id", $this->period->id)->first();
+        return $backer->contracts()->where('period_id', $this->period->id)->first();
     }
 
     public function render()
     {
         $backerList = [];
         /** @var Backer $backer */
-        foreach (Backer::query()->with("contracts")->orderBy("name")->get() as $backer) {
+        foreach (Backer::query()->with('contracts')->orderBy('name')->get() as $backer) {
             /** @var Contract $contract */
             $contract = $this->getContractsOfPeriod($backer);
-            if (!$backer->enabled) {
-                if ($contract) $backerList["disabled"][] = ["backer" => $backer, "contract" => $contract];
-            } else if ($backer->closed_at) {
-                if ($contract) $backerList["closed"][] = ["backer" => $backer, "contract" => $contract];
+            if (! $backer->enabled) {
+                if ($contract) {
+                    $backerList['disabled'][] = ['backer' => $backer, 'contract' => $contract];
+                }
+            } elseif ($backer->closed_at) {
+                if ($contract) {
+                    $backerList['closed'][] = ['backer' => $backer, 'contract' => $contract];
+                }
             } else {
-                $backerList["enabled"][] = ["backer" => $backer, "contract" => $contract];
+                $backerList['enabled'][] = ['backer' => $backer, 'contract' => $contract];
             }
         }
+
         return view('livewire.sponsoring.period-backer-overview', [
-            "backerList" => $backerList
+            'backerList' => $backerList,
         ])->layout('layouts.backend');
     }
 }

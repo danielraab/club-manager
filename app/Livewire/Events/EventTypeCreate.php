@@ -28,7 +28,7 @@ class EventTypeCreate extends Component
     {
         $this->eventTypeForm->store();
 
-        Log::info("Event type created", [auth()->user(), $this->eventTypeForm->eventType]);
+        Log::info('Event type created', [auth()->user(), $this->eventTypeForm->eventType]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event type has been successfully created.'), ItemType::SUCCESS));
 

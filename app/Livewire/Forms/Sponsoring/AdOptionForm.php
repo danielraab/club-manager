@@ -42,7 +42,7 @@ class AdOptionForm extends Form
         $this->validate();
 
         $this->adOption = AdOption::create([
-            ...$this->except(['adOption'])
+            ...$this->except(['adOption']),
         ]);
 
         $this->adOption->save();

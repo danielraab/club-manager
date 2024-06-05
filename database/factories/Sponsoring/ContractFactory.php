@@ -28,7 +28,6 @@ class ContractFactory extends Factory
         }
     }
 
-
     /**
      * Define the model's default state.
      *
@@ -40,15 +39,16 @@ class ContractFactory extends Factory
         self::initAvailableBackerPeriodCombinations();
 
         $refused = fake()->boolean();
-        $successful = !$refused && fake()->boolean();
+        $successful = ! $refused && fake()->boolean();
         $contact = null;
+
         return [
             'info' => fake()->text(60),
             'refused' => $refused ? fake()->dateTime() : null,
             'contract_received' => $successful ? $contact = fake()->dateTime() : null,
             'ad_data_received' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
             'paid' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
-            ...array_pop(self::$availableBackerPeriodCombinations)
+            ...array_pop(self::$availableBackerPeriodCombinations),
         ];
     }
 }

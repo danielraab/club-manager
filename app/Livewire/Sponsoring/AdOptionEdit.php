@@ -26,7 +26,7 @@ class AdOptionEdit extends Component
     {
         $this->adOptionForm->update();
 
-        Log::info("Ad option updated", [auth()->user(), $this->adOptionForm->adOption]);
+        Log::info('Ad option updated', [auth()->user(), $this->adOptionForm->adOption]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The ad option has been successfully updated.'), ItemType::SUCCESS));
 
@@ -37,7 +37,7 @@ class AdOptionEdit extends Component
     {
         $this->adOptionForm->delete();
 
-        Log::info("Ad option deleted", [auth()->user(), $this->adOptionForm->adOption]);
+        Log::info('Ad option deleted', [auth()->user(), $this->adOptionForm->adOption]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The ad option has been successfully deleted.'), ItemType::WARNING));
 
@@ -46,6 +46,6 @@ class AdOptionEdit extends Component
 
     public function render()
     {
-        return view('livewire.sponsoring.ad-option-create-edit', ["editMode" => true])->layout('layouts.backend');
+        return view('livewire.sponsoring.ad-option-create-edit', ['editMode' => true])->layout('layouts.backend');
     }
 }

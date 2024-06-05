@@ -26,7 +26,7 @@ class ContractEdit extends Component
     {
         $this->contractForm->update();
 
-        Log::info("Contract updated", [auth()->user(), $this->contractForm->contract]);
+        Log::info('Contract updated', [auth()->user(), $this->contractForm->contract]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The contract has been successfully updated.'), ItemType::SUCCESS));
 
@@ -37,13 +37,12 @@ class ContractEdit extends Component
     {
         $this->contractForm->delete();
 
-        Log::info("Contract deleted", [auth()->user(), $this->contractForm->contract]);
+        Log::info('Contract deleted', [auth()->user(), $this->contractForm->contract]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The contract has been successfully deleted.'), ItemType::WARNING));
 
         return redirect($this->previousUrl);
     }
-
 
     public function render()
     {
