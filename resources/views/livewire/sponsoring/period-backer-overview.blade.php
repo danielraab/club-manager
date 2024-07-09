@@ -136,6 +136,10 @@
                     <i class="fa-solid fa-file-export mr-2"></i>
                     {{__("Export overview")}}
                 </a>
+                <a href="{{route('sponsoring.period.memberAssignment', $period->id)}}" class="btn-success p-2 text-xs">
+                    <i class="fa-solid fa-user-group mr-2"></i>
+                    {{__("Assign per member")}}
+                </a>
             </x-button-dropdown>
         </div>
     @endif

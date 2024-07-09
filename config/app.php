@@ -98,6 +98,8 @@ return [
 
     'locale' => env('APP_LOCALE', 'en'),
 
+    'country_code_default' => env('APP_COUNTRY_CODE_DEFAULT', 'US'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

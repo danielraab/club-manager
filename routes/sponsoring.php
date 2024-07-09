@@ -17,6 +17,7 @@ use App\Livewire\Sponsoring\PeriodAdOptionOverview;
 use App\Livewire\Sponsoring\PeriodBackerOverview;
 use App\Livewire\Sponsoring\PeriodCreate;
 use App\Livewire\Sponsoring\PeriodEdit;
+use App\Livewire\Sponsoring\PeriodMemberAssignment;
 use App\Models\Sponsoring\Contract;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_EDIT_PERMISSION])-
         ->name('sponsoring.period.create');
     Route::get('/sponsoring/period/{period}', PeriodEdit::class)
         ->name('sponsoring.period.edit');
+    Route::get('/sponsoring/period/{period}/memberAssignment', PeriodMemberAssignment::class)
+        ->name('sponsoring.period.memberAssignment');
 
     Route::get('/sponsoring/contract/{contract}/edit', ContractEdit::class)
         ->name('sponsoring.contract.edit');

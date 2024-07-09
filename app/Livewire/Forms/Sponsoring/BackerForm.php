@@ -40,7 +40,7 @@ class BackerForm extends Form
     public function __construct(Component $component, $propertyName)
     {
         parent::__construct($component, $propertyName);
-        $this->country = 'AT'; //todo load from config
+        $this->country = config('app.country_code_default');
     }
 
     protected function rules(): array
