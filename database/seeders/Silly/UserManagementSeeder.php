@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Silly;
 
 use App\Models\User;
 use App\Models\UserPermission;

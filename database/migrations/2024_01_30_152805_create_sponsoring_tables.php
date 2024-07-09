@@ -84,6 +84,7 @@ return new class extends Migration
                 ->on('sponsor_periods')->cascadeOnDelete();
             $table->foreign('package_id')->references('id')
                 ->on('sponsor_packages')->cascadeOnDelete();
+            $table->unique(['period_id', 'package_id']);
         });
 
         /*

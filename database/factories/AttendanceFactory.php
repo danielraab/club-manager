@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Attendance;
-use Database\Seeders\EventSeeder;
-use Database\Seeders\MemberSeeder;
+use Database\Seeders\Silly\EventSeeder;
+use Database\Seeders\Silly\MemberSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttendanceFactory extends Factory

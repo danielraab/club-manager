@@ -2,7 +2,8 @@
 
 namespace Database\Factories\Sponsoring;
 
-use Database\Seeders\SponsoringSeeder;
+use App\Models\Sponsoring\Backer;
+use App\Models\Sponsoring\Period;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,8 @@ class ContractFactory extends Factory
     {
         if (self::$availableBackerPeriodCombinations === null) {
             self::$availableBackerPeriodCombinations = [];
-            for ($i = 1; $i <= SponsoringSeeder::BACKER_CNT; $i++) {
-                for ($j = 1; $j <= SponsoringSeeder::PERIOD_CNT; $j++) {
+            for ($i = 1; $i <= Backer::query()->count(); $i++) {
+                for ($j = 1; $j <= Period::query()->count(); $j++) {
                     self::$availableBackerPeriodCombinations[] = [
                         'backer_id' => $i,
                         'period_id' => $j,
