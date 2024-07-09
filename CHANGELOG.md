@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- add period backer overview export (CSV only)
 
 ## v0.7.13 - 2024-05-28
 ### Added

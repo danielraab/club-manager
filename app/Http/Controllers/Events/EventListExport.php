@@ -11,7 +11,7 @@ class EventListExport extends Controller
 {
     const CSV_SEPARATOR = ',';
 
-    public function excel()
+    public function excel(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
         return Response::stream(function () {
             $yes = __('yes');
@@ -61,7 +61,7 @@ class EventListExport extends Controller
         ]);
     }
 
-    public function csv()
+    public function csv(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
         return Response::stream(function () {
             $yes = __('yes');

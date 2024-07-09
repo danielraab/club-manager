@@ -5,6 +5,7 @@ use App\Http\Controllers\Sponsoring\BackerOverview;
 use App\Http\Controllers\Sponsoring\ContractDetail;
 use App\Http\Controllers\Sponsoring\Overview;
 use App\Http\Controllers\Sponsoring\PackageOverview;
+use App\Http\Controllers\Sponsoring\PeriodListExport;
 use App\Livewire\Sponsoring\AdOptionCreate;
 use App\Livewire\Sponsoring\AdOptionEdit;
 use App\Livewire\Sponsoring\BackerCreate;
@@ -34,6 +35,8 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.period.adOption.overview');
     Route::get('/sponsoring/contract/{contract}', [ContractDetail::class, 'index'])
         ->name('sponsoring.contract.detail');
+    Route::get('/sponsoring/period/{period}/export/csv', [PeriodListExport::class, 'csv'])
+        ->name('sponsoring.period.export.csv');
 });
 
 Route::middleware(['auth', 'permission:'.Contract::SPONSORING_EDIT_PERMISSION])->group(function () {

@@ -132,6 +132,10 @@
                         wire:confirm.prompt="{{__('Do you want to generate a contract for every backer ?')}}"
                         wire:click="generateAllContracts" title="Generate a contract for every backer."
                         class="btn-secondary p-2 text-xs">{{ __('Generate contracts') }}</button>
+                <a href="{{route('sponsoring.period.export.csv', $period->id)}}" class="btn-secondary p-2 text-xs">
+                    <i class="fa-solid fa-file-export mr-2"></i>
+                    {{__("Export overview")}}
+                </a>
             </x-button-dropdown>
         </div>
     @endif

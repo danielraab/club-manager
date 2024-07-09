@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \DateTime contract_received
  * @property \DateTime ad_data_received
  * @property \DateTime paid
+ * @property Period period
+ * @property Backer backer
  * @property Member|null member
  * @property UploadedFile|null uploadedFile
  * @property Package|null package
