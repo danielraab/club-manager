@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Filter\MemberFilter;
+use App\Models\Sponsoring\Contract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -170,5 +171,10 @@ class Member extends Model
     public function lastUpdater(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->HasMany(Contract::class);
     }
 }
