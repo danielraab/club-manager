@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * todo missing visual implementation
- *
  * @property int id
  * @property bool done
  * @property string comment

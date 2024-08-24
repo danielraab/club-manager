@@ -3,8 +3,10 @@
 namespace App\Livewire\Sponsoring;
 
 use App\Models\Member;
+use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,8 +18,8 @@ class MemberBackerAssignment extends Component
     public Member $member;
 
     public Collection $previousContracts;
-    public Collection $currentContracts;
-    public Collection $openContracts;
+    public array $currentBackers;
+    public Collection $openAndCurrentBackers;
 
 
 
@@ -28,17 +30,20 @@ class MemberBackerAssignment extends Component
 
         $this->previousContracts = Contract::query()->where('member_id', $this->member->id)
             ->where('period_id', $previousPeriod->id)->get();
-        $this->currentContracts = $this->period->contracts()->where('member_id', $this->member->id)->get();
-        $this->openContracts = $this->period->contracts()->whereNull('member_id')->get();
 
-        /**
-         * TODO: get a list of backers for a member (no contract, not selected or selected)
-         * backers should be sorted
-         * info if a backer has a selcted contract from the member
-         */
+        $this->currentBackers = $this->period->contracts()
+            ->where('member_id', $this->member->id)
+            ->pluck('backer_id')
+            ->toArray();
+        $this->openAndCurrentBackers = Backer::query()->whereNot(function(Builder $query) {
+            $query->whereHas('contracts', function (Builder $query) {
+                $query->where('period_id', $this->period->id)
+                    ->whereNot('member_id', $this->member->id);
+            });
+        })->orderBy('name')->get();
     }
 
-    #[On('member-contract-ass-changed')]
+    #[On('member-contract-has-changed')]
     public function refreshPost(): void
     {
     }

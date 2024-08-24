@@ -244,8 +244,9 @@ class SponsoringSeeder extends Seeder
         $collection = Period::factory(self::PERIOD_CNT)->create();
         foreach ($collection as $period) {
             /** @var $period Period */
+            $ids = range(1, $this->packageCnt);
             for ($i = 0; $i < rand(0, 4); $i++) {
-                $period->packages()->attach(rand(1, $this->packageCnt));
+                $period->packages()->attach(array_pop($ids));
             }
         }
     }
