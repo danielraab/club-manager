@@ -48,6 +48,23 @@ class MemberBackerAssignment extends Component
     {
     }
 
+    public function updateBacker(Backer $backer, $checked): void {
+        /** @var Contract $contract */
+        $contract = Contract::query()->firstOrNew([
+            'period_id' => $this->period->id,
+            'backer_id' => $backer->id
+        ]);
+
+        if($checked) {
+            $contract->member()->associate($this->member);
+            $contract->save();
+            return;
+        }
+
+        $contract->member()->disassociate();
+        $contract->save();
+    }
+
     public function assignMember(Contract $contract): void
     {
         $contract->member()->associate($this->member);

@@ -7,7 +7,7 @@
     <div class="grid lg:grid-cols-2 gap-3">
         <div class="rounded bg-gray-400 p-2">
             <h3 class="text-lg font-bold">{{__("last backers")}}</h3>
-            <ul class="list-disc mx-4">
+            <ul class="list-disc px-4 py-2">
                 @forelse($previousContracts as $contract)
                     <li>{{$contract->backer->name}} ({{$contract->period->title}})</li>
                 @empty
@@ -17,7 +17,7 @@
         </div>
         <div>
             <h3 class="text-lg font-bold">{{__("this period")}} - {{$period->title}}</h3>
-            <div class="space-y-2">
+            <div class="space-y-2 px-4 py-2">
                 <ul>
                     @forelse($period->contracts()->where('member_id', $member->id)->get() as $contract)
                         <li>
@@ -27,18 +27,14 @@
                         <div>{{__('no backer is taken')}}</div>
                     @endforelse
                 </ul>
-                <div x-init>
-                    <button type="button" class="btn btn-success"
-                            x-on:click.prevent="$dispatch('open-modal', 'member-contract-assignment-{{$member->id}}')">
-                        Assign new
-                    </button>
-
+                <div x-init class="flex justfiy-between">
                     <x-modal name="member-contract-assignment-{{$member->id}}"
                              :show="$errors->userDeletion->isNotEmpty()" focusable>
-                        <div>
+                        <div class="p-3">
                             @forelse($openAndCurrentBackers as $backer)
                                 <div>
-                                    <x-input-checkbox :id="$backer->id"
+                                    <x-input-checkbox :id="$member->id-$backer->id"
+                                                      wire:change="updateBacker({{$backer->id}}, $event.target.checked)"
                                                       :checked="in_array($backer->id, $currentBackers)">
                                         {{$backer->name}}
                                     </x-input-checkbox>
@@ -48,6 +44,11 @@
                             @endforelse
                         </div>
                     </x-modal>
+
+                    <button type="button" class="ml-auto btn btn-success"
+                            x-on:click.prevent="$dispatch('open-modal', 'member-contract-assignment-{{$member->id}}')">
+                        Assign new
+                    </button>
                 </div>
             </div>
         </div>

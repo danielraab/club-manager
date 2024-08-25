@@ -16,8 +16,8 @@
         <livewire:sponsoring.quick-backer-add />
     </div>
 
-    <div class="flex flex-col gap-4">
-        <div class="bg-white shadow-sm sm:rounded-lg p-4">
+    <div class="flex flex-col">
+        <div class="bg-white shadow-sm sm:rounded-lg lg:p-4 gap-4">
              @foreach(\App\Models\Member::getAllFiltered()->get() as $member)
                  @php
                  /** @var \App\Models\Member $member */

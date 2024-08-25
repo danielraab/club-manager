@@ -1,5 +1,5 @@
 <!-- Accordion Wrapper -->
-<div x-data="{show:false}" {{$attributes->class("transition hover:bg-indigo-50 border-b")}} :class="show ? 'bg-indigo-50':''">
+<div x-data="{show:false}" {{$attributes->class("transition hover:bg-indigo-50 border-b border-b-black")}} :class="show ? 'bg-indigo-50':''">
     <!-- header -->
     <div x-on:click="show= !show"
         class="cursor-pointer transition flex space-x-5 px-5 items-center h-12">
