@@ -4,6 +4,7 @@
 /** @var \App\Models\Sponsoring\Contract $contract */
 ?>
 <x-accordion title="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700">
+    <x-livewire.loading />
     <div class="grid lg:grid-cols-2 gap-3">
         <div class="rounded bg-gray-400 p-2">
             <h3 class="text-lg font-bold">{{__("last backers")}}</h3>
@@ -27,9 +28,10 @@
                         <div>{{__('no backer is taken')}}</div>
                     @endforelse
                 </ul>
-                <div x-init class="flex justfiy-between">
-                    <x-modal name="member-contract-assignment-{{$member->id}}"
-                             :show="$errors->userDeletion->isNotEmpty()" focusable>
+                <div x-init class="flex justfiy-between"
+                     x-on:close-modal.window="$wire.dispatch('member-contract-has-changed')"
+                >
+                    <x-modal name="member-contract-assignment-{{$member->id}}" focusable>
                         <div class="p-3">
                             @forelse($openAndCurrentBackers as $backer)
                                 <div>

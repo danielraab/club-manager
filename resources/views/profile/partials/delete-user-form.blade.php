@@ -42,7 +42,7 @@
             </div>
 
             <div class="mt-6 flex justify-end">
-                <button type="button" class="btn btn-primary" x-on:click="$dispatch('close')">
+                <button type="button" class="btn btn-primary" x-on:click="$dispatch('close-modal', 'confirm-user-deletion')">
                     {{ __('Cancel') }}
                 </button>
 
