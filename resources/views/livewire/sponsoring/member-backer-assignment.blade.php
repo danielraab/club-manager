@@ -29,14 +29,25 @@
                     @endforelse
                 </ul>
                 <div x-init class="flex justfiy-between"
-                     x-on:close-modal.window="$wire.dispatch('member-contract-has-changed')"
+                     x-data="{
+                        changed:false,
+                        closeModalHandler() {
+                            if(this.changed) {
+                                this.changed = false;
+                                $wire.dispatch('member-contract-has-changed');
+                            }
+                        }
+                     }"
+                     x-on:close-modal.window="closeModalHandler()"
                 >
-                    <x-modal name="member-contract-assignment-{{$member->id}}" focusable>
+                    <x-modal id="member-contract-assignment-{{$member->id}}"
+                             title="{{$member->getFullName()}} - {{$period->title}}"
+                             focusable showX>
                         <div class="p-3">
                             @forelse($openAndCurrentBackers as $backer)
                                 <div>
                                     <x-input-checkbox :id="$member->id-$backer->id"
-                                                      wire:change="updateBacker({{$backer->id}}, $event.target.checked)"
+                                                      x-on:change="changed=true && $wire.updateBacker({{$backer->id}}, $event.target.checked)"
                                                       :checked="in_array($backer->id, $currentBackers)">
                                         {{$backer->name}}
                                     </x-input-checkbox>

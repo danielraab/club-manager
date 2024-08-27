@@ -1,7 +1,7 @@
 @php
     /** @var $contract \App\Models\Sponsoring\Contract|null */
 @endphp
-<x-modal name="adPlacement">
+<x-modal id="adPlacement">
     <div x-init="$store.notificationMessages
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
