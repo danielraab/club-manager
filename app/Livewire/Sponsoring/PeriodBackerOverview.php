@@ -75,7 +75,11 @@ class PeriodBackerOverview extends Component
 
     public function render()
     {
-        $backerList = [];
+        $backerList = [
+            'enabled' => [],
+            'disabled' => [],
+            'closed' => [],
+        ];
         /** @var Backer $backer */
         foreach (Backer::query()->with('contracts')->orderBy('name')->get() as $backer) {
             /** @var Contract $contract */
