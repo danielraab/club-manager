@@ -15,6 +15,7 @@ use Livewire\Component;
 class MemberBackerAssignment extends Component
 {
     public bool $changed = false;
+
     public Period $period;
 
     public Member $member;
@@ -40,9 +41,6 @@ class MemberBackerAssignment extends Component
         $this->calculateOpenAndCurrentBackers();
     }
 
-    /**
-     * @return void
-     */
     public function calculateOpenAndCurrentBackers(): void
     {
         $this->openAndCurrentBackers = Backer::query()->whereNot(function (Builder $query) {
@@ -86,9 +84,8 @@ class MemberBackerAssignment extends Component
         }
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.sponsoring.member-backer-assignment');
     }
-
 }

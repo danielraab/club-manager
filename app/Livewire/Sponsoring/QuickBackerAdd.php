@@ -8,8 +8,11 @@ use Livewire\Component;
 class QuickBackerAdd extends Component
 {
     public string $name;
+
     public string $country;
+
     public string $city;
+
     public string $zip;
 
     public function mount(): void
@@ -32,11 +35,11 @@ class QuickBackerAdd extends Component
             'zip' => ['nullable', 'integer'],
         ]);
 
-        Backer::create($validated);
+        Backer::query()->create($validated);
         $this->customReset();
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.sponsoring.quick-backer-add');
     }
