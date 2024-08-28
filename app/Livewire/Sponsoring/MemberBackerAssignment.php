@@ -26,7 +26,7 @@ class MemberBackerAssignment extends Component
 
     public Collection $openAndCurrentBackers;
 
-    public function mount(Period $period, Member $member, ?Period $previousPeriod = null): void
+    public function mount(Period $period, Member $member, Period $previousPeriod = null): void
     {
         $this->period = $period;
         $this->member = $member;

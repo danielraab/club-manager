@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     public const ADMIN_MAIL = 'admin@example.com';
+
     public const ADMIN_PASSWORD = 'admin';
+
     public const TESTER_MAIL = 'tester@example.com';
+
     public const TESTER_PASSWORD = 'tester';
 
     /**

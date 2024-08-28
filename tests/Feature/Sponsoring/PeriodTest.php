@@ -63,7 +63,6 @@ class PeriodTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText('no members');
 
-
         Livewire::test(MemberCreate::class)
             ->set('memberForm.firstname', 'Max')
             ->set('memberForm.lastname', 'Mustermannm')
