@@ -26,13 +26,16 @@ class MemberBackerAssignment extends Component
 
     public Collection $openAndCurrentBackers;
 
-    public function mount(Period $period, Member $member, Period $previousPeriod): void
+    public function mount(Period $period, Member $member, ?Period $previousPeriod = null): void
     {
         $this->period = $period;
         $this->member = $member;
 
-        $this->previousContracts = Contract::query()->where('member_id', $this->member->id)
-            ->where('period_id', $previousPeriod->id)->get();
+        $this->previousContracts = Collection::empty();
+        if ($previousPeriod) {
+            $this->previousContracts = Contract::query()->where('member_id', $this->member->id)
+                ->where('period_id', $previousPeriod->id)->get();
+        }
 
         $this->currentBackers = $this->period->contracts()
             ->where('member_id', $this->member->id)

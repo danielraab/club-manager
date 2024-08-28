@@ -25,7 +25,7 @@
              @endforeach
         </ul>
     @else
-        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No ad options")}}</div>
+        <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("no ad options")}}</div>
     @endif
     @if(($periods = $package->periods()->get())->isNotEmpty())
         <h3 @click="showPeriods=!showPeriods" class="font-semibold mt-3 cursor-pointer">{{__("Periods")}}

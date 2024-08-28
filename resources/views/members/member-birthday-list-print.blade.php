@@ -51,7 +51,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="w-full text-center">{{__("No members")}}</div>
+                <div class="w-full text-center">{{__("no members")}}</div>
             @endif
         </div>
         @if($missingBirthdayList && $missingBirthdayList->isNotEmpty())

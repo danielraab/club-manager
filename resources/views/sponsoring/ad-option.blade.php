@@ -29,7 +29,7 @@
             @forelse(\App\Models\Sponsoring\AdOption::allActive()->get() as $adOption)
                 <x-sponsoring.ad-option-item :adOption="$adOption" :hasEditPermission="$hasEditPermission"/>
             @empty
-                <div class="text-gray-600 text-center col-span-full">-- {{__("no backers")}} --</div>
+                <div class="text-gray-600 text-center col-span-full">-- {{__("no ad options")}} --</div>
             @endforelse
         </div>
         @php($disabledList = \App\Models\Sponsoring\AdOption::query()->where("enabled", false)->get())

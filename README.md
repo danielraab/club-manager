@@ -24,7 +24,11 @@
 * execute `./vendor/bin/sail artisan storage:link` to access files saved in `storage/public`
 
 - create database: `./vendor/bin/sail artisan migrate:fresh`
-    - add `--seed` if test data should be installed.
+  - add `--seed` if test data should be installed.
+  - append `--seeder=<SEEDER_CLASS>`
+    - `MinimalSeeder` - only one or two entries are created for every feature
+    - `SillySeeder` - generated entries with faker library
+    - `BetterSeeder` - meaningful demo data should be applied (TODO)
 
 * create vapid keys for webpush: `./vendor/bin/sail artisan webpush:vapid`
 
