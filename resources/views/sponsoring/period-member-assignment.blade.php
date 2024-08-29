@@ -16,8 +16,8 @@
         </div>
 
         <div class="flex flex-col">
-            @forelse(\App\Models\Member::getAllFiltered()->get() as $member)
-                <div class="bg-white shadow-sm sm:rounded-lg lg:p-4 gap-4">
+            <div class="bg-white shadow-sm sm:rounded-lg lg:p-4 gap-4">
+                @forelse(\App\Models\Member::getAllFiltered()->get() as $member)
                     @php
                         /** @var \App\Models\Member $member */
                         /** @var \App\Models\Sponsoring\Contract $contract */
@@ -28,10 +28,10 @@
                     @else
                         <livewire:sponsoring.member-backer-assignment :member="$member" :period="$period"/>
                     @endif
-                </div>
-            @empty
-                <div class="text-center text-gray-700">-- {{__('no members')}} --</div>
-            @endforelse
+                @empty
+                    <div class="text-center text-gray-700">-- {{__('no members')}} --</div>
+                @endforelse
+            </div>
         </div>
     </div>
 </x-backend-layout>
