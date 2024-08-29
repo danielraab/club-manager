@@ -37,6 +37,7 @@ class QuickBackerAdd extends Component
 
         Backer::query()->create($validated);
         $this->customReset();
+        $this->dispatch('member-contract-has-changed');
     }
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
