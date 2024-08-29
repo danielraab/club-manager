@@ -3,9 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.7.14 - 2024-08-29
 ### Added
 - add period backer overview
 - add period backer assignment with quick backer creation component
+- first feature tests for sponsoring feature
 ### Fixed
 - error of empty backer list enabled elements
 
