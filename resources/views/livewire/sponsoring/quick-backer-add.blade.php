@@ -1,4 +1,4 @@
-<x-accordion title="Quick add a backer" class="min-w-60 text-sm text-gray-700 border-none">
+<x-accordion label="Quick add a backer" class="min-w-60 text-sm text-gray-700 border-none">
     <form wire:submit="addNewBacker" class="flex flex-wrap gap-3 text-xs my-2 align-end">
         <div>
             <x-input-label for="name" :value="__('Name')"/>

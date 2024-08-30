@@ -4,7 +4,7 @@
     <div x-on:click="show= !show"
         class="cursor-pointer transition flex space-x-5 px-5 items-center h-12">
         <i class="fas " :class="show ? 'fa-caret-up':'fa-caret-down'"></i>
-        <h3>{{__($title)}}</h3>
+        <h3>{{__($label)}}</h3>
     </div>
     <!-- Content -->
     <div x-show="show" class="px-5 pt-0 overflow-hidden" x-transition.duration.500ms>

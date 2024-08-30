@@ -3,9 +3,9 @@
 /** @var \App\Models\Member $member */
 /** @var \App\Models\Sponsoring\Contract $contract */
 ?>
-<x-accordion title="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700">
-    <x-livewire.loading />
-    <div class="grid lg:grid-cols-2 gap-3">
+<x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700">
+    <x-livewire.loading/>
+    <div class="grid lg:grid-cols-2 gap-3 pb-3">
         <div class="rounded bg-gray-400 p-2">
             <h3 class="text-lg font-bold">{{__("last backers")}}</h3>
             <ul class="list-disc px-4 py-2">
@@ -20,7 +20,10 @@
             <h3 class="text-lg font-bold">{{__("this period")}} - {{$period->title}}</h3>
             <div class="space-y-2 px-4 py-2">
                 <ul>
-                    @forelse($period->contracts()->where('member_id', $member->id)->get() as $contract)
+                    @php
+                        $currentContracts = $period->contracts()->where('member_id', $member->id)->get();
+                    @endphp
+                    @forelse($currentContracts as $contract)
                         <li>
                             {{$contract->backer->name}}
                         </li>
@@ -28,7 +31,7 @@
                         <div>{{__('no backer is taken')}}</div>
                     @endforelse
                 </ul>
-                <div x-init class="flex justfiy-between"
+                <div x-init
                      x-data="{
                         changed:false,
                         closeModalHandler() {
@@ -57,12 +60,23 @@
                             @endforelse
                         </div>
                     </x-modal>
-
-                    <button type="button" class="ml-auto btn btn-success"
-                            x-on:click.prevent="$dispatch('open-modal', 'member-contract-assignment-{{$member->id}}')">
-                        Assign new
-                    </button>
                 </div>
+            </div>
+            <div class="flex justify-between">
+                <button type="button" class="btn btn-primary"
+                    @if(!$member->email || $currentContracts->isEmpty())
+                        disabled
+                    @else
+                        wire:confirm="Are you sure to send a mail to {{$member->getFullName()}} ({{$member->email}}) ?"
+                        wire:click="sendSummaryMailToMember"
+                    @endif
+                >
+                    Send mail
+                </button>
+                <button type="button" class="btn btn-success"
+                        x-on:click.prevent="$dispatch('open-modal', 'member-contract-assignment-{{$member->id}}')">
+                    Assign new
+                </button>
             </div>
         </div>
     </div>

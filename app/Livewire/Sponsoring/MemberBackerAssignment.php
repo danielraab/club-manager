@@ -2,12 +2,16 @@
 
 namespace App\Livewire\Sponsoring;
 
+use App\Facade\NotificationMessage;
 use App\Models\Member;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
+use App\NotificationMessage\Item;
+use App\NotificationMessage\ItemType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
@@ -85,6 +89,16 @@ class MemberBackerAssignment extends Component
             $contract->member()->disassociate();
             $contract->save();
         }
+    }
+
+    public function sendSummaryMailToMember()
+    {
+
+        Log::info('Sponsoring summary mail sent to member.', [auth()->user(), $this->member]);
+        NotificationMessage::addSuccessNotificationMessage(
+            __('The summary mail has been successfully sent to :mail.', ['mail' => $this->member->email])
+        );
+
     }
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

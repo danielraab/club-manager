@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- added notifications when forcing a web push on event or news
 
 ## v0.7.14 - 2024-08-29
 ### Added

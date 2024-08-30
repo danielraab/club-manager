@@ -37,7 +37,7 @@
                 </x-input-checkbox>
             </div>
         @endif
-        <x-accordion title="Date filter" class="min-w-60 text-sm text-gray-700">
+        <x-accordion label="Date filter" class="min-w-60 text-sm text-gray-700">
 
             <div x-on:switched="$wire.set('isStartNow', $event.detail.enabled)">
                 <label class="flex items-center gap-2">

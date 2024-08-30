@@ -68,6 +68,7 @@ class NewsEdit extends Component
     public function forceWebPush(): void
     {
         $this->newsForm->update();
+        NotificationMessage::addSuccessNotificationMessage(__('News successfully updated.'));
 
         \Illuminate\Support\Facades\Notification::send(
             PushSubscription::all(),
@@ -76,7 +77,7 @@ class NewsEdit extends Component
 
         Log::info('News web push forced', [auth()->user(), $this->newsForm->news]);
         NotificationMessage::addNotificationMessage(
-            new Item(__('Web push successfully triggered.'), ItemType::SUCCESS));
+            new Item(__('Web push successfully triggered for this news.'), ItemType::SUCCESS));
     }
 
     public function render()

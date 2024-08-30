@@ -12,25 +12,26 @@
 @layer components {
     .btn {
         @apply inline-flex items-center px-2 py-2 rounded-md font-semibold text-xs text-center tracking-wide
-        focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-75 hover:cursor-pointer;
+        enabled:focus:outline-none enabled:focus:ring-2 enabled:focus:ring-offset-2 transition ease-in-out duration-150
+        disabled:opacity-75 enabled:hover:cursor-pointer;
     }
     .btn-info {
-        @apply bg-blue-500 text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 disabled:opacity-75;
+        @apply bg-blue-500 text-white enabled:hover:bg-blue-700 enabled:focus:bg-blue-700 active:bg-blue-700 disabled:opacity-75;
     }
 
     .btn-primary, .btn-edit {
-        @apply bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 disabled:opacity-75;
+        @apply bg-gray-800 text-white enabled:hover:bg-gray-700 enabled:focus:bg-gray-700 active:bg-gray-900 enabled:focus:ring-indigo-500 disabled:opacity-75;
     }
 
     .btn-secondary {
-        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 focus:ring-indigo-500 disabled:opacity-75;
+        @apply bg-white border border-gray-300 text-gray-700 enabled:hover:bg-gray-200 enabled:focus:ring-indigo-500 disabled:opacity-75;
     }
 
     .btn-danger {
-        @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 focus:ring-red-500 disabled:opacity-75;
+        @apply bg-red-600 text-white enabled:hover:bg-red-500 active:bg-red-700 enabled:focus:ring-red-500 disabled:opacity-75;
     }
 
     .btn-success, .btn-create {
-        @apply bg-green-800 text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:ring-indigo-500 disabled:opacity-75;
+        @apply bg-green-800 text-white enabled:hover:bg-green-700 enabled:focus:bg-green-700 active:bg-green-900 enabled:focus:ring-indigo-500 disabled:opacity-75;
     }
 }

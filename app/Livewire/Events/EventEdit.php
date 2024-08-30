@@ -70,12 +70,14 @@ class EventEdit extends Component
     public function forceWebPush()
     {
         $this->eventForm->update();
+        NotificationMessage::addSuccessNotificationMessage(__('The event has been successfully updated.'));
 
         \Illuminate\Support\Facades\Notification::send(
             PushSubscription::all(),
             new UpcomingEvent($this->eventForm->event)
         );
         Log::info('Event webPush forced', [auth()->user(), $this->eventForm->event]);
+        NotificationMessage::addInfoNotificationMessage(__('A Web Push notification for this event has been forced.'));
     }
 
     public function render()
