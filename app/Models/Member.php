@@ -39,8 +39,8 @@ use Illuminate\Support\Arr;
 class Member extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use Notifiable;
+    use SoftDeletes;
 
     public const MEMBER_EDIT_PERMISSION = 'memberEdit';
 

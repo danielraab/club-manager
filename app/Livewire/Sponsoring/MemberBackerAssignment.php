@@ -97,6 +97,7 @@ class MemberBackerAssignment extends Component
             NotificationMessage::addWarningNotificationMessage(
                 __('No active contracts available to send.')
             );
+
             return;
         }
 

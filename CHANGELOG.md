@@ -6,10 +6,12 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - added notifications when forcing a web push on event or news
 - accordion implementation (use label instead of title)
+- uploaded file url now with base url
 ### Added
 - add possibility of E-Mail notification to member backer assignment component
 ### Fixed
 - allow empty email on member edit (db unique exception beforehand null != empty string)
+- notification message are now shown with livewire changes on member backer assignment
 
 ## v0.7.14 - 2024-08-29
 ### Added
