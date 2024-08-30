@@ -7,8 +7,7 @@ use App\Models\Member;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
-use App\NotificationMessage\Item;
-use App\NotificationMessage\ItemType;
+use App\Notifications\SponsoringMemberPeriodSummary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
@@ -91,14 +90,22 @@ class MemberBackerAssignment extends Component
         }
     }
 
-    public function sendSummaryMailToMember()
+    public function sendSummaryMailToMember(): void
     {
+        $currentContracts = $this->period->contracts()->where('member_id', $this->member->id)->get();
+        if ($currentContracts->isEmpty()) {
+            NotificationMessage::addWarningNotificationMessage(
+                __('No active contracts available to send.')
+            );
+            return;
+        }
+
+        $this->member->notify(new SponsoringMemberPeriodSummary($this->period, $currentContracts));
 
         Log::info('Sponsoring summary mail sent to member.', [auth()->user(), $this->member]);
         NotificationMessage::addSuccessNotificationMessage(
             __('The summary mail has been successfully sent to :mail.', ['mail' => $this->member->email])
         );
-
     }
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

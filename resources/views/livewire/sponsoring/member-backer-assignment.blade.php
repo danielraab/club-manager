@@ -5,6 +5,9 @@
 ?>
 <x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700">
     <x-livewire.loading/>
+    <div x-init="$store.notificationMessages
+                 .addNotificationMessages(
+                 JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))"></div>
     <div class="grid lg:grid-cols-2 gap-3 pb-3">
         <div class="rounded bg-gray-400 p-2">
             <h3 class="text-lg font-bold">{{__("last backers")}}</h3>

@@ -111,6 +111,10 @@ class MemberForm extends Form
     {
         $this->validate();
 
+        if (empty($this->email)) {
+            $this->email = null;
+        }
+
         $this->member = Member::create([
             ...$this->except(['member', 'birthday', 'entrance_date', 'leaving_date', 'memberGroupList']),
             'birthday' => $this->birthday ? new Carbon($this->birthday) : null,
@@ -128,6 +132,10 @@ class MemberForm extends Form
     public function update(): void
     {
         $this->validate();
+
+        if (empty($this->email)) {
+            $this->email = null;
+        }
 
         $this->member->update([
             ...$this->except(['member', 'birthday', 'entrance_date', 'leaving_date', 'memberGroupList']),

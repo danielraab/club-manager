@@ -23,10 +23,12 @@
                         /** @var \App\Models\Sponsoring\Contract $contract */
                     @endphp
                     @if($previousPeriod)
-                        <livewire:sponsoring.member-backer-assignment :member="$member" :period="$period"
+                        <livewire:sponsoring.member-backer-assignment wire:key="{{$member->id}}"
+                                                                      :member="$member" :period="$period"
                                                                       :previousPeriod="$previousPeriod"/>
                     @else
-                        <livewire:sponsoring.member-backer-assignment :member="$member" :period="$period"/>
+                        <livewire:sponsoring.member-backer-assignment  wire:key="{{$member->id}}"
+                                                                       :member="$member" :period="$period"/>
                     @endif
                 @empty
                     <div class="text-center text-gray-700">-- {{__('no members')}} --</div>

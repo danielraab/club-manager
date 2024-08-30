@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Changed
 - added notifications when forcing a web push on event or news
+- accordion implementation (use label instead of title)
+### Added
+- add possibility of E-Mail notification to member backer assignment component
+### Fixed
+- allow empty email on member edit (db unique exception beforehand null != empty string)
 
 ## v0.7.14 - 2024-08-29
 ### Added
