@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - allow empty email on member edit (db unique exception beforehand null != empty string)
 - notification message are now shown with livewire changes on member backer assignment
+- default params for poll form (bool flags)
 
 ## v0.7.14 - 2024-08-29
 ### Added

@@ -15,9 +15,9 @@ class PollForm extends Form
 
     public ?string $description;
 
-    public ?bool $allow_anonymous_vote;
+    public bool $allow_anonymous_vote = false;
 
-    public ?bool $show_public_stats;
+    public bool $show_public_stats = false;
 
     public ?string $memberGroup = null;
 
@@ -31,8 +31,8 @@ class PollForm extends Form
     protected array $rules = [
         'title' => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string'],
-        'allow_anonymous_vote' => ['nullable', 'boolean'],
-        'show_public_stats' => ['nullable', 'boolean'],
+        'allow_anonymous_vote' => ['required', 'boolean'],
+        'show_public_stats' => ['required', 'boolean'],
         'memberGroup' => ['nullable', 'int', 'exists:member_groups,id'],
         'selectedEvents' => ['nullable', 'array'],
         'closing_at' => ['required', 'date'],
