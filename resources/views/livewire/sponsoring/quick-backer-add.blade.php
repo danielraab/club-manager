@@ -1,5 +1,5 @@
 <x-accordion label="Quick add a backer" class="min-w-60 text-sm text-gray-700 border-none">
-    <form wire:submit="addNewBacker" class="flex flex-wrap gap-3 text-xs my-2 align-end">
+    <form wire:submit="addNewBacker" class="grid md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs my-2 align-end">
         <div>
             <x-input-label for="name" :value="__('Name')"/>
             <x-input id="name" name="name" type="text" class="mt-1 block w-full"
@@ -38,6 +38,6 @@
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
         <button type="submit" class="btn btn-create px-4"
-                title="Edit this period">{{__('Add new Backer')}}</button>
+                title="Edit this period">{{__('Add new backer')}}</button>
     </form>
 </x-accordion>

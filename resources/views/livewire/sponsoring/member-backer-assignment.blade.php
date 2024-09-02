@@ -74,11 +74,11 @@
                         wire:click="sendSummaryMailToMember"
                     @endif
                 >
-                    Send mail
+                    {{__("Send mail")}}
                 </button>
                 <button type="button" class="btn btn-success"
                         x-on:click.prevent="$dispatch('open-modal', 'member-contract-assignment-{{$member->id}}')">
-                    Assign new
+                    {{__("Assign new")}}
                 </button>
             </div>
         </div>

@@ -360,5 +360,20 @@
     "Created contracts": "Erstellte Verträge",
     "member assigned": "Mitglied zugewiesen",
     "no member assigned": "kein Mitglied zugewiesen",
-    "Package selected": "Paket ausgewählt"
+    "Package selected": "Paket ausgewählt",
+    "Assign members to backers": "Sponsoren Mitgliedern zuweisen",
+    "Quick add a backer":"Sponsoren schnell hinzufügen",
+    "last backers":"Letzten Sponsoren",
+    "this period": "Diese Periode",
+    "Assign new": "Neue Zuordnung",
+    "Send mail": "Email senden",
+    "no backer is taken": "Kein Sponsor ausgewählt",
+    "no last contracts": "Kein alten Verträge",
+    "all backers are taken": "Alle Sponsoren vergeben",
+    "Country": "Land",
+    "Hello :name": "Hallo :name",
+    "Thanks for asking the following Backers about a sponsoring:":"Danke dass du die folgenden Sponsoren übernommen hast:",
+    "Here you can find useful files:":"Hier kannst du nützliche Dateien finden:",
+    "Best regards,\n:name":"Mit freundlichen Grüßen,\n :name",
+    "Sponsoring Member Summary - :period":"Sponsoring Mitglied Übersicht - :period"
 }

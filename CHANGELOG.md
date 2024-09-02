@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - uploaded file url now with base url
 ### Added
 - add possibility of E-Mail notification to member backer assignment component
+- german translation for email notification and member backer assignment
 ### Fixed
 - allow empty email on member edit (db unique exception beforehand null != empty string)
 - notification message are now shown with livewire changes on member backer assignment
