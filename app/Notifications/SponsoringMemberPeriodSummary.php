@@ -48,8 +48,8 @@ class SponsoringMemberPeriodSummary extends Notification
         }
 
         $mailMessage = (new MailMessage)
-            ->subject(__("Sponsoring Member Summary - :period", [ "period" => $this->period->title]))
-            ->greeting(__('Hello :name', ["name" => $notifiable->getFullName()]))
+            ->subject(__('Sponsoring Member Summary - :period', ['period' => $this->period->title]))
+            ->greeting(__('Hello :name', ['name' => $notifiable->getFullName()]))
             ->line(__('Thanks for asking the following Backers about a sponsoring:'));
 
         foreach ($this->contracts as $contract) {
@@ -65,7 +65,7 @@ class SponsoringMemberPeriodSummary extends Notification
 
         $user = auth()->user();
         if ($user instanceof User) {
-            $mailMessage->salutation(__("Best regards,\n:name",["name" => $user->getNameWithMail()]));
+            $mailMessage->salutation(__("Best regards,\n:name", ['name' => $user->getNameWithMail()]));
         }
 
         return $mailMessage;
