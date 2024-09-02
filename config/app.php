@@ -5,8 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => trim(exec('git --git-dir '.base_path('.git').' tag --points-at HEAD')) ?:
-        trim(exec('git --git-dir '.base_path('.git').' log --pretty="%h" -n1 HEAD')),
+    'version' => env('APP_VERSION', 'v0.7'),
 
     /*
      * works only if the configs are cached (strongly recommended for production)
