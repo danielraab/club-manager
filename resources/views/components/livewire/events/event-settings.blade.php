@@ -49,9 +49,10 @@
         {{--        start--}}
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
-            <x-input type="datetime-local" id="start" name="start" class="mt-1 block w-full"
-                              wire:model.blur="eventForm.start"
-                              required autofocus autocomplete="start"/>
+            <x-input-date-time wire:model.live="eventForm.start"/>
+{{--            <x-input type="datetime-local" id="start" name="start" class="mt-1 block w-full"--}}
+{{--                              wire:model.blur="eventForm.start"--}}
+{{--                              required autofocus autocomplete="start"/>--}}
             @error('eventForm.start')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
