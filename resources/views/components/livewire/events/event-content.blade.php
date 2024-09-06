@@ -46,7 +46,7 @@
             <x-input-label for="dress_code" :value="__('Dress code')"/>
             <x-input id="dress_code" name="dress_code" type="text" class="mt-1 block w-full"
                           wire:model="eventForm.dress_code"
-                          list="dressCodeHistory" required autofocus autocomplete="dress_code"/>
+                          list="dressCodeHistory" required autofocus/>
             <datalist id="dressCodeHistory">
                 @foreach(\App\Models\Event::getDressCodeHistory() as $dressCode)
                     <option value="{{$dressCode}}"></option>
