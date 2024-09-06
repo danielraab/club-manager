@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.7.16 - 2024-09-06
 ### Changed
 - date time local inputs are now components with separate inputs (for better mobile support)
 
