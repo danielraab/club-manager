@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 ### Changed
+- date time local inputs are now components with separate inputs (for better mobile support)
+
+## v0.7.15 - 2024-09-03
+### Changed
 - added notifications when forcing a web push on event or news
 - accordion implementation (use label instead of title)
 - uploaded file url now with base url

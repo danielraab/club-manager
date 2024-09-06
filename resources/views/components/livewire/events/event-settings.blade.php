@@ -49,10 +49,8 @@
         {{--        start--}}
         <div class="mt-4">
             <x-input-label for="start" :value="__('Start')"/>
-            <x-input-date-time wire:model.live="eventForm.start"/>
-{{--            <x-input type="datetime-local" id="start" name="start" class="mt-1 block w-full"--}}
-{{--                              wire:model.blur="eventForm.start"--}}
-{{--                              required autofocus autocomplete="start"/>--}}
+            <x-input-date-time id="start" wire:model.blur="eventForm.start" class="mt-1 block w-full"
+            :disabledTime="$this->eventForm?->whole_day" required/>
             @error('eventForm.start')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
@@ -60,9 +58,8 @@
         {{--        end--}}
         <div class="mt-4">
             <x-input-label for="end" :value="__('End')"/>
-            <x-input type="datetime-local" id="end" name="end" class="mt-1 block w-full"
-                              wire:model.blur="eventForm.end"
-                              required autofocus autocomplete="end"/>
+            <x-input-date-time id="end" wire:model.blur="eventForm.end" class="mt-1 block w-full"
+                               :disabledTime="$this->eventForm?->whole_day" required/>
             @error('eventForm.end')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
@@ -70,7 +67,7 @@
 
         <!-- whole day -->
         <div class="mt-4 mb-4 ml-3">
-            <x-input-checkbox id="whole_day" name="whole_day" wire:model="eventForm.whole_day"
+            <x-input-checkbox id="whole_day" name="whole_day" wire:model.live="eventForm.whole_day"
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Whole day') }} <i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                          title="{{__("The time will not be shown.")}}"></i>

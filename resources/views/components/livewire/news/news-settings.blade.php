@@ -33,9 +33,9 @@
 
         <div class="mt-4">
             <x-input-label for="display_until" :value="__('Display until')"/>
-            <x-input type="datetime-local" id="display_until" name="display_until" class="mt-1 block w-full"
-                              wire:model="newsForm.display_until"
-                              required autofocus autocomplete="display_until"/>
+            <x-input-date-time id="display_until" wire:model.blur="newsForm.display_until"
+                               class="mt-1 block w-full"
+                               required />
             @error('newsForm.display_until')
             <x-input-error class="mt-2" :messages="$message"/>@enderror
         </div>
