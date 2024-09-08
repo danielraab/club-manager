@@ -14,10 +14,11 @@
                 <button type="button" class="btn-success p-2 text-xs inline-flex items-center gap-2" wire:click="saveEvent"
                         title="Update event"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
             </x-slot>
-            <button type="button" class="btn-create inline-flex gap-2 text-xs p-2"
-                    wire:click="saveEventCopy"
-                    title="Save copy of the event"
-            ><i class="fa-solid fa-copy"></i> {{__("Save copy")}}</button>
+            <button type="button" class="btn-primary inline-flex gap-2 text-xs p-2"
+{{--                    wire:click="saveEventCopy"--}}
+                    x-on:click.prevent="$dispatch('open-modal', 'clone-event-modal')"
+                    title="Copy this event"
+            ><i class="fa-solid fa-copy"></i> {{__("Copy event")}}</button>
             @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
                 <button type="button"
                         class="btn-info inline-flex gap-2 text-xs p-2"
@@ -33,6 +34,17 @@
         </x-button-dropdown>
     </div>
 
+    <x-modal id="clone-event-modal" title="Clone this event" showX>
+        <div class="p-3">
+            <x-datepicker id="clone-event-datepicker" wire:model="cloneDateList"/>
+            <div class="flex justify-between mt-4">
+                <button class="btn btn-primary" type="button" x-on:click="$dispatch('reset-date-list', 'clone-event-datepicker')">clear</button>
+                <button class="btn btn-create" type="button"
+                        wire:confirm="{{__('Are you sure to create new events ?')}}"
+                        wire:click="cloneEvent">{{__('clone event')}}</button>
+            </div>
+        </div>
+    </x-modal>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
 

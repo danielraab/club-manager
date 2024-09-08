@@ -13,8 +13,6 @@ class EventCreate extends Component
 {
     public EventForm $eventForm;
 
-    public string $previousUrl;
-
     public function mount(): void
     {
         $this->eventForm->enabled = true;
@@ -23,7 +21,6 @@ class EventCreate extends Component
         $initial = now()->addHour()->setMinute(0)->setSecond(0);
         $this->eventForm->start = $initial->formatDatetimeLocalInput();
         $this->eventForm->end = $initial->clone()->addHours(2)->formatDatetimeLocalInput();
-        $this->previousUrl = url()->previous();
     }
 
     public function updatingEventFormStart($updatedValue): void
@@ -43,8 +40,6 @@ class EventCreate extends Component
         Log::info('Event created', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
-
-        return redirect($this->previousUrl);
     }
 
     public function saveEventAndStay(): void

@@ -15,13 +15,11 @@ use NotificationChannels\WebPush\PushSubscription;
 class EventEdit extends Component
 {
     public EventForm $eventForm;
-
-    public string $previousUrl;
+    public array $cloneDateList = [];
 
     public function mount(Event $event): void
     {
         $this->eventForm->setEventModel($event);
-        $this->previousUrl = url()->previous();
     }
 
     public function updatingEventFormStart($updatedValue): void
@@ -42,18 +40,12 @@ class EventEdit extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully deleted.'), ItemType::WARNING));
 
-        return redirect($this->previousUrl);
+        return redirect(route('events.index'));
     }
 
-    public function saveEventCopy()
+    public function cloneEvent()
     {
-        $this->eventForm->store();
-
-        Log::info('Event copied', [auth()->user(), $this->eventForm->event]);
-        NotificationMessage::addNotificationMessage(
-            new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
-
-        return redirect(route('event.edit', ['event' => $this->eventForm->event->id]));
+        dd($this->cloneDateList);
     }
 
     public function saveEvent()
@@ -63,8 +55,6 @@ class EventEdit extends Component
         Log::info('Event updated', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
-
-        return redirect($this->previousUrl);
     }
 
     public function forceWebPush()

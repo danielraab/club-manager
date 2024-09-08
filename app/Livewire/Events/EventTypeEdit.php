@@ -15,12 +15,9 @@ class EventTypeEdit extends Component
 {
     public EventTypeForm $eventTypeForm;
 
-    public string $previousUrl;
-
     public function mount(EventType $eventType)
     {
         $this->eventTypeForm->setEventType($eventType);
-        $this->previousUrl = url()->previous();
     }
 
     /**
@@ -33,8 +30,6 @@ class EventTypeEdit extends Component
         Log::info('Event type updated', [auth()->user(), $this->eventTypeForm->eventType]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event type has been successfully updated.'), ItemType::SUCCESS));
-
-        return redirect($this->previousUrl);
     }
 
     public function deleteEventType()
