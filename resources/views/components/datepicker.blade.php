@@ -1,17 +1,23 @@
 @props([
-    'id'
+    'id',
+    'multiple' => false,
+    'showList' => false
 ])
 <div x-data="{
     dateList:[],
+    multiDate: @js($multiple),
     today: new Date((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDate()),
     currentMonthFirsts: new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1),
     currentMonthLasts: new Date((new Date()).getFullYear(), (new Date()).getMonth()+1, 0),
     toggleDate(date) {
-        const i = this.dateList.indexOf(date.getTime())
+        const i = this.dateList.indexOf(date.toISOString());
         if(i > -1) {
             this.dateList.splice(i, 1);
         } else {
-            this.dateList.push(date.getTime());
+            if(!this.multiDate) {
+                this.dateList = [];
+            }
+            this.dateList.push(date.toISOString());
         }
     },
     prevMonth() {
@@ -39,14 +45,14 @@
         }
         return weeks;
     }
-}" x-modelable="dateList"
+}" x-modelable="dateList" {{ $attributes }}
      x-on:reset-date-list.window="$event.detail == '{{ $id }}' ? dateList = [] : null"
 >
     <div class="border">
         <div class="border text-lg font-bold bg-gray-500 text-white flex">
-            <button class="grow-0 p-2" type="button" x-on:click="prevMonth()"><</button>
+            <button class="grow-0 py-2 px-4" type="button" x-on:click="prevMonth()"><</button>
             <div class="grow text-center p-2" colspan="5" x-text="new Intl.DateTimeFormat('{{config('app.locale')}}', {month:'long', year: 'numeric'}).format(currentMonthFirsts)"></div>
-            <button class="grow-0 p-2" type="button" x-on:click="nextMonth()">></button>
+            <button class="grow-0 py-2 px-4" type="button" x-on:click="nextMonth()">></button>
         </div>
         <template x-for="week in getWeeks()" :key="'week'+week[0].getTime()">
             <div class="grid grid-cols-7">
@@ -62,7 +68,7 @@
                                 class="h-10 w-10"
                                 :class="{
                                     'text-gray-500': day.getTime() < currentMonthFirsts.getTime() || day.getTime() > currentMonthLasts.getTime(),
-                                    'bg-gray-500 text-white rounded-full': dateList.includes(day.getTime())
+                                    'bg-gray-500 text-white rounded-full': dateList.includes(day.toISOString())
                                 }"
                                 x-on:click="toggleDate(day)"></button>
                     </div>
@@ -70,4 +76,19 @@
             </div>
         </template>
     </div>
+    @if($showList)
+        <div class="m-3">
+            <div x-show="dateList.length > 0" class="font-bold text-lg">{{__('selected dates:')}}</div>
+            <ul x-show="dateList.length > 0" class="list-disc ml-6">
+                <template x-for="date in dateList">
+                    <li x-text="new Intl.DateTimeFormat('{{config('app.locale')}}', {
+                        weekday:'short',
+                        day:'numeric',
+                        month:'short',
+                        year:'numeric'
+                    }).format(new Date(date))"></li>
+                </template>
+            </ul>
+        </div>
+    @endif
 </div>

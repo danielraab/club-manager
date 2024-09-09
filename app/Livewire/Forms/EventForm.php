@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -73,6 +74,9 @@ class EventForm extends Form
         $this->event->save();
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function update(): void
     {
         $this->validate();
@@ -86,6 +90,32 @@ class EventForm extends Form
         $this->event->lastUpdater()->associate(Auth::user());
 
         $this->event->save();
+    }
+
+    /**
+     * @param  Carbon[]  $dateArray
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function copy(array $dateArray): void
+    {
+        $this->update();
+        $start = $this->event->start;
+        $diff = $this->event->end->diff($start);
+
+        $eventData = [];
+        foreach ($dateArray as $copyDate) {
+            $newStart = (new Carbon($copyDate))->setTime($start->hour, $start->minute);
+            $newEnd = $newStart->clone()->add($diff);
+            $eventData[] = [
+                ...$this->except(['event', 'start', 'end', 'type']),
+                'start' => $newStart,
+                'end' => $newEnd,
+                'event_type_id' => $this->getEventTypeId(),
+            ];
+        }
+
+        Event::query()->insert($eventData);
     }
 
     private function getEventTypeId(): ?int

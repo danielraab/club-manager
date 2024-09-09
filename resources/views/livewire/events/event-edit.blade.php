@@ -7,7 +7,9 @@
     </div>
 </x-slot>
 
-<div>
+<div x-init="$store.notificationMessages
+            .addNotificationMessages(
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex items-center justify-end">
         <x-button-dropdown>
             <x-slot name="mainButton">
@@ -16,7 +18,7 @@
             </x-slot>
             <button type="button" class="btn-primary inline-flex gap-2 text-xs p-2"
 {{--                    wire:click="saveEventCopy"--}}
-                    x-on:click.prevent="$dispatch('open-modal', 'clone-event-modal')"
+                    x-on:click.prevent="$dispatch('open-modal', 'copy-event-modal')"
                     title="Copy this event"
             ><i class="fa-solid fa-copy"></i> {{__("Copy event")}}</button>
             @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
@@ -34,14 +36,15 @@
         </x-button-dropdown>
     </div>
 
-    <x-modal id="clone-event-modal" title="Clone this event" showX>
+    <x-modal id="copy-event-modal" title="Copy this event" showX>
         <div class="p-3">
-            <x-datepicker id="clone-event-datepicker" wire:model="cloneDateList"/>
+            <x-datepicker id="copy-event-datepicker"
+                          class="max-w-96 mx-auto" wire:model="copyDateList" multiple showList/>
             <div class="flex justify-between mt-4">
-                <button class="btn btn-primary" type="button" x-on:click="$dispatch('reset-date-list', 'clone-event-datepicker')">clear</button>
+                <button class="btn btn-primary" type="button" x-on:click="$dispatch('reset-date-list', 'copy-event-datepicker')">clear</button>
                 <button class="btn btn-create" type="button"
                         wire:confirm="{{__('Are you sure to create new events ?')}}"
-                        wire:click="cloneEvent">{{__('clone event')}}</button>
+                        wire:click="copyEvent">{{__('copy event')}}</button>
             </div>
         </div>
     </x-modal>

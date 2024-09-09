@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- notification are now over a modal
+- multi select dates for event copy is now possible
 
 ## v0.7.16 - 2024-09-06
 ### Changed

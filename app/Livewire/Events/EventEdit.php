@@ -8,14 +8,17 @@ use App\Models\Event;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
 use App\Notifications\UpcomingEvent;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use NotificationChannels\WebPush\PushSubscription;
 
 class EventEdit extends Component
 {
     public EventForm $eventForm;
-    public array $cloneDateList = [];
+
+    public array $copyDateList = [];
 
     public function mount(Event $event): void
     {
@@ -32,7 +35,7 @@ class EventEdit extends Component
         $this->eventForm->updatingEnd($updatedValue);
     }
 
-    public function deleteEvent()
+    public function deleteEvent(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         $this->eventForm->delete();
 
@@ -43,12 +46,37 @@ class EventEdit extends Component
         return redirect(route('events.index'));
     }
 
-    public function cloneEvent()
+    /**
+     * @throws ValidationException
+     */
+    public function copyEvent(): void
     {
-        dd($this->cloneDateList);
+
+        $eventData = array_map(function ($date) {
+            return new Carbon($date);
+        }, $this->copyDateList);
+
+        if (count($eventData) === 0) {
+            NotificationMessage::addInfoNotificationMessage(__('No dates selected to copy event.'));
+
+            return;
+        }
+
+        $this->eventForm->copy($eventData);
+        $this->copyDateList = [];
+
+        Log::info('Event copied', [auth()->user(), $this->eventForm->event]);
+        NotificationMessage::addSuccessNotificationMessage(
+            __('The event has been successfully copied. :cnt new events created.', ['cnt' => count($eventData)])
+        );
+
+        $this->dispatch('close-modal', 'copy-event-modal');
     }
 
-    public function saveEvent()
+    /**
+     * @throws ValidationException
+     */
+    public function saveEvent(): void
     {
         $this->eventForm->update();
 
@@ -57,7 +85,10 @@ class EventEdit extends Component
             new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
     }
 
-    public function forceWebPush()
+    /**
+     * @throws ValidationException
+     */
+    public function forceWebPush(): void
     {
         $this->eventForm->update();
         NotificationMessage::addSuccessNotificationMessage(__('The event has been successfully updated.'));

@@ -20,7 +20,7 @@
     });
 </script>
 
-<div x-data class="fixed overflow-auto top-12 right-0 max-w-7xl sm:px-6 lg:px-8 space-y-2 z-50">
+<div x-data class="fixed overflow-auto top-12 right-0 max-w-7xl sm:px-6 lg:px-8 space-y-2 z-[300]">
     <template x-for="message in $store.notificationMessages.messages" :key="message.timestamp">
         <div x-data="{
             show:true, progress: 100, shrinkInterval:undefined,
