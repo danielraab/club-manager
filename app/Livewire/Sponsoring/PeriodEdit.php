@@ -20,8 +20,8 @@ class PeriodEdit extends Component
 
     public function mount(Period $period): void
     {
-        $this->availablePackageArr = $this->getPackageArr();
-        $this->selectedPackageArr = $period->packages()->get(['id'])->pluck('id')->toArray();
+        $this->loadAvailablePackages();
+        $this->loadSelectedPackages($period);
 
         $this->periodForm->setPeriodModel($period);
         $this->previousUrl = url()->previous();

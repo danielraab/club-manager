@@ -3,6 +3,7 @@
 namespace App\Livewire\Sponsoring;
 
 use App\Models\Sponsoring\Package;
+use App\Models\Sponsoring\Period;
 use Illuminate\Support\Arr;
 
 trait PackageSelectionTrait
@@ -13,15 +14,16 @@ trait PackageSelectionTrait
 
     public array $selectedPackageArr = [];
 
-    private function getPackageArr(): array
+    private function loadAvailablePackages(): void
     {
-        if (self::$packages === null) {
-            $packagesArr = Package::allActive()->get(['id', 'title'])->toArray();
-            self::$packages = Arr::mapWithKeys($packagesArr, function (array $package) {
-                return [$package['id'] => $package['title']];
-            });
-        }
+        $packagesArr = Package::allActive(false)->get(['id', 'title'])->toArray();
+        $this->availablePackageArr = Arr::mapWithKeys($packagesArr, function (array $package) {
+            return [$package['id'] => $package['title']];
+        });
+    }
 
-        return self::$packages;
+    private function loadSelectedPackages(Period $period): void
+    {
+        $this->selectedPackageArr = $period->packages()->get(['id'])->pluck('id')->toArray();
     }
 }

@@ -19,7 +19,7 @@ class PeriodCreate extends Component
 
     public function mount(): void
     {
-        $this->availablePackageArr = $this->getPackageArr();
+        $this->loadAvailablePackages();
         $this->previousUrl = url()->previous();
     }
 
