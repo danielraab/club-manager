@@ -36,10 +36,10 @@ class EventForm extends Form
     #[Validate('required|date|after_or_equal:start')]
     public string $end;
 
-    #[Validate('int|exists:event_types,id')]
+    #[Validate('nullable|int|exists:event_types,id')]
     public ?string $type = null;
 
-    #[Validate('int|exists:member_groups,id')]
+    #[Validate('nullable|int|exists:member_groups,id')]
     public ?string $member_group_id = null;
 
     public function updatingStart($updatedValue): void
