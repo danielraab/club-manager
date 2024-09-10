@@ -117,7 +117,7 @@ class EventForm extends Form
         Event::query()->insert($eventData);
     }
 
-    private function getIdOrNull(string|int $id): ?int
+    private function getIdOrNull(null|string|int $id): ?int
     {
         $eventTypeId = intval($id);
         if ($eventTypeId > 0) {
