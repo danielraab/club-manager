@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - notification are now over a modal
 - multi select dates for event copy is now possible
 - hide unofficial packages from sponsor period edit/create form
+- change event logged_in_only flag to a member group relation
 
 ## v0.7.16 - 2024-09-06
 ### Changed

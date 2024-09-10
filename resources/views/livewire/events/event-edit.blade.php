@@ -21,7 +21,7 @@
                     x-on:click.prevent="$dispatch('open-modal', 'copy-event-modal')"
                     title="Copy this event"
             ><i class="fa-solid fa-copy"></i> {{__("Copy event")}}</button>
-            @if($eventForm->start > now() && $eventForm->enabled && !$eventForm->logged_in_only)
+            @if($eventForm->start > now() && $eventForm->enabled && !is_numeric($eventForm->member_group_id))
                 <button type="button"
                         class="btn-info inline-flex gap-2 text-xs p-2"
                         wire:click="forceWebPush"

@@ -45,10 +45,6 @@
                             <span>{{$eventTypeForm->eventType?->events()->count()}}</span>
                         </li>
                         <li>
-                            <span class="font-bold">{{__("only internal")}}:</span>
-                            <span>{{$eventTypeForm->eventType?->events()->where("logged_in_only", true)->count()}}</span>
-                        </li>
-                        <li>
                             <span class="font-bold">{{__("enabled")}}:</span>
                             <span>{{$eventTypeForm->eventType?->events()->where("enabled", true)->count()}}</span>
                         </li>

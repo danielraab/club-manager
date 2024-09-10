@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Filter\EventFilter;
+use App\Models\MemberGroup;
 use App\Models\News;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,9 +32,21 @@ class Dashboard extends Controller
         return $newsList->get();
     }
 
-    private function loadEventList()
+    private function loadEventList(): Collection|array
     {
-        $eventList = Event::getFutureEvents(inclLoggedInOnly: Auth::check());
+        $eventFilter = new EventFilter();
+        $eventFilter->start = now();
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($user?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
+            $eventFilter->memberGroups = [MemberGroup::$ALL];
+        } elseif ($memberGroups = $user?->getMember()?->memberGroups()) {
+            $eventFilter->memberGroups = $memberGroups->get()->all();
+        }
+
+        $eventList = Event::getAllFiltered($eventFilter);
         $eventList->limit(5);
 
         return $eventList->get();

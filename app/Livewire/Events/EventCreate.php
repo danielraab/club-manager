@@ -16,7 +16,6 @@ class EventCreate extends Component
     public function mount(): void
     {
         $this->eventForm->enabled = true;
-        $this->eventForm->logged_in_only = false;
         $this->eventForm->whole_day = false;
         $initial = now()->addHour()->setMinute(0)->setSecond(0);
         $this->eventForm->start = $initial->formatDatetimeLocalInput();

@@ -30,8 +30,6 @@ class EventForm extends Form
 
     public ?bool $whole_day;
 
-    public ?bool $logged_in_only;
-
     #[Validate('required|date')]
     public string $start;
 
@@ -40,6 +38,9 @@ class EventForm extends Form
 
     #[Validate('int|exists:event_types,id')]
     public ?string $type = null;
+
+    #[Validate('int|exists:member_groups,id')]
+    public ?string $member_group_id = null;
 
     public function updatingStart($updatedValue): void
     {
@@ -57,21 +58,29 @@ class EventForm extends Form
         }
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store(): void
     {
         $this->validate();
 
-        $this->event = Event::create([
-            ...$this->except(['event', 'start', 'end', 'type']),
-            'start' => Carbon::parseFromDatetimeLocalInput($this->start),
-            'end' => Carbon::parseFromDatetimeLocalInput($this->end),
-            'event_type_id' => $this->getEventTypeId(),
-        ]);
+        $this->event = Event::query()->create($this->getParamsForDB())->first();
 
         $this->event->creator()->associate(Auth::user());
         $this->event->lastUpdater()->associate(Auth::user());
 
         $this->event->save();
+    }
+
+    private function getParamsForDB(): array
+    {
+        return [...$this->except(['event', 'start', 'end', 'type', 'member_group_id']),
+            'start' => Carbon::parseFromDatetimeLocalInput($this->start),
+            'end' => Carbon::parseFromDatetimeLocalInput($this->end),
+            'event_type_id' => $this->getIdOrNull($this->type),
+            'member_group_id' => $this->getIdOrNull($this->member_group_id),
+        ];
     }
 
     /**
@@ -81,12 +90,7 @@ class EventForm extends Form
     {
         $this->validate();
 
-        $this->event->update([
-            ...$this->except(['event', 'start', 'end', 'type']),
-            'start' => Carbon::parseFromDatetimeLocalInput($this->start),
-            'end' => Carbon::parseFromDatetimeLocalInput($this->end),
-            'event_type_id' => $this->getEventTypeId(),
-        ]);
+        $this->event->update($this->getParamsForDB());
         $this->event->lastUpdater()->associate(Auth::user());
 
         $this->event->save();
@@ -107,20 +111,15 @@ class EventForm extends Form
         foreach ($dateArray as $copyDate) {
             $newStart = (new Carbon($copyDate))->setTime($start->hour, $start->minute);
             $newEnd = $newStart->clone()->add($diff);
-            $eventData[] = [
-                ...$this->except(['event', 'start', 'end', 'type']),
-                'start' => $newStart,
-                'end' => $newEnd,
-                'event_type_id' => $this->getEventTypeId(),
-            ];
+            $eventData[] = $this->getParamsForDB();
         }
 
         Event::query()->insert($eventData);
     }
 
-    private function getEventTypeId(): ?int
+    private function getIdOrNull(string|int $id): ?int
     {
-        $eventTypeId = intval($this->type);
+        $eventTypeId = intval($id);
         if ($eventTypeId > 0) {
             return $eventTypeId;
         }
@@ -139,11 +138,11 @@ class EventForm extends Form
         $this->link = $event->link;
         $this->enabled = $event->enabled;
         $this->whole_day = $event->whole_day;
-        $this->logged_in_only = $event->logged_in_only;
 
         $this->start = $event->start->formatDatetimeLocalInput();
         $this->end = $event->end->formatDatetimeLocalInput();
         $this->type = $event->event_type_id;
+        $this->member_group_id = $event->member_group_id;
     }
 
     public function delete(): void

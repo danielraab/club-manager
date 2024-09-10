@@ -46,7 +46,7 @@
                 <tr class="max-md:hidden">
                     <td>{{__("Start")}}</td>
                     <td class="min-w-[150px]">{{__("Title")}}</td>
-                    <td class="min-w-[150px]">{{__("Type")}}</td>
+                    <td class="min-w-[150px]">{{__("Type")}}/{{__("Group")}}</td>
                     @if($hasEditPermission)
                         <td>{{__("Action")}}</td>
                     @endif
@@ -67,19 +67,20 @@
                         <td class="md:border px-2 max-md:block">
                             <span class="text-sm text-gray-600 mr-1">
                             @if($event->link)
-                                    <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
-                                @endif
-                                @if($hasEditPermission && $event->logged_in_only)
-                                    <i class="fa-solid fa-arrow-right-to-bracket"
-                                       title="{{__("Visible only for logged in users")}}"></i>
-                                @endif
+                                <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                            @endif
                             </span>
                             {{$event->title}}
                             @if($event->location && strlen(trim($event->location)) > 0)
                                 <p class="text-gray-500">{{$event->location}}</p>
                             @endif
                         </td>
-                        <td class="md:border px-2 max-md:hidden">{{$event->eventType?->title}}</td>
+                        <td class="md:border px-2 max-md:hidden">
+                            {{$event->eventType?->title}}
+                            @if($event->memberGroup)
+                                <p class="text-gray-500">{{$event->memberGroup->title}}</p>
+                            @endif
+                        </td>
                         @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
                             <td class="md:border px-2 min-w-[70px] max-md:block">
                                 <div class="flex gap-2 justify-center">

@@ -23,10 +23,13 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                     @else
                         <span class="bg-red-700 text-white px-2 rounded">{{__("disabled")}}</span>
                     @endif
-                    @if($event->logged_in_only)
-                        <span class="bg-red-700 text-white px-2 rounded">{{__("logged in only")}}</span>
-                    @else
-                        <span class="bg-green-700 text-white px-2 rounded">{{__("public")}}</span>
+                    @if($event->memberGroup)
+                        <div class="flex rounded overflow-hidden justify-center">
+                            <div class="flex bg-yellow-300 text-gray-500 text-xs px-2">
+                                <span class="my-auto">{{__('Member group')}}:</span>
+                            </div>
+                            <div class="bg-yellow-500 text-white px-2">{{$event->memberGroup->title}}</div>
+                        </div>
                     @endif
                 </div>
                 <hr/>

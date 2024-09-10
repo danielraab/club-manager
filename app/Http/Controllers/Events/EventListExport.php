@@ -21,7 +21,7 @@ class EventListExport extends Controller
 
             $header = [
                 __('Enabled') => 'string',
-                __('Logged in only') => 'string',
+                __('Member group') => 'string',
                 __('Name') => 'string',
                 __('Start') => 'datetime',
                 __('End') => 'datetime',
@@ -38,7 +38,7 @@ class EventListExport extends Controller
                 /** @var Event $event */
                 $writer->writeSheetRow($sheetName, [
                     $event->enabled ? $yes : $no,
-                    $event->logged_in_only ? $yes : $no,
+                    $event->memberGroup?->title,
                     $event->title,
                     $event->whole_day ?
                         $event->start->setTimezone(config('app.displayed_timezone'))->format('Y-m-d') :
@@ -70,7 +70,7 @@ class EventListExport extends Controller
             fwrite($file, 'sep='.self::CSV_SEPARATOR."\n");
             fputcsv($file, [
                 __('Enabled'),
-                __('Logged in only'),
+                __('Member group'),
                 __('Name'),
                 __('Start'),
                 __('End'),
@@ -85,7 +85,7 @@ class EventListExport extends Controller
                 /** @var Event $event */
                 fputcsv($file, [
                     $event->enabled ? $yes : $no,
-                    $event->logged_in_only ? $yes : $no,
+                    $event->memberGroup?->title,
                     $event->title,
                     $event->whole_day ? $event->start->formatDateOnly() : $event->start->formatDateTimeWithSec(),
                     $event->whole_day ? $event->end->formatDateOnly() : $event->end->formatDateTimeWithSec(),

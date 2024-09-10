@@ -11,6 +11,21 @@
     </header>
 
     <div class="mt-6">
+        {{-- member group --}}
+        <div class="my-4">
+            <x-input-label for="member_group_id" :value="__('Member group')"/>
+            <x-select id="member_group_id" name="member_group_id"
+                    wire:model="eventForm.member_group_id"
+                    class="block mt-1 w-full">
+                <option value=""></option>
+                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                    <x-members.member-group-select-option :memberGroup="$memberGroup"/>
+                @endforeach
+            </x-select>
+            @error('eventForm.member_group_id')
+            <x-input-error class="mt-2" :messages="$message"/>@enderror
+        </div>
+
         {{-- event type--}}
         <div class="my-4">
             <x-input-label for="type" :value="__('Type')"/>
@@ -33,16 +48,6 @@
                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 {{ __('Enabled') }}<i class="fa-solid fa-circle-info text-gray-500 ml-2"
                                       title="{{__("Disabled events are not shown on the calendar export neither the json export.")}}"></i>
-            </x-input-checkbox>
-        </div>
-
-
-        <!-- only internal -->
-        <div class="mt-4 ml-3">
-            <x-input-checkbox id="logged_in_only" name="logged_in_only"
-                              wire:model="eventForm.logged_in_only"
-                              class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                {{ __('Only for logged in user') }}
             </x-input-checkbox>
         </div>
 

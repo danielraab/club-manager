@@ -5,43 +5,57 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\Filter\EventFilter;
+use App\Models\MemberGroup;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class EventExport extends Controller
 {
-    public function toJson(): string
+    public function toJson(): Collection
     {
-        return $this->getEventList(! auth()->guest())->toJson();
+        return self::getLimitedAttributes(Event::getAllFiltered(self::getEventFilter()));
     }
 
-    private function getEventList($inclLoggedInOnly = false): Collection
+    private static function getEventFilter(): EventFilter
     {
-        $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
-        if (! $inclLoggedInOnly) {
-            $eventList = $eventList->where('logged_in_only', false);
+        /** @var ?User $user */
+        $user = auth()->user();
+
+        $eventFilter = new EventFilter();
+
+        if ($user?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
+            $eventFilter->memberGroups = [MemberGroup::$ALL];
+        } elseif ($user) {
+            $eventFilter->memberGroups = $user->getMember()?->memberGroups()->get()->all() ?: [];
         }
-        $eventList = $eventList->where('enabled', true);
 
-        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
+        return $eventFilter;
     }
 
-    public function next(Request $request)
+    private static function getLimitedAttributes(Builder $query): Collection
+    {
+        return $query->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
+    }
+
+    public function next(Request $request): Collection
     {
         if (validator($request->query(), ['limit' => ['nullable', 'int']])->fails()) {
             abort(400);
         }
 
-        $eventList = \App\Models\Event::orderBy('start', 'asc');
-        if (Auth::guest()) {
-            $eventList = $eventList->where('logged_in_only', false);
-        }
-        $eventList = $eventList->where('enabled', true)->where('end', '>', now());
+        $eventFilter = self::getEventFilter();
+        $eventFilter->start = now();
+
+        $query = Event::getAllFiltered($eventFilter);
+
         if ($limit = $request->query('limit')) {
-            $eventList = $eventList->limit($limit);
+            $query->limit($limit);
         }
 
-        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
+        return self::getLimitedAttributes($query);
     }
 }

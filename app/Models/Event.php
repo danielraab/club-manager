@@ -22,10 +22,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon end
  * @property bool whole_day
  * @property bool enabled
- * @property bool logged_in_only
  * @property string|null link
  * @property ?int event_type_id
  * @property ?EventType eventType
+ * @property ?int member_group_id
+ * @property ?MemberGroup memberGroup
  *
  * @see /database/migrations/2023_05_20_223845_create_events_table.php
  */
@@ -45,9 +46,9 @@ class Event extends Model
         'end',
         'whole_day',
         'enabled',
-        'logged_in_only',
         'link',
         'event_type_id',
+        'member_group_id',
     ];
 
     protected $casts = [
@@ -60,6 +61,11 @@ class Event extends Model
     public function eventType(): BelongsTo
     {
         return $this->belongsTo(EventType::class);
+    }
+
+    public function memberGroup(): BelongsTo
+    {
+        return $this->belongsTo(MemberGroup::class);
     }
 
     public function attendances(): HasMany
@@ -105,21 +111,7 @@ class Event extends Model
         return $datetime->isoFormat('ddd D. MMM YYYY - HH:mm');
     }
 
-    public static function getFutureEvents(bool $onlyEnabled = true, bool $inclLoggedInOnly = false)
-    {
-
-        $eventList = Event::query()->where('end', '>', now());
-        if ($onlyEnabled) {
-            $eventList = $eventList->where('enabled', true);
-        }
-        if (! $inclLoggedInOnly) {
-            $eventList = $eventList->where('logged_in_only', false);
-        }
-
-        return $eventList->orderBy('start');
-    }
-
-    public static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
+    private static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
     {
         if ($filter->start) {
             //includes events which end after the specified start date
@@ -135,9 +127,7 @@ class Event extends Model
             $builder->where('enabled', true);
         }
 
-        if (! $filter->inclLoggedInOnly) {
-            $builder->where('logged_in_only', false);
-        }
+        self::applyMemberGroupFilter($builder, $filter);
 
         $builder->orderBy('start', $filter->sortAsc ? 'asc' : 'desc');
 
@@ -163,5 +153,24 @@ class Event extends Model
     {
         return self::query()->select('dress_code')->distinct()
             ->orderBy('dress_code')->pluck('dress_code')->toArray();
+    }
+
+    private static function applyMemberGroupFilter(Builder $builder, EventFilter $filter): void
+    {
+        if (in_array(MemberGroup::$ALL, $filter->memberGroups)) {
+            return;
+        }
+        $builder->whereNull('member_group_id');
+
+        $memberGroupIds = [];
+        foreach ($filter->memberGroups as $memberGroup) {
+            $memberGroupIds = array_merge($memberGroupIds,
+                array_map(
+                    fn (MemberGroup $mg) => $mg->id,
+                    $memberGroup->getAllChildrenRecursive()
+                )
+            );
+        }
+        $builder->orWhereIn('member_group_id', $memberGroupIds);
     }
 }

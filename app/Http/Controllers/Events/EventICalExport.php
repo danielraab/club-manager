@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Livewire\Profile\CalendarLinks;
 use App\Models\Configuration;
 use App\Models\ConfigurationKey;
+use App\Models\Filter\EventFilter;
 use App\Models\Filter\MemberFilter;
 use App\Models\Member;
+use App\Models\MemberGroup;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,14 +28,27 @@ class EventICalExport extends Controller
     {
         $calendar = Calendar::create(env('APP_NAME'))->refreshInterval(self::CALENDAR_REFRESH_INTERVAL_MIN);
 
-        $authToken = $this->getPersonalAccessToken();
+        /** @var ?User $user */
+        $user = auth()->user();
+
+        if (! $user) {
+            $authToken = $this->getPersonalAccessToken();
+            $user = $authToken->tokenable()->first();
+        }
 
         if (Configuration::getBool(ConfigurationKey::EVENT_BIRTHDAYS_IN_ICS_EXPORT) ||
-            (($authToken = $this->getPersonalAccessToken()) && $this->hasMemberShowPermission($authToken))) {
+            $user?->hasPermission(Member::MEMBER_SHOW_PERMISSION, Member::MEMBER_EDIT_PERMISSION)) {
             $this->addMembersToCalendar($calendar);
         }
 
-        $this->addEventsToCalendar($calendar, auth()->user() || $authToken);
+        $memberGroups = [];
+        if ($user?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION)) {
+            $memberGroups[] = MemberGroup::$ALL;
+        } elseif ($user) {
+            $memberGroups = $user->getMember()?->memberGroups()->get()->all() ?: [];
+        }
+
+        $this->addEventsToCalendar($calendar, $memberGroups);
 
         return Response::make($calendar->get(), 200, [
             'Content-Type' => 'text/ics',
@@ -56,14 +71,6 @@ class EventICalExport extends Controller
         }
 
         return null;
-    }
-
-    private function hasMemberShowPermission(PersonalAccessToken $pat): bool
-    {
-        /** @var User $user */
-        $user = $pat->tokenable()->first();
-
-        return $user?->hasPermission(Member::MEMBER_SHOW_PERMISSION, Member::MEMBER_EDIT_PERMISSION) ?: false;
     }
 
     private function addMembersToCalendar(Calendar $calendar): void
@@ -114,9 +121,12 @@ class EventICalExport extends Controller
             });
     }
 
-    private function addEventsToCalendar(Calendar $calendar, $inclLoggedInOnly = false): void
+    private function addEventsToCalendar(Calendar $calendar, array $memberGroups = []): void
     {
-        foreach ($this->getEventList($inclLoggedInOnly) as $event) {
+        $eventFilter = new EventFilter();
+        $eventFilter->memberGroups = $memberGroups;
+
+        foreach (\App\Models\Event::getAllFiltered($eventFilter) as $event) {
             /** @var Carbon $end */
             $calEvent = Event::create($event->title)
                 ->startsAt($event->start);
@@ -134,16 +144,5 @@ class EventICalExport extends Controller
             $calEvent->endsAt($end);
             $calendar->event($calEvent);
         }
-    }
-
-    private function getEventList($inclLoggedInOnly = false): Collection
-    {
-        $eventList = \App\Models\Event::query()->orderBy('start', 'desc');
-        if (! $inclLoggedInOnly) {
-            $eventList = $eventList->where('logged_in_only', false);
-        }
-        $eventList = $eventList->where('enabled', true);
-
-        return $eventList->get(['id', 'title', 'description', 'whole_day', 'start', 'end', 'link', 'location', 'dress_code']);
     }
 }

@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
                 ->where('start', '>=', $tomorrowMorning)
                 ->where('start', '<=', $tomorrowNight)
                 ->where('enabled', true)
-                ->where('logged_in_only', false)
+                ->whereNull('member_group_id')
                 ->get();
 
             foreach ($events as $event) {
@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
                 ->where('start', '>=', now()->addHours(2)->setMinute(0)->setSecond(0))
                 ->where('start', '<=', now()->addHours(2)->setMinute(59)->setSecond(59))
                 ->where('enabled', true)
-                ->where('logged_in_only', false)
+                ->whereNull('member_group_id')
                 ->get();
 
             foreach ($events as $event) {

@@ -26,6 +26,8 @@ class MemberGroup extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public static MemberGroup $ALL;
+
     public const MAX_CHILD_TREE_DEPTH = 6;
 
     protected $fillable = [
@@ -82,11 +84,25 @@ class MemberGroup extends Model
         return $this->hasMany(MemberGroup::class, 'parent_id')->orderBy('sort_order', 'desc');
     }
 
+    public function getAllChildrenRecursive(bool $withThis = true): array
+    {
+        $childList = [];
+        if ($withThis) {
+            $childList[] = $this;
+        }
+
+        foreach ($this->children()->get() as $child) {
+            $child->addAllChildrenRecursive($childList, 1);
+        }
+
+        return $childList;
+    }
+
     /**
      * @param  MemberGroup[]  $childList
      * @return MemberGroup[]
      */
-    public function getAllChildrenRecursive(array &$childList = [], int $depth = 0): array
+    private function addAllChildrenRecursive(array &$childList = [], int $depth = 0): array
     {
         $childList[] = $this;
         if ($depth >= self::MAX_CHILD_TREE_DEPTH) {
@@ -100,3 +116,5 @@ class MemberGroup extends Model
         return $childList;
     }
 }
+
+MemberGroup::$ALL = new MemberGroup();

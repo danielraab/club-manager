@@ -59,10 +59,12 @@
     {{--  poll event selection --}}
     <div class="my-4">
         @php
-        /** @var \Illuminate\Database\Eloquent\Collection $possibleEvents */
-            $possibleEvents = $pollForm->showOnlyFutureEvents ?
-                \App\Models\Event::getFutureEvents(false, true)->whereNotIn('id', $pollForm->selectedEvents)->get() :
-                \App\Models\Event::query()->where("enabled", true)->orderBy("start")->whereNotIn('id', $pollForm->selectedEvents)->get();
+            /** @var \Illuminate\Database\Eloquent\Collection $possibleEvents */
+            $eventFilter = new \App\Models\Filter\EventFilter();
+            if($pollForm->showOnlyFutureEvents) {
+                $eventFilter->start = now();
+            }
+            $possibleEvents = \App\Models\Event::getAllFiltered($eventFilter)->whereKeyNot($pollForm->selectedEvents)->get();
         @endphp
         @if($possibleEvents->count() > 0)
             <x-input-label for="eventSelectionList" :value="__('Select an event to add:')"/>

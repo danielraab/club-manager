@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Event;
 use App\Models\Filter\EventFilter;
+use App\Models\MemberGroup;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Session;
@@ -13,24 +15,29 @@ trait EventFilterTrait
     #[Session]
     public bool $isStartNow = true;
 
+    #[Session]
     public ?string $start = null;
 
+    #[Session]
     public ?string $end = null;
 
+    #[Session]
     public bool $sortAsc = true;
 
+    #[Session]
     public bool $showDisabled = false;
 
-    public bool $showLoggedInOnly = true;
+    #[Session]
+    public ?string $memberGroupId = 'all';
 
     public function canFilterShowDisabled(): bool
     {
         return Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION) ?: false;
     }
 
-    public function canFilterShowLoggedInOnly(): bool
+    public function canFilterMemberGroup(): bool
     {
-        return Auth::check();
+        return Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION) ?? false;
     }
 
     public function getEventFilter(): EventFilter
@@ -44,8 +51,25 @@ trait EventFilterTrait
             $start,
             $this->end ? Carbon::parseFromDatetimeLocalInput($this->end) : null,
             $this->canFilterShowDisabled() ? $this->showDisabled : false,
-            $this->canFilterShowLoggedInOnly() ? $this->showLoggedInOnly : false,
+            $this->getMemberGroups(),
             $this->sortAsc
         );
+    }
+
+    private function getMemberGroups(): array
+    {
+        if ($this->canFilterMemberGroup()) {
+            if ($this->memberGroupId === 'all') {
+                return [MemberGroup::$ALL];
+            }
+            if (is_numeric($this->memberGroupId)) {
+                return [MemberGroup::query()->find($this->memberGroupId)];
+            }
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        return $user?->getMember()?->memberGroups()->get()->all() ?? [];
     }
 }

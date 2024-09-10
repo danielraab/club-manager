@@ -79,7 +79,6 @@ class EventSeeder extends Seeder
         self::$eventCnt += 10;
 
         Event::factory(10)->create([
-            'logged_in_only' => true,
             'event_type_id' => $this->firstEventType->id,
             'creator_id' => $this->eventEdit->id,
             'last_updater_id' => $this->eventEdit->id,
