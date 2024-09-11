@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UploadedFile;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
@@ -24,7 +25,8 @@ class FileController extends Controller
 
     private function checkPermission(UploadedFile $file): void
     {
-        if (! $file->hasAccess() || ! Storage::fileExists($file->path)) {
+        if (! $file->hasAccess() || ! $isExist = Storage::fileExists($file->path)) {
+            Log::warning("file does not exist or has no access", ['file' => $file, 'isExist' => $isExist]);
             throw new ModelNotFoundException();
         }
     }
