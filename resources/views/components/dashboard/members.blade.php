@@ -9,9 +9,9 @@
             <span>{{__('member management')}}</span>
         </div>
         <hr class="my-3">
+        @php($isDataConsistent = false)
         @php($membersWithoutBirthday = \App\Models\Member::getAllFiltered()->whereNull('birthday')->get())
         @if($membersWithoutBirthday->isNotEmpty())
-            @php($isDataConsistent = false)
             <header class="font-bold mb-3">{{__('without birthdays')}}</header>
             <ul class="grid text-sm gap-2 text-white">
                 @foreach($membersWithoutBirthday as $member)
