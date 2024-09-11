@@ -10,9 +10,9 @@
             <i class="fa-solid fa-calendar"></i>
             <span>{{__('event management')}}</span>
         </div>
-        <hr class="my-3">
         @php($pollList = \App\Models\AttendancePoll::query()->where('closing_at','>',now()))
         @if($pollList->count())
+            <hr class="my-3">
             <header class="font-bold mb-3">{{__('Active polls')}}</header>
             <ul class="grid text-sm gap-2 text-white">
                 @foreach($pollList->get() as $poll)
@@ -41,6 +41,7 @@
                 @endforeach
             </ul>
         @else
+            <hr class="my-3">
             <span class="text-gray-500">{{__('no active polls')}}</span>
         @endif
         @if($futureDisabledCnt = \App\Models\Event::query()->where('start', '>', now())->where('enabled', false)->count())

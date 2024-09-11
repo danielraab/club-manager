@@ -8,10 +8,10 @@
             <i class="fa-solid fa-user-pen"></i>
             <span>{{__('member management')}}</span>
         </div>
-        <hr class="my-3">
         @php($isDataConsistent = false)
         @php($membersWithoutBirthday = \App\Models\Member::getAllFiltered()->whereNull('birthday')->get())
         @if($membersWithoutBirthday->isNotEmpty())
+            <hr class="my-3">
             <header class="font-bold mb-3">{{__('without birthdays')}}</header>
             <ul class="grid text-sm gap-2 text-white">
                 @foreach($membersWithoutBirthday as $member)
@@ -35,6 +35,7 @@
         </div>
         @endif
         @if($isDataConsistent)
+            <hr class="my-3">
             <span class="text-green-800"><i class="fa-solid fa-user-check"></i>{{__('member data is consistent')}}</span>
         @endif
     </div>

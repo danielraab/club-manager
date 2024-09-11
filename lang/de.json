@@ -76,6 +76,8 @@
     "no file uploaded": "keine Datei hochgeladen",
     "no files to show": "keine Dateien zum anzeigen",
     "Summary": "Zusammenfassung",
+    "years": "Jahre",
+    "on the": "am",
 
     "Force web push": "Benachrichtigung auslösen",
     "Force a web push to all subscribes (with the updated data).": "Browser-Benachrichtigung an alle Abonennten senden (mit aktualisierten Daten).",

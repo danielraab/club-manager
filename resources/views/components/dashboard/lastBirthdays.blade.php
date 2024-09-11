@@ -21,15 +21,14 @@
             <header class="font-bold mb-3">{{__('Last member birthdays')}}</header>
             <ul class="flex flex-wrap justify-center gap-3">
                 @foreach($memberList as $member)
-                    <li class="bg-gray-300 px-2 rounded">
-                        <span>
-                            {{$member->getFullName()}}
-                        </span>
+                    <li class="bg-gray-300 py-1 px-2 rounded">
                         <div>
-                            <span>
-                                {{$member->birthday->isoFormat('D. MMM')}} -
-                                {{ __(':years years',['years' => now()->format("Y") - $member->birthday->format("Y")])}}
-                            </span>
+                            {{$member->getFullName()}}
+                        </div>
+                        <div>
+                            {{ now()->format("Y") - $member->birthday->format("Y") }}
+                            {{ __('on the') }}
+                            {{$member->birthday->isoFormat('D. MMM')}}
                         </div>
                     </li>
                 @endforeach
