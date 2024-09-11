@@ -16,6 +16,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('backup:clean')->daily()->at('01:00');
+        $schedule->command('backup:run')->daily()->at('01:30');
+
+        $this->scheduleEventNotifications($schedule);
+    }
+
+    private function scheduleEventNotifications(Schedule $schedule): void
+    {
+
         $schedule->call(function () {
             $tomorrowMorning = now()->addDay()->setTime(0, 0);
             $tomorrowNight = now()->addDay()->setTime(23, 59, 59);
