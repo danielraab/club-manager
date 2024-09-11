@@ -9,8 +9,10 @@ All notable changes to this project will be documented in this file.
 - hide unofficial packages from sponsor period edit/create form
 - change event logged_in_only flag to a member group relation
 - update dashboard view (header for management cards)
+- uploaded files renamed to files, unknown files are now downloadable
 ### Added
 - dashboard card for member sponsoring contracts
+- added backup tool for files and db (stored only locally)
 
 ## v0.7.16 - 2024-09-06
 ### Changed

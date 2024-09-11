@@ -11,9 +11,7 @@
         <x-dashboard.events/>
         <x-dashboard.sponsoring/>
     </div>
-    <div class="flex flex-col md:flex-row gap-4">
-        <x-dashboard.sponsoring-logged-in-member-contracts/>
-    </div>
+    <x-dashboard.sponsoring-logged-in-member-contracts/>
     <x-dashboard.lastBirthdays/>
     <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
@@ -28,10 +26,11 @@
                      x-data="{
                          showMessage:false,
                          copyToClipboard() {
-                            navigator.clipboard.writeText('{{route("event.iCalendar")}}');
-                            $store.notificationMessages.addNotificationMessages([{
-                                message: '{{__("Calender link is now in your clipboard. Paste it wherever you want")}}'
-                            }]);
+                            navigator.clipboard.writeText('{{route("event.iCalendar")}}').then(() => {
+                                $store.notificationMessages.addNotificationMessages([{
+                                    message: '{{__("Calender link is now in your clipboard. Paste it wherever you want")}}'
+                                }]);
+                            });
                          }}"
                      @click="copyToClipboard()">
                     <i class="fa-solid fa-calendar"></i>

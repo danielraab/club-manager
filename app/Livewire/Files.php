@@ -3,18 +3,21 @@
 namespace App\Livewire;
 
 use App\Models\UploadedFile;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class UploadedFiles extends Component
+class Files extends Component
 {
     public array $additionalFilesInFolder;
 
-    public \Illuminate\Support\Collection|array|\Illuminate\Database\Eloquent\Collection $files;
+    public Collection $files;
 
     public function mount(): void
     {
-        $this->additionalFilesInFolder = \Illuminate\Support\Facades\Storage::allFiles();
-        $this->files = \App\Models\UploadedFile::withTrashed()->orderBy('storer_type', 'desc')->get();
+        $this->additionalFilesInFolder = Storage::allFiles();
+        $this->files = UploadedFile::withTrashed()->orderBy('storer_type', 'desc')->get();
 
         foreach ($this->files as $file) {
             /** @var UploadedFile $file */
@@ -24,8 +27,17 @@ class UploadedFiles extends Component
         }
     }
 
+    public function forceDownload($path): ?StreamedResponse
+    {
+        if (Storage::exists($path)) {
+            return Storage::download($path);
+        }
+
+        return null;
+    }
+
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('uploadedFiles')->layout('layouts.backend');
+        return view('files')->layout('layouts.backend');
     }
 }
