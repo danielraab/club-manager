@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Fixed
 - no double separator lines on dashboard cards
+- show 404 instead of exception when file is missing
 
 ## v0.7.16 - 2024-09-11
 ### Changed

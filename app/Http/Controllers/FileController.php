@@ -6,7 +6,7 @@ use App\Models\UploadedFile;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Storage;
 
-class UploadedFileController extends Controller
+class FileController extends Controller
 {
     public function download(UploadedFile $file): \Symfony\Component\HttpFoundation\StreamedResponse
     {
@@ -24,7 +24,7 @@ class UploadedFileController extends Controller
 
     private function checkPermission(UploadedFile $file): void
     {
-        if (! $file->hasAccess()) {
+        if (! $file->hasAccess() || ! Storage::fileExists($file->path)) {
             throw new ModelNotFoundException();
         }
     }
