@@ -8,8 +8,11 @@
 
     <div class="flex flex-col md:flex-row gap-4">
         <x-dashboard.members/>
-        <x-dashboard.polls/>
+        <x-dashboard.events/>
         <x-dashboard.sponsoring/>
+    </div>
+    <div class="flex flex-col md:flex-row gap-4">
+        <x-dashboard.sponsoring-logged-in-member-contracts/>
     </div>
     <x-dashboard.lastBirthdays/>
     <div class="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4">

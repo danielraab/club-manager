@@ -22,7 +22,7 @@
 @if($hasMemberShowPermission && $showBirthdayListConfig)
     <x-responsive-nav-link
         href="{{route('member.birthdayList')}}"
-        iconClasses="fa-regular fa-star"
+        iconClasses="fa-solid fa-cake-candles"
         title="Show list of member birthdays">
         {{ __('Birthday list') }}
     </x-responsive-nav-link>

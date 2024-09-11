@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - multi select dates for event copy is now possible
 - hide unofficial packages from sponsor period edit/create form
 - change event logged_in_only flag to a member group relation
+- update dashboard view (header for management cards)
+### Added
+- dashboard card for member sponsoring contracts
 
 ## v0.7.16 - 2024-09-06
 ### Changed
