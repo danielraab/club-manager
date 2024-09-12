@@ -2,30 +2,41 @@
 
 namespace Tests\Feature\PageCalls;
 
-class SponsoringTest extends PageCallTestCase
-{
-    public function getOpenRoutes(): array
-    {
-        return [];
-    }
+use App\Models\Sponsoring\Contract;
+use App\Models\UserPermission;
 
-    public function getRestrictedRoutes(): array
+class SponsoringTest extends TestPageCall
+{
+    protected function getPermissionsToTest(): array
     {
         return [
-            route('sponsoring.index'),
-            route('sponsoring.backer.index'),
-            route('sponsoring.ad-option.index'),
-            route('sponsoring.package.index'),
-            route('sponsoring.backer.create'),
-            route('sponsoring.ad-option.create'),
-            route('sponsoring.package.create'),
-            route('sponsoring.period.create'),
-            route('sponsoring.period.create'),
+            UserPermission::ADMIN_USER_PERMISSION,
+            Contract::SPONSORING_SHOW_PERMISSION,
+            Contract::SPONSORING_EDIT_PERMISSION,
         ];
     }
-
-    public function getLoggedInOnlyRoutes(): array
+    public static function routesWithPermissionProvider(): array
     {
-        return [];
+        return [
+            ['/sponsoring', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/backer', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/adOption', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/package', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/period/backer/1', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/period/adOption/1', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/contract/1', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/period/1/export/csv', [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION]],
+
+            ['/sponsoring/backer/create', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/backer/1', [Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/adOption/create', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/adOption/1', [Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/package/create', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/package/1', [Contract::SPONSORING_EDIT_PERMISSION]],
+            ['/sponsoring/period/create', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/period/1', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/period/1/memberAssignment', [Contract::SPONSORING_EDIT_PERMISSION]],
+            //            ['/sponsoring/contract/1/edit', [Contract::SPONSORING_EDIT_PERMISSION]],
+        ];
     }
 }

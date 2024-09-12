@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\PageCalls;
 
-class EventTest extends PageCallTestCase
+class EventTest extends TestPageCall
 {
     public function getOpenRoutes(): array
     {

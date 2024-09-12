@@ -23,7 +23,7 @@ class Currency
     public function formatPrice(float $price, int $comma = 2): string
     {
         return match ($this->currencyConfig) {
-            self::CONFIG_EURO => sprintf("%.${comma}f €", $price)
+            self::CONFIG_EURO => sprintf("%.{$comma}f €", $price)
         };
     }
 }
