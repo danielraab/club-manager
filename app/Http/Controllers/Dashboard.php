@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Filter\EventFilter;
-use App\Models\MemberGroup;
 use App\Models\News;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -39,12 +38,7 @@ class Dashboard extends Controller
 
         /** @var User $user */
         $user = Auth::user();
-
-        if ($user?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $eventFilter->memberGroups = [MemberGroup::$ALL];
-        } elseif ($memberGroups = $user?->getMember()?->memberGroups()) {
-            $eventFilter->memberGroups = $memberGroups->get()->all();
-        }
+        $eventFilter->memberGroups = $user?->getPermittedMemberGroups() ?: [];
 
         $eventList = Event::getAllFiltered($eventFilter);
         $eventList->limit(5);

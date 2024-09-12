@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Events;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Filter\EventFilter;
-use App\Models\MemberGroup;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,12 +25,7 @@ class EventExport extends Controller
         $user = auth()->user();
 
         $eventFilter = new EventFilter();
-
-        if ($user?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
-            $eventFilter->memberGroups = [MemberGroup::$ALL];
-        } elseif ($user) {
-            $eventFilter->memberGroups = $user->getMember()?->memberGroups()->get()->all() ?: [];
-        }
+        $eventFilter->memberGroups = $user?->getPermittedMemberGroups() ?: [];
 
         return $eventFilter;
     }

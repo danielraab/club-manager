@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings;
-use App\Http\Controllers\FileController;
 use App\Livewire\Development;
 use App\Livewire\Files;
 use App\Models\UserPermission;

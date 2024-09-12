@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.7.18 - 2024-09-12
+### Added
+- Page view tests for sponsoring and event feature
 ### Fixed
 - no double separator lines on dashboard cards
 - show 404 instead of exception when file is missing
+- forgotton membergroup change for event calendar
+- null saved in case of no token in event ics controller
 
-## v0.7.16 - 2024-09-11
+## v0.7.17 - 2024-09-11
 ### Changed
 - notification are now over a modal
 - multi select dates for event copy is now possible

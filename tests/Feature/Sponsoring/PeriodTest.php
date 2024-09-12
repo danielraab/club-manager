@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\Sponsoring;
+namespace Tests\Feature\Sponsoring;
 
 use App\Livewire\Members\MemberCreate;
 use App\Livewire\Sponsoring\PeriodCreate;
@@ -17,7 +17,7 @@ class PeriodTest extends TestCase
 
     public function test_empty_sponsoring_pages(): void
     {
-        $this->userSeedAndLogin();
+        $this->seedUserAndLoginAdmin();
 
         $response = $this->get('/sponsoring');
         $response->assertStatus(200);
@@ -38,7 +38,7 @@ class PeriodTest extends TestCase
 
     public function test_only_period_exists(): void
     {
-        $this->userSeedAndLogin();
+        $this->seedUserAndLoginAdmin();
 
         Livewire::test(PeriodCreate::class)
             ->set('periodForm.title', 'this year')
@@ -75,7 +75,7 @@ class PeriodTest extends TestCase
         $response->assertStatus(200);
     }
 
-    private function userSeedAndLogin(): void
+    private function seedUserAndLoginAdmin(): void
     {
         $this->seed(UserSeeder::class);
 

@@ -11,7 +11,6 @@ use App\Models\ConfigurationKey;
 use App\Models\Filter\EventFilter;
 use App\Models\Filter\MemberFilter;
 use App\Models\Member;
-use App\Models\MemberGroup;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,7 +32,7 @@ class EventICalExport extends Controller
 
         if (! $user) {
             $authToken = $this->getPersonalAccessToken();
-            $user = $authToken->tokenable()->first();
+            $user = $authToken?->tokenable()->first();
         }
 
         if (Configuration::getBool(ConfigurationKey::EVENT_BIRTHDAYS_IN_ICS_EXPORT) ||
@@ -41,12 +40,7 @@ class EventICalExport extends Controller
             $this->addMembersToCalendar($calendar);
         }
 
-        $memberGroups = [];
-        if ($user?->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION)) {
-            $memberGroups[] = MemberGroup::$ALL;
-        } elseif ($user) {
-            $memberGroups = $user->getMember()?->memberGroups()->get()->all() ?: [];
-        }
+        $memberGroups = $user?->getPermittedMemberGroups() ?: [];
 
         $this->addEventsToCalendar($calendar, $memberGroups);
 

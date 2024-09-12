@@ -84,6 +84,15 @@ class User extends Authenticatable
         )->exists();
     }
 
+    public function getPermittedMemberGroups(): array
+    {
+        if ($this->hasPermission(\App\Models\Event::EVENT_EDIT_PERMISSION)) {
+            return [MemberGroup::$ALL];
+        }
+
+        return $this->getMember()?->memberGroups()->get()->all() ?: [];
+    }
+
     public function getNameWithMail(): string
     {
         return $this->name.' <'.$this->email.'>';

@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\Filter\EventFilter;
+use App\Models\User;
 use Carbon\Carbon;
 
 class EventCalendar extends Controller
@@ -13,8 +16,16 @@ class EventCalendar extends Controller
     {
         $startOfLastYear = Carbon::now()->subYear()->setDay(1)->setMonth(1)->setTime(0, 0);
 
-        $eventList = \App\Models\Event::getAllFiltered(
-            new \App\Models\Filter\EventFilter($startOfLastYear, null, true, false, ! auth()->guest())
+        /** @var ?User $user */
+        $user = auth()->user();
+
+        $eventList = Event::getAllFiltered(
+            new EventFilter(
+                $startOfLastYear,
+                null,
+                false,
+                $user?->getPermittedMemberGroups() ?: []
+            )
         )
             ->get(['title', 'start', 'end', 'whole_day', 'description', 'location', 'dress_code'])
             ->map(function ($event) {

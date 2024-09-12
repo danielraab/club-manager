@@ -1,10 +1,8 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
-use Database\Seeders\BetterSeeder;
 use Database\Seeders\MinimalSeeder;
-use Database\Seeders\SillySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -47,11 +45,17 @@ class DatabaseTest extends TestCase
         $this->assertDatabaseEmpty('users');
         $this->assertDatabaseCount('user_permissions', 15);
         $this->assertDatabaseEmpty('user_user_permission');
+
+        $response = $this->get('/');
+        $response->assertStatus(200);
     }
 
     public function test_minimal_seeder(): void
     {
         $this->seed(MinimalSeeder::class);
+
+        $response = $this->get('/');
+        $response->assertStatus(200);
     }
 
     //    public function test_silly_seeder(): void
