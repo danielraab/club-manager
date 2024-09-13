@@ -7,6 +7,7 @@ use App\Livewire\Forms\EventForm;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class EventCreate extends Component
@@ -32,15 +33,23 @@ class EventCreate extends Component
         $this->eventForm->updatingEnd($updatedValue);
     }
 
-    public function saveEvent()
+    /**
+     * @throws ValidationException
+     */
+    public function saveEvent(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $this->eventForm->store();
 
         Log::info('Event created', [auth()->user(), $this->eventForm->event]);
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully created.'), ItemType::SUCCESS));
+
+        return redirect(route('event.index'));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function saveEventAndStay(): void
     {
         $this->eventForm->store();

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\PagePermission;
 
-use App\Models\News;
 use App\Models\UserPermission;
 
 class WebPushTest extends TestPagePermission

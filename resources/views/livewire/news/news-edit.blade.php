@@ -11,27 +11,30 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="flex justify-end bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5">
-        <x-button-dropdown class=" inline">
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs" wire:click="saveNews"
-                        title="Save current changes"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
-                </button>
+                <x-button-dropdown.mainButton class="btn-success" wire:click="saveNews"
+                        title="Save current changes" iconClass="fa-solid fa-floppy-disk mr-2">{{ __('Save') }}
+                </x-button-dropdown.mainButton>
             </x-slot>
 
-            <button type="button" class="btn-success inline-flex gap-2 p-2 text-xs" wire:click="saveNewsCopy"
-                    title="Save copy of the news"><i class="fa-solid fa-copy"></i> {{ __('Save copy') }}</button>
+            <x-button-dropdown.button class="btn-success" wire:click="saveNewsCopy"
+                    title="Save copy of the news" iconClass="fa-solid fa-copy">
+                {{ __('Save copy') }}</x-button-dropdown.button>
             @if($newsForm->display_until > now() && $newsForm->enabled && !$newsForm->logged_in_only)
-                <button type="button" class="text-xs p-2 btn-info inline-flex gap-2"
+                <x-button-dropdown.button class="btn-info"
                         wire:confirm="{{__('Are you sure you want to send a web push to all subscribers?')}}"
                         wire:click="forceWebPush"
-                        title="Force a web push to all subscribes (with the updated data).">
-                    <i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
+                        title="Force a web push to all subscribes (with the updated data)."
+                        iconClass="fa-solid fa-bell">
+                    {{ __('Force web push') }}</x-button-dropdown.button>
             @endif
-            <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
+            <x-button-dropdown.button class="btn-danger"
                     wire:confirm="{{__('Are you sure you want to delete this news?')}}"
                     wire:click="deleteNews" title="Delete this news"
-            ><i class="fa-solid fa-trash"></i> {{ __('Delete news') }}</button>
-        </x-button-dropdown>
+                    iconClass="fa-solid fa-trash">
+                {{ __('Delete news') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

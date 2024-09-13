@@ -120,27 +120,40 @@
                 </div>
 
             </div>
-            <x-button-dropdown>
+            <x-button-dropdown.dropdown>
                 <x-slot name="mainButton">
-                    <a href="{{route('sponsoring.period.edit', $period->id)}}" class="btn-primary p-2 text-xs"
-                       title="Edit this period">
-                        <i class="fa-solid fa-pen-to-square mr-2"></i>
+                    <x-button-dropdown.mainLink href="{{route('sponsoring.period.edit', $period->id)}}"
+                                                class="btn-primary"
+                                                title="Edit this period"
+                                                iconClass="fa-solid fa-pen-to-square"
+                    >
                         {{__("Edit period")}}
-                    </a>
+                    </x-button-dropdown.mainLink>
                 </x-slot>
-                <button type="button"
+                <x-button-dropdown.button
+                        class="btn-secondary"
                         wire:confirm.prompt="{{__('Do you want to generate a contract for every backer ?')}}"
-                        wire:click="generateAllContracts" title="Generate a contract for every backer."
-                        class="btn-secondary p-2 text-xs">{{ __('Generate contracts') }}</button>
-                <a href="{{route('sponsoring.period.export.csv', $period->id)}}" class="btn-secondary p-2 text-xs">
-                    <i class="fa-solid fa-file-export mr-2"></i>
+                        wire:click="generateAllContracts"
+                        title="Generate a contract for every backer."
+                        iconClass="fa-solid fa-wand-magic-sparkles"
+                >
+                    {{ __('Generate contracts') }}
+                </x-button-dropdown.button>
+                <x-button-dropdown.link
+                    class="btn-secondary"
+                    href="{{route('sponsoring.period.export.csv', $period->id)}}"
+                    iconClass="fa-solid fa-file-export"
+                >
                     {{__("Export overview")}}
-                </a>
-                <a href="{{route('sponsoring.period.memberAssignment', $period->id)}}" class="btn-success p-2 text-xs">
-                    <i class="fa-solid fa-user-group mr-2"></i>
+                </x-button-dropdown.link>
+                <x-button-dropdown.link
+                    class="btn-secondary"
+                    href="{{route('sponsoring.period.memberAssignment', $period->id)}}"
+                    iconClass="fa-solid fa-user-group"
+                >
                     {{__("Assign per member")}}
-                </a>
-            </x-button-dropdown>
+                </x-button-dropdown.link>
+            </x-button-dropdown.dropdown>
         </div>
     @endif
 

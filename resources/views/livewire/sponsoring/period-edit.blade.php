@@ -10,27 +10,27 @@
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex justify-end items-center">
 
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs" wire:click="savePeriod"
-                        title="Save current changes"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}
-                </button>
+                <x-button-dropdown.mainButton class="btn-success" wire:click="savePeriod"
+                        title="Save current changes" iconClass="fa-solid fa-floppy-disk mr-2">{{ __('Save') }}
+                </x-button-dropdown.mainButton>
             </x-slot>
 
-            <button type="button" class="btn-success inline-flex gap-2 p-2 text-xs" wire:click="saveNewsCopy"
-                    title="Save copy of the news"><i class="fa-solid fa-copy"></i> {{ __('Save copy') }}</button>
-            <a href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}"
-               class="btn-info inline-flex gap-2 p-2 text-xs"
+            <x-button-dropdown.button class="btn-success" wire:click="saveNewsCopy"
+                    title="Save copy of the news" iconClass="fa-solid fa-copy">{{ __('Save copy') }}</x-button-dropdown.button>
+            <x-button-dropdown.link href="{{route('sponsoring.period.backer.overview', $periodForm->period->id)}}"
+               class="btn-info"
                title="Show period backer overview">
                 {{__("Show backer overview")}}
-            </a>
+            </x-button-dropdown.link>
 
-            <button type="button"
+            <x-button-dropdown.button
                     wire:confirm.prompt="{{__('Are you sure you want to delete the whole period? All contracts will get lost.\nEnter \'DELETE\' if your are sure.|DELETE')}}"
                     wire:click="deletePeriod" title="Delete this period"
-                    class="text-xs p-2 btn-danger inline-flex gap-2">
-                <i class="fa-solid fa-trash"></i> {{ __('Delete period') }}</button>
-        </x-button-dropdown>
+                    class="btn-danger"
+                    iconClass="fa-solid fa-trash">{{ __('Delete period') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

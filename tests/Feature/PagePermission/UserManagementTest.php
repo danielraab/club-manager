@@ -3,7 +3,6 @@
 namespace Tests\Feature\PagePermission;
 
 use App\Models\UserPermission;
-use Tests\Feature\DBHelperTrait;
 
 class UserManagementTest extends TestPagePermission
 {

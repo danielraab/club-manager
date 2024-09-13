@@ -15,19 +15,19 @@
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex gap-2 items-center justify-end">
         @if($editMode)
-            <x-button-dropdown>
+            <x-button-dropdown.dropdown>
                 <x-slot name="mainButton">
-                    <button type="button" class="btn-success p-2 text-xs" wire:click="saveAdOption"
-                            title="Save changes of ad option"><i
-                            class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}</button>
+                    <x-button-dropdown.mainButton class="btn-success" wire:click="saveAdOption"
+                            title="Save changes of ad option"
+                            iconClass="fa-solid fa-floppy-disk">{{ __('Save') }}</x-button-dropdown.mainButton>
                 </x-slot>
-                <button type="button"
+                <x-button-dropdown.button
                         wire:confirm="{{__('Are you sure you want to delete this ad option?')}}"
                         wire:click="deleteAdOption"
                         title="Delete this ad option"
-                        class="btn-danger p-2 text-xs">
-                    <i class="fa-solid fa-trash mr-2"></i>{{ __('Delete ad option') }}</button>
-                </x-button-dropdown>
+                        class="btn-danger"
+                        iconClass="fa-solid fa-trash">{{ __('Delete ad option') }}</x-button-dropdown.button>
+                </x-button-dropdown.dropdown>
         @else
             <button type="button" class="btn btn-success text-xs" wire:click="saveAdOption"
                     title="Create new ad option"><i class="fa-solid fa-plus mr-2"></i>{{ __('Create') }}

@@ -9,20 +9,19 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end items-center">
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs gap-2" wire:click="saveUser"
-                        title="Save the current changes"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+                <x-button-dropdown.mainButton class="btn-success" wire:click="saveUser"
+                        title="Save the current changes" iconClass="fa-solid fa-floppy-disk">{{ __('Save') }}</x-button-dropdown.mainButton>
             </x-slot>
-                <button type="button" class="btn-secondary inline-flex gap-2 text-xs p-2"
+                <x-button-dropdown.button class="btn-secondary"
                         wire:confirm="{{__('Are you sure you want to send a password reset link to the users mail address?')}}"
-                        wire:click="sendResetLink"><i class="fa-solid fa-user-plus"></i> {{__("Send reset link")}}</button>
-            <button type="button"
+                        wire:click="sendResetLink" iconClass="fa-solid fa-user-plus">{{__("Send reset link")}}</x-button-dropdown.button>
+            <x-button-dropdown.button
                     wire:confirm.prompt="{{__('Are you sure you want to delete the user?\n\nPlease enter \'DELETE\' to confirm.|DELETE')}}"
                     wire:click="deleteUser" title="Delete this user"
-                    class="btn-danger inline-flex gap-2 text-xs p-2"><i
-                    class="fa-solid fa-trash"></i> {{ __('Delete user') }}</button>
-        </x-button-dropdown>
+                    class="btn-danger" iconClass="fa-solid fa-trash">{{ __('Delete user') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

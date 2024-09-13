@@ -2,18 +2,19 @@
     <span>{{ __('Member Birthday list') }} - {{now()->format("Y")}}</span>
 </x-slot>
 <x-slot name="headerBtn">
-    <x-button-dropdown>
+    <x-button-dropdown.button>
         <x-slot name="mainButton">
-            <a href='{{route("member.birthdayList.print")}}'
-               class="p-2 text-xs flex">
-                <i class="fa-solid fa-print mr-2"></i>{{__("Print")}}
-            </a>
+            <x-button-dropdown.mainLink href='{{route("member.birthdayList.print")}}' class="btn-secondary"
+            iconClass="fa-solid fa-print">
+                {{__("Print")}}
+            </x-button-dropdown.mainLink>
         </x-slot>
-        <a href='{{route("member.birthdayList.print", ["printMissing"=>true])}}'
-           class="inline-flex items-center p-2 hover:cursor-pointer text-xs">
-            <i class="fa-solid fa-print mr-2"></i>{{__("Print with missing")}}
-        </a>
-    </x-button-dropdown>
+        <x-button-dropdown.link href='{{route("member.birthdayList.print", ["printMissing"=>true])}}'
+                                iconClass="fa-solid fa-print"
+                                class="btn-secondary">
+            {{__("Print with missing")}}
+        </x-button-dropdown.link>
+    </x-button-dropdown.button>
 </x-slot>
 
 <div>

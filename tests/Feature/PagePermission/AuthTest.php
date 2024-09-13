@@ -30,9 +30,9 @@ class AuthTest extends TestCase
         $response->assertStatus(302);
         $response = $this->get('/forgot-password');
         $response->assertStatus(302);
-//        $response = $this->get('/verify-email');
-//        $response->assertStatus(200);
-//        $response = $this->get('/confirm-password');
-//        $response->assertStatus(200);
+        //        $response = $this->get('/verify-email');
+        //        $response->assertStatus(200);
+        //        $response = $this->get('/confirm-password');
+        //        $response->assertStatus(200);
     }
 }

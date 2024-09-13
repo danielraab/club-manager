@@ -9,17 +9,19 @@
 
 <div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex items-center justify-end">
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 inline-flex items-center text-xs gap-2" wire:click="saveEventType"
-                        title="Create new event type"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+                <x-button-dropdown.mainButton class="btn-success" wire:click="saveEventType"
+                        title="Create new event type" iconClass="fa-solid fa-floppy-disk">
+                    {{ __('Save') }}</x-button-dropdown.mainButton>
             </x-slot>
-            <button type="button"
-                    class="text-xs p-2 btn-danger inline-flex gap-2"
+            <x-button-dropdown.button
+                    class="btn-danger"
                     wire:confirm="{{__('Are you sure you want to delete this event type?')}}"
                     wire:click="deleteEventType" title="Delete this event"
-                    title="Delete this event type">{{ __('Delete event type') }}</button>
-        </x-button-dropdown>
+                    title="Delete this event type"
+                    iconClass="fa-solid fa-trash">{{ __('Delete event type') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
 
     </div>
 

@@ -10,18 +10,17 @@
 <div>
     <x-livewire.loading/>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end items-center">
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs" wire:click="saveBacker"
-                        title="Update backer"><i class="fa-solid fa-floppy-disk mr-2"></i>{{ __('Save') }}</button>
+                <x-button-dropdown.mainButton class="btn-success p-2 text-xs" wire:click="saveBacker"
+                        title="Update backer" iconClass="fa-solid fa-floppy-disk">{{ __('Save') }}</x-button-dropdown.mainButton>
             </x-slot>
-            <button type="button"
+            <x-button-dropdown.button
                     wire:confirm="{{__('Are you sure you want to delete this backer?')}}"
                     wire:click="deleteBacker" title="Delete this backer"
-                    class="btn-danger p-2 text-xs">
-                <i class="fa-solid fa-trash mr-2"></i>{{ __('Delete backer') }}</button>
-
-        </x-button-dropdown>
+                    class="btn-danger" iconClass="fa-solid fa-trash">
+                {{ __('Delete backer') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">

@@ -11,29 +11,39 @@
             .addNotificationMessages(
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 flex items-center justify-end">
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs inline-flex items-center gap-2" wire:click="saveEvent"
-                        title="Update event"><i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+                <x-button-dropdown.mainButton class="btn-success"
+                                              wire:click="saveEvent"
+                                              title="Update event"
+                                              iconClass="fa-solid fa-floppy-disk">
+                    {{ __('Save') }}</x-button-dropdown.mainButton>
             </x-slot>
-            <button type="button" class="btn-primary inline-flex gap-2 text-xs p-2"
-{{--                    wire:click="saveEventCopy"--}}
+            <x-button-dropdown.button class="btn-success"
+                                          wire:click="saveAndStay"
+                                          title="Update event and stay on the edit page"
+                                          iconClass="fa-solid fa-floppy-disk">
+                {{ __('Save and stay') }}</x-button-dropdown.button>
+            <x-button-dropdown.button type="button" class="btn-primary inline-flex gap-2 text-xs p-2"
                     x-on:click.prevent="$dispatch('open-modal', 'copy-event-modal')"
                     title="Copy this event"
-            ><i class="fa-solid fa-copy"></i> {{__("Copy event")}}</button>
+                                      iconClass="fa-solid fa-copy"
+            >{{__("Copy event")}}</x-button-dropdown.button>
             @if($eventForm->start > now() && $eventForm->enabled && !is_numeric($eventForm->member_group_id))
-                <button type="button"
-                        class="btn-info inline-flex gap-2 text-xs p-2"
+                <x-button-dropdown.button
+                        class="btn-info"
                         wire:click="forceWebPush"
                         wire:confirm="{{__('Are you sure you want to send a web push to all subscribers?')}}"
-                        title="Force a web push to all subscribes (with the updated data).">
-                    <i class="fa-solid fa-bell"></i> {{ __('Force web push') }}</button>
+                        title="Force a web push to all subscribes (with the updated data)."
+                        iconClass="fa-solid fa-bell">
+                    {{ __('Force web push') }}</x-button-dropdown.button>
             @endif
-            <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
+            <x-button-dropdown.button type="button" class="btn-danger"
                     wire:confirm="{{__('Are you sure you want to delete this event?')}}"
                     wire:click="deleteEvent" title="Delete this event"
-            ><i class="fa-solid fa-trash"></i> {{ __('Delete event') }}</button>
-        </x-button-dropdown>
+                                      iconClass="fa-solid fa-trash"
+            >{{ __('Delete event') }}</x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
 
     <x-modal id="copy-event-modal" title="Copy this event" showX>

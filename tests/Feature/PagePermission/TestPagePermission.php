@@ -63,7 +63,6 @@ class TestPagePermission extends TestCase
         $this->assertGuest();
     }
 
-
     public function test_logged_in_with_permission(): void
     {
         $this->doAdditionalSeeds();

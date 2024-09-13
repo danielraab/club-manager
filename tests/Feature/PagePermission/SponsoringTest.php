@@ -31,6 +31,7 @@ class SponsoringTest extends TestPagePermission
             Contract::SPONSORING_EDIT_PERMISSION,
         ];
     }
+
     public function getRoutesWithPermissions(): array
     {
         return [

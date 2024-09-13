@@ -76,7 +76,21 @@ class EventEdit extends Component
     /**
      * @throws ValidationException
      */
-    public function saveEvent(): void
+    public function saveEvent(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
+        $this->eventForm->update();
+
+        Log::info('Event updated', [auth()->user(), $this->eventForm->event]);
+        NotificationMessage::addNotificationMessage(
+            new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
+
+        return redirect(route('event.index'));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function saveAndStay(): void
     {
         $this->eventForm->update();
 

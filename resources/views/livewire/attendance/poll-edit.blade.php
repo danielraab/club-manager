@@ -21,24 +21,35 @@ addEvents() {
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-5 p-5 flex justify-end gap-2 items-center">
          <span x-cloak class="text-gray-500 text-xs mt-1"
                x-show="additionalEventList.length > 0">Add selected events or unselect them.</span>
-        <x-button-dropdown>
+        <x-button-dropdown.dropdown>
             <x-slot name="mainButton">
-                <button type="button" class="btn-success p-2 text-xs inline-flex items-center gap-2"
-                        x-bind:disabled="additionalEventList.length > 0"
-                        wire:click="savePoll" title="Save this poll">
-                    <i class="fa-solid fa-floppy-disk"></i> {{ __('Save') }}</button>
+                <x-button-dropdown.mainButton
+                    class="btn-success"
+                    x-bind:disabled="additionalEventList.length > 0"
+                    wire:click="savePoll"
+                    title="Save this poll"
+                    iconClass="fa-solid fa-floppy-disk"
+                >{{ __('Save') }}</x-button-dropdown.mainButton>
             </x-slot>
             @if($hasPollShowPermission)
-                <a href="{{route('attendancePoll.statistic', $pollForm->poll->id)}}" class="btn-secondary text-xs p-2 inline-flex"
-                   title="Show summary of attendance poll">
+                <x-button-dropdown.link
+                    class="btn-secondary"
+                    href="{{route('attendancePoll.statistic', $pollForm->poll->id)}}"
+                    title="Show summary of attendance poll"
+                >
                     {{__("Show summary")}}
-                </a>
+                </x-button-dropdown.link>
             @endif
-            <button type="button" class="text-xs p-2 btn-danger inline-flex gap-2"
-                    wire:confirm="{{__('Are you sure you want to delete this attendance poll?')}}"
-                    wire:click="deletePoll" title="Delete this attendance poll."
-            ><i class="fa-solid fa-trash"></i> {{ __('Delete event') }}</button>
-        </x-button-dropdown>
+            <x-button-dropdown.button
+                class="btn-danger"
+                wire:confirm="{{__('Are you sure you want to delete this attendance poll?')}}"
+                wire:click="deletePoll"
+                title="Delete this attendance poll."
+                iconClass="fa-solid fa-trash"
+            >
+                {{ __('Delete event') }}
+            </x-button-dropdown.button>
+        </x-button-dropdown.dropdown>
     </div>
 
 
