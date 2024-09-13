@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\PageCalls;
+namespace Tests\Feature\PagePermission;
 
 use App\Models\Sponsoring\Contract;
 use App\Models\UserPermission;
 
-class SponsoringTest extends TestPageCall
+class SponsoringTest extends TestPagePermission
 {
     protected function getPermissionsToTest(): array
     {
