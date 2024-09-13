@@ -17,14 +17,19 @@ class PeriodBackerOverview extends Component
     public bool $hasEditPermission = false;
 
     public Period $period;
-
-    public string $previousUrl;
+    private \Illuminate\Database\Eloquent\Collection $openContractWithMember;
 
     public function mount(Period $period): void
     {
         $this->hasEditPermission = Auth::user()->hasPermission(Contract::SPONSORING_EDIT_PERMISSION);
         $this->period = $period;
-        $this->previousUrl = url()->previous();
+
+        $this->openContractWithMember = $this->period->contracts()
+            ->whereNotNull('member_id')
+            ->whereNull('refused')
+            ->whereNull('contract_received')
+            ->whereNull('paid')
+            ->with(['member', 'backer'])->get();
     }
 
     public function generateAllContracts(): void
@@ -71,6 +76,10 @@ class PeriodBackerOverview extends Component
     private function getContractsOfPeriod(Backer $backer): null|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $backer->contracts()->where('period_id', $this->period->id)->first();
+    }
+
+    public function sendNotificationMail(): void {
+        //TODO implement
     }
 
     public function render()

@@ -24,7 +24,6 @@
     <x-livewire.loading/>
     @if($hasEditPermission && $period->end > now())
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 gap-2 flex justify-end items-center">
-
             <div class="flex items-center gap-2" x-data="{showLegend:false}">
                 <button type="button" x-ref="legendBtn" class="" x-on:click="showLegend= !showLegend">
                     <i class="fa-solid fa-circle-info text-blue-700"></i>
@@ -153,8 +152,41 @@
                 >
                     {{__("Assign per member")}}
                 </x-button-dropdown.link>
+                <x-button-dropdown.button
+                    class="btn-secondary"
+                    x-on:click.prevent="$dispatch('open-modal', 'send-reminder-modal')"
+                    title="Send a reminder Mail to all open contract members."
+                    iconClass="fa-solid fa-business-time"
+                >
+                    {{ __('Send a reminder Mail') }}
+                </x-button-dropdown.button>
             </x-button-dropdown.dropdown>
         </div>
+
+        <x-modal id="send-reminder-modal" title="Send remainder to members" showX>
+            @php
+            /** @var \App\Models\Sponsoring\Contract $contract */
+            @endphp
+            @if($this->openContractWithMember->count() > 0)
+                <div class="p-3">
+                    <ul class="list-disc ml-4">
+                        @foreach($this->openContractWithMember as $contract)
+                            <li>{{$contract->backer->name}} - {{$contract->member->getFullName()}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="flex justify-between mt-4 p-3">
+                    <button class="btn btn-primary" type="button" x-on:click="$dispatch('close-modal', 'send-reminder-modal')">close</button>
+                    <button class="btn btn-create" type="button"
+                            wire:confirm="{{__('Are you sure to send the notification mail ?')}}"
+                            wire:click="sendNotificationMail">{{__('Send notification mail')}}</button>
+                </div>
+            @else
+                <div class="p-3">
+                    {{ __("No open contracts with assigned members.") }}
+                </div>
+            @endif
+        </x-modal>
     @endif
 
     @if(($periodFiles = $period->uploadedFiles()->get())->isNotEmpty())
