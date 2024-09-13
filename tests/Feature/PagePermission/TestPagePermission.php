@@ -11,13 +11,12 @@ class TestPagePermission extends TestCase
 {
     use DBHelperTrait, RefreshDatabase;
 
-    /**
-     * @dataProvider routesWithPermissionProvider
-     */
-    public function test_not_logged_in(string $route, ?array $permissions): void
+    public function test_not_logged_in(): void
     {
         $this->doAdditionalSeeds();
-        $this->doRouteTest($route, $permissions, null);
+        foreach ($this->getRoutesWithPermissions() as $route => $permissions) {
+            $this->doRouteTest($route, $permissions, null);
+        }
     }
 
     protected function doAdditionalSeeds(): void
@@ -48,15 +47,14 @@ class TestPagePermission extends TestCase
         return in_array($userPermissionCode, $routePermissionCodes) ? 200 : 403;
     }
 
-    /**
-     * @dataProvider routesWithPermissionProvider
-     */
-    public function test_logged_in_no_permission(string $route, ?array $permissions): void
+    public function test_logged_in_no_permission(): void
     {
-        $this->createAndLoginUser();
         $this->doAdditionalSeeds();
-        $this->doRouteTest($route, $permissions, '');
-        $this->logout();
+        foreach ($this->getRoutesWithPermissions() as $route => $permissions) {
+            $this->createAndLoginUser();
+            $this->doRouteTest($route, $permissions, '');
+            $this->logout();
+        }
     }
 
     private function logout(): void
@@ -65,20 +63,20 @@ class TestPagePermission extends TestCase
         $this->assertGuest();
     }
 
-    /**
-     * @dataProvider routesWithPermissionProvider
-     */
-    public function test_logged_in_with_permission(string $route, ?array $permissions): void
+
+    public function test_logged_in_with_permission(): void
     {
-        foreach ($this->getPermissionsToTest() as $userPermission) {
-            $this->createAndLoginUser($userPermission);
-            $this->doAdditionalSeeds();
-            $this->doRouteTest(
-                $route,
-                $permissions,
-                $userPermission
-            );
-            $this->logout();
+        $this->doAdditionalSeeds();
+        foreach ($this->getRoutesWithPermissions() as $route => $permissions) {
+            foreach ($this->getPermissionsToTest() as $userPermission) {
+                $this->createAndLoginUser($userPermission);
+                $this->doRouteTest(
+                    $route,
+                    $permissions,
+                    $userPermission
+                );
+                $this->logout();
+            }
         }
     }
 
@@ -97,16 +95,16 @@ class TestPagePermission extends TestCase
      * - empty arr -> open for logged in without permissions
      * - array with permissions -> open only for logged in with permissions
      */
-    public static function routesWithPermissionProvider(): array
+    public function getRoutesWithPermissions(): array
     {
         return [
-            ['/', null],
-            ['/dashboard', null],
-            ['/imprint', null],
-            ['/privacy-policy', null],
-            ['/profile', []],
-            ['/settings', [UserPermission::ADMIN_USER_PERMISSION]],
-            ['/files', [UserPermission::ADMIN_USER_PERMISSION]],
+            '/' => null,
+            '/dashboard' => null,
+            '/imprint' => null,
+            '/privacy-policy' => null,
+            '/profile' => [],
+            '/settings' => [UserPermission::ADMIN_USER_PERMISSION],
+            '/files' => [UserPermission::ADMIN_USER_PERMISSION],
         ];
     }
 }

@@ -59,7 +59,10 @@ class SponsoringSeeder extends Seeder
 
     private function addContract(): void
     {
-        $contract1 = Contract::factory()->create();
+        $contract1 = Contract::factory()->create([
+            'period_id' => $this->period->id,
+            'backer_id' => $this->backer->id,
+        ]);
         $contract1->member()->associate(Member::query()->first());
         $contract1->package()->associate($this->package)->save();
         $contract1->refused = null;
@@ -68,7 +71,10 @@ class SponsoringSeeder extends Seeder
         $contract1->paid = fake()->dateTime('-4 days');
         $contract1->save();
 
-        $contract2 = Contract::factory()->create();
+        $contract2 = Contract::factory()->create([
+            'period_id' => $this->period->id,
+            'backer_id' => $this->backer2->id,
+        ]);
         $contract2->refused = null;
         $contract2->contract_received = null;
         $contract2->ad_data_received = null;

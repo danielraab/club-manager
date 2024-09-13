@@ -14,10 +14,10 @@ class WebPushTest extends TestPagePermission
         ];
     }
 
-    public static function routesWithPermissionProvider(): array
+    public function getRoutesWithPermissions(): array
     {
         return [
-            ['/webPush/vapidPublicKey', null],
+            '/webPush/vapidPublicKey' => null,
         ];
     }
 }

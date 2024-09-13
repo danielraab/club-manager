@@ -19,6 +19,7 @@ class NewsFactory extends Factory
         return [
             'title' => fake()->text(100),
             'content' => fake()->text(250),
+            'display_until' => now()->addMonth(),
         ];
     }
 }

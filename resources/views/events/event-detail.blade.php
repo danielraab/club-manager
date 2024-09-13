@@ -57,7 +57,7 @@ $hasEventEditPermission = \Illuminate\Support\Facades\Auth::user()?->hasPermissi
                 </div>
             @endif
 
-            <?php $eventType = $event->eventType()->first()->title ?>
+            <?php $eventType = $event->eventType()->first()?->title ?>
             @if($eventType)
                 <div class="text-center">
                     <div class="text-gray-500">{{__("Type")}}:</div>

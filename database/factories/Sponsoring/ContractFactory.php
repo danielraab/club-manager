@@ -11,23 +11,23 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ContractFactory extends Factory
 {
-    private static ?array $availableBackerPeriodCombinations = null;
+//    private static ?array $availableBackerPeriodCombinations = null;
 
-    public static function initAvailableBackerPeriodCombinations(): void
-    {
-        if (self::$availableBackerPeriodCombinations === null) {
-            self::$availableBackerPeriodCombinations = [];
-            for ($i = 1; $i <= Backer::query()->count(); $i++) {
-                for ($j = 1; $j <= Period::query()->count(); $j++) {
-                    self::$availableBackerPeriodCombinations[] = [
-                        'backer_id' => $i,
-                        'period_id' => $j,
-                    ];
-                }
-            }
-            shuffle(self::$availableBackerPeriodCombinations);
-        }
-    }
+//    public static function initAvailableBackerPeriodCombinations(): void
+//    {
+//        if (self::$availableBackerPeriodCombinations === null) {
+//            self::$availableBackerPeriodCombinations = [];
+//            for ($i = 1; $i <= Backer::query()->count(); $i++) {
+//                for ($j = 1; $j <= Period::query()->count(); $j++) {
+//                    self::$availableBackerPeriodCombinations[] = [
+//                        'backer_id' => $i,
+//                        'period_id' => $j,
+//                    ];
+//                }
+//            }
+//            shuffle(self::$availableBackerPeriodCombinations);
+//        }
+//    }
 
     /**
      * Define the model's default state.
@@ -37,7 +37,7 @@ class ContractFactory extends Factory
     public function definition(): array
     {
 
-        self::initAvailableBackerPeriodCombinations();
+//        self::initAvailableBackerPeriodCombinations();
 
         $refused = fake()->boolean();
         $successful = ! $refused && fake()->boolean();
@@ -49,7 +49,6 @@ class ContractFactory extends Factory
             'contract_received' => $successful ? $contact = fake()->dateTime() : null,
             'ad_data_received' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
             'paid' => $contact && fake()->boolean() ? fake()->dateTimeBetween($contact) : null,
-            ...array_pop(self::$availableBackerPeriodCombinations),
         ];
     }
 }

@@ -17,10 +17,7 @@ class AttendancePollFactory extends Factory
             'title' => fake()->text(20),
             'description' => fake()->text(),
             'allow_anonymous_vote' => fake()->boolean(),
-            'closing_at' => fake()->dateTimeBetween(
-                now()->subWeeks(2),
-                now()->addWeeks(4)
-            ),
+            'closing_at' => now()->addMonth(),
         ];
     }
 }

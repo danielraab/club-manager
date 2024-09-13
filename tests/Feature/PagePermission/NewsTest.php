@@ -7,6 +7,11 @@ use App\Models\UserPermission;
 
 class NewsTest extends TestPagePermission
 {
+    protected function doAdditionalSeeds(): void
+    {
+        News::factory()->create();
+    }
+
     protected function getPermissionsToTest(): array
     {
         return [
@@ -15,13 +20,13 @@ class NewsTest extends TestPagePermission
         ];
     }
 
-    public static function routesWithPermissionProvider(): array
+    public function getRoutesWithPermissions(): array
     {
         return [
-//            ['/news/1/detail', null],
-            ['/news', []],
-            ['/news/news/create', [News::NEWS_EDIT_PERMISSION]],
-//            ['/news/news/1', [News::NEWS_EDIT_PERMISSION]],
+            '/news/1/detail' => null,
+            '/news' => [],
+            '/news/news/create' => [News::NEWS_EDIT_PERMISSION],
+            '/news/news/1' => [News::NEWS_EDIT_PERMISSION],
         ];
     }
 }
