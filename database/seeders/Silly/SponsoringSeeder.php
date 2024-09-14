@@ -90,17 +90,29 @@ class SponsoringSeeder extends Seeder
     {
         $collection = Period::factory(self::PERIOD_CNT)->create();
         foreach ($collection as $period) {
+            $packageIds = range(1, rand(1, self::PACKAGE_CNT));
             /** @var $period Period */
-            for ($i = 0; $i < 5; $i++) {
-                $period->packages()->attach(rand(1, self::PACKAGE_CNT));
+            foreach ($packageIds as $id) {
+                $period->packages()->attach($id);
             }
         }
     }
 
     private function addContracts(): void
     {
-        $collection = Contract::factory(self::CONTRACT_CNT)->create();
-        foreach ($collection as $contract) {
+        $contracts = [];
+        for ($i=1; $i<=self::PERIOD_CNT; $i++){
+            for ($j=1; $j<=self::BACKER_CNT; $j++){
+                if(fake()->boolean()) {
+                    $contracts[] = Contract::factory()->create([
+                        'period_id' => $i,
+                        'backer_id' => $j
+                    ]);
+                }
+            }
+        }
+
+        foreach ($contracts as $contract) {
             /** @var $contract Contract */
             if (fake()->boolean(75)) {
                 $contract->member()->associate(rand(1, MemberSeeder::$memberCnt))->save();
