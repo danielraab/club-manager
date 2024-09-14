@@ -101,12 +101,12 @@ class SponsoringSeeder extends Seeder
     private function addContracts(): void
     {
         $contracts = [];
-        for ($i=1; $i<=self::PERIOD_CNT; $i++){
-            for ($j=1; $j<=self::BACKER_CNT; $j++){
-                if(fake()->boolean()) {
+        for ($i = 1; $i <= self::PERIOD_CNT; $i++) {
+            for ($j = 1; $j <= self::BACKER_CNT; $j++) {
+                if (fake()->boolean()) {
                     $contracts[] = Contract::factory()->create([
                         'period_id' => $i,
-                        'backer_id' => $j
+                        'backer_id' => $j,
                     ]);
                 }
             }
