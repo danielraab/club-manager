@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 ### Added
 - button and modal for sending reminder to members of a sponsoring contract
 
+
+## v0.7.19 - 2024-09-13
+### Fixed
+- all events are no back on ics export
+
 ## v0.7.18 - 2024-09-12
 ### Added
 - Page view tests for sponsoring and event feature

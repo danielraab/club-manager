@@ -120,7 +120,7 @@ class EventICalExport extends Controller
         $eventFilter = new EventFilter();
         $eventFilter->memberGroups = $memberGroups;
 
-        foreach (\App\Models\Event::getAllFiltered($eventFilter) as $event) {
+        foreach (\App\Models\Event::getAllFiltered($eventFilter)->get() as $event) {
             /** @var Carbon $end */
             $calEvent = Event::create($event->title)
                 ->startsAt($event->start);
