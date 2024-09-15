@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- public files url are now the file controller too
+- show loading icon on admin files view
 
 ## v0.7.19 - 2024-09-13
 ### Fixed

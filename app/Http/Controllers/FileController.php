@@ -25,8 +25,12 @@ class FileController extends Controller
 
     private function checkPermission(UploadedFile $file): void
     {
-        if (! $file->hasAccess() || ! $isExist = Storage::fileExists($file->path)) {
-            Log::warning('file does not exist or has no access', ['file' => $file, 'isExist' => $isExist]);
+        if (! Storage::fileExists($file->path)) {
+            Log::warning('file does not exist', ['file' => $file]);
+            throw new ModelNotFoundException();
+        }
+        if (! $file->hasAccess()) {
+            Log::warning('user has no access', ['file' => $file, 'user' => auth()->user()]);
             throw new ModelNotFoundException();
         }
     }
