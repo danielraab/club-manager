@@ -40,15 +40,16 @@ class MemberBackerAssignment extends Component
                 ->where('period_id', $previousPeriod->id)->get();
         }
 
-        $this->currentBackers = $this->period->contracts()
-            ->where('member_id', $this->member->id)
-            ->pluck('backer_id')
-            ->toArray();
         $this->calculateOpenAndCurrentBackers();
     }
 
     public function calculateOpenAndCurrentBackers(): void
     {
+        $this->currentBackers = $this->period->contracts()
+            ->where('member_id', $this->member->id)
+            ->pluck('backer_id')
+            ->toArray();
+
         $this->openAndCurrentBackers = Backer::query()->whereNot(function (Builder $query) {
             $query->whereHas('contracts', function (Builder $query) {
                 $query->where('period_id', $this->period->id)
@@ -60,6 +61,7 @@ class MemberBackerAssignment extends Component
     #[On('member-contract-has-changed')]
     public function refreshComponent(): void
     {
+        Log::debug('member-contract-has-changed triggered');
         $this->calculateOpenAndCurrentBackers();
     }
 

@@ -3,9 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- collapse/fold all feature for period member assignment
+- show only assigned checkbox for period member assignment
 ### Changed
 - public files url are now the file controller too
 - show loading icon on admin files view
+### Fixed
+- after changing the assignments multiple times in the member backer assignment page, the current selected backers are now displayed correctly
 
 ## v0.7.19 - 2024-09-13
 ### Fixed
@@ -17,7 +22,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - no double separator lines on dashboard cards
 - show 404 instead of exception when file is missing
-- forgotton membergroup change for event calendar
+- forgotten membergroup change for event calendar
 - null saved in case of no token in event ics controller
 
 ## v0.7.17 - 2024-09-11

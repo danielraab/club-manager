@@ -10,9 +10,20 @@
 
     <div x-init="$store.notificationMessages
             .addNotificationMessages(
-            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 ">
+            JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))"
+         x-data="{showOnlyMemberWithAssignment:false}">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
             <livewire:sponsoring.quick-backer-add/>
+        </div>
+
+        <div class="flex flex-wrap justify-center items-center gap-2 mb-3">
+            <x-input-checkbox id="memberWithAssignmentOnlyChkbx" x-model="showOnlyMemberWithAssignment">
+                {{__('only member with assignment')}}
+            </x-input-checkbox>
+            <div>
+                <button class="btn btn-primary" x-on:click="$dispatch('open-all-accordions','period-member')">{{__("open all")}}</button>
+                <button class="btn btn-secondary" x-on:click="$dispatch('close-all-accordions','period-member')">{{__("close all")}}</button>
+            </div>
         </div>
 
         <div class="flex flex-col">

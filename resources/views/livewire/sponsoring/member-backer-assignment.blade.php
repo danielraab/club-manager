@@ -2,8 +2,11 @@
 /** @var \App\Models\Sponsoring\Period $period */
 /** @var \App\Models\Member $member */
 /** @var \App\Models\Sponsoring\Contract $contract */
+
+$currentContracts = $period->contracts()->where('member_id', $member->id)->get();
 ?>
-<x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700">
+<x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700" type="period-member"
+    x-show="{{$currentContracts->count()>0 ? 'true' : 'false'}} || !showOnlyMemberWithAssignment">
     <x-livewire.loading/>
     <div x-init="$store.notificationMessages
                  .addNotificationMessages(
@@ -23,9 +26,6 @@
             <h3 class="text-lg font-bold">{{__("this period")}} - {{$period->title}}</h3>
             <div class="space-y-2 px-4 py-2">
                 <ul>
-                    @php
-                        $currentContracts = $period->contracts()->where('member_id', $member->id)->get();
-                    @endphp
                     @forelse($currentContracts as $contract)
                         <li>
                             {{$contract->backer->name}}
@@ -52,7 +52,7 @@
                         <div class="p-3">
                             @forelse($openAndCurrentBackers as $backer)
                                 <div>
-                                    <x-input-checkbox :id="$member->id-$backer->id"
+                                    <x-input-checkbox :id="$member->id.'-'.$backer->id"
                                                       x-on:change="changed=true && $wire.updateBacker({{$backer->id}}, $event.target.checked)"
                                                       :checked="in_array($backer->id, $currentBackers)">
                                         {{$backer->name}}
