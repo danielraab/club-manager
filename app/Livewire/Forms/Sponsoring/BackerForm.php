@@ -25,9 +25,9 @@ class BackerForm extends Form
 
     public ?string $street;
 
-    public int $zip;
+    public ?int $zip;
 
-    public string $city;
+    public ?string $city;
 
     public string $country;
 

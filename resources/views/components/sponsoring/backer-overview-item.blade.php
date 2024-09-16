@@ -30,6 +30,7 @@
             @if($backer->closed_at)
                 <div><span class="font-bold">{{__("closed")}}: </span>{{$backer->closed_at}}</div>
             @endif
+            <x-sponsoring.backer-contract-list :backer="$backer"/>
         </div>
         @if($hasEditPermission)
             <div class="text-right">

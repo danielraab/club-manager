@@ -160,6 +160,8 @@
                         <span class="p-2">{{$backer->closed_at}}</span>
                     </div>
                 @endif
+
+                <x-sponsoring.backer-contract-list :backer="$backer" />
             </div>
         </section>
 

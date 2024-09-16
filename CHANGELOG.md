@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - public files url are now the file controller too
 - show loading icon on admin files view
+- show contract list on backer overview, backer edit and contract details
 ### Fixed
 - after changing the assignments multiple times in the member backer assignment page, the current selected backers are now displayed correctly
 

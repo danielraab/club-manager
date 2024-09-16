@@ -10,7 +10,7 @@
     $gray = "text-gray-400";
 @endphp
 <div class="flex flex-col sm:flex-row gap-3 items-center sm:justify-between px-5 py-2">
-    <div>{{$backer->name}} <span class="text-gray-700">- {{$backer->zip}} {{$backer->city}}</span></div>
+    <div class="text-center">{{$backer->name}} <span class="text-gray-700">- {{$backer->zip}} {{$backer->city}}</span></div>
     <div class="flex">
         <div class="flex items-center gap-3">
             @if($contract !== null)
