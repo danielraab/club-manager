@@ -13,7 +13,7 @@
             JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))"
          x-data="{showOnlyMemberWithAssignment:false}">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
-            <livewire:sponsoring.quick-backer-add/>
+            <livewire:sponsoring.quick-backer-add :period="$period"/>
         </div>
 
         <div class="flex flex-wrap justify-center items-center gap-2 mb-3">

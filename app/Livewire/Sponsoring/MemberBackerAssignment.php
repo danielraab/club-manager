@@ -25,9 +25,8 @@ class MemberBackerAssignment extends Component
 
     public Collection $previousContracts;
 
-    public array $currentBackers;
-
     public Collection $openAndCurrentBackers;
+    public Collection $currentContracts;
 
     public function mount(Period $period, Member $member, Period $previousPeriod = null): void
     {
@@ -45,10 +44,8 @@ class MemberBackerAssignment extends Component
 
     public function calculateOpenAndCurrentBackers(): void
     {
-        $this->currentBackers = $this->period->contracts()
-            ->where('member_id', $this->member->id)
-            ->pluck('backer_id')
-            ->toArray();
+        $this->currentContracts = $this->period->contracts()
+            ->where('member_id', $this->member->id)->get();
 
         $this->openAndCurrentBackers = Backer::query()->whereNot(function (Builder $query) {
             $query->whereHas('contracts', function (Builder $query) {
@@ -113,6 +110,8 @@ class MemberBackerAssignment extends Component
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
+
+        dd($this->currentContracts);
         return view('livewire.sponsoring.member-backer-assignment');
     }
 }
