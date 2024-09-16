@@ -2,6 +2,8 @@
 /** @var \App\Models\Sponsoring\Period $period */
 /** @var \App\Models\Member $member */
 /** @var \App\Models\Sponsoring\Contract $contract */
+
+$currentContracts = $period->contracts()->where('member_id', $member->id)->get();
 ?>
 <x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700" type="period-member"
     x-show="{{$currentContracts->count()>0 ? 'true' : 'false'}} || !showOnlyMemberWithAssignment">
@@ -52,7 +54,7 @@
                                 <div>
                                     <x-input-checkbox :id="$member->id.'-'.$backer->id"
                                                       x-on:change="changed=true && $wire.updateBacker({{$backer->id}}, $event.target.checked)"
-                                                      :checked="in_array($backer->id, $currentContracts->pluck('backer_id')->toArray()">
+                                                      :checked="in_array($backer->id, $currentBackers)">
                                         {{$backer->name}}
                                     </x-input-checkbox>
                                 </div>
