@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - show only assigned checkbox for period member assignment
 - a member can be selected now on the quick backer add component, where a new contract will be created.
 ### Changed
+- update to laravel 11 and php 8.3
 - public files url are now the file controller too
 - show loading icon on admin files view
 - show contract list on backer overview, backer edit and contract details

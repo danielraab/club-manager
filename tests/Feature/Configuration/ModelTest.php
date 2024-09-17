@@ -37,8 +37,6 @@ class ModelTest extends TestCase
 
     public function test_store_global_and_get_global(): void
     {
-        $this->refreshDatabase();
-
         Configuration::storeString(ConfigurationKey::APPEARANCE_APP_NAME, 'test string');
         Configuration::storeInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID, 3465345);
         Configuration::storeBool(ConfigurationKey::NAVIGATION_FAV_CUSTOM_LINK_ENABLED, true);
@@ -50,7 +48,6 @@ class ModelTest extends TestCase
 
     public function test_store_user_and_get_user(): void
     {
-        $this->refreshDatabase();
         $user = User::factory()->create();
 
         $this->assertNull(Configuration::getString(ConfigurationKey::APPEARANCE_APP_NAME));
@@ -75,8 +72,6 @@ class ModelTest extends TestCase
 
     public function test_store_global_and_get_user(): void
     {
-        $this->refreshDatabase();
-
         Configuration::storeString(ConfigurationKey::APPEARANCE_APP_NAME, 'test string');
         Configuration::storeInt(ConfigurationKey::APPEARANCE_APP_LOGO_ID, 3465345);
         Configuration::storeBool(ConfigurationKey::NAVIGATION_FAV_CUSTOM_LINK_ENABLED, true);
@@ -89,7 +84,6 @@ class ModelTest extends TestCase
 
     public function test_store_user_and_get_global(): void
     {
-        $this->refreshDatabase();
         $user = User::factory()->create();
 
         Configuration::storeString(ConfigurationKey::APPEARANCE_APP_NAME, 'user test string', $user);

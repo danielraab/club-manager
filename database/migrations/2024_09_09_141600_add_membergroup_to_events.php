@@ -26,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('member_group_id');
+            $table->dropConstrainedForeignId('member_group_id');
 
             $table->boolean('logged_in_only')->default(false)->after('enabled');
         });
