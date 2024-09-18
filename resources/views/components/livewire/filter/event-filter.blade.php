@@ -3,15 +3,13 @@
 }" class="relative text-left" @click.outside="open = false">
 
 
-    <div>
-        <button type="button" x-ref="filterButton"
-                class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                @click.stop="open = !open">
-            <i class="fa-solid fa-filter"></i> Filter
-            <i class="fa-solid fa-chevron-down text-gray-400 transition"
-               :class="open ? 'rotate-180' : ''"></i>
-        </button>
-    </div>
+    <button type="button" x-ref="filterButton"
+            class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            @click.stop="open = !open">
+        <i class="fa-solid fa-filter"></i> Filter
+        <i class="fa-solid fa-chevron-down text-gray-400 transition"
+           :class="open ? 'rotate-180' : ''"></i>
+    </button>
 
     <div x-cloak x-show="open" x-anchor="$refs.filterButton"
          class="z-10 mt-2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">

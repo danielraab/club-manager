@@ -12,7 +12,7 @@
         <h3>{{__($label)}}</h3>
     </div>
     <!-- Content -->
-    <div x-show="show" class="px-5 pt-0 overflow-hidden" x-transition.duration.500ms>
+    <div x-show="show" class="px-5 pt-0 overflow-hidden" x-collapse>
         {{$slot}}
     </div>
 </div>
