@@ -22,5 +22,4 @@
             {{ $slot }}
         </div>
     </div>
-    @livewireScripts
 </x-app-layout>

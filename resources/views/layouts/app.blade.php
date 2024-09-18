@@ -61,6 +61,6 @@
         }
     }
 </script>
-@livewireScripts
+@livewireScriptConfig
 </body>
 </html>
