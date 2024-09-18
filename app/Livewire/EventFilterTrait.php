@@ -42,7 +42,7 @@ trait EventFilterTrait
 
     public function getEventFilter(): EventFilter
     {
-        $start = new Carbon();
+        $start = new Carbon;
         if (! $this->isStartNow) {
             $start = $this->start ? Carbon::parseFromDatetimeLocalInput($this->start) : null;
         }

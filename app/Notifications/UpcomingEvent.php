@@ -40,7 +40,7 @@ class UpcomingEvent extends Notification
             'date' => $this->event->getFormattedStart(),
         ]);
 
-        return (new WebPushMessage())
+        return (new WebPushMessage)
             ->title(__(':app - event', ['app' => config('app.name')]))
             ->icon(ApplicationLogo::getUrl())
             ->body($body)

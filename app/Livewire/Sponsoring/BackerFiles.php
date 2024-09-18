@@ -38,7 +38,7 @@ class BackerFiles extends Component
         $uploadedFiles = [];
         foreach ($this->adDataFiles as $adData) {
             $path = $adData->store('backerData');
-            $uploadedFile = new UploadedFile();
+            $uploadedFile = new UploadedFile;
             $uploadedFile->path = $path;
             $uploadedFile->name = $adData->getClientOriginalName();
             $uploadedFile->mimeType = $adData->getMimeType();

@@ -12,7 +12,7 @@ class NewsDetail extends Controller
     {
         if (auth()->guest() &&
             (! $news->enabled || $news->logged_in_only)) {
-            throw new ModelNotFoundException();
+            throw new ModelNotFoundException;
         }
 
         return view('news.news-detail', ['news' => $news]);

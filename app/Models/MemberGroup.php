@@ -63,7 +63,7 @@ class MemberGroup extends Model
 
     public function getRecursiveMembers(MemberFilter $filter): Collection
     {
-        $collection = new Collection();
+        $collection = new Collection;
         $members = $this->filteredMembers($filter)->get();
         $collection = $collection->merge($members);
         foreach ($this->children()->get() as $child) {
@@ -117,4 +117,4 @@ class MemberGroup extends Model
     }
 }
 
-MemberGroup::$ALL = new MemberGroup();
+MemberGroup::$ALL = new MemberGroup;

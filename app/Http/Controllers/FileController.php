@@ -27,11 +27,11 @@ class FileController extends Controller
     {
         if (! Storage::fileExists($file->path)) {
             Log::warning('file does not exist', ['file' => $file]);
-            throw new ModelNotFoundException();
+            throw new ModelNotFoundException;
         }
         if (! $file->hasAccess()) {
             Log::warning('user has no access', ['file' => $file, 'user' => auth()->user()]);
-            throw new ModelNotFoundException();
+            throw new ModelNotFoundException;
         }
     }
 }

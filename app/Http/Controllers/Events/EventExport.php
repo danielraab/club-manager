@@ -24,7 +24,7 @@ class EventExport extends Controller
         /** @var ?User $user */
         $user = auth()->user();
 
-        $eventFilter = new EventFilter();
+        $eventFilter = new EventFilter;
         $eventFilter->memberGroups = $user?->getPermittedMemberGroups() ?: [];
 
         return $eventFilter;

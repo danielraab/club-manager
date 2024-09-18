@@ -48,9 +48,9 @@ class QuickBackerAdd extends Component
         /** @var Backer $backer */
         /** @var Member $member */
         $backer = Backer::query()->create($validated);
-        if($this->period && $this->member_id && $member = Member::find($this->member_id)) {
+        if ($this->period && $this->member_id && $member = Member::find($this->member_id)) {
 
-            $contract = new Contract();
+            $contract = new Contract;
             $contract->backer()->associate($backer);
             $contract->period()->associate($this->period);
             $contract->member()->associate($member);
@@ -60,8 +60,8 @@ class QuickBackerAdd extends Component
         $this->customReset();
 
         $message = __('A new backer was successfully created.');
-        if($isContractCreated) {
-            $message .= ' '. __('And a contract with the given member was added.');
+        if ($isContractCreated) {
+            $message .= ' '.__('And a contract with the given member was added.');
         }
         NotificationMessage::addSuccessNotificationMessage($message);
 

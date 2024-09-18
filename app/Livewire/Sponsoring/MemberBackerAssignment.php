@@ -29,7 +29,7 @@ class MemberBackerAssignment extends Component
 
     public Collection $openAndCurrentBackers;
 
-    public function mount(Period $period, Member $member, Period $previousPeriod = null): void
+    public function mount(Period $period, Member $member, ?Period $previousPeriod = null): void
     {
         $this->period = $period;
         $this->member = $member;
@@ -73,7 +73,7 @@ class MemberBackerAssignment extends Component
 
         if ($checked) {
             if (! $contract) {
-                $contract = new Contract();
+                $contract = new Contract;
             }
             $contract->period()->associate($this->period);
             $contract->backer()->associate($backer);

@@ -13,7 +13,7 @@ class NotificationMessageServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('notificationMessage', function () {
-            return new NotificationMessage();
+            return new NotificationMessage;
         });
     }
 

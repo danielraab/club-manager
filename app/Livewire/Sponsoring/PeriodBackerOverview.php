@@ -62,7 +62,7 @@ class PeriodBackerOverview extends Component
         if (! $this->hasEditPermission) {
             return;
         }
-        $contract = new Contract();
+        $contract = new Contract;
         $contract->backer()->associate($backerId);
         $contract->period()->associate($this->period->id);
         $contract->save();

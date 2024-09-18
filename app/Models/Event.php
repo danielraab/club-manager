@@ -134,10 +134,10 @@ class Event extends Model
         return $builder;
     }
 
-    public static function getAllFiltered(EventFilter $filter = null): Builder
+    public static function getAllFiltered(?EventFilter $filter = null): Builder
     {
         if ($filter === null) {
-            $filter = new EventFilter();
+            $filter = new EventFilter;
         }
 
         return self::addFilterToBuilder(self::query(), $filter);

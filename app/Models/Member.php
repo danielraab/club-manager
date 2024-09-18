@@ -142,10 +142,10 @@ class Member extends Model
         return $builder;
     }
 
-    public static function getAllFiltered(MemberFilter $filter = null): Builder
+    public static function getAllFiltered(?MemberFilter $filter = null): Builder
     {
         if ($filter === null) {
-            $filter = new MemberFilter();
+            $filter = new MemberFilter;
         }
 
         $selection = self::addFilterToBuilder(self::query(), $filter);

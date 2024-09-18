@@ -25,7 +25,7 @@ class MemberList extends Controller
                 __('Email') => 'string',
                 __('Phone') => 'string',
             ];
-            $writer = new \XLSXWriter();
+            $writer = new \XLSXWriter;
 
             $writer->writeSheetHeader($sheetName, $header);
             foreach (\App\Models\Member::getAllFiltered(MemberFilter::getMemberFilterFromRequest())->get() as $member) {

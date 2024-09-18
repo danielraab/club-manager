@@ -28,7 +28,7 @@ class AttendancePollStatistic extends Component
             ! $user?->hasPermission(
                 AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION,
                 AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION)) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException;
         }
 
         $this->attendancePoll = $attendancePoll;

@@ -33,7 +33,7 @@ class ContractFile extends Component
 
         $user = auth()->user();
         $path = $this->contractFile->store('contract');
-        $uploadedFile = new UploadedFile();
+        $uploadedFile = new UploadedFile;
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->contractFile->getClientOriginalName();
         $uploadedFile->mimeType = $this->contractFile->getMimeType();

@@ -20,12 +20,12 @@ class EventDetail extends Controller
 
             $userGroups = $user->getMember()?->memberGroups()?->pluck('id')->toArray() ?: [];
             if (! in_array($event->member_group_id, $userGroups)) {
-                throw new ModelNotFoundException();
+                throw new ModelNotFoundException;
             }
         }
 
         if ($user === null && (! $event->enabled || $event->memberGroup)) {
-            throw new ModelNotFoundException();
+            throw new ModelNotFoundException;
         }
 
         return view('events.event-detail', ['event' => $event]);

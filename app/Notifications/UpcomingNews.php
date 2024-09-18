@@ -39,7 +39,7 @@ class UpcomingNews extends Notification
             'name' => $this->news->title,
         ]);
 
-        return (new WebPushMessage())
+        return (new WebPushMessage)
             ->title(__(':app - news', ['app' => config('app.name')]))
             ->icon(ApplicationLogo::getUrl())
             ->body($body)

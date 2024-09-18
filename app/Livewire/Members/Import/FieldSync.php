@@ -44,7 +44,7 @@ class FieldSync extends Component
         $this->importedMemberList = [];
         $this->importedMemberListHash = '';
         foreach ($this->rawData as $csvLine) {
-            $importedMember = new ImportedMember();
+            $importedMember = new ImportedMember;
             foreach ($this->fieldMap as $propertyName => $csvColumnId) {
                 $importedMember->setAttribute($propertyName, $csvLine[intval($csvColumnId)]);
             }

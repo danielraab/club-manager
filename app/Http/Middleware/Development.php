@@ -23,7 +23,7 @@ class Development
         if (self::isAvailableInSec() > 0) {
             return $next($request);
         }
-        throw new NotFoundHttpException();
+        throw new NotFoundHttpException;
     }
 
     public static function isAvailableInSec(): int
