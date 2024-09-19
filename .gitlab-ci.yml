@@ -47,6 +47,7 @@ build_assets:
     paths:
       - public/build/
   script:
+    - composer install --no-dev
     - npm install
     - npm run build
 
