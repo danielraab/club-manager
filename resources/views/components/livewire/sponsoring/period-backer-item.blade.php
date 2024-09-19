@@ -20,51 +20,51 @@
                     <i class="fa-solid fa-circle-info text-cyan-900"></i>
                 </a>
                 @if($contract->member)
-                    <i class="fa-solid fa-user {{$green}}" title="{{$contract->member->getFullName()}}"></i>
+                    <i class="fa-solid fa-user {{$green}}" x-tippy title="{{$contract->member->getFullName()}}"></i>
                 @else
                     <i class="fa-solid fa-user {{$red}}"></i>
                 @endif
                 @if($contract->refused)
-                    <i class="fa-solid fa-ban {{$red}}" title="{{$contract->refused->formatDateOnly(true)}}"></i>
+                    <i class="fa-solid fa-ban {{$red}}" x-tippy title="{{$contract->refused->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-ban {{$gray}}"></i>
                 @endif
                 @if($contract->package)
                     <i class="fa-solid fa-cube {{$green}}"
-                       title="{{$contract->package->title}} ({{\App\Facade\Currency::formatPrice($contract->package->price)}})"></i>
+                       x-tippy title="{{$contract->package->title}} ({{\App\Facade\Currency::formatPrice($contract->package->price)}})"></i>
                 @else
                     <i class="fa-solid fa-cube {{$gray}}"></i>
                 @endif
                 @php($hasContractFileCss = $contract->uploadedFile()->count() > 0)
                 @if($hasContractFileCss)
                     <i class="fa-solid fa-file-contract {{$green}}"
-                       title="{{__('Contract already uploaded')}}"></i>
+                       x-tippy title="{{__('Contract already uploaded')}}"></i>
                 @elseif($contract->contract_received)
                     <i class="fa-solid fa-file-contract {{$yellow}}"
-                       title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
+                       x-tippy title="{{$contract->contract_received->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-file-contract {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @php($hasAdDataFilesCss = $backer->uploadedFiles()->count() > 0)
                 @if($contract->ad_data_received)
                     <i class="fa-regular fa-image {{$hasAdDataFilesCss ? $green : $yellow}}"
-                       title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
+                       x-tippy title="{{$contract->ad_data_received->formatDateOnly(true)}}"></i>
                 @elseif($hasAdDataFilesCss)
                     <i class="fa-regular fa-image text-blue-700"
-                       title="{{__('No ad data files received, but old data is available.')}}"></i>
+                       x-tippy title="{{__('No ad data files received, but old data is available.')}}"></i>
                 @else
                     <i class="fa-regular fa-image {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @if($contract->paid)
                     <i class="fa-solid fa-money-bill-wave {{$green}}"
-                       title="{{$contract->paid->formatDateOnly(true)}}"></i>
+                       x-tippy title="{{$contract->paid->formatDateOnly(true)}}"></i>
                 @else
                     <i class="fa-solid fa-money-bill-wave {{$contract->package ? $red : $gray}}"></i>
                 @endif
                 @if($hasEditPermission)
                     <a class="btn btn-primary w-8 justify-center"
-                                   href="{{route('sponsoring.contract.edit', $contract->id)}}"
-                                   title="edit contract">
+                       href="{{route('sponsoring.contract.edit', $contract->id)}}"
+                       x-tippy title="edit contract">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                 @endif

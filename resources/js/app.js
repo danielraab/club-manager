@@ -20,10 +20,10 @@ Alpine.directive('clipboard', (el, {}, { cleanup }) => {
     })
 });
 
-tippy.setDefaultProps({trigger: 'mouseenter click'});
 Alpine.directive('tippy', (el, { modifiers, expression }, { cleanup }) => {
     let content = '';
-    let placement = 'bottom';
+    let placement = 'top';
+    let trigger = 'click';
     if(expression) {
         content = expression;
     } else if(el.hasAttribute('title')) {
@@ -48,13 +48,26 @@ Alpine.directive('tippy', (el, { modifiers, expression }, { cleanup }) => {
             case 'auto-start':
             case 'auto-end':
                 placement = modifier;
+                break;
+            case 'mouseenter':
+            case 'focusin':
+            case 'manual':
+            case 'click':
+            case 'mouseenter-focus':
+            case 'mouseenter-click':
+            case 'mouseenter-focusin-click':
+                console.log(modifier);
+                trigger = modifier.replace('-', ' ');
+                break;
         }
     });
+
 
     const instance = tippy(el, {
         content,
         arrow: true,
-        placement
+        placement,
+        trigger
     })
     cleanup(() => {
         instance.destroy();

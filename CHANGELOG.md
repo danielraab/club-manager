@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 - collapse/fold all feature for period member assignment
 - show only assigned checkbox for period member assignment
 - a member can be selected now on the quick backer add component, where a new contract will be created.
+- add alpine directive for clipboard and tippy tooltips
+- add tippy tooltip for period backer overview icons
 ### Changed
 - update to laravel 11 and php 8.3
 - public files url are now the file controller too
