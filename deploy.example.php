@@ -24,7 +24,6 @@ import('deployer-hosts.yaml');
 desc('Creates the symbolic links configured for the application');
 task('artisan:storage:linkRelative', artisan('storage:link --relative', ['min' => 5.3]));
 
-
 desc('Seed a fresh version version');
 task('artisan:migrate:seed', artisan('migrate:fresh --seed'));
 
