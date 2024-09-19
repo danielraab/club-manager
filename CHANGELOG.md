@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - a member can be selected now on the quick backer add component, where a new contract will be created.
 - add alpine directive for clipboard and tippy tooltips
 - add tippy tooltip for period backer overview icons
+- add icons to event overview, show type and member group on mobile
 ### Changed
 - update to laravel 11 and php 8.3
 - public files url are now the file controller too

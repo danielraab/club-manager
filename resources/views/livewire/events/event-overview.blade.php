@@ -72,13 +72,20 @@
                             </span>
                             {{$event->title}}
                             @if($event->location && strlen(trim($event->location)) > 0)
-                                <p class="text-gray-500">{{$event->location}}</p>
+                                <p class="text-gray-500">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    {{$event->location}}
+                                </p>
                             @endif
                         </td>
-                        <td class="md:border px-2 max-md:hidden">
+                        <td class="md:border px-2 max-md:block">
+                            <i class="fa-solid fa-layer-group"></i>
                             {{$event->eventType?->title}}
                             @if($event->memberGroup)
-                                <p class="text-gray-500">{{$event->memberGroup->title}}</p>
+                                <p class="text-gray-500">
+                                    <i class="fa-solid fa-user-group"></i>
+                                    {{$event->memberGroup->title}}
+                                </p>
                             @endif
                         </td>
                         @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
