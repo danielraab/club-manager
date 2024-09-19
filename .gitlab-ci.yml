@@ -116,6 +116,6 @@ seed_test:
   dependencies:
     - deploy_test
   script:
-    - ~/.config/composer/vendor/bin/dep artisan:migrate:seed test
+    - ~/.config/composer/vendor/bin/dep seed test
   rules:
     - when: manual
