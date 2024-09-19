@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.8.0 - 2024-09-19
 ### Added
 - collapse/fold all feature for period member assignment
 - show only assigned checkbox for period member assignment
