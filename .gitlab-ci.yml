@@ -1,5 +1,5 @@
 default:
-  image: draabat/laravel-deployer:0.0.5
+  image: draabat/laravel-deployer:php83
 #  services:
 #    - mysql:5.7
 
@@ -116,6 +116,8 @@ seed_test:
   dependencies:
     - deploy_test
   script:
+    - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
+    - echo "${DEPLOY_PHP}" > deploy.php
     - ~/.config/composer/vendor/bin/dep seed test
   rules:
     - when: manual
