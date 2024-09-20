@@ -17,9 +17,7 @@ class SingleAttendance extends Component
 
     #[On('all-attendance-updated')]
     #[On('attendance-updated.{event.id}.{member.id}')]
-    public function refreshAttendance()
-    {
-    }
+    public function refreshAttendance() {}
 
     public function mount($event, $member)
     {

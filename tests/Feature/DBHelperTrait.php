@@ -13,7 +13,7 @@ trait DBHelperTrait
 
     protected ?User $testUser;
 
-    private function createAndLoginUser(string $userPermission = null): void
+    private function createAndLoginUser(?string $userPermission = null): void
     {
         $email = fake()->email();
         $pass = fake()->password(8);
