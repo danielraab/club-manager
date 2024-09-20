@@ -1,6 +1,7 @@
 
 @php
     /** @var \App\Models\Sponsoring\Backer $backer */
+    /** @var \App\Models\Sponsoring\Contract $contract */
     $contracts = $backer?->contracts()->get();
 @endphp
 @if($contracts && $contracts->isNotEmpty())
@@ -10,7 +11,7 @@
         </h3>
         <ul class="list-disc ml-5 pl-5">
             @foreach($contracts as $contract)
-                <li>{{$contract->period->title}} - {{$contract->package?->title ?: __('no package')}}</li>
+                <li class="text-sm">{{$contract->period->title}} - {{$contract->package?->title ?: __('no package')}} - {{$contract->member?->getFullName()}}</li>
             @endforeach
         </ul>
     </div>
