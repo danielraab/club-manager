@@ -5,7 +5,7 @@ namespace Database\Seeders\SteadySeeder;
 use App\Models\MemberGroup;
 use Illuminate\Database\Seeder;
 
-class MemberGroupSeeder extends Seeder
+class MemberSeeder extends Seeder
 {
     public function getData(): array
     {
@@ -13,42 +13,42 @@ class MemberGroupSeeder extends Seeder
             [
                 'attributes' => [
                     'id' => 1,
-                    'title' => 'First Main Group',
+                    'title' => 'All members',
                     'description' => 'A first small description',
                     'parent_id' => null,
                 ],
             ], [
                 'attributes' => [
                     'id' => 3,
-                    'title' => 'A second level Group',
+                    'title' => 'Musicians',
                     'description' => 'A small description',
                     'parent_id' => 1,
                 ],
             ], [
                 'attributes' => [
                     'id' => 4,
-                    'title' => 'A third level Group',
+                    'title' => 'Wind instruments',
                     'description' => null,
                     'parent_id' => 3,
                 ],
             ], [
                 'attributes' => [
                     'id' => 5,
-                    'title' => 'One more third level Group',
+                    'title' => 'Drummers',
                     'description' => null,
                     'parent_id' => 3,
                 ],
             ], [
                 'attributes' => [
                     'id' => 6,
-                    'title' => 'One more second level Group',
+                    'title' => 'Sporties',
                     'description' => null,
                     'parent_id' => 1,
                 ],
             ], [
                 'attributes' => [
                     'id' => 2,
-                    'title' => 'Second Main Group',
+                    'title' => 'Vorstand',
                     'description' => 'The second small description',
                     'parent_id' => null,
                 ],
