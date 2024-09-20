@@ -26,70 +26,52 @@ class MemberSeeder extends Seeder
         'Wien', 'Berlin', 'Linz', 'Graz', 'Innsbruch', 'München', 'Köln',
     ];
 
-    public function getData(): array
-    {
-        return [
-            [
-                'attributes' => [
-                    'id' => 1,
-                    'title' => 'All members',
-                    'description' => 'A first small description',
-                    'parent_id' => null,
-                ],
-            ], [
-                'attributes' => [
-                    'id' => 3,
-                    'title' => 'Musicians',
-                    'description' => 'A small description',
-                    'parent_id' => 1,
-                ],
-            ], [
-                'attributes' => [
-                    'id' => 4,
-                    'title' => 'Wind instruments',
-                    'description' => null,
-                    'parent_id' => 3,
-                ],
-            ], [
-                'attributes' => [
-                    'id' => 5,
-                    'title' => 'Drummers',
-                    'description' => null,
-                    'parent_id' => 3,
-                ],
-            ], [
-                'attributes' => [
-                    'id' => 6,
-                    'title' => 'Sporties',
-                    'description' => null,
-                    'parent_id' => 1,
-                ],
-            ], [
-                'attributes' => [
-                    'id' => 2,
-                    'title' => 'Vorstand',
-                    'description' => 'The second small description',
-                    'parent_id' => null,
-                ],
-            ],
-        ];
-    }
-
     public function run(): void
     {
-
         $this->addMemberGroups();
         $this->addMembers();
     }
 
     private function addMemberGroups(): void
     {
-        foreach ($this->getData() as $data) {
-            $user = MemberGroup::query()->create($data['attributes']);
-        }
+        MemberGroup::query()->insert([
+            [
+                'id' => 1,
+                'title' => 'All members',
+                'description' => 'A first small description',
+                'parent_id' => null,
+            ],
+            [
+                'id' => 3,
+                'title' => 'Musicians',
+                'description' => 'A small description',
+                'parent_id' => 1,
+            ],
+            [
+                'id' => 4,
+                'title' => 'Wind instruments',
+                'description' => null,
+                'parent_id' => 3,
+            ], [
+                'id' => 5,
+                'title' => 'Drummers',
+                'description' => null,
+                'parent_id' => 3,
+            ], [
+                'id' => 6,
+                'title' => 'Sporties',
+                'description' => null,
+                'parent_id' => 1,
+            ], [
+                'id' => 2,
+                'title' => 'Vorstand',
+                'description' => 'The second small description',
+                'parent_id' => null,
+            ],
+        ]);
     }
 
-    private function addMembers()
+    private function addMembers(): void
     {
         $birthday = now()->subYears(70);
         $entranceDate = now()->subYears(50);
@@ -98,9 +80,9 @@ class MemberSeeder extends Seeder
                 'firstname' => self::FIRSTNAMES[$i],
                 'lastname' => self::LASTNAMES[$i],
                 'birthday' => $birthday,
-                'email' => self::LASTNAMES[$i].'@example.com',
-                'street' => self::STREETNAMES[$i % count(self::STREETNAMES)].' '.$i.$i,
-                'zip' => $i.$i.$i,
+                'email' => self::LASTNAMES[$i] . '@example.com',
+                'street' => self::STREETNAMES[$i % count(self::STREETNAMES)] . ' ' . $i . $i,
+                'zip' => $i . $i . $i,
                 'city' => self::CITIES[$i % count(self::CITIES)],
                 'entrance_date' => $entranceDate->addDays(700),
             ];
@@ -136,7 +118,7 @@ class MemberSeeder extends Seeder
 
             $member = Member::query()->create($attributes);
 
-            for ($j = 0; $j <= $j % 3; $j++) {
+            for ($j = 1; $j <= $j % 3; $j++) {
                 $member->memberGroups()->attach((($j + $i) % 6) + 1);
             }
 

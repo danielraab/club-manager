@@ -110,7 +110,7 @@ class MemberGroup extends Model
         }
 
         foreach ($this->children()->get() as $child) {
-            $child->getAllChildrenRecursive($childList, $depth + 1);
+            $child->addAllChildrenRecursive($childList, $depth + 1);
         }
 
         return $childList;

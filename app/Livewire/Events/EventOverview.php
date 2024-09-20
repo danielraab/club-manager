@@ -77,7 +77,7 @@ class EventOverview extends Component
         ])->layout('layouts.backend');
     }
 
-    private function getEventList()
+    private function getEventList(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $eventFilter = $this->getEventFilter();
         $eventList = Event::getAllFiltered($eventFilter);

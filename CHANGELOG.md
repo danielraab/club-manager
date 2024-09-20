@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Fixed
+- member group on event filter works now
 
 ## v0.8.0 - 2024-09-20
 ### Added

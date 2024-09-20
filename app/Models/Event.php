@@ -160,17 +160,19 @@ class Event extends Model
         if (in_array(MemberGroup::$ALL, $filter->memberGroups)) {
             return;
         }
-        $builder->whereNull('member_group_id');
+        $builder->where(function (Builder $builder) use ($filter) {
+            $builder->whereNull('member_group_id');
 
-        $memberGroupIds = [];
-        foreach ($filter->memberGroups as $memberGroup) {
-            $memberGroupIds = array_merge($memberGroupIds,
-                array_map(
-                    fn (MemberGroup $mg) => $mg->id,
-                    $memberGroup->getAllChildrenRecursive()
-                )
-            );
-        }
-        $builder->orWhereIn('member_group_id', $memberGroupIds);
+            $memberGroupIds = [];
+            foreach ($filter->memberGroups as $memberGroup) {
+                $memberGroupIds = array_merge($memberGroupIds,
+                    array_map(
+                        fn (MemberGroup $mg) => $mg->id,
+                        $memberGroup->getAllChildrenRecursive()
+                    )
+                );
+            }
+            $builder->orWhereIn('member_group_id', $memberGroupIds);
+        });
     }
 }
