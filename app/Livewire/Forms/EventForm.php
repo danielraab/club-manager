@@ -111,7 +111,10 @@ class EventForm extends Form
         foreach ($dateArray as $copyDate) {
             $newStart = (new Carbon($copyDate))->setTime($start->hour, $start->minute);
             $newEnd = $newStart->clone()->add($diff);
-            $eventData[] = $this->getParamsForDB();
+            $params = $this->getParamsForDB();
+            $params['start'] = $newStart;
+            $params['end'] = $newEnd;
+            $eventData[] = $params;
         }
 
         Event::query()->insert($eventData);
