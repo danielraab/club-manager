@@ -33,8 +33,8 @@ class EventFilter
      * @param  MemberGroup[]  $memberGroups
      */
     public function __construct(
-        ?Carbon $start = null,
-        ?Carbon $end = null,
+        Carbon $start = null,
+        Carbon $end = null,
         bool $inclDisabled = false,
         array $memberGroups = [],
         bool $sortAsc = true)

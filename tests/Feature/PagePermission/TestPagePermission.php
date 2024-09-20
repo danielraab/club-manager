@@ -19,7 +19,9 @@ class TestPagePermission extends TestCase
         }
     }
 
-    protected function doAdditionalSeeds(): void {}
+    protected function doAdditionalSeeds(): void
+    {
+    }
 
     private function doRouteTest(string $route, ?array $routePermissions, ?string $userPermissionCode): void
     {

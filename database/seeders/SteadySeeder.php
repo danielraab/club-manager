@@ -13,6 +13,7 @@ class SteadySeeder extends Seeder
             SteadySeeder\NewsSeeder::class,
             SteadySeeder\MemberSeeder::class,
             SteadySeeder\EventSeeder::class,
+            SteadySeeder\SponsoringSeeder::class,
         ]);
     }
 }

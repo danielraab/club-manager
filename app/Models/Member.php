@@ -142,7 +142,7 @@ class Member extends Model
         return $builder;
     }
 
-    public static function getAllFiltered(?MemberFilter $filter = null): Builder
+    public static function getAllFiltered(MemberFilter $filter = null): Builder
     {
         if ($filter === null) {
             $filter = new MemberFilter;
