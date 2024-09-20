@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
-## v0.8.0 - 2024-09-19
+## v0.8.0 - 2024-09-20
 ### Added
 - collapse/fold all feature for period member assignment
 - show only assigned checkbox for period member assignment
@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - add alpine directive for clipboard and tippy tooltips
 - add tippy tooltip for period backer overview icons
 - add icons to event overview, show type and member group on mobile
+- member information section on user profile (if member with same mail address exists)
 ### Changed
 - update to laravel 11 and php 8.3
 - public files url are now the file controller too
