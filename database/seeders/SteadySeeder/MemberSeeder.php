@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class MemberSeeder extends Seeder
 {
-    private const FIRSTNAMES = [
+    public const FIRSTNAMES = [
         'Lucas', 'Alexander', 'Oliver', 'Mohammed', 'Noah', 'Elias', 'Matteo', 'Gabriel', 'Daniel', 'Liam',
         'Sofia', 'Hanna', 'Maria', 'Isabella', 'Amelia', 'Jasmina', 'Emma', 'Emilia', 'Sara', 'Elisabeth',
     ];

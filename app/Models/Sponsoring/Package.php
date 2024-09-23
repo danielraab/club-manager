@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string description
  * @property bool is_official
  * @property float price
+ * @property AdOption[] adOptions
  *
  * @see database/migrations/2024_01_30_152805_create_sponsoring_tables.php
  */
