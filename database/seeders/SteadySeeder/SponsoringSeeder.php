@@ -226,7 +226,7 @@ class SponsoringSeeder extends Seeder
         }
 
         $start2 = now()->firstOfYear();
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             Contract::query()->create([
                 'period_id' => 2,
                 'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
@@ -234,6 +234,13 @@ class SponsoringSeeder extends Seeder
                 'package_id' => ($i % 5) + 1,
                 'contract_received' => $start2->addWeeks(2),
                 'paid' => $start2->clone()->addWeek(),
+            ]);
+        }
+        for ($i = 10; $i < 15; $i++) {
+            Contract::query()->create([
+                'period_id' => 2,
+                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
             ]);
         }
 

@@ -80,7 +80,7 @@ class MemberSeeder extends Seeder
                 'firstname' => self::FIRSTNAMES[$i],
                 'lastname' => self::LASTNAMES[$i],
                 'birthday' => $birthday,
-                'email' => self::LASTNAMES[$i].'@example.com',
+                'email' => $i % 2 ? self::LASTNAMES[$i].'@example.com' : null,
                 'street' => self::STREETNAMES[$i % count(self::STREETNAMES)].' '.$i.$i,
                 'zip' => $i.$i.$i,
                 'city' => self::CITIES[$i % count(self::CITIES)],

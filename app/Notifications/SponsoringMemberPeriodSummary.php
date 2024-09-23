@@ -17,12 +17,12 @@ class SponsoringMemberPeriodSummary extends Notification
 
     private Period $period;
 
-    private Collection $contracts;
+    private iterable $contracts;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Period $period, Collection $contracts)
+    public function __construct(Period $period, iterable $contracts)
     {
         $this->period = $period;
         $this->contracts = $contracts;

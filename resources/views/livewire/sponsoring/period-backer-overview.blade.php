@@ -22,7 +22,7 @@
         .addNotificationMessages(
         JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))">
     <x-livewire.loading/>
-    @if($hasEditPermission && $period->end > now())
+    @if($hasEditPermission)
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3 p-5 gap-2 flex justify-end items-center">
             <div class="flex items-center gap-2" x-data="{showLegend:false}">
                 <button type="button" x-ref="legendBtn" class="" x-on:click="showLegend= !showLegend">
@@ -130,11 +130,11 @@
                     </x-button-dropdown.mainLink>
                 </x-slot>
                 <x-button-dropdown.button
-                        class="btn-secondary"
-                        wire:confirm.prompt="{{__('Do you want to generate a contract for every backer ?')}}"
-                        wire:click="generateAllContracts"
-                        title="Generate a contract for every backer."
-                        iconClass="fa-solid fa-wand-magic-sparkles"
+                    class="btn-secondary"
+                    wire:confirm.prompt="{{__('Do you want to generate a contract for every backer ?')}}"
+                    wire:click="generateAllContracts"
+                    title="Generate a contract for every backer."
+                    iconClass="fa-solid fa-wand-magic-sparkles"
                 >
                     {{ __('Generate contracts') }}
                 </x-button-dropdown.button>
@@ -165,18 +165,42 @@
 
         <x-modal id="send-reminder-modal" title="Send remainder to members" showX>
             @php
-            /** @var \App\Models\Sponsoring\Contract $contract */
+                /** @var \App\Models\Sponsoring\Contract $contract */
+                /** @var \App\Models\Sponsoring\Member $member */
+                $isMemberMailMissing = false;
             @endphp
-            @if($this->openContractWithMember->count() > 0)
+            @if(count($this->openContractsPerMember) > 0)
                 <div class="p-3">
                     <ul class="list-disc ml-4">
-                        @foreach($this->openContractWithMember as $contract)
-                            <li>{{$contract->backer->name}} - {{$contract->member->getFullName()}}</li>
+                        @foreach($this->openContractsPerMember as $infoArr)
+                            @php($member = $infoArr['member'])
+                            @php($contracts = $infoArr['contracts'])
+                            <li>
+                                {{$member->getFullName()}}
+                                @if($member->email)
+                                    ({{$member->email}})
+                                @else
+                                    @php($isMemberMailMissing = true)
+                                    <span class="text-red-800 font-bold">({{__('missing mail')}})</span>
+                                @endif
+                                <ol class="list-decimal ml-4">
+                                    @foreach($contracts as $contract)
+                                        <li>
+                                            {{$contract->backer->name}}
+                                        </li>
+                                    @endforeach
+                                </ol>
+                            </li>
                         @endforeach
                     </ul>
+                    @if($isMemberMailMissing)
+                        <div class="p-3 text-gray-700">{{__('Members with missing email address, will not receive a mail.')}}</div>
+                    @endif
                 </div>
                 <div class="flex justify-between mt-4 p-3">
-                    <button class="btn btn-primary" type="button" x-on:click="$dispatch('close-modal', 'send-reminder-modal')">close</button>
+                    <button class="btn btn-primary" type="button"
+                            x-on:click="$dispatch('close-modal', 'send-reminder-modal')">close
+                    </button>
                     <button class="btn btn-create" type="button"
                             wire:confirm="{{__('Are you sure to send the notification mail ?')}}"
                             wire:click="sendNotificationMail">{{__('Send notification mail')}}</button>

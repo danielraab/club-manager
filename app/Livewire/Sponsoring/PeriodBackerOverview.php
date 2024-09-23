@@ -3,11 +3,13 @@
 namespace App\Livewire\Sponsoring;
 
 use App\Facade\NotificationMessage;
+use App\Models\Member;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Notifications\SponsoringMemberPeriodSummary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -17,19 +19,37 @@ class PeriodBackerOverview extends Component
     public bool $hasEditPermission = false;
 
     public Period $period;
-    private \Illuminate\Database\Eloquent\Collection $openContractWithMember;
+
+    public array $openContractsPerMember;
 
     public function mount(Period $period): void
     {
         $this->hasEditPermission = Auth::user()->hasPermission(Contract::SPONSORING_EDIT_PERMISSION);
         $this->period = $period;
 
-        $this->openContractWithMember = $this->period->contracts()
+        $this->openContractsPerMember = [];
+
+        $openContracts = $this->period->contracts()
             ->whereNotNull('member_id')
             ->whereNull('refused')
             ->whereNull('contract_received')
             ->whereNull('paid')
-            ->with(['member', 'backer'])->get();
+            ->with(['member', 'backer'])
+            ->orderBy('member_id')
+            ->get();
+
+        foreach ($openContracts as $openContract) {
+            /** @var Contract $openContract */
+            /** @var Member $member */
+            $member = $openContract->member;
+            if (! array_key_exists($member->id, $this->openContractsPerMember)) {
+                $this->openContractsPerMember[$member->id] = [
+                    'member' => $member,
+                    'contracts' => [],
+                ];
+            }
+            $this->openContractsPerMember[$member->id]['contracts'][] = $openContract;
+        }
     }
 
     public function generateAllContracts(): void
@@ -78,8 +98,40 @@ class PeriodBackerOverview extends Component
         return $backer->contracts()->where('period_id', $this->period->id)->first();
     }
 
-    public function sendNotificationMail(): void {
-        //TODO implement
+    public function sendNotificationMail(): void
+    {
+        $mailsSent = 0;
+        $membersWithoutMail = 0;
+
+        foreach ($this->openContractsPerMember as $infoArr) {
+            $member = $infoArr['member'];
+            $contracts = $infoArr['contracts'];
+
+            if (! $member->email) {
+                $membersWithoutMail++;
+
+                continue;
+            }
+
+            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts));
+            $mailsSent++;
+        }
+
+        if ($mailsSent > 0) {
+            NotificationMessage::addSuccessNotificationMessage(
+                $membersWithoutMail > 0 ?
+                    __(
+                        ':sentCnt Mails were sent. :noMailCnt members had no mail address.',
+                        ['sentCnt' => $mailsSent, 'noMailCnt' => $membersWithoutMail]
+                    ) :
+                    __(':cnt Mails were sent.', ['cnt' => $mailsSent])
+            );
+            return;
+        }
+
+        NotificationMessage::addErrorNotificationMessage(
+            __("No mail was sent. :noMailCnt members had no mail address.", ['noMailCnt' => $membersWithoutMail])
+        );
     }
 
     public function render()
