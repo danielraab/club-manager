@@ -11,7 +11,7 @@
     @if($period->description)
         <p>{{$period->description}}</p>
     @endif
-    @if(($packages = $period->packages()->where("enabled", true)->where("is_official", true)->get())->isNotEmpty())
+    @if(($packages = $period->packages()->get())->isNotEmpty())
         <h3 @click="showPackages=!showPackages" class="font-semibold mt-3">{{__("Packages")}}
             <i class="fa-solid"
                :class="showPackages ? 'fa-caret-down' : 'fa-caret-right'"></i>

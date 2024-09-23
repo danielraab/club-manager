@@ -6,6 +6,29 @@ All notable changes to this project will be documented in this file.
 ### Added
 - button and modal for sending reminder to members of a sponsoring contract
 
+## v0.8.1 - 2024-09-21
+### Added
+- show members of previous periods on contract detail page
+### Fixed
+- member group on event filter works now
+- when cloning events, the date is now set correctly
+
+## v0.8.0 - 2024-09-20
+### Added
+- collapse/fold all feature for period member assignment
+- show only assigned checkbox for period member assignment
+- a member can be selected now on the quick backer add component, where a new contract will be created.
+- add alpine directive for clipboard and tippy tooltips
+- add tippy tooltip for period backer overview icons
+- add icons to event overview, show type and member group on mobile
+- member information section on user profile (if member with same mail address exists)
+### Changed
+- update to laravel 11 and php 8.3
+- public files url are now the file controller too
+- show loading icon on admin files view
+- show contract list on backer overview, backer edit and contract details
+### Fixed
+- after changing the assignments multiple times in the member backer assignment page, the current selected backers are now displayed correctly
 
 ## v0.7.19 - 2024-09-13
 ### Fixed

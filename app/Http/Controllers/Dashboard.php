@@ -33,7 +33,7 @@ class Dashboard extends Controller
 
     private function loadEventList(): Collection|array
     {
-        $eventFilter = new EventFilter();
+        $eventFilter = new EventFilter;
         $eventFilter->start = now();
 
         /** @var User $user */

@@ -86,7 +86,7 @@ class SyncOverview extends Component
                 $importedMember->getAttribute('firstname'),
                 $importedMember->getAttribute('birthday'));
         }
-        throw new ItemNotFoundException();
+        throw new ItemNotFoundException;
     }
 
     /**

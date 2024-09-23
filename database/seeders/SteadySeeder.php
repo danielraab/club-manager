@@ -11,7 +11,9 @@ class SteadySeeder extends Seeder
         $this->call([
             SteadySeeder\UserSeeder::class,
             SteadySeeder\NewsSeeder::class,
-            SteadySeeder\MemberGroupSeeder::class,
+            SteadySeeder\MemberSeeder::class,
+            SteadySeeder\EventSeeder::class,
+            SteadySeeder\SponsoringSeeder::class,
         ]);
     }
 }

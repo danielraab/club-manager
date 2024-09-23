@@ -17,9 +17,7 @@ class SingleAttendance extends Component
 
     #[On('all-attendance-updated')]
     #[On('attendance-updated.{event.id}.{member.id}')]
-    public function refreshAttendance()
-    {
-    }
+    public function refreshAttendance() {}
 
     public function mount($event, $member)
     {
@@ -32,7 +30,7 @@ class SingleAttendance extends Component
         $attendance = $this->event->attendances()->where('member_id', $this->member->id)->first();
 
         if ($attendance === null) {
-            $attendance = new AttendanceModel();
+            $attendance = new AttendanceModel;
             $attendance->event_id = $this->event->id;
             $attendance->member_id = $this->member->id;
         }
@@ -48,7 +46,7 @@ class SingleAttendance extends Component
         $attendance = $this->event->attendances()->where('member_id', $this->member->id)->first();
 
         if ($attendance === null) {
-            $attendance = new AttendanceModel();
+            $attendance = new AttendanceModel;
             $attendance->event_id = $this->event->id;
             $attendance->member_id = $this->member->id;
         }

@@ -68,8 +68,9 @@
                         <x-input-error class="mt-2" :messages="$message"/>@enderror
                     </div>
 
-
                     <livewire:sponsoring.backer-files :backer="$backerForm->backer"/>
+
+                    <x-sponsoring.backer-contract-list :backer="$backerForm->backer"/>
                 </div>
             </section>
 

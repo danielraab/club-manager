@@ -44,7 +44,7 @@ class AttendanceStatistic
     {
         /** @var MemberGroup $parent */
         if ($parent = $memberGroup->parent()->first()) {
-            $parentStat = $this->memberGroupStatList[$parent->id] ?? new MemberGroupStatistic();
+            $parentStat = $this->memberGroupStatList[$parent->id] ?? new MemberGroupStatistic;
             $parentStat->in = array_unique(array_merge($parentStat->in, $groupStat->in));
             $parentStat->unsure = array_unique(array_merge($parentStat->unsure, $groupStat->unsure));
             $parentStat->out = array_unique(array_merge($parentStat->out, $groupStat->out));
@@ -91,7 +91,7 @@ class AttendanceStatistic
     private function handleAttendanceOfMember(Member $member, Attendance $attendance): void
     {
         foreach ($member->memberGroups()->get() as $memberGroup) {
-            $groupElem = $this->memberGroupStatList[$memberGroup->id] ?? new MemberGroupStatistic();
+            $groupElem = $this->memberGroupStatList[$memberGroup->id] ?? new MemberGroupStatistic;
 
             switch ($attendance->poll_status) {
                 case 'in':

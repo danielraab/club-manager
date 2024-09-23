@@ -85,7 +85,7 @@ class Appearance extends Component
 
         $config = Configuration::findByKeyOrNew(ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
 
-        $uploadedFile = new UploadedFile();
+        $uploadedFile = new UploadedFile;
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->logoFile->getClientOriginalName();
         $uploadedFile->mimeType = $this->logoFile->getMimeType();

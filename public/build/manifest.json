@@ -1,38 +1,38 @@
 {
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf": {
-    "file": "assets/fa-brands-400-20c4a58b.ttf",
+    "file": "assets/fa-brands-400-bc844b5b.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
-    "file": "assets/fa-brands-400-74833209.woff2",
+    "file": "assets/fa-brands-400-c411f119.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
-    "file": "assets/fa-regular-400-528d022d.ttf",
+    "file": "assets/fa-regular-400-64f9fb62.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
-    "file": "assets/fa-regular-400-8e7e5ea1.woff2",
+    "file": "assets/fa-regular-400-c732f106.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
-    "file": "assets/fa-solid-900-67a65763.ttf",
+    "file": "assets/fa-solid-900-31f099c1.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
-    "file": "assets/fa-solid-900-7152a693.woff2",
+    "file": "assets/fa-solid-900-1f0189e0.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf": {
-    "file": "assets/fa-v4compatibility-0515a423.ttf",
+    "file": "assets/fa-v4compatibility-a6274a12.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
-    "file": "assets/fa-v4compatibility-694a17c3.woff2",
+    "file": "assets/fa-v4compatibility-2aca24b3.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-4510c85f.css",
+    "file": "assets/app-06308e68.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -65,13 +65,20 @@
     "file": "assets/logo-7b379b90.svg",
     "src": "resources/images/logo.svg"
   },
+  "resources/js/app.css": {
+    "file": "assets/app-a1ae07b3.css",
+    "src": "resources/js/app.css"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-a16d3acd.js",
+    "css": [
+      "assets/app-a1ae07b3.css"
+    ],
+    "file": "assets/app-33761845.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/fullCalendar.js": {
-    "file": "assets/fullCalendar-f7bdde3b.js",
+    "file": "assets/fullCalendar-47042ea3.js",
     "isEntry": true,
     "src": "resources/js/fullCalendar.js"
   },

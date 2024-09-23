@@ -21,6 +21,6 @@ class Permission
         if ($request->user()?->hasPermission(...explode('|', $permission))) {
             return $next($request);
         }
-        throw new AuthorizationException();
+        throw new AuthorizationException;
     }
 }

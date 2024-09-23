@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Database\Seeders\MinimalSeeder;
+use Database\Seeders\SillySeeder;
+use Database\Seeders\SteadySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -58,13 +60,17 @@ class DatabaseTest extends TestCase
         $response->assertStatus(200);
     }
 
-    //    public function test_silly_seeder(): void
-    //    {
-    //        $this->seed(SillySeeder::class);
-    //    }
+    public function test_silly_seeder(): void
+    {
+        $this->seed(SillySeeder::class);
+        $response = $this->get('/');
+        $response->assertStatus(200);
+    }
 
-    //    public function test_better_seeder(): void
-    //    {
-    //        $this->seed(BetterSeeder::class);
-    //    }
+    public function test_steady_seeder(): void
+    {
+        $this->seed(SteadySeeder::class);
+        $response = $this->get('/');
+        $response->assertStatus(200);
+    }
 }

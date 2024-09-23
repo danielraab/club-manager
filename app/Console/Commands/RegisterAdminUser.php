@@ -48,7 +48,7 @@ class RegisterAdminUser extends Command
             return;
         }
 
-        $user = new User();
+        $user = new User;
         $user->name = $name;
         $user->email = $email;
 

@@ -31,7 +31,7 @@ class EventListExport extends Controller
                 __('Dress code') => 'string',
                 __('Type') => 'string',
             ];
-            $writer = new \XLSXWriter();
+            $writer = new \XLSXWriter;
 
             $writer->writeSheetHeader($sheetName, $header);
             foreach (Event::getAllFiltered(EventFilter::getEventFilterFromRequest())->get() as $event) {

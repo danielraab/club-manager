@@ -25,7 +25,7 @@ class SinglePublicAttendance extends Component
         $attendance = $this->event->attendances()->where('member_id', $this->member->id)->first();
 
         if ($attendance === null) {
-            $attendance = new AttendanceModel();
+            $attendance = new AttendanceModel;
             $attendance->event_id = $this->event->id;
             $attendance->member_id = $this->member->id;
         }

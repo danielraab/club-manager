@@ -1,5 +1,5 @@
 default:
-  image: draabat/laravel-deployer:0.0.5
+  image: draabat/laravel-deployer:php83
 #  services:
 #    - mysql:5.7
 
@@ -40,6 +40,7 @@ stages:
   - build
   - test
   - deploy
+  - seed
 
 build_assets:
   stage: build
@@ -47,6 +48,7 @@ build_assets:
     paths:
       - public/build/
   script:
+    - composer install --no-dev
     - npm install
     - npm run build
 
@@ -108,3 +110,14 @@ deploy_production:
     - if: '$CI_COMMIT_TAG && ($CI_COMMIT_TAG =~ /^v?\d+(.\d+){0,3}$/ )'
       when: manual
     - when: never
+
+seed_test:
+  stage: seed
+  dependencies:
+    - deploy_test
+  script:
+    - echo "${DEPLOYER_HOSTS}" > deployer-hosts.yaml
+    - echo "${DEPLOY_PHP}" > deploy.php
+    - ~/.config/composer/vendor/bin/dep seed test
+  rules:
+    - when: manual

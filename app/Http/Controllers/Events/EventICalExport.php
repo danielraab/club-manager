@@ -117,7 +117,7 @@ class EventICalExport extends Controller
 
     private function addEventsToCalendar(Calendar $calendar, array $memberGroups = []): void
     {
-        $eventFilter = new EventFilter();
+        $eventFilter = new EventFilter;
         $eventFilter->memberGroups = $memberGroups;
 
         foreach (\App\Models\Event::getAllFiltered($eventFilter)->get() as $event) {

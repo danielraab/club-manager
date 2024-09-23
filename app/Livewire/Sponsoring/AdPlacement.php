@@ -43,7 +43,7 @@ class AdPlacement extends Component
         $this->adOption = $adOption;
         $adPlacement = AdPlacementModel::find($contract->id, $adOption->id);
         if ($adPlacement === null) {
-            $adPlacement = new AdPlacementModel();
+            $adPlacement = new AdPlacementModel;
             $adPlacement->done = false;
             $adPlacement->contract()->associate($contract);
             $adPlacement->adOption()->associate($adOption);
