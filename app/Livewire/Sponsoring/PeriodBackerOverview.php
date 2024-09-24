@@ -127,6 +127,7 @@ class PeriodBackerOverview extends Component
                     __(':cnt Mails were sent.', ['cnt' => $mailsSent])
             );
             $this->dispatch('close-modal', 'send-reminder-modal');
+
             return;
         }
 
