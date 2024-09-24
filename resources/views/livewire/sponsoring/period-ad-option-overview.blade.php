@@ -71,7 +71,9 @@
                                             <ul class="list-disc ml-5 break-all">
                                                 @foreach($adDataFiles as $file)
                                                     <li><a href="{{$file->getUrl()}}" target="_blank"
-                                                           class="underline mr-2">{{$file->name}}</a></li>
+                                                           class="underline mr-2">{{$file->name}}</a>
+                                                        <span class="text-xs text-gray-700">{{$file->created_at}}</span>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         @else

@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\HtmlString;
 
 class SponsoringMemberPeriodSummary extends Notification
 {
@@ -18,13 +19,19 @@ class SponsoringMemberPeriodSummary extends Notification
 
     private iterable $contracts;
 
+    private User $user;
+
+    private bool $sendBlindCopyToUser;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct(Period $period, iterable $contracts)
+    public function __construct(Period $period, iterable $contracts, User $user, bool $sendBlindCopyToUser)
     {
         $this->period = $period;
         $this->contracts = $contracts;
+        $this->user = $user;
+        $this->sendBlindCopyToUser = $sendBlindCopyToUser;
     }
 
     /**
@@ -51,21 +58,25 @@ class SponsoringMemberPeriodSummary extends Notification
             ->greeting(__('Hello :name', ['name' => $notifiable->getFullName()]))
             ->line(__('Thanks for asking the following Backers about a sponsoring:'));
 
+        $mailMessage->replyTo($this->user->email);
+        if ($this->sendBlindCopyToUser) {
+            $mailMessage->bcc($this->user->email);
+        }
+
         foreach ($this->contracts as $contract) {
             $mailMessage->line('* '.$contract->backer->name);
         }
 
         if (count($this->period->uploadedFiles)) {
             $mailMessage->line(__('Here you can find useful files:'));
+            $listItems = [];
             foreach ($this->period->uploadedFiles as $uploadedFile) {
-                $mailMessage->action($uploadedFile->name, $uploadedFile->getUrl());
+                $listItems[] = "<li><a href='{$uploadedFile->getUrl()}'>{$uploadedFile->name}</a></li>";
             }
+            $mailMessage->line(new HtmlString('<ul>'.implode('', $listItems).'</ul>'));
         }
 
-        $user = auth()->user();
-        if ($user instanceof User) {
-            $mailMessage->salutation(__("Best regards,\n:name", ['name' => $user->getNameWithMail()]));
-        }
+        $mailMessage->salutation(__("Best regards,\n:name", ['name' => $this->user->getNameWithMail()]));
 
         return $mailMessage;
     }

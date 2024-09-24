@@ -79,8 +79,9 @@ return [
         ],
 
         'mails' => [
-            'driver' => 'single',
+            'driver' => 'daily',
             'path' => storage_path('logs/mails.log'),
+            'days' => 14,
         ],
 
         'daily' => [

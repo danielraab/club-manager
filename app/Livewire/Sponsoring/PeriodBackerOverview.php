@@ -7,6 +7,7 @@ use App\Models\Member;
 use App\Models\Sponsoring\Backer;
 use App\Models\Sponsoring\Contract;
 use App\Models\Sponsoring\Period;
+use App\Models\User;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
 use App\Notifications\SponsoringMemberPeriodSummary;
@@ -102,6 +103,8 @@ class PeriodBackerOverview extends Component
     {
         $mailsSent = 0;
         $membersWithoutMail = 0;
+        /** @var User $user */
+        $user = auth()->user();
 
         foreach ($this->openContractsPerMember as $infoArr) {
             $member = $infoArr['member'];
@@ -113,7 +116,7 @@ class PeriodBackerOverview extends Component
                 continue;
             }
 
-            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts));
+            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts, $user, true));
             $mailsSent++;
         }
 

@@ -3,9 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.8.2 - 2024-09-24
 ### Added
 - button and modal for sending reminder to members of a sponsoring contract
 - application logo is now beside the application name in the mail template header
+- created_at time is displayed on period ad option overview
 
 ## v0.8.1 - 2024-09-21
 ### Added
