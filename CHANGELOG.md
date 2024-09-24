@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - button and modal for sending reminder to members of a sponsoring contract
+- application logo is now beside the application name in the mail template header
 
 ## v0.8.1 - 2024-09-21
 ### Added

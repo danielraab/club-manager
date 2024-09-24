@@ -78,6 +78,11 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'mails' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mails.log'),
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

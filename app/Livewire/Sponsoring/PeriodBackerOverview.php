@@ -126,12 +126,14 @@ class PeriodBackerOverview extends Component
                     ) :
                     __(':cnt Mails were sent.', ['cnt' => $mailsSent])
             );
+            $this->dispatch('close-modal', 'send-reminder-modal');
             return;
         }
 
         NotificationMessage::addErrorNotificationMessage(
-            __("No mail was sent. :noMailCnt members had no mail address.", ['noMailCnt' => $membersWithoutMail])
+            __('No mail was sent. :noMailCnt members had no mail address.', ['noMailCnt' => $membersWithoutMail])
         );
+
     }
 
     public function render()
