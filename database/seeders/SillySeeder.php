@@ -12,6 +12,9 @@ use Database\Seeders\Silly\SponsoringSeeder;
 use Database\Seeders\Silly\UserManagementSeeder;
 use Illuminate\Database\Seeder;
 
+/**
+ * @deprecated
+ */
 class SillySeeder extends Seeder
 {
     public function run(): void
