@@ -38,7 +38,8 @@
                                                                       :previousPeriod="$previousPeriod"/>
                     @else
                         <livewire:sponsoring.member-backer-assignment  wire:key="{{$member->id}}"
-                                                                       :member="$member" :period="$period"/>
+                                                                       :member="$member"
+                                                                       :period="$period"/>
                     @endif
                 @empty
                     <div class="text-center text-gray-700">-- {{__('no members')}} --</div>

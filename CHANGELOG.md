@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ## v0.8.1 - 2024-09-21
 ### Added
 - show members of previous periods on contract detail page
+- member edit button on sponsoring period member assignment page
 ### Fixed
 - member group on event filter works now
 - when cloning events, the date is now set correctly

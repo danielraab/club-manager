@@ -20,6 +20,7 @@
         "symfony/filesystem": "^7.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "deployer/deployer": "^7.3",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^2.0",

@@ -3,9 +3,28 @@
 /** @var \App\Models\Member $member */
 /** @var \App\Models\Sponsoring\Contract $contract */
 
+$hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
 ?>
-<x-accordion label="{{$member->getFullName()}}" class="min-w-60 text-sm text-gray-700" type="period-member"
-    x-show="{{$currentContracts->count()>0 ? 'true' : 'false'}} || !showOnlyMemberWithAssignment">
+<x-accordion class="min-w-60 text-sm text-gray-700" type="period-member"
+             x-show="{{$currentContracts->count()>0 ? 'true' : 'false'}} || !showOnlyMemberWithAssignment">
+    <x-slot name="labelSlot">
+        <div class="flex justify-between items-center w-full">
+            <div>
+                {{$member->getFullName()}}
+                @if($member->email)
+                    ({{ $member->email }})
+                @else
+                    <span class="text-red-800 font-bold">({{ __('mail missing') }})</span>
+                @endif
+            </div>
+            @if($hasUserMemberEditPermission)
+                <a href="{{route('member.edit', $member->id)}}" title="Edit member" x-on:click.stop=""
+                   class="btn btn-primary">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+            @endif
+        </div>
+    </x-slot>
     <x-livewire.loading/>
     <div x-init="$store.notificationMessages
                  .addNotificationMessages(
@@ -66,10 +85,10 @@
             </div>
             <div class="flex justify-between">
                 <button type="button" class="btn btn-primary"
-                    @if(!$member->email || $currentContracts->isEmpty())
-                        disabled
-                    @else
-                        wire:confirm="Are you sure to send a mail to {{$member->getFullName()}} ({{$member->email}}) ?"
+                        @if(!$member->email || $currentContracts->isEmpty())
+                            disabled
+                        @else
+                            wire:confirm="Are you sure to send a mail to {{$member->getFullName()}} ({{$member->email}}) ?"
                         wire:click="sendSummaryMailToMember"
                     @endif
                 >
