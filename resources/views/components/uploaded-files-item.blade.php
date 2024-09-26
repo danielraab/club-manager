@@ -35,6 +35,12 @@
         </span>
     @endif
 
+    <a href="{{route('uploaded-file.edit', $file->id)}}"
+       class="btn btn-edit max-sm:text-lg gap-2"
+       title="update uploaded file">
+        <i class="fa-solid fa-edit"></i>
+    </a>
+
     @if($file->uploader)
     <span class="text-gray-500 text-xs">({{$file->uploader->name}})</span>
     @endif

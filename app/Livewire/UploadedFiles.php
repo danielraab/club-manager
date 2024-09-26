@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class Files extends Component
+class UploadedFiles extends Component
 {
     public array $additionalFilesInFolder;
 
@@ -38,6 +38,6 @@ class Files extends Component
 
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.files')->layout('layouts.backend');
+        return view('livewire.uploaded-files')->layout('layouts.backend');
     }
 }

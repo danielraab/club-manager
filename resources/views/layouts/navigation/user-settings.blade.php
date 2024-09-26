@@ -7,7 +7,7 @@
             <x-responsive-nav-link :href="route('settings')" iconClasses="fa-solid fa-screwdriver-wrench">
                 {{ __('Settings') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('files')" iconClasses="fa-solid fa-folder-tree">
+            <x-responsive-nav-link :href="route('uploaded-file.list')" iconClasses="fa-solid fa-folder-tree">
                 {{ __('Files') }}
             </x-responsive-nav-link>
         @endif

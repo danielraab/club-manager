@@ -5,7 +5,8 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings;
 use App\Livewire\Development;
-use App\Livewire\Files;
+use App\Livewire\UploadedFileEdit;
+use App\Livewire\UploadedFiles;
 use App\Models\UserPermission;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'permission:'.UserPermission::ADMIN_USER_PERMISSION])->group(function () {
     Route::get('/settings', [Settings::class, 'index'])->name('settings');
-    Route::get('/files', Files::class)->name('files');
+    Route::get('/uploaded-files', UploadedFiles::class)->name('uploaded-file.list');
+    Route::get('/uploaded-files/{uploadedFile}', UploadedFileEdit::class)->name('uploaded-file.edit');
 });
 
 require __DIR__.'/webPush.php';
