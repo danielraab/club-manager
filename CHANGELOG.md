@@ -3,7 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Added
+- edit page for uploaded files (admin only)
+### Changed
+- uploaded files column `forcePublic` changed to `isPublic`
+### Fixed
+- period files are now publicly available
 
 ## v0.8.2 - 2024-09-24
 ### Added

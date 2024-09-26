@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int id
  * @property string name
  * @property string mimeType
  * @property string path
- * @property bool forcePublic
+ * @property bool isPublic
  * @property int uploader_id
  * @property User|null uploader
  * @property Model|null storer
@@ -24,7 +25,13 @@ class UploadedFile extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'forcePublic' => 'boolean',
+        'isPublic' => 'boolean',
+    ];
+
+    protected $fillable = [
+        'isPublic',
+        'name',
+        'mimeType',
     ];
 
     public function storer(): MorphTo
@@ -39,13 +46,22 @@ class UploadedFile extends Model
 
     public function hasAccess(): bool
     {
-        if ($this->forcePublic) {
+        if ($this->isPublic) {
             return true;
         }
 
         /** @var $storer HasFileRelationInterface */
         if (($storer = $this->storer()->first()) instanceof HasFileRelationInterface) {
             return $storer->hasFileAccess(auth()->user());
+        }
+
+        return false;
+    }
+
+    public function removeFile(): bool
+    {
+        if(Storage::fileExists($this->path)) {
+            return Storage::delete($this->path);
         }
 
         return false;

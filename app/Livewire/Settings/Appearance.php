@@ -89,7 +89,7 @@ class Appearance extends Component
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->logoFile->getClientOriginalName();
         $uploadedFile->mimeType = $this->logoFile->getMimeType();
-        $uploadedFile->forcePublic = true;
+        $uploadedFile->isPublic = true;
 
         $uploadedFile->storer()->associate($config);
         $uploadedFile->uploader()->associate($user);

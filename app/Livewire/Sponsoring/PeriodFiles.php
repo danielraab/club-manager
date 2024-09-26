@@ -40,6 +40,7 @@ class PeriodFiles extends Component
             $path = $periodFile->store('public/period'); // is always public
             $uploadedFile = new UploadedFile;
             $uploadedFile->path = $path;
+            $uploadedFile->isPublic = true;
             $uploadedFile->name = $periodFile->getClientOriginalName();
             $uploadedFile->mimeType = $periodFile->getMimeType();
 
