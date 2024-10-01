@@ -80,8 +80,11 @@
                     @if(($periodFiles = $period->uploadedFiles()->get())->isNotEmpty())
                         <ul class="list-disc ml-5 pl-5">
                             @foreach($periodFiles as $periodFile)
-                                <li><a href="{{$periodFile->getUrl()}}" target="_blank"
-                                       class="underline mr-2">{{$periodFile->name}}</a></li>
+                                <li>
+                                    <a href="{{$periodFile->getUrl()}}" target="_blank"
+                                       class="underline mr-2">{{$periodFile->name}}</a>
+                                    <span class="text-xs text-gray-700">{{$periodFile->created_at}}</span>
+                                </li>
                             @endforeach
                         </ul>
                     @else
@@ -145,8 +148,11 @@
                     @if(($adDataFiles = $backer->uploadedFiles()->get())->isNotEmpty())
                         <ul class="list-disc ml-5 pl-5">
                             @foreach($adDataFiles as $adDataFile)
-                                <li><a href="{{$adDataFile->getUrl()}}" target="_blank"
-                                       class="underline mr-2">{{$adDataFile->name}}</a></li>
+                                <li>
+                                    <a href="{{$adDataFile->getUrl()}}" target="_blank"
+                                       class="underline mr-2">{{$adDataFile->name}}</a>
+                                    <span class="text-xs text-gray-700">{{$adDataFile->created_at}}</span>
+                                </li>
                             @endforeach
                         </ul>
                     @else
@@ -161,7 +167,7 @@
                     </div>
                 @endif
 
-                <x-sponsoring.backer-contract-list :backer="$backer" />
+                <x-sponsoring.backer-contract-list :backer="$backer"/>
             </div>
         </section>
 
@@ -276,6 +282,7 @@
                     @if($contractFile = $contract->uploadedFile()->first())
                         <a href="{{$contractFile->getUrl()}}" target="_blank"
                            class="underline mr-2">{{$contractFile->name}}</a>
+                        <span class="text-xs text-gray-700">{{$contractFile->created_at}}</span>
                     @else
                         -- {{__("no file uploaded")}} --
                     @endif

@@ -14,6 +14,7 @@
             <i class="fa-solid fa-file"></i>
             <a href="{{$savedContractFile->getUrl()}}" target="_blank"
                class="underline">{{$savedContractFile->name}}</a>
+            <span class="text-xs text-gray-700">{{$savedContractFile->created_at}}</span>
             <button type="button" class="btn btn-danger"
                               wire:click="deleteFile({{$savedContractFile->id}})"
                               wire:confirm="{{__('Are you sure you want to delete the file?')}}">

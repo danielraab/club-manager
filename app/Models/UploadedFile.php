@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
  * @property int uploader_id
  * @property User|null uploader
  * @property Model|null storer
+ * @property Carbon created_at
  *
  * @see /database/migrations/2024_01_20_152805_create_updated_files_tables.php
  */

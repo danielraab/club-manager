@@ -11,7 +11,9 @@
 
         <ul class="list-disc ml-5 text-sm break-all">
             @foreach($uploadedAdDataFiles as $uploadedAdDataFile)
-                <li><a href="{{$uploadedAdDataFile->getUrl()}}" target="_blank" class="underline mr-2">{{$uploadedAdDataFile->name}}</a>
+                <li class="space-x-2">
+                    <a href="{{$uploadedAdDataFile->getUrl()}}" target="_blank" class="underline">{{$uploadedAdDataFile->name}}</a>
+                    <span class="text-xs text-gray-700">{{$uploadedAdDataFile->created_at}}</span>
                     <button type="button" class="btn btn-danger"
                                       wire:click="deleteFile({{$uploadedAdDataFile->id}})"
                                       wire:confirm="{{__('Are you sure you want to delete the file?')}}">
