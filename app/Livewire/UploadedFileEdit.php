@@ -7,8 +7,8 @@ use App\Livewire\Forms\UploadedFileForm;
 use App\Models\UploadedFile;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Repositories\UploadedFileStorage;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -44,12 +44,12 @@ class UploadedFileEdit extends Component
         $fileRemoved = $this->uploadedFileForm->uploadedFile->removeFile();
         $fileDeleted = $this->uploadedFileForm->uploadedFile->delete();
 
-        $message = 'Uploaded file was ' . ($fileRemoved ? 'removed' : 'not removed') .
-            ' and ' . ($fileDeleted ? 'deleted' : 'not deleted');
+        $message = 'Uploaded file was '.($fileRemoved ? 'removed' : 'not removed').
+            ' and '.($fileDeleted ? 'deleted' : 'not deleted');
         Log::info($message, [auth()->user(), $this->uploadedFileForm->uploadedFile]);
         NotificationMessage::addInfoNotificationMessage(__($message));
 
-        return $this->redirect(route("uploaded-file.list"));
+        return $this->redirect(route('uploaded-file.list'));
     }
 
     public function changeFile(): void
@@ -57,7 +57,8 @@ class UploadedFileEdit extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->newFile->storeAs('files', Str::random(5) . "_" . $this->newFile->getClientOriginalName());
+        $storage = UploadedFileStorage::make();
+        $path = $storage->storeTemporaryUploadedFile($this->newFile);
 
         $this->uploadedFileForm->uploadedFile->path = $path;
 

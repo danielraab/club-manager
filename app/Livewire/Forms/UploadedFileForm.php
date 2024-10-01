@@ -2,10 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\News;
 use App\Models\UploadedFile;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -20,7 +17,6 @@ class UploadedFileForm extends Form
     public ?string $mimeType = null;
 
     public bool $isPublic = false;
-
 
     public function setModel(UploadedFile $uploadedFile): void
     {
@@ -47,5 +43,4 @@ class UploadedFileForm extends Form
         ]);
         $this->uploadedFile->save();
     }
-
 }

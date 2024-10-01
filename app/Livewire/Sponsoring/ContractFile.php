@@ -7,6 +7,7 @@ use App\Models\Sponsoring\Contract;
 use App\Models\UploadedFile;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Repositories\UploadedFileStorage;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -32,7 +33,8 @@ class ContractFile extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->contractFile->store('contract');
+        $storage = UploadedFileStorage::make('contract');
+        $path = $storage->storeTemporaryUploadedFile($this->contractFile);
         $uploadedFile = new UploadedFile;
         $uploadedFile->path = $path;
         $uploadedFile->name = $this->contractFile->getClientOriginalName();

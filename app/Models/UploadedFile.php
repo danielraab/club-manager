@@ -60,7 +60,7 @@ class UploadedFile extends Model
 
     public function removeFile(): bool
     {
-        if(Storage::fileExists($this->path)) {
+        if (Storage::fileExists($this->path)) {
             return Storage::delete($this->path);
         }
 
@@ -74,6 +74,10 @@ class UploadedFile extends Model
 
     public function getUrl(): string
     {
+        if ($this->isPublicStored()) {
+            return Storage::url($this->path);
+        }
+
         return route('file', $this->id);
     }
 }

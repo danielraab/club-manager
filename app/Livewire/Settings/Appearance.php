@@ -9,6 +9,7 @@ use App\Models\ConfigurationKey;
 use App\Models\UploadedFile;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Repositories\UploadedFileStorage;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Validate;
@@ -81,7 +82,8 @@ class Appearance extends Component
         $this->validate();
 
         $user = auth()->user();
-        $path = $this->logoFile->store('public/appearance'); // is always public
+        $storage = UploadedFileStorage::makePublic('appearance');
+        $path = $storage->storeTemporaryUploadedFile($this->logoFile);
 
         $config = Configuration::findByKeyOrNew(ConfigurationKey::APPEARANCE_APP_LOGO_ID, null);
 

@@ -7,6 +7,7 @@ use App\Models\Sponsoring\Period;
 use App\Models\UploadedFile;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Repositories\UploadedFileStorage;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,8 +37,9 @@ class PeriodFiles extends Component
 
         $user = auth()->user();
         $uploadedFiles = [];
+        $storage = UploadedFileStorage::makePublic('period');
         foreach ($this->periodFiles as $periodFile) {
-            $path = $periodFile->store('public/period'); // is always public
+            $path = $storage->storeTemporaryUploadedFile($periodFile);
             $uploadedFile = new UploadedFile;
             $uploadedFile->path = $path;
             $uploadedFile->isPublic = true;

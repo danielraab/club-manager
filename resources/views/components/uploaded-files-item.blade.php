@@ -15,7 +15,7 @@
         };
     }
 @endphp
-<li class="ml-5 {{$file->trashed() ? 'opacity-50 line-through' : ''}}">
+<li class="ml-5 {{$file->trashed() ? 'opacity-50 line-through' : ''}}" @if($file->trashed()) title="File object is already trashed." @endif>
     <span class="@if($storerPossibleSoftDelete && $storer->trashed()) line-through text-red-700 @endif
                     @if(!$storer) font-bold @endif">
         @if($typeLink)
@@ -25,7 +25,7 @@
         @endif
     </span> -
     @if($file->isPublic || $file->isPublicStored())
-        <i class="fa-solid fa-globe"></i>
+        <i class="fa-solid fa-globe @if($file->isPublicStored()) text-green-800 @endif" @if($file->isPublicStored()) title="File stored in a public folder." @endif></i>
     @endif
 
     @if(!\Illuminate\Support\Facades\Storage::exists($file->path))

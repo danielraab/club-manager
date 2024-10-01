@@ -7,6 +7,7 @@ use App\Models\Sponsoring\Backer;
 use App\Models\UploadedFile;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
+use App\Repositories\UploadedFileStorage;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -37,7 +38,8 @@ class BackerFiles extends Component
         $user = auth()->user();
         $uploadedFiles = [];
         foreach ($this->adDataFiles as $adData) {
-            $path = $adData->store('backerData');
+            $storage = UploadedFileStorage::make('backerData');
+            $path = $storage->storeTemporaryUploadedFile($adData);
             $uploadedFile = new UploadedFile;
             $uploadedFile->path = $path;
             $uploadedFile->name = $adData->getClientOriginalName();

@@ -63,8 +63,12 @@
                 <x-input id="path" name="path" type="text" class="mt-1 block w-full"
                          required autofocus disabled value="{{$uploadedFileForm->uploadedFile->path}}"/>
             </div>
-            <div>
-                <h3 class="mt-3 text-gray-600">{{__('Select a File')}}</h3>
+            <div class="mt-3">
+                <x-input-label for="link" :value="__('Generated Link')"/>
+                <a class="underline" id="link" target="_blank" href="{{$uploadedFileForm->uploadedFile->getUrl()}}">{{$uploadedFileForm->uploadedFile->getUrl()}}</a>
+            </div>
+            <div class="mt-3">
+                <h3 class="text-gray-600">{{__('Select a File')}}</h3>
                 <x-livewire.input-file-area id="newFile" name="newFile" type="file" class="mt-1 block w-full"
                                             wire:model="newFile"
                                             subTitle="Select a matching file"
