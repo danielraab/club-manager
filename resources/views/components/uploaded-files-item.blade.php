@@ -33,7 +33,7 @@
               title="{{__("File does not exit on the server.")}}">{{$file->name}}</span>
     @else
         <span class="text-gray-500 @if($file->trashed()) line-through @endif ">
-            <a class="underline" href="{{$file->getUrl()}}">{{$file->name}}</a>
+            <a class="underline" target="_blank" href="{{$file->getUrl()}}">{{$file->name}}</a>
         </span>
     @endif
 
