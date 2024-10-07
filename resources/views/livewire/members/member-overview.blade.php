@@ -3,6 +3,7 @@
     $hasImportPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Import\ImportedMember::MEMBER_IMPORT_PERMISSION);
     /** @var \App\Models\Filter\MemberFilter $memberFilter */
     $memberFilter = $this->getMemberFilter();
+    /** @var \App\Models\Member $member */
 @endphp
 
 <x-slot name="headline">
@@ -63,10 +64,25 @@
                         </td>
                         @if($hasEditPermission)
                             <td class="max-md:block md:border">
-                                <a href="{{route('member.edit', $member->id)}}" title="Edit member"
-                                               class="btn btn-primary">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
+                                <div class="flex gap-2 justify-center">
+                                    @if($member->paused)
+                                        <button type="button" title="{{__("Unpause this member")}}"
+                                                class="text-red-500"
+                                                wire:click="togglePausedState({{$member->id}})">
+                                            <i class="fa-solid fa-toggle-off text-base"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" title="{{__("Pause this member")}}"
+                                                class="text-green-600"
+                                                wire:click="togglePausedState({{$member->id}})">
+                                            <i class="fa-solid fa-toggle-on text-base"></i>
+                                        </button>
+                                    @endif
+                                    <a href="{{route('member.edit', $member->id)}}" title="Edit member"
+                                       class="btn btn-primary">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </a>
+                                </div>
                             </td>
                         @endif
                     </tr>
@@ -100,25 +116,25 @@
                         <div class="py-1">
                             <div class="px-4 py-1">
                                 <a class="btn w-full"
-                                               href="{{route('member.list.csv', $memberFilter->toParameterArray())}}"
-                                               @click="open=false"
-                                               title="Download birthday list as CSV file">{{ __('CSV List') }}</a>
+                                   href="{{route('member.list.csv', $memberFilter->toParameterArray())}}"
+                                   @click="open=false"
+                                   title="Download birthday list as CSV file">{{ __('CSV List') }}</a>
                             </div>
                             <div class="px-4 py-1">
                                 <a class="btn w-full"
-                                               href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
-                                               @click="open=false"
-                                               title="Download birthday list as Excel file">{{ __('Excel File') }}</a>
+                                   href="{{route('member.list.excel', $memberFilter->toParameterArray())}}"
+                                   @click="open=false"
+                                   title="Download birthday list as Excel file">{{ __('Excel File') }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <a class="btn bg-cyan-700 hover:bg-cyan-500 focus:bg-cyan-500 text-white"
-                               href="{{route('member.birthdayList')}}"
-                               title="Show list of member birthdays">{{ __('Birthday list') }}</a>
+                   href="{{route('member.birthdayList')}}"
+                   title="Show list of member birthdays">{{ __('Birthday list') }}</a>
                 @if($hasImportPermission)
                     <a href="{{route('member.import')}}" class="btn btn-info ml-auto"
-                                   title="Import member list">
+                       title="Import member list">
                         {{__("Import members")}}
                     </a>
                 @endif

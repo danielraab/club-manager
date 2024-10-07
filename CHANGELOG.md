@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 ### Added
 - edit page for uploaded files (admin only)
+- paused switch on member overview
 ### Changed
 - uploaded files column `forcePublic` changed to `isPublic`
 ### Fixed

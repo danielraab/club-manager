@@ -5,6 +5,7 @@ namespace App\Livewire\Members;
 use App\Livewire\MemberFilterTrait;
 use App\Models\Member;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class MemberOverview extends Component
@@ -14,6 +15,13 @@ class MemberOverview extends Component
     public function mount()
     {
         $this->initFilter();
+    }
+
+    public function togglePausedState(Member $member): void
+    {
+        $member->paused = ! $member->paused;
+        $member->lastUpdater()->associate(Auth::user());
+        $member->save();
     }
 
     /**
