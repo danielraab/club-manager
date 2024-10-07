@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - edit page for uploaded files (admin only)
 - paused switch on member overview
+- member backer assignment button on period overview
 ### Changed
 - uploaded files column `forcePublic` changed to `isPublic`
 ### Fixed

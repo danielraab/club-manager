@@ -33,6 +33,10 @@
             <a href="{{route('sponsoring.period.adOption.overview', $period->id)}}" title="{{__("Show ad options overview for this periods")}}">
                 <i class="fa-solid fa-images"></i>
             </a>
+
+            <a href="{{route('sponsoring.period.memberAssignment', $period->id)}}" title="{{__("Assign per member")}}">
+               <i class="fa-solid fa-user-group"></i>
+            </a>
             <a href="{{route('sponsoring.period.backer.overview', $period->id)}}" title="{{__("Show period backer overview")}}">
                 <i class="fa-solid fa-table-list"></i>
             </a>
