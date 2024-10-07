@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - uploaded files column `forcePublic` changed to `isPublic`
 ### Fixed
 - period files are now publicly available
+- session persistent start and end in event filter
 
 ## v0.8.2 - 2024-09-24
 ### Added

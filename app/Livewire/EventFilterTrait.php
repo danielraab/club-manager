@@ -16,10 +16,10 @@ trait EventFilterTrait
     public bool $isStartNow = true;
 
     #[Session]
-    public ?string $start = null;
+    public string $filterStart = '';
 
     #[Session]
-    public ?string $end = null;
+    public string $filterEnd = '';
 
     #[Session]
     public bool $sortAsc = true;
@@ -44,12 +44,12 @@ trait EventFilterTrait
     {
         $start = new Carbon;
         if (! $this->isStartNow) {
-            $start = $this->start ? Carbon::parseFromDatetimeLocalInput($this->start) : null;
+            $start = $this->filterStart ? Carbon::parseFromDatetimeLocalInput($this->filterStart) : null;
         }
 
         return new EventFilter(
             $start,
-            $this->end ? Carbon::parseFromDatetimeLocalInput($this->end) : null,
+            $this->filterEnd ? Carbon::parseFromDatetimeLocalInput($this->filterEnd) : null,
             $this->canFilterShowDisabled() ? $this->showDisabled : false,
             $this->getMemberGroups(),
             $this->sortAsc

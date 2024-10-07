@@ -46,26 +46,26 @@
                 @if(!$this->isStartNow)
                     <label title="{{__('Filter start date')}}"
                            class="flex border border-gray-700 divide-x focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm m-1 w-fit overflow-hidden">
-                        <div class="px-2 flex items-center {{ $this->start ? 'bg-green-700' : 'bg-gray-500' }}">
+                        <div class="px-2 flex items-center {{ $this->filterStart ? 'bg-green-700' : 'bg-gray-500' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                 <path fill="currentColor"
                                       d="M2 14h2v3h5v-3l4 4l-4 4v-3H4v3H2zm17 5V8H5v4H3V5c0-1.11.89-2 2-2h1V.998h2V3h8V.998h2V3h1a2 2 0 0 1 2 2v14c0 1.1-.9 2-2 2h-6.17l2-2z"/>
                             </svg>
                         </div>
-                        <input type="date" wire:model.live="start" class="text-xs border-none" name="start">
+                        <input type="date" wire:model.live="filterStart" class="text-xs border-none" name="filterStart">
                     </label>
                 @endif
             </div>
             <div class="">
                 <label title="{{__('Filter end date')}}"
                        class="flex border border-gray-700 divide-x focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm m-1 w-fit overflow-hidden">
-                    <div class="px-2 flex items-center {{ $this->end ? 'bg-red-700' : 'bg-gray-500' }}">
+                    <div class="px-2 flex items-center {{ $this->filterEnd ? 'bg-red-700' : 'bg-gray-500' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                   d="M22 14v8h-2v-4l-4 4v-3h-5v-2h5v-3l4 4v-4zM5 19h4v2H5c-1.1 0-2-.9-2-2V5a2 2 0 0 1 2-2h1V.998h2V3h8V.998h2V3h1c1.11 0 2 .89 2 2v7h-2V8H5z"/>
                         </svg>
                     </div>
-                    <input type="date" wire:model.live="end" class="text-xs border-none" name="end">
+                    <input type="date" wire:model.live="filterEnd" class="text-xs border-none" name="filterEnd">
                 </label>
             </div>
         </x-accordion>
