@@ -1,38 +1,40 @@
 @props([
     'id',
     'multiple' => false,
-    'showList' => false
+    'showList' => false,
+    'markedDays' => [],
 ])
 <div x-data="{
     dateList:[],
+    markedDays: @js($markedDays),
     multiDate: @js($multiple),
     today: new Date((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDate()),
-    currentMonthFirsts: new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1),
-    currentMonthLasts: new Date((new Date()).getFullYear(), (new Date()).getMonth()+1, 0),
+    currentMonthFirstDay: new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1),
+    currentMonthLastDay: new Date((new Date()).getFullYear(), (new Date()).getMonth()+1, 0),
     toggleDate(date) {
-        const i = this.dateList.indexOf(date.toISOString());
+        const i = this.dateList.indexOf(date.toLocaleDateString());
         if(i > -1) {
             this.dateList.splice(i, 1);
         } else {
             if(!this.multiDate) {
                 this.dateList = [];
             }
-            this.dateList.push(date.toISOString());
+            this.dateList.push(date.toLocaleDateString());
         }
     },
     prevMonth() {
-        this.currentMonthFirsts = new Date(this.currentMonthFirsts.getFullYear(), this.currentMonthFirsts.getMonth() - 1, 1)
-        this.currentMonthLasts = new Date(this.currentMonthLasts.getFullYear(), this.currentMonthLasts.getMonth(), 0)
+        this.currentMonthFirstDay = new Date(this.currentMonthFirstDay.getFullYear(), this.currentMonthFirstDay.getMonth() - 1, 1)
+        this.currentMonthLastDay = new Date(this.currentMonthLastDay.getFullYear(), this.currentMonthLastDay.getMonth(), 0)
     },
     nextMonth() {
-        this.currentMonthFirsts = new Date(this.currentMonthFirsts.getFullYear(), this.currentMonthFirsts.getMonth() + 1, 1)
-        this.currentMonthLasts = new Date(this.currentMonthLasts.getFullYear(), this.currentMonthLasts.getMonth() + 2, 0)
+        this.currentMonthFirstDay = new Date(this.currentMonthFirstDay.getFullYear(), this.currentMonthFirstDay.getMonth() + 1, 1)
+        this.currentMonthLastDay = new Date(this.currentMonthLastDay.getFullYear(), this.currentMonthLastDay.getMonth() + 2, 0)
     },
     getWeeks() {
         const weeks = [];
-        let currentDay = new Date(this.currentMonthFirsts);
+        let currentDay = new Date(this.currentMonthFirstDay);
 
-        while(currentDay.getMonth() == this.currentMonthFirsts.getMonth()) {
+        while(currentDay.getMonth() == this.currentMonthFirstDay.getMonth()) {
             let week = [];
             currentDay.setDate(currentDay.getDate() - (6 + currentDay.getDay()) % 7);
 
@@ -45,13 +47,19 @@
         }
         return weeks;
     }
-}" x-modelable="dateList" {{ $attributes }}
+}"
+     x-init="markedDays = markedDays.map((dateStr) => {
+     const date = new Date(dateStr);
+     date.setHours(0,0,0,0);
+     return date.getTime();
+     })"
+     x-modelable="dateList" {{ $attributes }}
      x-on:reset-date-list.window="$event.detail == '{{ $id }}' ? dateList = [] : null"
 >
     <div class="border">
         <div class="border text-lg font-bold bg-gray-500 text-white flex">
             <button class="grow-0 py-2 px-4" type="button" x-on:click="prevMonth()"><</button>
-            <div class="grow text-center p-2" colspan="5" x-text="new Intl.DateTimeFormat('{{config('app.locale')}}', {month:'long', year: 'numeric'}).format(currentMonthFirsts)"></div>
+            <div class="grow text-center p-2" colspan="5" x-text="new Intl.DateTimeFormat('{{config('app.locale')}}', {month:'long', year: 'numeric'}).format(currentMonthFirstDay)"></div>
             <button class="grow-0 py-2 px-4" type="button" x-on:click="nextMonth()">></button>
         </div>
         <template x-for="week in getWeeks()" :key="'week'+week[0].getTime()">
@@ -59,16 +67,17 @@
                 <template x-for="day in week" :key="'day'+day.getTime()">
                     <div class="text-center"
                          :class="{
+                             'border border-blue-500': day.getTime() === today.getTime(),
                              'bg-gray-200': day.getDay() === 6,
-                             'bg-gray-300': day.getDay() === 0,
-                             'border bg-blue-500': day.getTime() === today.getTime()
+                             'bg-gray-300': day.getDay() === 0
                          }"
                         >
                         <button type="button" x-text="day?.getDate()"
-                                class="h-10 w-10"
+                                class="h-10 w-10 rounded-full"
                                 :class="{
-                                    'text-gray-500': day.getTime() < currentMonthFirsts.getTime() || day.getTime() > currentMonthLasts.getTime(),
-                                    'bg-gray-500 text-white rounded-full': dateList.includes(day.toISOString())
+                                    'border border-red-500': markedDays.includes(day.getTime()),
+                                    'text-gray-500': day.getTime() < currentMonthFirstDay.getTime() || day.getTime() > currentMonthLastDay.getTime(),
+                                    'bg-gray-500 text-white': dateList.includes(day.toLocaleDateString())
                                 }"
                                 x-on:click="toggleDate(day)"></button>
                     </div>

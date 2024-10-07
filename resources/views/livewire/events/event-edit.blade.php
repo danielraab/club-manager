@@ -1,3 +1,6 @@
+@php
+    /** @var $eventForm \App\Livewire\Forms\EventForm */
+@endphp
 <x-slot name="headline">
     <div class="flex gap-3 items-center">
         <a href="{{route("event.index")}}">
@@ -48,7 +51,7 @@
 
     <x-modal id="copy-event-modal" title="Copy this event" showX>
         <div class="p-3">
-            <x-datepicker id="copy-event-datepicker"
+            <x-datepicker id="copy-event-datepicker" :markedDays="[$eventForm->start]"
                           class="max-w-96 mx-auto" wire:model="copyDateList" multiple showList/>
             <div class="flex justify-between mt-4">
                 <button class="btn btn-primary" type="button" x-on:click="$dispatch('reset-date-list', 'copy-event-datepicker')">clear</button>

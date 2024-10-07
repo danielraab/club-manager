@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - period files are now publicly available
 - session persistent start and end in event filter
+- redirect to event index after event deletion
+- use correct date for event copy
 
 ## v0.8.2 - 2024-09-24
 ### Added

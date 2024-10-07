@@ -39,12 +39,12 @@ class EventOverview extends Component
             \App\Models\ConfigurationKey::EVENT_FILTER_DEFAULT_START_DATE) ?: '';
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function toggleEnabledState(Event $event)
+    public function toggleEnabledState(Event $event): void
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
             $event->enabled = ! $event->enabled;
@@ -55,7 +55,7 @@ class EventOverview extends Component
         }
     }
 
-    public function disableLastYearEvents()
+    public function disableLastYearEvents(): void
     {
         if (Auth::user()?->hasPermission(Event::EVENT_EDIT_PERMISSION)) {
             $cnt = Event::query()
@@ -72,7 +72,6 @@ class EventOverview extends Component
 
     public function render()
     {
-//        dd(session()->all());
         return view('livewire.events.event-overview', [
             'eventList' => $this->getEventList(),
         ])->layout('layouts.backend');
