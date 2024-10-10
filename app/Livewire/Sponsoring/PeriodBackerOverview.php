@@ -18,6 +18,7 @@ use Livewire\Component;
 class PeriodBackerOverview extends Component
 {
     public bool $hasEditPermission = false;
+    public bool $sendCopy = true;
 
     public Period $period;
 
@@ -116,7 +117,7 @@ class PeriodBackerOverview extends Component
                 continue;
             }
 
-            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts, $user, true));
+            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts, $user, $this->sendCopy));
             $mailsSent++;
         }
 
