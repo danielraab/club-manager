@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - member backer assignment button on period overview
 ### Changed
 - uploaded files column `forcePublic` changed to `isPublic`
+- member filter has now buttons instead of checkboxes
 ### Fixed
 - period files are now publicly available
 - session persistent start and end in event filter

@@ -1,61 +1,75 @@
-<div class="flex flex-wrap gap-5 justify-center text-sm"
-    x-data="{
+<div class="flex flex-wrap gap-2 justify-center text-sm"
     @if($this->useMemberGroupFilter === true)
-        filterMemberGroup: @entangle('filterMemberGroup').live,
-    @endif
-        showBeforeEntrance: @entangle('filterShowBeforeEntrance').live,
-        showAfterRetired: @entangle('filterShowAfterRetired').live,
-        showPaused: @entangle('filterShowPaused').live
-    }">
-    @if($this->useMemberGroupFilter === true)
-    <div class="flex items-center flex-wrap justify-center">
-        <x-input-label for="filterMemberGroup" :value="__('Filter member group:')"/>
-        <x-select name="filterMemberGroup" id="filterMemberGroup" wire:model.lazy="filterMemberGroup"
-                class="ml-3 py-1 text-sm"
-        >
-            <option></option>
-            @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
-                <x-members.member-group-select-option :memberGroup="$memberGroup"/>
-            @endforeach
-        </x-select>
-    </div>
-    @endif
-
-    <div x-data="{
-            open:false,
-        }" class="relative inline-block text-left" @click.outside="open = false">
-        <div>
-            <button type="button" x-ref="filterButton"
-                    class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    @click.stop="open = !open">
-                <i class="fa-solid fa-filter"></i> Filter
-                <i class="fa-solid fa-chevron-down text-gray-400 transition"
-                   :class="open ? 'rotate-180' : ''"></i>
-            </button>
-        </div>
-
-        <div x-cloak x-show="open" x-anchor="$refs.filterButton"
-             class="z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div class="py-1">
-                <div class="px-4 py-1">
-                    <x-input-checkbox id="filter_before_entrance" name="filter_before_entrance"
-                                      wire:model.live="filterShowBeforeEntrance">
-                        {{ __('show before entrance') }}
-                    </x-input-checkbox>
-                </div>
-                <div class="px-4 py-1">
-                    <x-input-checkbox id="filter_after_entrance" name="filter_after_entrance"
-                                      wire:model.live="filterShowAfterRetired">
-                        {{ __('show after retired') }}
-                    </x-input-checkbox>
-                </div>
-                <div class="px-4 py-1">
-                    <x-input-checkbox id="filter_not_paused" name="filter_not_paused"
-                                      wire:model.live="filterShowPaused">
-                        {{ __('show paused') }}
-                    </x-input-checkbox>
-                </div>
+        <div x-data="{open:false}" @click.outside="open = false" @close.stop="open = false">
+            @if($this->filterMemberGroup)
+                <button x-ref="memberGroupDropdown" class="btn btn-secondary py-0 bg-green-800 text-white"
+                        title="A member group filter is selected"
+                        type="button" @click="open=!open">
+                    <i class="fa-solid fa-user-group text-xl mr-2"></i>
+                    <i class="fa-solid fa-caret-down"></i>
+                </button>
+            @else
+                <button x-ref="memberGroupDropdown" class="btn btn-secondary py-0"
+                        title="Select a member group filter"
+                        type="button" @click="open=!open">
+                    <i class="fa-solid fa-user-group text-xl mr-2"></i>
+                    <i class="fa-solid fa-caret-down"></i>
+                </button>
+            @endif
+            <div x-show="open" x-cloak x-anchor.bottom-end="$refs.memberGroupDropdown" x-collapse
+                 x-on:member-group-clicked="$wire.set('filterMemberGroup', $event.detail); open=false"
+                 class="flex flex-col gap-2 bg-white rounded border overflow-hidden shadow-md z-50 p-2">
+                @if($this->filterMemberGroup)
+                    <button type="button" class="btn btn-secondary" wire:click="$set('filterMemberGroup', ''); open=false">
+                        <i class="fa-solid fa-trash mr-2"></i>
+                        {{__("clear member filter")}}
+                    </button>
+                @endif
+                <ul>
+                @foreach(\App\Models\MemberGroup::getTopLevelQuery()->get() as $memberGroup)
+                    <x-members.member-group-dropdown-item :memberGroup="$memberGroup" :selectedMemberGroup="$this->filterMemberGroup"/>
+                @endforeach
+                </ul>
             </div>
         </div>
-    </div>
+    @endif
+    @if($this->filterShowPaused)
+        <button class="btn btn-secondary py-0 bg-green-800 text-white"
+                title="Paused are shown"
+                type="button" wire:click="$set('filterShowPaused', false)">
+            <i class="fa-regular fa-circle-pause text-xl"></i>
+        </button>
+    @else
+        <button class="btn btn-secondary py-0"
+                title="Paused are not shown"
+                type="button" wire:click="$set('filterShowPaused', true)">
+            <i class="fa-regular fa-circle-pause text-xl"></i>
+        </button>
+    @endif
+    @if($this->filterShowBeforeEntrance)
+        <button class="btn btn-secondary py-0 bg-green-800 text-white"
+                title="Before entrance are shown"
+                type="button" wire:click="$set('filterShowBeforeEntrance', false)">
+            <i class="fa-solid fa-angles-left text-xl"></i>
+        </button>
+    @else
+        <button class="btn btn-secondary py-0"
+                title="Before entrance are not shown"
+                type="button" wire:click="$set('filterShowBeforeEntrance', true)">
+            <i class="fa-solid fa-angles-left text-xl"></i>
+        </button>
+    @endif
+    @if($this->filterShowAfterRetired)
+        <button class="btn btn-secondary py-0 bg-green-800 text-white"
+                title="After retired are shown"
+                type="button" wire:click="$set('filterShowAfterRetired', false)">
+            <i class="fa-solid fa-angles-right text-xl"></i>
+        </button>
+    @else
+        <button class="btn btn-secondary py-0"
+                title="After retired are not shown"
+                type="button" wire:click="$set('filterShowAfterRetired', true)">
+            <i class="fa-solid fa-angles-right text-xl"></i>
+        </button>
+    @endif
 </div>
