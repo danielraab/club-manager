@@ -153,6 +153,7 @@ class EventSeeder extends Seeder
         Event::query()->create([
             'title' => 'Konzert',
             'location' => 'Saal',
+            'link' => 'https://www.example.com',
             'start' => $start = now()->subMonths(4)->setTime(20, 0),
             'end' => $start->addHours(2),
             'event_type_id' => 3,
@@ -161,6 +162,7 @@ class EventSeeder extends Seeder
         Event::query()->create([
             'title' => 'Konzert',
             'location' => 'Saal',
+            'link' => 'https://www.example.com',
             'start' => $start = now()->addMonths(3)->setTime(20, 0),
             'end' => $start->addHours(2),
             'event_type_id' => 3,
@@ -169,6 +171,7 @@ class EventSeeder extends Seeder
         Event::query()->create([
             'title' => 'Ball',
             'location' => 'Saal',
+            'link' => 'https://www.example.com',
             'start' => $start = now()->addMonths(6)->setTime(20, 0),
             'end' => $start->addHours(2),
             'event_type_id' => 3,

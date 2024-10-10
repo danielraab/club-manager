@@ -46,7 +46,10 @@
                 <tr class="max-md:hidden">
                     <td>{{__("Start")}}</td>
                     <td class="min-w-[150px]">{{__("Title")}}</td>
-                    <td class="min-w-[150px]">{{__("Type")}}/{{__("Group")}}</td>
+                    <td class="min-w-[150px]">{{__("Location")}}</td>
+                    @if(auth()->user())
+                        <td class="min-w-[150px]">{{__("Type")}}/{{__("Group")}}</td>
+                    @endif
                     @if($hasEditPermission)
                         <td>{{__("Action")}}</td>
                     @endif
@@ -65,19 +68,20 @@
                             {{$event->getFormattedStart()}}
                         </td>
                         <td class="md:border px-2 max-md:block">
-                            <span class="text-sm text-gray-600 mr-1">
                             @if($event->link)
-                                <a href="{{$event->link}}" target="_blank"><i class="fa-solid fa-link"></i></a>
+                                <a href="{{$event->link}}" class="text-sm text-gray-600 mr-1" target="_blank"><i class="fa-solid fa-link"></i></a>
                             @endif
-                            </span>
                             {{$event->title}}
+                        </td>
+                        <td class="md:border px-2 max-md:block">
                             @if($event->location && strlen(trim($event->location)) > 0)
-                                <p class="flex justify-center items-center gap-2 text-gray-500">
+                                <span class="flex justify-center items-center gap-2 text-gray-500">
                                     <i class="text-xs fa-solid fa-location-dot"></i>
                                     {{$event->location}}
-                                </p>
+                                </span>
                             @endif
                         </td>
+                        @if(auth()->user())
                         <td class="md:border px-2 max-md:block">
                             <p class="flex justify-center items-center gap-2">
                                 <i class="text-xs fa-solid fa-layer-group"></i>
@@ -90,6 +94,7 @@
                                 </p>
                             @endif
                         </td>
+                        @endif
                         @if($hasEditPermission || $hasAttendanceShowPermission || $hasAttendanceEditPermission)
                             <td class="md:border px-2 min-w-[70px] max-md:block">
                                 <div class="flex gap-2 justify-center">
