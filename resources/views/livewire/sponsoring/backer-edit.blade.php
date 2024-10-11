@@ -24,9 +24,8 @@
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.sponsoring.backer-content/>
+            @include('livewire.sponsoring.partials.backer-content')
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <section>
@@ -73,8 +72,6 @@
                     <x-sponsoring.backer-contract-list :backer="$backerForm->backer"/>
                 </div>
             </section>
-
         </div>
     </div>
-
 </div>

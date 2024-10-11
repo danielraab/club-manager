@@ -23,13 +23,11 @@
     </div>
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.sponsoring.package-content/>
+            @include('livewire.sponsoring.partials.package-content')
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.sponsoring.package-ad-option-selection/>
+            @include('livewire.sponsoring.partials.package-ad-option-selection')
         </div>
     </div>
-
 </div>
