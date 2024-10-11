@@ -17,15 +17,12 @@ addEvents() {
                 title="Create new attendance poll"><i class="fa-solid fa-plus"></i> {{ __('Create') }}</button>
     </div>
 
-
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
-
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.attendance.poll-basics/>
+            @include('livewire.attendance.partials.poll-basics')
         </div>
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
-            <x-livewire.attendance.poll-event-selection :pollForm="$pollForm"/>
+            @include('livewire.attendance.partials.poll-event-selection')
         </div>
     </div>
-
 </div>
