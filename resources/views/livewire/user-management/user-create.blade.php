@@ -12,13 +12,13 @@
     <div class="md:flex justify-center">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-4 sm:p-8 max-w-xl">
-                <x-livewire.user-management.user-form/>
+                @include('livewire.user-management.partials.user-form')
             </div>
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-4 sm:p-8">
-            <x-livewire.user-management.user-permission/>
+            @include('livewire.user-management.partials.user-permission')
         </div>
     </div>
 </div>
