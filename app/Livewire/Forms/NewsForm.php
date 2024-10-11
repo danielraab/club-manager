@@ -11,7 +11,7 @@ use Livewire\Form;
 
 class NewsForm extends Form
 {
-    public ?News $news;
+    public ?News $news = null;
 
     #[Validate('max:255')]
     public ?string $title = null;
