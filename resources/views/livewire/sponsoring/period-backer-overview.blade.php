@@ -196,6 +196,14 @@
                     @if($isMemberMailMissing)
                         <div class="p-3 text-gray-700">{{__('Members with missing email address, will not receive a mail.')}}</div>
                     @endif
+
+                    <x-input.textarea
+                        id="additionalMailText"
+                        :label="__('additional text for email')"
+                        class="w-full"
+                        wire:model="additionalMailText"
+                        errorBag="additionalMailText"
+                    />
                     <x-input-checkbox id="sendCopy" labelClass="my-2 mx-4" wire:model="sendCopy">send a copy to myself</x-input-checkbox>
                 </div>
                 <div class="flex justify-between mt-4 p-3">

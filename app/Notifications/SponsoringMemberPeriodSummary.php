@@ -23,15 +23,18 @@ class SponsoringMemberPeriodSummary extends Notification
 
     private bool $sendBlindCopyToUser;
 
+    private string $additionalText;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct(Period $period, iterable $contracts, User $user, bool $sendBlindCopyToUser)
+    public function __construct(Period $period, iterable $contracts, User $user, string $additionalText, bool $sendBlindCopyToUser)
     {
         $this->period = $period;
         $this->contracts = $contracts;
         $this->user = $user;
         $this->sendBlindCopyToUser = $sendBlindCopyToUser;
+        $this->additionalText = trim(strip_tags($additionalText));
     }
 
     /**
@@ -55,8 +58,13 @@ class SponsoringMemberPeriodSummary extends Notification
 
         $mailMessage = (new MailMessage)
             ->subject(__('Sponsoring Member Summary - :period', ['period' => $this->period->title]))
-            ->greeting(__('Hello :name', ['name' => $notifiable->getFullName()]))
-            ->line(__('Thanks for asking the following Backers about a sponsoring:'));
+            ->greeting(__('Hello :name', ['name' => $notifiable->getFullName()]));
+
+        if ($this->additionalText) {
+            $mailMessage->line($this->additionalText);
+        }
+
+        $mailMessage->line(__('Thanks for asking the following Backers about a sponsoring:'));
 
         $mailMessage->replyTo($this->user->email);
         if ($this->sendBlindCopyToUser) {

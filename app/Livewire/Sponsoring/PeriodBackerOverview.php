@@ -21,6 +21,8 @@ class PeriodBackerOverview extends Component
 
     public bool $sendCopy = true;
 
+    public string $additionalMailText = '';
+
     public Period $period;
 
     public array $openContractsPerMember;
@@ -118,7 +120,7 @@ class PeriodBackerOverview extends Component
                 continue;
             }
 
-            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts, $user, $this->sendCopy));
+            $member->notify(new SponsoringMemberPeriodSummary($this->period, $contracts, $user, $this->additionalMailText, $this->sendCopy));
             $mailsSent++;
         }
 

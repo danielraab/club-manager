@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - edit page for uploaded files (admin only)
 - paused switch on member overview
 - member backer assignment button on period overview
+- a custom text can now be added for the sponsoring remember mail.
 ### Changed
 - uploaded files column `forcePublic` changed to `isPublic`
 - member filter has now buttons instead of checkboxes
