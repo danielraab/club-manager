@@ -20,12 +20,14 @@
         </div>
 
         <div class="mt-3">
-            <x-input-label for="description" :value="__('Description')"/>
-            <x-textarea id="description" name="description" class="mt-1 block w-full"
-                        wire:model="periodForm.description"
-                        autofocus autocomplete="description"/>
-            @error('periodForm.description')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
+            <x-input.textarea
+                id="description"
+                autocomplete="description"
+                :label="__('Description')"
+                class="w-full"
+                wire:model="periodForm.description"
+                errorBag="periodForm.description"
+            />
         </div>
 
         <div class="mt-3">

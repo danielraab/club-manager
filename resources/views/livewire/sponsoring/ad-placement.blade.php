@@ -23,12 +23,13 @@
                 </x-input-checkbox>
             </div>
             <div class="mt-3">
-                <x-input-label for="comment" :value="__('Comment')"/>
-                <x-textarea id="comment" name="comment" class="mt-1 block w-full"
-                            wire:model="adPlacementForm.comment"
-                            autofocus autocomplete="comment"/>
-                @error('adPlacementForm.comment')
-                <x-input-error class="mt-2" :messages="$message"/>@enderror
+                <x-input.textarea
+                    id="comment"
+                    :label="__('Comment')"
+                    class="w-full"
+                    wire:model="adPlacementForm.comment"
+                    errorBag="adPlacementForm.comment"
+                />
             </div>
             <div class="mt-3 flex justify-end">
                 <button class="btn btn-primary" type="button"

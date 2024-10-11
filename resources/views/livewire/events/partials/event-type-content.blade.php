@@ -23,11 +23,14 @@
         </div>
 
         <div class="my-3">
-            <x-input-label for="description" :value="__('Description')"/>
-            <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[100px]"
-                        wire:model="eventTypeForm.description" required autocomplete="description"/>
-            @error('eventTypeForm.description')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
+            <x-input.textarea
+                id="description"
+                autocomplete="description"
+                :label="__('Description')"
+                class="w-full min-h-[100px]"
+                wire:model="eventTypeForm.description"
+                errorBag="eventTypeForm.description"
+            />
         </div>
 
         <div class="flex gap-2 mt-3">

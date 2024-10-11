@@ -20,14 +20,15 @@
         </div>
 
         <div class="my-3">
-            <x-input-label for="description" :value="__('Description')"/>
-            <x-textarea id="description" name="description" class="mt-1 block w-full min-h-[200px]"
-                        wire:model="pollForm.description" required autocomplete="description"/>
-            @error('pollForm.description')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
-
+            <x-input.textarea
+                id="description"
+                autocomplete="description"
+                :label="__('Description')"
+                class="w-full min-h-[200px]"
+                wire:model="pollForm.description"
+                errorBag="pollForm.description"
+            />
         </div>
-
 
         <!-- allow_anonymous_vote -->
         <div class="mt-4 ml-3">

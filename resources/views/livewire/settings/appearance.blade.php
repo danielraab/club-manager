@@ -66,9 +66,13 @@
 
         </div>
         <div class="my-3">
-            <x-input-label for="guestLayoutText" :value="__('Guest Layout Text')"/>
-            <x-textarea id="guestLayoutText" name="guestLayoutText" class="mt-1 block w-full min-h-[100px]"
-                        wire:model.blur="guestLayoutText" required autocomplete="guestLayoutText"/>
+            <x-input.textarea
+                id="guestLayoutText"
+                :label="__('Guest Layout Text')"
+                class="w-full min-h-[100px]"
+                wire:model="guestLayoutText"
+                errorBag="guestLayoutText"
+            />
         </div>
         <div class="flex items-center justify-between border-t border-slate-400/20 py-3"
              x-init

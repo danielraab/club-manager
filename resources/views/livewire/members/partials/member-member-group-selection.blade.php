@@ -58,11 +58,13 @@
         </div>
 
         <div class="my-3">
-            <x-input-label for="info" :value="__('Information')"/>
-            <x-textarea id="info" name="info" class="mt-1 block w-full min-h-[100px]"
-                        wire:model="memberForm.info" required autocomplete="info"/>
-            @error('memberForm.info')
-            <x-input-error class="mt-2" :messages="$message"/>@enderror
+            <x-input.textarea
+                id="info"
+                :label="__('Information')"
+                class="w-full min-h-[100px]"
+                wire:model="memberForm.info"
+                errorBag="memberForm.info"
+            />
         </div>
 
         @if($memberForm->member?->external_id || $memberForm->member?->last_import_date)

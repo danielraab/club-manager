@@ -59,12 +59,13 @@
                     </div>
 
                     <div class="mt-3">
-                        <x-input-label for="info" :value="__('Info')"/>
-                        <x-textarea id="info" name="info" class="mt-1 block w-full"
-                                    wire:model="backerForm.info"
-                                    autofocus autocomplete="info"/>
-                        @error('backerForm.info')
-                        <x-input-error class="mt-2" :messages="$message"/>@enderror
+                        <x-input.textarea
+                            id="info"
+                            :label="__('Information')"
+                            class="w-full"
+                            wire:model="backerForm.info"
+                            errorBag="backerForm.info"
+                        />
                     </div>
 
                     <livewire:sponsoring.backer-files :backer="$backerForm->backer"/>

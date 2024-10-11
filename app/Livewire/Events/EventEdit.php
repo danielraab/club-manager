@@ -43,7 +43,7 @@ class EventEdit extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully deleted.'), ItemType::WARNING));
 
-        return redirect(route('events.index'));
+        return redirect(route('event.index'));
     }
 
     /**
@@ -84,7 +84,7 @@ class EventEdit extends Component
         NotificationMessage::addNotificationMessage(
             new Item(__('The event has been successfully updated.'), ItemType::SUCCESS));
 
-        return redirect(route('events.index'));
+        return redirect(route('event.index'));
     }
 
     /**
