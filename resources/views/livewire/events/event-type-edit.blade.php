@@ -28,7 +28,7 @@
 
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4">
 
-        <x-livewire.events.event-type-content :eventTypeForm="$eventTypeForm"/>
+        @include('livewire.events.partials.event-type-content')
 
         <div class="bg-white shadow-sm sm:rounded-lg p-4">
             <section>

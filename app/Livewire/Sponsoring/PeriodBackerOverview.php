@@ -18,6 +18,7 @@ use Livewire\Component;
 class PeriodBackerOverview extends Component
 {
     public bool $hasEditPermission = false;
+
     public bool $sendCopy = true;
 
     public Period $period;

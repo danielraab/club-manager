@@ -16,9 +16,7 @@
 
 
     <div class="flex justify-center">
-
-        <x-livewire.events.event-type-content :eventTypeForm="$eventTypeForm"/>
-
+        @include('livewire.events.partials.event-type-content')
     </div>
 
 </div>

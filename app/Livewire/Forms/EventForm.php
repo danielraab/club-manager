@@ -11,7 +11,7 @@ use Livewire\Form;
 
 class EventForm extends Form
 {
-    public ?Event $event;
+    public ?Event $event = null;
 
     #[Validate('required|max:255')]
     public string $title;
