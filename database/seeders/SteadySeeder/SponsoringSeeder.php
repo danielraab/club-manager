@@ -204,6 +204,13 @@ class SponsoringSeeder extends Seeder
 
     private function addContracts(): void
     {
+        $this->addContractsPastPeriod();
+        $this->addContractsCurrentPeriod();
+        $this->addContractsFuturePeriod();
+    }
+
+    private function addContractsPastPeriod(): void
+    {
         $start1 = now()->subYear()->firstOfYear();
         for ($i = 0; $i < 15; $i++) {
             Contract::query()->create([
@@ -219,14 +226,32 @@ class SponsoringSeeder extends Seeder
             Contract::query()->create([
                 'period_id' => 1,
                 'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
-                'member_id' => null,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
                 'package_id' => null,
                 'refused' => $start1->addWeeks(2),
             ]);
         }
+    }
 
+    private function addContractsCurrentPeriod(): void
+    {
         $start2 = now()->firstOfYear();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 3; $i++) {
+            Contract::query()->create([
+                'period_id' => 2,
+                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
+            ]);
+        }
+        for ($i = 3; $i < 5; $i++) {
+            Contract::query()->create([
+                'period_id' => 2,
+                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
+                'refused' => $start2->addWeeks(2),
+            ]);
+        }
+        for ($i = 5; $i < 15; $i++) {
             Contract::query()->create([
                 'period_id' => 2,
                 'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
@@ -236,14 +261,10 @@ class SponsoringSeeder extends Seeder
                 'paid' => $start2->clone()->addWeek(),
             ]);
         }
-        for ($i = 10; $i < 15; $i++) {
-            Contract::query()->create([
-                'period_id' => 2,
-                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
-                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
-            ]);
-        }
+    }
 
+    private function addContractsFuturePeriod(): void
+    {
         $start3 = now();
         for ($i = 0; $i < 5; $i++) {
             Contract::query()->create([
@@ -252,6 +273,21 @@ class SponsoringSeeder extends Seeder
                 'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
                 'package_id' => ($i % 5) + 1,
                 'contract_received' => $start3->subDays(4),
+            ]);
+        }
+        for ($i = 5; $i < 10; $i++) {
+            Contract::query()->create([
+                'period_id' => 3,
+                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
+            ]);
+        }
+        for ($i = 10; $i < 15; $i++) {
+            Contract::query()->create([
+                'period_id' => 3,
+                'backer_id' => ($i % count(self::COMPANY_NAMES)) + 1,
+                'member_id' => ($i % count(MemberSeeder::FIRSTNAMES) / 2) + 5,
+                'refused' => $start3->addWeeks(2),
             ]);
         }
     }

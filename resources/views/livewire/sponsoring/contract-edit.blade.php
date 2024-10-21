@@ -90,7 +90,7 @@
                         wire:model="contractForm.member_id"
                         class="block mt-1 w-full"
                 >
-                    <option>{{__("-- choose a member --")}}</option>
+                    <option value="">{{__("-- choose a member --")}}</option>
                     @foreach(App\Models\Member::getAllFiltered(new \App\Models\Filter\MemberFilter(true, true, true))->get() as $member)
                         <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                     @endforeach
@@ -107,7 +107,7 @@
                 <x-select name="package" id="package"
                         wire:model="contractForm.package_id"
                         class="block mt-1 w-full">
-                    <option>{{__("-- choose a package --")}}</option>
+                    <option value="">{{__("-- choose a package --")}}</option>
                     @foreach($period->packages()->where("enabled", true)->get() as $package)
                         @if($package->is_official)
                             <option value="{{$package->id}}">{{$package->title}}

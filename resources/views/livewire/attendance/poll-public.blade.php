@@ -47,7 +47,7 @@
                               wire:model.lazy="memberSelection"
                               required autofocus autocomplete="memberSelection"
                               :disabled="$selectedMember != null">
-                        <option></option>
+                        <option value=""></option>
                         @php
                             $memberList = new \Illuminate\Database\Eloquent\Collection();
                             /** @var \App\Models\MemberGroup $memberGroup */

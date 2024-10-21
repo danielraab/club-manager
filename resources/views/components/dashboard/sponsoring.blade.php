@@ -5,6 +5,7 @@
 @endphp
 @if($hasShowPermission || $hasEditPermission)
     @php($periodList = \App\Models\Sponsoring\Period::query()->where('end','>',now()))
+    @php($backerList = \App\Models\Sponsoring\Backer::allActive()->pluck('id')->toArray())
     <div class="flex-1 flex flex-col mb-3 bg-white shadow-sm sm:rounded-lg p-4 text-center">
         <div class="flex justify-center items-center gap-2 text-xl">
             <i class="fa-solid fa-file-contract"></i>
@@ -15,9 +16,14 @@
             <header class="font-bold mb-3">{{__('Active and upcoming periods')}}</header>
             <ul class="grid text-sm gap-2 text-white">
                 @foreach($periodList->get() as $period)
+                    @php($contractsWithMember = $period->contracts()->whereIn('backer_id', $backerList)->whereNotNull('member_id')->get())
                     <li class="flex flex-wrap bg-cyan-700 p-1 rounded items-center justify-center gap-4">
                         <span>
                             {{$period->title}}
+                            <span x-init class="text-xs" title="{{__('done/assigned/available backers')}}" x-tippy>
+                                ({{$contractsWithMember->filter(fn (\App\Models\Sponsoring\Contract $c) => $c->contract_received || $c->refused)
+                                    ->count()}}/{{$contractsWithMember->count()}}/{{count($backerList)}})
+                            </span>
                         </span>
                         @if($hasEditPermission)
                             <div class="flex justify-center gap-4">

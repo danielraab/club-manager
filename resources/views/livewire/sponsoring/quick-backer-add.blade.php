@@ -47,7 +47,7 @@
                           wire:model="member_id"
                           class="block mt-1 w-full"
                 >
-                    <option>{{__("-- choose a member --")}}</option>
+                    <option value="">{{__("-- choose a member --")}}</option>
                     @foreach(App\Models\Member::getAllFiltered(new \App\Models\Filter\MemberFilter(true, true, true))->get() as $member)
                         <option value="{{$member->id}}">{{$member->getFullName()}}</option>
                     @endforeach

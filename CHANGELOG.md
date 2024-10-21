@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - paused switch on member overview
 - member backer assignment button on period overview
 - a custom text can now be added for the sponsoring remember mail.
+- add small period summary to dashboard overview
 ### Changed
 - uploaded files column `forcePublic` changed to `isPublic`
 - member filter has now buttons instead of checkboxes
