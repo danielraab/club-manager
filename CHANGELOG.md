@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.8.3 - 2024-10-21
 ### Added
 - edit page for uploaded files (admin only)
 - paused switch on member overview
