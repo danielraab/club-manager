@@ -30,7 +30,7 @@ Route::middleware(['auth', 'permission:'.Contract::SPONSORING_SHOW_PERMISSION.'|
         ->name('sponsoring.ad-option.index');
     Route::get('/sponsoring/package', [PackageOverview::class, 'index'])
         ->name('sponsoring.package.index');
-    Route::get('/sponsoring/period/backer/{period}', PeriodBackerOverview::class)
+    Route::get('/sponsoring/period/{period}/backers', PeriodBackerOverview::class)
         ->name('sponsoring.period.backer.overview');
     Route::get('/sponsoring/period/adOption/{period}', PeriodAdOptionOverview::class)
         ->name('sponsoring.period.adOption.overview');

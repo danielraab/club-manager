@@ -55,7 +55,7 @@ class PeriodTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText('no ad options');
 
-        $response = $this->get('/sponsoring/period/backer/1');
+        $response = $this->get('/sponsoring/period/1/backers');
         $response->assertStatus(200);
         $response->assertSeeText('no backers');
 

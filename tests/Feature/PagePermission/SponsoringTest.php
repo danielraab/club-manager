@@ -39,7 +39,7 @@ class SponsoringTest extends TestPagePermission
             '/sponsoring/backer' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
             '/sponsoring/adOption' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
             '/sponsoring/package' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
-            '/sponsoring/period/backer/1' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
+            '/sponsoring/period/1/backers' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
             '/sponsoring/period/adOption/1' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
             '/sponsoring/contract/1' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
             '/sponsoring/period/1/export/csv' => [Contract::SPONSORING_SHOW_PERMISSION, Contract::SPONSORING_EDIT_PERMISSION],
