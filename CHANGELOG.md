@@ -3,7 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- change url of sponsoring backer overview
+### Fixed
+- period csv export is working now
 
 ## v0.8.3 - 2024-10-21
 ### Added

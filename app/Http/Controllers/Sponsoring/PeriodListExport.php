@@ -61,12 +61,12 @@ class PeriodListExport extends Controller
                     $lastContract?->member?->getFullName() ?? '-',
                     $lastContract?->package?->title ?? '-',
                     $lastContract?->package?->price ?? '-',
-                    $currentContract->member?->getFullName() ?? '-',
-                    $currentContract->package?->title ?? '-',
-                    $currentContract->package?->price ?? '-',
-                    $currentContract->contract_received ?? '-',
-                    $currentContract->ad_data_received ?? '-',
-                    $currentContract->paid ?? '-',
+                    $currentContract?->member?->getFullName() ?? '-',
+                    $currentContract?->package?->title ?? '-',
+                    $currentContract?->package?->price ?? '-',
+                    $currentContract?->contract_received ?? '-',
+                    $currentContract?->ad_data_received ?? '-',
+                    $currentContract?->paid ?? '-',
                 ], self::CSV_SEPARATOR);
             }
             fclose($file);
