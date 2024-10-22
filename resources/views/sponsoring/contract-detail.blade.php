@@ -1,5 +1,6 @@
 @php
-    $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION);
+    $hasSponsoringEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Sponsoring\Contract::SPONSORING_EDIT_PERMISSION);
+    $hasMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\Member::MEMBER_EDIT_PERMISSION);
     /** @var $contract \App\Models\Sponsoring\Contract */
     /** @var $period \App\Models\Sponsoring\Period */
     /** @var $package \App\Models\Sponsoring\Package */
@@ -23,7 +24,7 @@
             </div>
         </div>
     </x-slot>
-    @if($hasEditPermission)
+    @if($hasSponsoringEditPermission)
         <x-slot name="headerBtn">
             <a class="btn btn-edit"
                href="{{route('sponsoring.contract.edit', $contract->id)}}"
@@ -40,7 +41,15 @@
             <div class="p-3 flex flex-col gap-2" x-show="showPeriodDetail" x-collapse x-cloak>
                 <div>
                     <h3 class="font-semibold">{{__("Title")}}</h3>
-                    <p class="p-2">{{$period->title}}</p>
+                    <p class="p-2">
+                        @if($hasSponsoringEditPermission)
+                            <a href="{{route('sponsoring.period.edit', $period->id)}}" class="underline">
+                                {{$period->title}}
+                            </a>
+                        @else
+                            {{$period->title}}
+                        @endif
+                    </p>
                 </div>
                 <div>
                     <h3 class="font-semibold cursor-pointer" x-on:click="showDescription=!showDescription">
@@ -113,7 +122,14 @@
             <div class="p-3 flex flex-col gap-2" x-show="showBackerDetail" x-collapse x-cloak>
                 <div>
                     <h3 class="font-semibold"><i class="fa-solid fa-building"></i> {{__("Company name")}}</h3>
-                    <p class="p-2">{{$backer->name}}
+                    <p class="p-2">
+                        @if($hasSponsoringEditPermission)
+                            <a href="{{route('sponsoring.backer.edit', $backer->id)}}" class="underline">
+                                {{$backer->name}}
+                            </a>
+                        @else
+                            {{$backer->name}}
+                        @endif
                         @if($backer->vat)
                             <span class="text-gray-700 text-sm">
                                 ({{$backer->vat}})
@@ -191,7 +207,15 @@
                 @if($member)
                     <div>
                         <h3 class="font-semibold">{{__("Member name")}}</h3>
-                        <p class="p-2">{{$member->getFullName()}}</p>
+                        <p class="p-2">
+                            @if($hasMemberEditPermission)
+                                <a href="{{route('member.edit', $member->id)}}" class="underline">
+                                    {{$member->getFullName()}}
+                                </a>
+                            @else
+                                {{$member->getFullName()}}
+                            @endif
+                        </p>
                     </div>
                     <div>
                         <h3 class="font-semibold">{{__("Email")}}</h3>
@@ -229,7 +253,15 @@
                 @if($package)
                     <div>
                         <h3 class="font-semibold">{{__("Package name")}}</h3>
-                        <p class="p-2">{{$package->title}}</p>
+                        <p class="p-2">
+                            @if($hasSponsoringEditPermission)
+                                <a href="{{route('sponsoring.package.edit', $package->id)}}" class="underline">
+                                    {{$package->title}}
+                                </a>
+                            @else
+                                {{$package->title}}
+                            @endif
+                        </p>
                     </div>
                     <div>
                         <h3 class="font-semibold cursor-pointer" x-on:click="showDescription=!showDescription">

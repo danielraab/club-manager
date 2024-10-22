@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- add some cross-links for sponsoring
 ### Changed
 - change url of sponsoring backer overview
 ### Fixed

@@ -43,10 +43,15 @@ $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPerm
         <div>
             <h3 class="text-lg font-bold">{{__("this period")}} - {{$period->title}}</h3>
             <div class="space-y-2 px-4 py-2">
-                <ul>
+                <ul class="list-disc px-4 py-2">
                     @forelse($currentContracts as $contract)
                         <li>
-                            {{$contract->backer->name}}
+                            <a href="{{route('sponsoring.contract.edit', $contract->id)}}" title="Edit contract" class="underline">
+                                {{$contract->backer->name}}
+                            </a>
+                            @if($contract->package)
+                                <span class="text-xs">- {{$contract->package->title}} ({{\App\Facade\Currency::formatPrice($contract->package->price)}})</span>
+                            @endif
                         </li>
                     @empty
                         <div>{{__('no backer is taken')}}</div>
@@ -67,15 +72,13 @@ $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPerm
                     <x-modal id="member-contract-assignment-{{$member->id}}"
                              title="{{$member->getFullName()}} - {{$period->title}}"
                              focusable showX>
-                        <div class="p-3">
+                        <div class="p-3 flex flex-col gap-2">
                             @forelse($openAndCurrentBackers as $backer)
-                                <div>
-                                    <x-input-checkbox :id="$member->id.'-'.$backer->id"
-                                                      x-on:change="changed=true && $wire.updateBacker({{$backer->id}}, $event.target.checked)"
-                                                      :checked="in_array($backer->id, $currentContracts->pluck('backer_id')->toArray())">
-                                        {{$backer->name}}
-                                    </x-input-checkbox>
-                                </div>
+                                <x-input-checkbox :id="$member->id.'-'.$backer->id"
+                                                  x-on:change="changed=true && $wire.updateBacker({{$backer->id}}, $event.target.checked)"
+                                                  :checked="in_array($backer->id, $currentContracts->pluck('backer_id')->toArray())">
+                                    {{$backer->name}}
+                                </x-input-checkbox>
                             @empty
                                 <div>{{__('all backers are taken')}}</div>
                             @endforelse

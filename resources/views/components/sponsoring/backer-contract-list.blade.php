@@ -11,7 +11,11 @@
         </h3>
         <ul class="list-disc ml-5 pl-5">
             @foreach($contracts as $contract)
-                <li class="text-sm">{{$contract->period->title}} - {{$contract->package?->title ?: __('no package')}} - {{$contract->member?->getFullName()}}</li>
+                <li class="text-sm">
+                    <a href="{{route('sponsoring.contract.detail', $contract->id)}}" title="Show contract details" class="underline">
+                        {{$contract->period->title}} - {{$contract->package?->title ?: __('no package')}} - {{$contract->member?->getFullName()}}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>
