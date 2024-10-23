@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.8.4 - 2024-10-23
 ### Added
 - add some cross-links for sponsoring
 ### Changed
