@@ -5,27 +5,24 @@
 <div
     class="relative border py-2 px-4 rounded-md @if($period->start > now()) bg-blue-600 @elseif($period->end < now()) bg-gray-300 @else bg-green-500 @endif"
     x-data="{showPackages:false}">
-    <div class="flex justify-between items-center">
-        <h2 class="font-bold">{{$period->title}}</h2>
-    </div>
+    <h2 class="font-bold text-xl">{{$period->title}}</h2>
     @if($period->description)
-        <p>{{$period->description}}</p>
+        <p class="text-gray-800 text-sm">{{$period->description}}</p>
     @endif
+    <p class="mt-3">
+        <span class="font-semibold inline-block min-w-[60px]">{{__('Packages')}}:</span>
     @if(($packages = $period->packages()->get())->isNotEmpty())
-        <h3 @click="showPackages=!showPackages" class="font-semibold mt-3">{{__("Packages")}}
-            <i class="fa-solid"
-               :class="showPackages ? 'fa-caret-down' : 'fa-caret-right'"></i>
-        </h3>
-        <ul class="list-disc pl-5" x-cloak x-show="showPackages" x-collapse>
-            @foreach($packages as $package)
-                <li>{{$package->title}}</li>
-            @endforeach
-        </ul>
+            <ul class="list-disc pl-5 ml-2 text-sm">
+                @foreach($packages as $package)
+                    <li>{{$package->title}}</li>
+                @endforeach
+            </ul>
     @else
         <div class="bg-red-700 text-white rounded px-3 py-1 my-4 inline-block">{{__("No packages")}}</div>
     @endif
-    <p class="mt-3"><span
-            class="font-semibold inline-block min-w-[60px]">{{__("Start")}}:</span>{{$period->start->formatDateOnly()}}
+    <p class="mt-3">
+        <span class="font-semibold inline-block min-w-[60px]">{{__("Start")}}:</span>
+        {{$period->start->formatDateOnly()}}
     </p>
     <p><span class="font-semibold inline-block min-w-[60px]">{{__("End")}}:</span>{{$period->end->formatDateOnly()}}</p>
     @if($hasShowPermission || $hasEditPermission)
