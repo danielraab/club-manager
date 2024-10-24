@@ -5,11 +5,17 @@
 
 $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
 ?>
-<x-accordion class="min-w-60 text-sm text-gray-700" type="period-member"
+<x-accordion class="min-w-60 border-b border-b-black" type="period-member"
              x-show="{{$currentContracts->count()>0 ? 'true' : 'false'}} || !showOnlyMemberWithAssignment">
     <x-slot name="labelSlot">
         <div class="flex justify-between items-center w-full">
             <div>
+                @if($hasUserMemberEditPermission)
+                    <a href="{{route('member.edit', $member->id)}}" title="Edit member" x-on:click.stop=""
+                       class="btn btn-primary mr-2">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                @endif
                 {{$member->getFullName()}}
                 @if($member->email)
                     ({{ $member->email }})
@@ -17,12 +23,6 @@ $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPerm
                     <span class="text-red-800 font-bold">({{ __('mail missing') }})</span>
                 @endif
             </div>
-            @if($hasUserMemberEditPermission)
-                <a href="{{route('member.edit', $member->id)}}" title="Edit member" x-on:click.stop=""
-                   class="btn btn-primary">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-            @endif
         </div>
     </x-slot>
     <x-livewire.loading/>
@@ -30,8 +30,7 @@ $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPerm
                  .addNotificationMessages(
                  JSON.parse('{{\App\Facade\NotificationMessage::popNotificationMessagesJson()}}'))"></div>
     <div class="grid lg:grid-cols-2 gap-3 pb-3">
-        <div class="rounded bg-gray-400 p-2">
-            <h3 class="text-lg font-bold">{{__("last backers")}}</h3>
+        <x-accordion class="bg-gray-400 p-2" label="{{__('last backers')}}">
             <ul class="list-disc px-4 py-2">
                 @forelse($previousContracts as $contract)
                     <li>{{$contract->backer->name}} ({{$contract->period->title}})</li>
@@ -39,8 +38,8 @@ $hasUserMemberEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPerm
                     <div>{{__('no last contracts')}}</div>
                 @endforelse
             </ul>
-        </div>
-        <div>
+        </x-accordion>
+        <div class="border p-2">
             <h3 class="text-lg font-bold">{{__("this period")}} - {{$period->title}}</h3>
             <div class="space-y-2 px-4 py-2">
                 <ul class="list-disc px-4 py-2">
