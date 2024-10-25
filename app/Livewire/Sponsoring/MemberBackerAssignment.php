@@ -100,7 +100,7 @@ class MemberBackerAssignment extends Component
             return;
         }
 
-        $this->member->notify(new SponsoringMemberPeriodSummary($this->period, $currentContracts, auth()->user(), "", true));
+        $this->member->notify(new SponsoringMemberPeriodSummary($this->period, $currentContracts, auth()->user(), '', true));
 
         Log::info('Sponsoring summary mail sent to member.', [auth()->user(), $this->member]);
         NotificationMessage::addSuccessNotificationMessage(
