@@ -77,7 +77,7 @@ class UploadedFile extends Model
     public function getUrl(): string
     {
         if ($this->isPublicStored()) {
-            return Storage::url($this->path);
+            return url(Storage::url($this->path));
         }
 
         return route('file', $this->id);

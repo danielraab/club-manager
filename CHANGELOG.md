@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.8.6 - 2024-10-26
+### Fixed
+- files in sponsoring notifications work again (links have domain url now)
+### Changed
+- wording change for sponsoring overview mail
+
+## v0.8.5 - 2024-10-25
+### Fixed
+- sending single sponsoring notification mail works again
+
 ## v0.8.4 - 2024-10-23
 ### Added
 - add some cross-links for sponsoring

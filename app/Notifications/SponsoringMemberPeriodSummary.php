@@ -57,7 +57,7 @@ class SponsoringMemberPeriodSummary extends Notification
         }
 
         $mailMessage = (new MailMessage)
-            ->subject(__('Sponsoring Member Summary - :period', ['period' => $this->period->title]))
+            ->subject(__('Personal sponsoring Summary - :period', ['period' => $this->period->title]))
             ->greeting(__('Hello :name', ['name' => $notifiable->getFullName()]));
 
         if ($this->additionalText) {
