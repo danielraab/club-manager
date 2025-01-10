@@ -133,7 +133,7 @@ class EventICalExport extends Controller
             }
             if ($event->whole_day) {
                 $calEvent->fullDay();
-                $end->addDay();
+                $end->setTime(0,0);
             }
             $calEvent->endsAt($end);
             $calendar->event($calEvent);

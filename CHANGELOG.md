@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.8.7 - 2025-01-10
+### Fixed
+- fixed full day ics events
+
 ## v0.8.6 - 2024-10-26
 ### Fixed
 - files in sponsoring notifications work again (links have domain url now)
