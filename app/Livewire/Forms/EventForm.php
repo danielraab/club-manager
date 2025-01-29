@@ -105,7 +105,7 @@ class EventForm extends Form
     {
         $this->update();
         $start = $this->event->start;
-        $diff = $this->event->end->diff($start);
+        $diff = $start->diff($this->event->end);
 
         $eventData = [];
         foreach ($dateArray as $copyDate) {
