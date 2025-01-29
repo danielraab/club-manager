@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.8.8 - 2025-01-27
+### Fixed
+- end date of event copy works now
+
 ## v0.8.7 - 2025-01-10
 ### Fixed
 - fixed full day ics events
