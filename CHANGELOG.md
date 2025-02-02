@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+
+## v0.8.9 - 2025-02-02
 ### Added
 - oAuth support
 ### Changed

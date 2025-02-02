@@ -23,7 +23,7 @@ class OAuthLoginController extends Controller
             return $this->tryLogin($user);
         } catch (\InvalidArgumentException $e) {
             Log::error('Exception while logging in.', [$e]);
-            NotificationMessage::addErrorNotificationMessage(__('A problem occurred, while logging in.'));
+            NotificationMessage::addErrorNotificationMessage(__('A problem occurred, while logging in.').' '.__('Please try again.'));
 
             return redirect(route('login'));
         }
