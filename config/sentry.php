@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sentry Laravel SDK configuration file.
  *

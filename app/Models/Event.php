@@ -114,12 +114,12 @@ class Event extends Model
     private static function addFilterToBuilder(Builder $builder, EventFilter $filter): Builder
     {
         if ($filter->start) {
-            //includes events which end after the specified start date
+            // includes events which end after the specified start date
             $builder->where('end', '>=', $filter->start);
         }
 
         if ($filter->end) {
-            //includes events which start before the specified end date
+            // includes events which start before the specified end date
             $builder->where('start', '<=', $filter->end);
         }
 

@@ -63,7 +63,7 @@ class Contract extends Model implements HasFileRelationInterface
 
         self::forceDeleting(function (Contract $contract) {
             AdPlacement::query()->where('contract_id', $contract->id)->forceDelete();
-            $contract->uploadedFile?->delete();    //files stay soft deleted (as backup)
+            $contract->uploadedFile?->delete();    // files stay soft deleted (as backup)
         });
     }
 

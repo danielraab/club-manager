@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
-
+### Changed
+- update composer and node packages
 
 ## v0.8.8 - 2025-01-27
 ### Fixed

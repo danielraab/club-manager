@@ -60,7 +60,7 @@ class Period extends Model implements HasFileRelationInterface
                 $contract->forceDelete();
             }
             foreach ($period->uploadedFiles as $file) {
-                $file->delete();    //files stay soft deleted (as backup)
+                $file->delete();    // files stay soft deleted (as backup)
             }
         });
     }

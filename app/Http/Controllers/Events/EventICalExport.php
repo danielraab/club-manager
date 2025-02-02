@@ -78,14 +78,14 @@ class EventICalExport extends Controller
             $birthdayLastYear = $member->birthday->clone();
             $birthdayLastYear->setYear($currentYear - 1);
 
-            //last year birthday
+            // last year birthday
             $calEvent = Event::create($member->getFullName());
             $calEvent->startsAt($birthdayLastYear);
             $calEvent->description((string) ($currentYear - 1 - $member->birthday->year));
             $calEvent->fullDay();
             $calendar->event($calEvent);
 
-            //this year
+            // this year
             $birthday = $member->birthday->clone();
             $birthday->setYear($currentYear);
             $calEvent = Event::create($member->getFullName());
@@ -94,7 +94,7 @@ class EventICalExport extends Controller
             $calEvent->fullDay();
             $calendar->event($calEvent);
 
-            //next year
+            // next year
             $birthdayNextYear = $member->birthday->clone();
             $birthdayNextYear->setYear($currentYear + 1);
             $calEvent = Event::create($member->getFullName());
