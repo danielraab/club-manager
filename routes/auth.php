@@ -5,10 +5,12 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\OAuthLoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::group(['middleware' => ['web', \Spatie\WelcomeNotification\WelcomesNewUsers::class]], function () {
     Route::get('welcome/{user}', [\App\Http\Controllers\Auth\WelcomeController::class, 'showWelcomeForm'])->name('welcome');
@@ -56,3 +58,14 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+
+Route::get('/auth/user-not-found', fn () => view('auth.oauth-user-not-found'))
+    ->name('oauth.user-not-found');
+
+Route::get('/auth/google/redirect', function () {
+    return Socialite::driver('google')->redirect();
+})->name('oauth.google.redirect');
+
+Route::get('/auth/google/callback', [OAuthLoginController::class, 'google'])
+    ->name('oauth.google.callback');

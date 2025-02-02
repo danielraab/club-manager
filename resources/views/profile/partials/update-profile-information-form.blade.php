@@ -42,7 +42,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <button type="button" class="btn btn-primary">{{ __('Save') }}</button>
+            <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
     </form>
 </section>

@@ -47,4 +47,15 @@
             </button>
         </div>
     </form>
+    <hr class="my-4"/>
+    <div class="text-center">
+        @if(env('GOOGLE_CLIENT_ID'))
+            <a href="{{route('oauth.google.redirect')}}" class="ml-3 btn btn-secondary">
+                {{ __('Log in with Google') }}
+            </a>
+        @endif
+        @if(env('AUTHENTIK_CLIENT_ID'))
+            authentik todo
+        @endif
+    </div>
 </x-guest-layout>

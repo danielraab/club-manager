@@ -3,8 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- oAuth support
 ### Changed
 - update composer and node packages
+### Fixed
+- update profile information works again now
 
 ## v0.8.8 - 2025-01-27
 ### Fixed

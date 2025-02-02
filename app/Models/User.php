@@ -61,6 +61,10 @@ class User extends Authenticatable
         'last_login_at' => 'datetime',
     ];
 
+    public static function findByMail(string $email): ?User {
+        return User::query()->where('email', $email)->first();
+    }
+
     public function register(): void
     {
         $this->save();
