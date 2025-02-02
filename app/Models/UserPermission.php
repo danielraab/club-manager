@@ -25,6 +25,7 @@ class UserPermission extends Model
     public const USER_MANAGEMENT_EDIT_PERMISSION = 'userManagementEdit';
 
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     protected $fillable = [

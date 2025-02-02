@@ -18,11 +18,14 @@ class OAuthLoginController extends Controller
     public function google(): RedirectResponse
     {
         $user = Socialite::driver('google')->user();
+
         return $this->tryLogin($user);
     }
+
     public function authentik(): RedirectResponse
     {
         $user = Socialite::driver('authentik')->user();
+
         return $this->tryLogin($user);
     }
 
@@ -31,11 +34,11 @@ class OAuthLoginController extends Controller
 
         $userModel = $this->findUser($user->getEmail());
 
-        if (!$userModel && env('OAUTH_AUTO_CREATE_USER')) {
+        if (! $userModel && env('OAUTH_AUTO_CREATE_USER')) {
             $userModel = $this->createUser($user->getEmail(), $user->getName());
         }
 
-        if (!$userModel) {
+        if (! $userModel) {
             return redirect()->route('oauth.user-not-found');
         }
 
@@ -65,7 +68,7 @@ class OAuthLoginController extends Controller
 
         $user->register();
 
-        Log::channel('userManagement')->info('User ' . $email . ' has been created by Oauth auto registration.');
+        Log::channel('userManagement')->info('User '.$email.' has been created by Oauth auto registration.');
         NotificationMessage::addNotificationMessage(
             new Item(__('User :user created successfully.', ['user' => $name]), ItemType::SUCCESS));
 

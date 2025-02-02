@@ -24,7 +24,7 @@ class UserCreate extends Component
     {
         $this->userForm->store();
 
-        Log::channel('userManagement')->info('User ' . $this->userForm->user->getNameWithMail() . ' has been created by ' . auth()->user()->getNameWithMail());
+        Log::channel('userManagement')->info('User '.$this->userForm->user->getNameWithMail().' has been created by '.auth()->user()->getNameWithMail());
         NotificationMessage::addNotificationMessage(
             new Item(__('User :user created successfully.', ['user' => $this->userForm->user->name]), ItemType::SUCCESS));
 
