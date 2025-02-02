@@ -63,9 +63,18 @@ Route::middleware('auth')->group(function () {
 Route::get('/auth/user-not-found', fn () => view('auth.oauth-user-not-found'))
     ->name('oauth.user-not-found');
 
+
 Route::get('/auth/google/redirect', function () {
     return Socialite::driver('google')->redirect();
 })->name('oauth.google.redirect');
 
 Route::get('/auth/google/callback', [OAuthLoginController::class, 'google'])
     ->name('oauth.google.callback');
+
+
+Route::get('/auth/authentik/redirect', function () {
+    return Socialite::driver('authentik')->redirect();
+})->name('oauth.authentik.redirect');
+
+Route::get('/auth/authentik/callback', [OAuthLoginController::class, 'authentik'])
+    ->name('oauth.authentik.callback');

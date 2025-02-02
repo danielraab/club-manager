@@ -15,13 +15,14 @@ use Laravel\Socialite\Facades\Socialite;
 
 class OAuthLoginController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
     public function google(): RedirectResponse
     {
         $user = Socialite::driver('google')->user();
-
+        return $this->tryLogin($user);
+    }
+    public function authentik(): RedirectResponse
+    {
+        $user = Socialite::driver('authentik')->user();
         return $this->tryLogin($user);
     }
 
