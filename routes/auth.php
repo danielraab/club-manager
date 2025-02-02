@@ -9,12 +9,14 @@ use App\Http\Controllers\Auth\OAuthLoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use Spatie\WelcomeNotification\WelcomesNewUsers;
 
-Route::group(['middleware' => ['web', \Spatie\WelcomeNotification\WelcomesNewUsers::class]], function () {
-    Route::get('welcome/{user}', [\App\Http\Controllers\Auth\WelcomeController::class, 'showWelcomeForm'])->name('welcome');
-    Route::post('welcome/{user}', [\App\Http\Controllers\Auth\WelcomeController::class, 'savePassword']);
+Route::group(['middleware' => ['web', WelcomesNewUsers::class]], function () {
+    Route::get('welcome/{user}', [WelcomeController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('welcome/{user}', [WelcomeController::class, 'savePassword']);
 });
 
 Route::middleware('guest')->group(function () {

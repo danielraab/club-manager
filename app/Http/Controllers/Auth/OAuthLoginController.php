@@ -17,16 +17,30 @@ class OAuthLoginController extends Controller
 {
     public function google(): RedirectResponse
     {
-        $user = Socialite::driver('google')->user();
+        try {
+            $user = Socialite::driver('google')->user();
 
-        return $this->tryLogin($user);
+            return $this->tryLogin($user);
+        } catch (\InvalidArgumentException $e) {
+            Log::error('Exception while logging in.', [$e]);
+            NotificationMessage::addErrorNotificationMessage(__('A problem occurred, while logging in.'));
+
+            return redirect(route('login'));
+        }
     }
 
     public function authentik(): RedirectResponse
     {
-        $user = Socialite::driver('authentik')->user();
+        try {
+            $user = Socialite::driver('authentik')->user();
 
-        return $this->tryLogin($user);
+            return $this->tryLogin($user);
+        } catch (\InvalidArgumentException $e) {
+            Log::error('Exception while logging in.', [$e]);
+            NotificationMessage::addErrorNotificationMessage(__('A problem occurred, while logging in.'));
+
+            return redirect(route('login'));
+        }
     }
 
     private function tryLogin(\Laravel\Socialite\Contracts\User $user): RedirectResponse

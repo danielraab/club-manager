@@ -7,6 +7,7 @@
         @endif
     </x-slot>
     <div class="min-h-[80vh] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <x-notification-messages/>
         <div class="flex flex-col items-center">
             <a href="/">
                 <x-application-logo class="h-20 fill-current text-gray-500"/>
