@@ -34,7 +34,7 @@ class OAuthLoginController extends Controller
 
         $userModel = $this->findUser($user->getEmail());
 
-        if (! $userModel && env('OAUTH_AUTO_CREATE_USER')) {
+        if (! $userModel && config('services.oauth_auto_create_user')) {
             $userModel = $this->createUser($user->getEmail(), $user->getName());
         }
 

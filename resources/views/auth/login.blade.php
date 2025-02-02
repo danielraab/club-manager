@@ -52,14 +52,14 @@
     </form>
     <hr class="my-3">
     <div class="flex flex-col items-center gap-2">
-        @if(env('GOOGLE_CLIENT_ID'))
+        @if(config('services.google.client_id'))
             <a href="{{route('oauth.google.redirect')}}" class="ml-3 btn btn-secondary">
                 {{ __('Login with') }}&nbsp;<strong>Google</strong>
             </a>
         @endif
-        @if(env('AUTHENTIK_CLIENT_ID'))
+        @if(config('services.authentik.client_id'))
             <a href="{{route('oauth.authentik.redirect')}}" class="ml-3 btn btn-secondary">
-                {{ __('Login with')}}&nbsp;<strong>{{env('AUTHENTIK_IP_NAME', 'Authentik')}}</strong>
+                {{ __('Login with')}}&nbsp;<strong>{{config('services.authentik.ip_name')}}</strong>
             </a>
         @endif
     </div>
