@@ -11,7 +11,6 @@
                                    :active="request()->routeIs('member.*')">
                 {{ __('Members') }}
             </x-responsive-nav-link>
-        @else
             <x-responsive-nav-link href="{{route('member.birthdayList')}}"
                                    iconClasses="fa-solid fa-cake-candles"
                                    title="Show list of member birthdays">

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## Unpublished
 
 
+## v0.8.10 - 2025-02-02
+### Added
+- added admin user notification after registration of new user.
+### Fixed
+- birthday link is only visible for user with memberShow permission.
+
 ## v0.8.9 - 2025-02-02
 ### Added
 - oAuth support

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use App\Models\UserPermission;
+use App\Notifications\NewUser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -56,7 +57,9 @@ class RegisterAdminUser extends Command
         $user->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
 
         Log::channel('userManagement')->info('User '.$user->getNameWithMail().' has been created via CLI');
-
+        User::getAdmins()->each(function (User $adminUser) use ($user) {
+            $adminUser->notify(new NewUser($user, 'CLI'));
+        });
         $this->info("User $email was created successfully. A welcome message with a set password link has been sent.");
     }
 }

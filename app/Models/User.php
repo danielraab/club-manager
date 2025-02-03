@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -64,6 +65,11 @@ class User extends Authenticatable
     public static function findByMail(string $email): ?User
     {
         return User::query()->where('email', $email)->first();
+    }
+
+    public static function getAdmins(): Collection
+    {
+        return UserPermission::query()->find(UserPermission::ADMIN_USER_PERMISSION)->users()->get();
     }
 
     public function register(): void

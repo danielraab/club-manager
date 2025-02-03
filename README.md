@@ -50,6 +50,8 @@
 
 -   `./vendor/bin/sail npm run dev` to start vite
 
+- create new admin customer `./vendor/bin/sail artisan app:register-admin-user`
+
 ### debugging with sail
 
 * add environment variables to yml file in sail/app container:
