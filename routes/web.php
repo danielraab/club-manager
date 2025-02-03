@@ -32,13 +32,13 @@ Route::middleware(\App\Http\Middleware\Development::class)->group(function () {
     Route::get('/development', Development::class)->name('development');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'permission:'.UserPermission::ADMIN_USER_PERMISSION])->group(function () {
+Route::middleware(['auth', 'verified', 'permission:'.UserPermission::ADMIN_USER_PERMISSION])->group(function () {
     Route::get('/settings', [Settings::class, 'index'])->name('settings');
     Route::get('/uploaded-files', UploadedFiles::class)->name('uploaded-file.list');
     Route::get('/uploaded-files/{uploadedFile}', UploadedFileEdit::class)->name('uploaded-file.edit');

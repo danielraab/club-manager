@@ -54,7 +54,10 @@ class RegisterAdminUser extends Command
             return;
         }
 
-        $user = $this->userService->createUser($name, $email, NewUserProvider::CLI);
+        $user = $this->userService->createUser($email, $name, NewUserProvider::CLI);
+        $user->email_verified_at = now();
+        $user->save();
+
         $user->userPermissions()->attach(UserPermission::ADMIN_USER_PERMISSION);
         $user->sendWelcomeNotification(now()->addWeek());
         $this->info("User $email was created successfully. A welcome message with a set password link has been sent.");

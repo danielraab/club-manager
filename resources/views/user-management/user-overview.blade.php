@@ -1,5 +1,6 @@
 @php
     $hasEditPermission = \Illuminate\Support\Facades\Auth::user()->hasPermission(\App\Models\UserPermission::USER_MANAGEMENT_EDIT_PERMISSION);
+    /** @var \App\Models\User $user */
 @endphp
 <x-backend-layout>
     <x-slot name="headline">
@@ -32,7 +33,13 @@
                 <tr class="[&:nth-child(2n)]:bg-indigo-200">
                     <td class="border px-4 py-2">{{$user->id}}</td>
                     <td class="border px-4 py-2">{{ $user->name }}</td>
-                    <td class="border px-4 py-2">{{ $user->email }}</td>
+                    <td class="border px-4 py-2">{{ $user->email }}
+                        @if($user->email_verified_at)
+                            <i class="fa-solid fa-check text-green-700" x-tippy title="{{__("Email is verified.")}}"></i>
+                        @else
+                            <i class="fa-solid fa-question text-blue-700" x-tippy title="{{__("Email is not verified.")}}"></i>
+                        @endif
+                    </td>
                     <td class="border px-4 py-2">
                         <ul class="list-disc text-left pl-3">
                             @foreach($user->userPermissions()->orderBy('id')->get() as $permission)

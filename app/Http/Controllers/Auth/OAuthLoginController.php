@@ -49,24 +49,27 @@ class OAuthLoginController extends Controller
         }
     }
 
-    private function tryLogin(\Laravel\Socialite\Contracts\User $user): RedirectResponse
+    private function tryLogin(\Laravel\Socialite\Contracts\User $tokenUser): RedirectResponse
     {
+        $user = $this->findUser($tokenUser->getEmail());
 
-        $userModel = $this->findUser($user->getEmail());
-
-        if (! $userModel && config('services.oauth_auto_create_user')) {
-            $userModel = $this->createUser($user->getEmail(), $user->getName());
+        if (! $user && config('services.oauth_auto_create_user')) {
+            $user = $this->createUser($tokenUser);
         }
 
-        if (! $userModel) {
+        if (! $user) {
             return redirect()->route('oauth.user-not-found');
         }
 
-        $userModel->update([
-            'last_login_at' => now(),
-        ]);
+        if (! $user->email_verified_at && $tokenUser instanceof \Laravel\Socialite\Two\User) {
+            $isEmailVerified = $tokenUser->getRaw()['verified_email'] ?? $tokenUser->getRaw()['email_verified'] ?? false;
+            $user->email_verified_at = $isEmailVerified ? now() : null;
+        }
 
-        Auth::login($userModel);
+        $user->last_login_at = now();
+        $user->save();
+
+        Auth::login($user);
 
         NotificationMessage::addSuccessNotificationMessage(__('Your login was successful.'));
 
@@ -78,8 +81,10 @@ class OAuthLoginController extends Controller
         return User::findByMail($email);
     }
 
-    private function createUser(string $email, string $name): ?User
+    private function createUser(\Laravel\Socialite\Contracts\User $tokenUser): ?User
     {
+        $email = $tokenUser->getEmail();
+        $name = $tokenUser->getName();
         $user = $this->userService->createUser($email, $name, NewUserProvider::OAUTH);
 
         NotificationMessage::addNotificationMessage(

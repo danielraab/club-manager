@@ -17,6 +17,7 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
  * @property string name
  * @property string email
  * @property \DateTime|null email_verified_at
+ * @property \DateTime|null last_login_at
  * @property string|null password
  * @property string|null remember_token
  *

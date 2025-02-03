@@ -1,3 +1,6 @@
+@php
+/** @var \App\Livewire\Forms\UserForm $userForm */
+@endphp
 <x-slot name="headline">
     <div class="flex justify-between items-center">
         {{ __('Edit user') }}
@@ -31,6 +34,15 @@
         </div>
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-4 sm:p-8 max-w-xl">
+                <div class="text-gray-500 mt-3 ml-3 space-x-2">
+                    @if($userForm->user->email_verified_at)
+                        <i class="fa-solid fa-at text-green-700"></i>
+                        <span title="{{__("Email verified at")}}">{{$userForm->user->email_verified_at?->formatDateTimeWithSec()}}</span>
+                    @else
+                        <i class="fa-solid fa-at text-red-700"></i>
+                        <span class="text-red-700">{{__('Email is not verified yet.')}}</span>
+                    @endif
+                </div>
                 <div class="text-gray-500 mt-3 ml-3 space-x-2">
                     <i class="fa-regular fa-square-plus"></i>
                     <span title="{{__("Created at")}}">{{$userForm->user->created_at?->formatDateTimeWithSec()}}</span>

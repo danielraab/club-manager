@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                     'name' => 'Admin User',
                     'email' => 'admin@example.com',
                     'password' => Hash::make('admin'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [
                     UserPermission::ADMIN_USER_PERMISSION,
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
                     'name' => 'Test User',
                     'email' => 'tester@example.com',
                     'password' => Hash::make('tester'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [],
             ], [
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
                     'name' => 'News Edit User',
                     'email' => 'editNews@draab.at',
                     'password' => Hash::make('editNews'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [News::NEWS_EDIT_PERMISSION],
             ], [
@@ -49,6 +52,7 @@ class UserSeeder extends Seeder
                     'name' => 'Member Show',
                     'email' => 'memberShow@draab.at',
                     'password' => Hash::make('memberShow'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Member::MEMBER_SHOW_PERMISSION],
             ], [
@@ -57,6 +61,7 @@ class UserSeeder extends Seeder
                     'name' => 'Member Edit',
                     'email' => 'memberEdit@draab.at',
                     'password' => Hash::make('memberEdit'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Member::MEMBER_EDIT_PERMISSION],
             ], [
@@ -65,6 +70,7 @@ class UserSeeder extends Seeder
                     'name' => 'Attendance Show User',
                     'email' => 'attendanceShow@example.com',
                     'password' => Hash::make('attendanceShow'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Attendance::ATTENDANCE_SHOW_PERMISSION],
             ], [
@@ -73,6 +79,7 @@ class UserSeeder extends Seeder
                     'name' => 'Attendance Edit User',
                     'email' => 'attendanceEdit@example.com',
                     'password' => Hash::make('attendanceEdit'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Attendance::ATTENDANCE_EDIT_PERMISSION],
             ], [
@@ -81,6 +88,7 @@ class UserSeeder extends Seeder
                     'name' => 'Attendance Poll Show User',
                     'email' => 'attendancePollShow@example.com',
                     'password' => Hash::make('attendancePollShow'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [AttendancePoll::ATTENDANCE_POLL_SHOW_PERMISSION],
             ], [
@@ -89,6 +97,7 @@ class UserSeeder extends Seeder
                     'name' => 'Attendance Poll Edit User',
                     'email' => 'attendancePollEdit@example.com',
                     'password' => Hash::make('attendancePollEdit'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [AttendancePoll::ATTENDANCE_POLL_EDIT_PERMISSION],
             ], [
@@ -97,6 +106,7 @@ class UserSeeder extends Seeder
                     'name' => 'User Show User',
                     'email' => 'showUser@draab.at',
                     'password' => Hash::make('showUser'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [UserPermission::USER_MANAGEMENT_SHOW_PERMISSION],
             ], [
@@ -105,6 +115,7 @@ class UserSeeder extends Seeder
                     'name' => 'User Edit User',
                     'email' => 'editUser@draab.at',
                     'password' => Hash::make('editUser'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [UserPermission::USER_MANAGEMENT_EDIT_PERMISSION],
             ], [
@@ -113,6 +124,7 @@ class UserSeeder extends Seeder
                     'name' => 'Sponsoring Show',
                     'email' => 'sponsoringShow@draab.at',
                     'password' => Hash::make('sponsoringShow'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Contract::SPONSORING_SHOW_PERMISSION],
             ], [
@@ -121,6 +133,7 @@ class UserSeeder extends Seeder
                     'name' => 'Sponsoring Edit',
                     'email' => 'sponsoringEdit@draab.at',
                     'password' => Hash::make('sponsoringEdit'),
+                    'email_verified_at' => now(),
                 ],
                 'permissions' => [Contract::SPONSORING_EDIT_PERMISSION],
             ],
