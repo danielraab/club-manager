@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+## v0.8.11 - 2025-02-03
 ### Added
 - email verfied information on user managment pages (overview, edit)
 - verified middleware to the most important endpoints
