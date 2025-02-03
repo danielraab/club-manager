@@ -31,7 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'oauth_auto_create_user' => env('OAUTH_AUTO_CREATE_USER', false),
+    'user_self_registration' => env('USER_SELF_REGISTRATION', false),
 
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),

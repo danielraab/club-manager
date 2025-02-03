@@ -3,10 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- hide registration button if user self registration is disabled
+- hide registration routes if user self registration is disabled
+### Changed
+- changed env variable name of user self registration
 
 ## v0.8.11 - 2025-02-03
 ### Added
-- email verfied information on user managment pages (overview, edit)
+- email verified information on user management pages (overview, edit)
 - verified middleware to the most important endpoints
 - write verified email info from oauth token into user model
 

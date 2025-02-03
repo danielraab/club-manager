@@ -53,13 +53,12 @@ class OAuthLoginController extends Controller
     {
         $user = $this->findUser($tokenUser->getEmail());
 
-        if (! $user && config('services.oauth_auto_create_user')) {
+        if (! $user && config('services.user_self_registration')) {
             $user = $this->createUser($tokenUser);
         }
 
         if (! $user) {
-            return redirect()->route('oau
-th.user-not-found');
+            return redirect()->route('oauth.user-not-found');
         }
 
         if (! $user->email_verified_at && $tokenUser instanceof \Laravel\Socialite\Two\User) {

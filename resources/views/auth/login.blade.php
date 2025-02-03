@@ -38,9 +38,13 @@
         </div>
 
         <div class="flex flex-wrap items-center justify-between mt-4">
-            <a href="{{route('register')}}" class="btn btn-secondary">
-                {{ __('Register') }}
-            </a>
+            <div>
+                @if(config('services.user_self_registration'))
+                    <a href="{{route('register')}}" class="btn btn-secondary">
+                        {{ __('Register') }}
+                    </a>
+                @endif
+            </div>
             <div class="text-right">
                 @if (Route::has('password.request'))
                     <a class="mx-3 underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
