@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\User;
+use App\Services\NewUserProvider;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -15,7 +16,7 @@ class NewUser extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(private readonly User $user, private readonly string $creator) {}
+    public function __construct(private readonly User $user, private readonly NewUserProvider $provider) {}
 
     /**
      * Get the notification's delivery channels.
@@ -40,7 +41,7 @@ class NewUser extends Notification
             ->subject(__('New user created - :name', ['name' => $this->user->name]))
             ->greeting(__('Hello :name', ['name' => $notifiable->name]));
 
-        $mailMessage->line(__('A new user was created via :creator.', ['creator' => $this->creator]));
+        $mailMessage->line(__('A new user was created via :creator.', ['creator' => $this->provider->value]));
         $mailMessage->line(__('New users name \':name\' and email: :email', ['name' => $this->user->name, 'email' => $this->user->email]));
         $mailMessage->line(__('You can now adjust the permissions.'));
 

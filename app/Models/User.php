@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,10 +22,11 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
  *
  * @see /database/migrations/2014_10_12_000000_create_users_table.php
  */
-class User extends Authenticatable
+class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
+    use MustVerifyEmail;
     use Notifiable;
     use ReceivesWelcomeNotification;
     use SoftDeletes;
@@ -70,16 +71,6 @@ class User extends Authenticatable
     public static function getAdmins(): Collection
     {
         return UserPermission::query()->find(UserPermission::ADMIN_USER_PERMISSION)->users()->get();
-    }
-
-    public function register(): void
-    {
-        $this->save();
-
-        event(new Registered($this));
-
-        $expiresAt = now()->addWeek();
-        $this->sendWelcomeNotification($expiresAt);
     }
 
     public function userPermissions(): BelongsToMany

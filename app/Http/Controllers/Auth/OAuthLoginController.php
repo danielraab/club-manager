@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\NotificationMessage\Item;
 use App\NotificationMessage\ItemType;
-use App\Notifications\NewUser;
 use App\Providers\RouteServiceProvider;
+use App\Services\NewUserProvider;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,8 @@ use Laravel\Socialite\Facades\Socialite;
 class OAuthLoginController extends Controller
 {
     private string $provider = '';
+
+    public function __construct(private readonly UserService $userService) {}
 
     public function google(): RedirectResponse
     {
@@ -77,17 +80,8 @@ class OAuthLoginController extends Controller
 
     private function createUser(string $email, string $name): ?User
     {
-        $user = User::query()->create([
-            'name' => $name,
-            'email' => $email,
-        ]);
+        $user = $this->userService->createUser($email, $name, NewUserProvider::OAUTH);
 
-        $user->register();
-
-        Log::channel('userManagement')->info('User '.$email.' has been created by Oauth auto registration.');
-        User::getAdmins()->each(function (User $adminUser) use ($user) {
-            $adminUser->notify(new NewUser($user, $this->provider));
-        });
         NotificationMessage::addNotificationMessage(
             new Item(__('User :user created successfully.', ['user' => $name]), ItemType::SUCCESS));
 

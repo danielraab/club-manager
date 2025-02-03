@@ -37,17 +37,22 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                   href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        <div class="flex flex-wrap items-center justify-between mt-4">
+            <a href="{{route('register')}}" class="btn btn-secondary">
+                {{ __('Register') }}
+            </a>
+            <div class="text-right">
+                @if (Route::has('password.request'))
+                    <a class="mx-3 underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                       href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
 
-            <button type="submit" class="ml-3 btn btn-primary">
-                {{ __('Log in') }}
-            </button>
+                <button type="submit" class=" btn btn-primary">
+                    {{ __('Log in') }}
+                </button>
+            </div>
         </div>
     </form>
     <hr class="my-3">
