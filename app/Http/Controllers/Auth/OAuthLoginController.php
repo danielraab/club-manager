@@ -58,7 +58,8 @@ class OAuthLoginController extends Controller
         }
 
         if (! $user) {
-            return redirect()->route('oauth.user-not-found');
+            return redirect()->route('oau
+th.user-not-found');
         }
 
         if (! $user->email_verified_at && $tokenUser instanceof \Laravel\Socialite\Two\User) {

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unpublished
 
+### Added
+- email verfied information on user managment pages (overview, edit)
+- verified middleware to the most important endpoints
+- write verified email info from oauth token into user model
 
 ## v0.8.10 - 2025-02-02
 ### Added
