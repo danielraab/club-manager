@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('key');
-            $table->string('value');
+            $table->text('value');
             $table->enum('datatype', ['string', 'int', 'bool']);
 
             $table->foreignIdFor(User::class)->nullable();
