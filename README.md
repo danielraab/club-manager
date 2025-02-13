@@ -20,7 +20,7 @@
 * start docker stack: `./vendor/bin/sail up`
 
 * execute `./vendor/bin/sail artisan key:generate` or via button on the first error page
-* 
+
 * execute `./vendor/bin/sail artisan storage:link` to access files saved in `storage/public`
 
 - create database: `./vendor/bin/sail artisan migrate:fresh`
