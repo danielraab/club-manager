@@ -27,12 +27,9 @@ class TrustProxies extends Middleware
         Request::HEADER_X_FORWARDED_PROTO |
         Request::HEADER_X_FORWARDED_AWS_ELB;
 
-
     /**
      * Handle the request, Set the correct user-configured proxy information.
      *
-     * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
      */

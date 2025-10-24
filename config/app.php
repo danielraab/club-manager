@@ -205,7 +205,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
-
     // Proxy configuration
     'proxies' => env('APP_PROXIES', ''),
 ];
