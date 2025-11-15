@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.8.13 - 2025-11-15
 ### Added
 - hide registration button if user self registration is disabled
 - hide registration routes if user self registration is disabled
