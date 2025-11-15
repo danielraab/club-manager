@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => env('APP_VERSION', 'v0.7'),
+    'version' => env('APP_VERSION', 'v0.8.13'),
 
     /*
      * works only if the configs are cached (strongly recommended for production)
