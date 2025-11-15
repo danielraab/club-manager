@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - hide registration routes if user self registration is disabled
 ### Changed
 - changed env variable name of user self registration
+### Fixed
+- sponsor package price column is now not nullable with default value of 0 and price will not be displayed if it is 0
 
 ## v0.8.11 - 2025-02-03
 ### Added

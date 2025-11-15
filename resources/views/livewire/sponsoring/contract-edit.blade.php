@@ -63,7 +63,11 @@
                                 <span class="font-bold">{{$contract->period()->first()->title}}:</span>
                                 <span>{{$contract->member()->first()?->getFullName() ?: __("no member assigned")}}</span>
                                 @if(($p = $contract->package()->first()))
-                                    <span> - {{$p->title}} ({{App\Facade\Currency::formatPrice($p->price)}})</span>
+                                    <span> - {{$p->title}}
+                                        @if($p->price)
+                                        ({{App\Facade\Currency::formatPrice($p->price)}})
+                                        @endif
+                                    </span>
                                 @else
                                     <span> - {{__("no package assigned")}}</span>
                                 @endif
@@ -111,11 +115,15 @@
                     @foreach($period->packages()->where("enabled", true)->get() as $package)
                         @if($package->is_official)
                             <option value="{{$package->id}}">{{$package->title}}
-                                ({{\App\Facade\Currency::formatPrice($package->price)}})
+                                @if($package->price)
+                                    ({{\App\Facade\Currency::formatPrice($package->price)}})
+                                @endif
                             </option>
                         @else
                             <option value="{{$package->id}}">({{$package->title}}
-                                ({{\App\Facade\Currency::formatPrice($package->price)}}))
+                                @if($package->price)
+                                    ({{\App\Facade\Currency::formatPrice($package->price)}})
+                                @endif
                             </option>
                         @endif
                     @endforeach
@@ -123,7 +131,7 @@
                 @if(($package = $contractForm->contract->package()->first()))
                     <div>
                     <span class="text-sm text-gray-500">{{__("currently selected: ")}}
-                        {{$package->title}} - {{\App\Facade\Currency::formatPrice($package->price)}}
+                        {{$package->title}}@if($package->price) - {{\App\Facade\Currency::formatPrice($package->price)}}@endif
                     </span>
 
                     </div>

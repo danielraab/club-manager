@@ -80,7 +80,10 @@
                     <ul class="list-disc ml-5 pl-5" x-cloak x-show="showPackages" x-collapse>
                         @foreach($period->packages()->get() as $packageLoop)
                             <li>{{$packageLoop->title}}
-                                - {{\App\Facade\Currency::formatPrice($packageLoop->price)}}</li>
+                                @if($packageLoop->price)
+                                - {{\App\Facade\Currency::formatPrice($packageLoop->price)}}
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -275,7 +278,13 @@
                     </div>
                     <div>
                         <h3 class="font-semibold"><i class="fa-solid fa-money-bill-wave"></i> {{__("Price")}}</h3>
-                        <p class="p-2">{{\App\Facade\Currency::formatPrice($package->price)}}</p>
+                        <p class="p-2">
+                            @if($package->price)
+                                {{\App\Facade\Currency::formatPrice($package->price)}}
+                            @else
+                                -- {{__("missing price")}} --
+                            @endif
+                        </p>
                     </div>
                     <div>
                         <h3 class="font-semibold"><i class="fa-solid fa-rectangle-ad"></i> {{__("Ad Options")}}</h3>
