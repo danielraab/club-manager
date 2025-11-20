@@ -83,31 +83,7 @@ SAIL_XDEBUG_MODE=develop,debug,coverage
 * show result of pint without changes: `vendor/bin/sail pint --test -vvv `
 * pint with autocorrect: `vendor/bin/sail pint`
 
-## deploy
+## Deployment
 
-Prerequisites:
+For deployment and production setup documentation, see [docker/README.md](./docker/README.md).
 
-* local ssh key in `authorized_keys` file on host (remote)
-* host (remote) ssh key in gitlab
-* proper configured `deploy.php` file
-
-Steps to deploy:
-
-* install all dependencies (composer, npm)
-    * `docker run --rm \
-      -u "$(id -u):$(id -g)" \
-      -v "$(pwd):/var/www/html" \
-      -w /var/www/html \
-      laravelsail/php83-composer:latest \
-      composer install --ignore-platform-reqs`
-    * `./vendor/bin/sail npm install`
-* create assets: `./vendor/bin/sail npm run build`
-* add build assets to git (incl commit and pull)
-    * `git add ./public/build`
-    * `git commit -m "add assests"`
-    * `git push`
-* deploy `./vendor/bin/dep deploy` or `./vendor/bin/sail bin dep deploy`
-
-* enable cron tasks
-  * add the following line to your crontab `* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
-  * change the path to the project path
