@@ -15,7 +15,7 @@
             <dl class="divide-y divide-gray-100 text-sm p-2">
                 <div class="p-2">
                     <dt class="font-bold">App version</dt>
-                    <dd class="text-gray-700">{{config('app.version')}} - {{config('app.deployDateTime')}}</dd>
+                    <dd class="text-gray-700">{{config('app.version')}}</dd>
                 </div>
                 <div class="p-2">
                     <dt class="font-bold">Your IP</dt>

@@ -40,7 +40,7 @@
         <span>draab.at</span>
         @if($version = config("app.version"))
             <span> &#183; </span>
-            <span title="{{config("app.deployDateTime")?->formatDateTimeWithSec()}}">{{$version}}</span>
+            <span>{{$version}}</span>
         @endif
     </footer>
 </div>

@@ -8,11 +8,6 @@ return [
     'version' => env('APP_VERSION', 'v0.8.13'),
 
     /*
-     * works only if the configs are cached (strongly recommended for production)
-     */
-    'deployDateTime' => new \Carbon\Carbon(env('DEPLOY_TIMESTAMP', now())),
-
-    /*
     |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------

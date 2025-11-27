@@ -43,9 +43,6 @@ The development setup uses **Laravel Sail**, which provides a simple command-lin
    echo "WWWUSER=$(id -u)" >> .env
    echo "WWWGROUP=$(id -g)" >> .env
    
-   # Copy .env.example to .env for the application.
-   cp .env.example .env
-   
    # for docker compose use
    cp docker/development/.env.example docker/development/.env
    sed -i "s/WWWUSER=1000/WWWUSER=$(id -u)/" docker/development/.env
@@ -62,6 +59,7 @@ The development setup uses **Laravel Sail**, which provides a simple command-lin
 
 2. **Start Sail**:
    ```bash
+   export SAIL_FILES=docker/development/docker-compose.yml
    # From project root
    ./vendor/bin/sail up -d
    ```
@@ -79,6 +77,7 @@ The development setup uses **Laravel Sail**, which provides a simple command-lin
 Add this to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
+export SAIL_FILES=docker/development/docker-compose.yml
 alias sail='./vendor/bin/sail'
 ```
 
