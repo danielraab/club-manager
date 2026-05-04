@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+
+## v0.9.0 - 2026-05-05
 ### Added
 - GitHub Actions workflow to build and publish Docker image on tag creation
 ### Changed

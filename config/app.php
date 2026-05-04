@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'version' => env('APP_VERSION', 'v0.8.13'),
+    'version' => env('APP_VERSION', 'v0.9.0'),
 
     /*
     |--------------------------------------------------------------------------
