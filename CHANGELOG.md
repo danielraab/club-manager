@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 ## Unpublished
+### Added
+- GitHub Actions workflow to build and publish Docker image on tag creation
+### Changed
+- Reorganized Docker setup into separate `docker/development` and `docker/production` folders
+- Extracted deployer configuration into its own repository
+- Removed `public/build` assets from version control; build artifacts are now generated during CI/CD
+- Updated README with `--no-cache` flag for initial composer install
+### Fixed
+- ICS calendar export now sends no-cache headers to prevent Google Calendar from caching stale events
+- Removed test app key from `.env.testing.example`
 
 ## v0.8.13 - 2025-11-15
 ### Added

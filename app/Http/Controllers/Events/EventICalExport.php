@@ -45,8 +45,11 @@ class EventICalExport extends Controller
         $this->addEventsToCalendar($calendar, $memberGroups);
 
         return Response::make($calendar->get(), 200, [
-            'Content-Type' => 'text/ics',
+            'Content-Type' => 'text/calendar; charset=utf-8',
             'Content-Disposition' => 'attachment; filename="calendar.ics"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
         ]);
     }
 
